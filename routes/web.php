@@ -28,6 +28,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Account Setting
 Route::get('/accountSetting', [App\Http\Controllers\AccountSettingController::class, 'accountSetting'])->name('accountSetting');
+Route::post('/changeProfile/{id}', [App\Http\Controllers\AccountSettingController::class, 'changeProfile'])->name('changeProfile');
 
 // Update Account
 Route::post('/updateAccount/{id}', [App\Http\Controllers\AccountSettingController::class, 'updateAccount'])->name('updateAccount');

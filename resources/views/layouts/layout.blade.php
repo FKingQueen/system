@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Transcription System') }}</title>
     
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @yield('css')
@@ -43,12 +43,11 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
-                            <img src="{{ asset('uploads/approval/'.(Auth::user()->email).'.jpg')}}" class="img-circle elevation-2" alt="User Image">
+                            <img src="{{ asset('uploads/user/'.(Auth::user()->email).'.jpg')}}" class="img-circle elevation-2" alt="User Image">
+                            
                         </div>
                         <div class="info">
-                            <a href="#" class="nav-item">
-                                {{ Auth::user()->name }}
-                            </a>
+                            <a href="#" class="d-block" data-toggle="modal" data-target="#profile">{{Auth::user()->name}}</a>
                         </div>
                     </div>
 
@@ -59,6 +58,7 @@
                             @guest
 
                             @else
+                            
 
                             @if(Auth::user()->role_id == 1)
 
@@ -148,11 +148,64 @@
         <!-- ./wrapper -->
 
     </div>
+        <!-- Update Modal -->
+        <div class="modal fade" id="profile">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body ">
+                <div class="image text-center">
+                    <img src="{{ asset('uploads/approval/'.(Auth::user()->email).'.jpg')}}" class="img-circle w-50 img-fluid elevation-2 w-1" alt="User Image">
+                </div>
+                <br>
+                <div class="text-center">
+                    <a href="#" class="text-success text-decoration-none" data-toggle="modal" data-target="#upload" >Change Profile Picture</a>
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-between">
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- /UplaodPicture Modal -->
+    <div class="modal fade" id="upload">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="POST" action="{{ route('changeProfile',Auth::user()->id) }}">
+                @csrf
+                <div class="modal-body ">
+                    <div class="input-group">
+                        <label for="prof_image">Insert Profile Picture:</label>
+                        <div class="input-group mb-3">  
+                            <input id="prof_image" type="file" class="form-control @error('prof_image') is-invalid @enderror" name="prof_image" required autocomplete="prof_image">
+                            @error('prof_image')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror 
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-portrait"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="submit" class="btn btn-default">Save changes</button>
+                </div>
+            </form>
+            <div class="modal-footer justify-content-between">
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- /UplaodPicture Modal -->   
 @else
 
     <div class="d-flex justify-content-center content">
             @yield('content')
     </div>
+
     
 @endif
 

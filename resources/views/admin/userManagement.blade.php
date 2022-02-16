@@ -72,9 +72,8 @@
                   </div>
 
                   <!-- Update Modal -->
-
                   <div class="modal fade" id="update_{{$user->id}}">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                         <div class="modal-header">
                           <h4 class="modal-title">Updating Password</h4>
@@ -126,9 +125,9 @@
                         </form>
 
                       </div>
+                      </div>
                     </div>
-                  </div>
-                  <!-- /Update Modal -->
+                    <!-- /Update Modal -->
 
                 @endforeach
                 </tbody>
