@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use App\Models\User;
 use Hash;
 
@@ -30,28 +31,27 @@ class AccountSettingController extends Controller
 
     public function changeProfile(Request $request, $id)
     {
-        $request->validate([
-            'prof_image' => 'required',
-        ]);
-
         $user = User::find($id);
 
-        if($request->prof_image != ''){        
-             $path = public_path().'/uploads/user/';
-   
-             //code for remove old file
-             if($user->email != ''  && $user->email != null){
-                  $file_old = $path.$user->email;
-                  unlink($file_old);
-             }
-   
-             //upload new file
-             $file = $request->file;
-             $filename = $file->getClientOriginalName();
-             $file->move($path, $filename);
-   
-             //for update in table
-             $employee->update(['prof_image' => $filename]);
+        if($request->hasfile('prof_image'))
+        {
+            $dest = 'uploads/user/'.$user->prof_image;
+            if(File::exists($dest))
+            {
+                File::delete($dest);
+            }
+            $file = $request->file('prof_image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $user->email.'.'.$extension;
+            $file->move('uploads/user/', $filename);
+            $user->prof_image = $filename;
+        }
+        $res = $user->update();
+
+        if($res){
+            return back()->with('success', 'Update Sucessfully');
+        } else{
+            return back()->with('fail', 'Nothing Change');
         }
     
     }

@@ -8,7 +8,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use App\Models\Approval;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Roles;
@@ -66,8 +67,14 @@ class RegisterController extends Controller
         $user->password = $data->password;
         $user->save();
 
-        $del = DB::table('approvals')->where('id', $id);
+        $approval = Approval::find($id);
+        $dest = 'uploads/approval/'.$approval->id_confirm;
+        if(File::exists($dest))
+        {
+            File::delete($dest);
+        }
 
+        $del = DB::table('approvals')->where('id', $id);
         $del->delete();
 
         return back();

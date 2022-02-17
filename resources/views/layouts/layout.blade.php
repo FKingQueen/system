@@ -171,7 +171,7 @@
     <div class="modal fade" id="upload">
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form method="POST" action="{{ route('changeProfile',Auth::user()->id) }}">
+            <form method="POST" action="{{ route('changeProfile',Auth::user()->id) }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body ">
                     <div class="input-group">

@@ -17,7 +17,7 @@ class CreateApprovalsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('muni_address');
-            $table->string('id_confirm');
+            $table->string('id_confirm')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
