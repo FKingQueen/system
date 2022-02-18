@@ -154,11 +154,11 @@
         <div class="modal-content">
             <div class="modal-body ">
                 <div class="image text-center">
-                    <img src="{{ asset('uploads/approval/'.(Auth::user()->email).'.jpg')}}" class="img-circle w-50 img-fluid elevation-2 w-1" alt="User Image">
+                    <img src="{{ asset('uploads/user/'.(Auth::user()->email).'.jpg')}}" class="img-circle w-50 img-fluid elevation-2 w-1" alt="User Image">
                 </div>
                 <br>
                 <div class="text-center">
-                    <a href="#" class="text-success text-decoration-none" data-toggle="modal" data-target="#upload" >Change Profile Picture</a>
+                    <a href="#" class="text-success text-decoration-none" data-dismiss="modal" data-toggle="modal" data-target="#upload" >Change Profile Picture</a>
                 </div>
             </div>
 
@@ -167,6 +167,7 @@
         </div>
         </div>
     </div>
+    
     <!-- /UplaodPicture Modal -->
     <div class="modal fade" id="upload">
         <div class="modal-dialog modal-dialog-centered">
@@ -190,12 +191,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="submit" class="btn btn-default">Save changes</button>
+                <div class="modal-footer justify-content-between ">
+                <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#profile">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
-            <div class="modal-footer justify-content-between">
-            </div>
         </div>
         </div>
     </div>

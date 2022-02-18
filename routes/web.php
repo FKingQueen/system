@@ -32,6 +32,7 @@ Route::post('/changeProfile/{id}', [App\Http\Controllers\AccountSettingControlle
 
 // Update Account
 Route::post('/updateAccount/{id}', [App\Http\Controllers\AccountSettingController::class, 'updateAccount'])->name('updateAccount');
+Route::post('/updatePassword/{id}', [App\Http\Controllers\AccountSettingController::class, 'updatePassword'])->name('updatePassword');
 
 // Registration Approval
 Route::get('/registrationApproval', [App\Http\Controllers\Admin\RegistrationApprovalController::class, 'registrationApproval'])->name('registrationApproval');
@@ -41,4 +42,5 @@ Route::post('/approved/{id}', [App\Http\Controllers\Auth\RegisterController::cla
 // User Management
 Route::get('/userMangement', [App\Http\Controllers\Admin\UserManagementController::class, 'userManagement'])->name('userManagement');
 Route::post('/userUpdate/{id}', [App\Http\Controllers\Admin\UserManagementController::class, 'userUpdate'])->name('userUpdate');
+Route::post('/userchangePassword/{id}', [App\Http\Controllers\Admin\UserManagementController::class, 'userchangePassword'])->name('userchangePassword');
 

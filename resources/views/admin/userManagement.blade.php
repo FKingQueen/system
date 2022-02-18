@@ -12,6 +12,7 @@
 
   <!-- Theme style -->
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 @endsection
 
 @section('content')
@@ -41,16 +42,15 @@
               <table id="user"  class="table table-bordered">
                 <thead>
                 <tr>
-                  <th style="width: 0%;">Role</th>
-                  <th style="width: 100%;">Name</th>
-                  <th style="width: 0%;">Municipality</th>
-                  <th style="width: 0%;">Action</th>
+                  <th class="">Role</th>
+                  <th class="w-100">Name</th>
+                  <th class="">Municipality</th>
+                  <th class="">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($users as $user )
                   <tr>
-                    <form method="POST" action="" >
                     @csrf
                     <td>
                       {{$user->role->name}}
@@ -64,28 +64,126 @@
                     <td>
                       
                       <button type="Button" class="btn btn-default" data-toggle="modal" data-target="#update_{{$user->id}}">
-                        Update
+                        View
                       </button>
                     </td>
-                    </form>
                   </tr>
                   </div>
-
-                  <!-- Update Modal -->
+                  
+                  <!-- Update User Account Modal -->
                   <div class="modal fade" id="update_{{$user->id}}">
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h4 class="modal-title">Updating Password</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                          </button>
+                            <h4 class="modal-title">User Account Setting</h4>
                         </div>
 
                         <form method="POST" action="{{ route('userUpdate',$user->id) }}">
                           @csrf
                           <div class="modal-body">
-                            <label for="name">{{$user->name}}</label>
+                            <!-- Update Name -->
+                            <div class="input-group mb-3">
+                                <label for="name" class="input-group">Name:</label>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" value="{{$user->name}}">
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror 
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Update Name -->
+
+                            <!-- Update Email -->
+                            <div class="input-group mb-3">
+                                <label for="email" class="input-group">Email:</label>
+                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" value="{{$user->email}}">
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror 
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Update Email -->
+
+                            <!-- Update Municipality Address -->
+                            <div class="input-group mb-3">
+                                <label for="muni_address" class="input-group">Municipality Address:</label>
+                                <select id="muni_address" type="number" class="form-control @error('muni_address') is-invalid @enderror" name="muni_address" required autocomplete="muni_address" autofocus>
+                                    <option value="{{$user->muni_address}}" selected>{{$user->muni_address}}</option>
+                                    <option value="Badoc" >Badoc</option>
+                                    <option value="Banna" >Banna</option>
+                                    <option value="Batac City" >Batac City</option>
+                                    <option value="Currimao" >Currimao</option>
+                                    <option value="Dingras" >Dingras</option>
+                                    <option value="Marcos" >Marcos</option>
+                                    <option value="Nueva Era" >Nueva Era</option>
+                                    <option value="Paoay" >Paoay</option>
+                                    <option value="Pinili" >Pinili</option>
+                                    <option value="San Nicolas" >San Nicolas</option>
+                                    <option value="Solsona" >Solsona</option>
+                                </select>
+                                @error('muni_address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror 
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                      <span class="fas fa-building"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Update Municipality Address -->
+
+                            <!-- Change Password -->
+                            <div class="input-group mb-3">
+                              <label for="password" class="input-group">Password:</label>
+                              <button type="Button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#changepass_{{$user->id}}">
+                                Change Password
+                              </button>
+                              <div class="input-group-append">
+                                <div class="input-group-text">
+                                  <span class="fas fa-lock"></span>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /Change Password -->
+
+                          </div>
+
+                          <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button> 
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                          </div>
+                        </form>
+                      </div>
+                      </div>
+                    </div>
+                    <!-- /Update User Account Modal -->
+
+                    <!-- Change Password Modal -->
+                    <div class="modal fade" id="changepass_{{$user->id}}">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Changing Password</h4>
+                        </div>
+
+                        <form method="POST" action="{{ route('userchangePassword',$user->id) }}">
+                          @csrf
+                          <div class="modal-body">
+
+
                             <!-- Update Password -->
                             <div class="input-group mb-3">
                                 <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="New Password">
@@ -119,16 +217,15 @@
                           </div>
 
                           <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#update_{{$user->id}}">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                           </div>
                         </form>
-
                       </div>
                       </div>
                     </div>
-                    <!-- /Update Modal -->
-
+                    <!-- /Change Password Modal -->
+                  
                 @endforeach
                 </tbody>
               </table>
@@ -144,6 +241,8 @@
     <!-- /.container-fluid -->
   </section>
   <!-- /.content -->
+
+  
   
 @endif
 @endsection
@@ -180,3 +279,4 @@
 
 
 @endsection
+

@@ -17,7 +17,23 @@ class AccountSettingController extends Controller
 
     public function updateAccount(Request $request, $id)
     {
+        $request->validate([
+            'name'  => 'required',
+            'muni_address' => 'required',
+            'email' => 'required',
+        ]);
 
+        $res = DB::table('users')->where('id', $id)->update(['name' => $request->name, 'email' => $request->email, 'muni_address' => $request->muni_address,]);
+        
+        if($res){
+            return redirect()->route('userManagement')->with('success', 'Update Sucessfully');
+        } else{
+            return back()->with('fail', 'Nothing Change');
+        }
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
         $request->validate([
             'password' => 'required|confirmed|min:5|max:12',
         ]);

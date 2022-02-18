@@ -21,6 +21,24 @@ class UserManagementController extends Controller
     public function userUpdate(Request $request, $id)
     {
         $request->validate([
+            'name'  => 'required',
+            'muni_address' => 'required',
+            'email' => 'required',
+        ]);
+
+        
+        $res = DB::table('users')->where('id', $id)->update(['name' => $request->name, 'email' => $request->email, 'muni_address' => $request->muni_address,]);
+        
+        if($res){
+            return back()->with('success', 'Update Sucessfully');
+        } else{
+            return back()->with('fail', 'Nothing Change');
+        }
+    }
+
+    public function userchangePassword(Request $request, $id)
+    {
+        $request->validate([
             'password' => 'required|confirmed|min:5|max:12',
         ]);
         

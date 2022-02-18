@@ -12,6 +12,7 @@
 
   <!-- Theme style -->
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 @endsection
 
 @section('content')
@@ -78,7 +79,7 @@
                     </form>
                   </tr>
                
-
+                <!-- ID Confirmation Modal -->
                 <div class="modal fade" id="modal-default_{{$approval->id}}">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -96,6 +97,7 @@
                     </div>
                   </div>
                 </div>
+                <!-- //ID Confirmation Modal -->
 
                 @endforeach
                 </tbody>
