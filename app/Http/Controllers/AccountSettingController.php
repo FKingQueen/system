@@ -20,7 +20,7 @@ class AccountSettingController extends Controller
         $request->validate([
             'name'  => 'required',
             'muni_address' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:users,email,' .$id,
         ]);
 
         $res = DB::table('users')->where('id', $id)->update(['name' => $request->name, 'email' => $request->email, 'muni_address' => $request->muni_address,]);
@@ -28,7 +28,7 @@ class AccountSettingController extends Controller
         if($res){
             return redirect()->route('userManagement')->with('success', 'Update Sucessfully');
         } else{
-            return back()->with('fail', 'Nothing Change');
+            return redirect()->route('userManagement')->with('success', 'Update Sucessfully');
         }
     }
 
@@ -41,13 +41,17 @@ class AccountSettingController extends Controller
         $res = DB::table('users')->where('id', $id)->update(['name' => $request->name, 'password' => Hash::make($request->password)]);
         
         if($res){
-            return redirect()->route('userManagement')->with('success', 'Update Sucessfully');
+            return back()->with('success', 'Update Sucessfully');
         } 
     }
 
     public function changeProfile(Request $request, $id)
     {
         $user = User::find($id);
+
+        $request->validate([
+            'prof_image' => 'required|image',
+        ]);
 
         if($request->hasfile('prof_image'))
         {

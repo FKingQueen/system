@@ -68,7 +68,7 @@
             <div class="input-group mb-3">
                 <label for="muni_address" class="input-group">Municipality Address:</label>
                 <select id="muni_address" type="number" class="form-control @error('muni_address') is-invalid @enderror" name="muni_address" required autocomplete="muni_address" autofocus>
-                    <option value="(user()->muni_address)" selected>{{Auth::user()->muni_address}}</option>
+                    <option disable selected>{{Auth::user()->muni_address}}</option>
                     <option value="Badoc" >Badoc</option>
                     <option value="Banna" >Banna</option>
                     <option value="Batac City" >Batac City</option>
@@ -110,7 +110,7 @@
 
             </div>
             <div class="modal-footer justify-content-between">
-                <a  class="btn btn-default"  href="{{ route('userManagement') }}">Close</a>
+                <a  class="btn btn-default"  href="{{ route('home') }}">Close</a>
                 <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
         </form>
