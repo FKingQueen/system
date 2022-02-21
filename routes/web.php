@@ -18,7 +18,11 @@ use App\Http\Controllers\AccountSettingController;
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+// User Registration
+Route::post('/registration', [App\Http\Controllers\Admin\RegistrationApprovalController::class, 'registration'])->name('registration');
 
 Route::group(['middleware' => 'auth'], function() {
     // Account Setting
@@ -29,12 +33,21 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/updateAccount/{id}', [App\Http\Controllers\AccountSettingController::class, 'updateAccount'])->name('updateAccount');
     Route::post('/updatePassword/{id}', [App\Http\Controllers\AccountSettingController::class, 'updatePassword'])->name('updatePassword');
 
+    //Farmer List
+    Route::get('/farmerList', [App\Http\Controllers\User\FarmerListController::class, 'farmerList'])->name('farmerList');
+
 });
+
+Route::group(['middleware' => 'isUser'], function() {
+    //Farmer List
+    Route::get('/farmerList', [App\Http\Controllers\User\FarmerListController::class, 'farmerList'])->name('farmerList');
+
+});
+
 
 Route::group(['middleware' => 'isAdmin'], function () {
     // Registration Approval
     Route::get('/registrationApproval', [App\Http\Controllers\Admin\RegistrationApprovalController::class, 'registrationApproval'])->name('registrationApproval');
-    Route::post('/registration', [App\Http\Controllers\Admin\RegistrationApprovalController::class, 'registration'])->name('registration');
     Route::post('/approved/{id}', [App\Http\Controllers\Auth\RegisterController::class, 'approved'])->name('approved');
     // User Management
     Route::get('/userMangement', [App\Http\Controllers\Admin\UserManagementController::class, 'userManagement'])->name('userManagement');

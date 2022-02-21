@@ -63,7 +63,7 @@
                     </td>
                     <td>
                       
-                      <button type="Button" class="btn btn-default" data-toggle="modal" data-target="#update_{{$user->id}}">
+                      <button type="Button" class="btn btn-close" data-toggle="modal" data-target="#update_{{$user->id}}">
                         View
                       </button>
                     </td>
@@ -162,7 +162,7 @@
                           </div>
 
                           <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button> 
+                            <button type="button" class="btn btn-close" data-dismiss="modal" >Close</button> 
                             <button type="submit" class="btn btn-primary">Save changes</button>
                           </div>
                         </form>

@@ -43,7 +43,7 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
-                            <img src="{{ asset('uploads/user/'.(Auth::user()->email).'.jpg')}}" class="img-circle elevation-2" alt="User Image">
+                            <img src="{{ asset('uploads/user/'.(Auth::user()->prof_image))}}" class="img-circle elevation-2" alt="User Image">
                             
                         </div>
                         <div class="info">
@@ -63,8 +63,8 @@
                             @if(Auth::user()->role_id == 1)
 
                             <!-- Users Management Button -->          
-                            <li class="nav-item">
-                                <a href="{{ route('userManagement') }}" class="nav-link">
+                            <li class="nav-item ">
+                                <a href="{{ route('userManagement') }}" class="nav-link {{ route('userManagement') == url()->current() ? 'active' : '' }} ">
                                 <i class="fas fa-lg fas fa-users"></i>
                                 <p>
                                     User Management
@@ -75,7 +75,7 @@
 
                             <!-- Registration Approval Button -->          
                             <li class="nav-item">
-                                <a href="{{ route('registrationApproval') }}" class="nav-link">
+                                <a href="{{ route('registrationApproval') }}" class="nav-link {{ route('registrationApproval') == url()->current() ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-user-check"></i>
                                 <p>
                                     Registration Approval
@@ -85,14 +85,23 @@
                             <!-- /Registration Approval Button -->
                             @endif
 
-                            @if(Auth::user()->role_id == 0)
-
+                            @if(Auth::user()->role_id == 2)
+                            <!-- Farmer List Button -->          
+                            <li class="nav-item">
+                                <a href="{{ route('farmerList') }}" class="nav-link {{ route('farmerList') == url()->current() ? 'active' : '' }} ">
+                                <i class="fas fa-lg fa-user-check"></i>
+                                <p>
+                                    Farmer List
+                                </p>
+                                </a>
+                            </li>
+                            <!-- /Farmer List Button -->
                             @endif
                             
 
                             <!-- Account Setting Button -->          
-                            <li class="nav-item">
-                                <a type="button" href="{{ route('accountSetting') }}" class="nav-link">
+                            <li class="nav-item ">
+                                <a type="button" href="{{ route('accountSetting') }}" class="nav-link {{ route('accountSetting') == url()->current() ? 'active' : '' }}">
                                 <i class="fas fa-lg fa-cog"></i>
                                     <p>
                                         Account Setting
@@ -103,19 +112,17 @@
 
                             <!-- Logout Button -->
                             <li class="nav-item">
-                                <div>
-                                    <a class="nav-link"  href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                    <i class="fas fa-lg fa-sign-out-alt"></i>
-                                    <p>
-                                        Logout
-                                    </p>
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                            <a class="nav-link {{ route('logout') == url()->current() ? 'active' : '' }}"  href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                <i class="fas fa-lg fa-sign-out-alt"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
                             </li>
                             <!-- /Logout Button -->
                             @endguest
@@ -154,7 +161,7 @@
         <div class="modal-content">
             <div class="modal-body ">
                 <div class="image text-center">
-                    <img src="{{ asset('uploads/user/'.(Auth::user()->email).'.jpg')}}" class="img-circle w-50 img-fluid elevation-2 w-1" alt="User Image">
+                    <img src="{{ asset('uploads/user/'.(Auth::user()->prof_image))}}" class="img-circle w-50 img-fluid elevation-2 w-1" alt="User Image">
                 </div>
                 <br>
                 <div class="text-center">
@@ -192,7 +199,7 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between ">
-                <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#profile">Close</button>
+                    <button type="button" class="btn btn-close" data-dismiss="modal" data-toggle="modal" data-target="#profile">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </form>

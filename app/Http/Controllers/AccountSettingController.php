@@ -50,7 +50,7 @@ class AccountSettingController extends Controller
         $user = User::find($id);
 
         $request->validate([
-            'prof_image' => 'required|image',
+            'prof_image' => 'required|image|mimes:jpeg,jpg,png',
         ]);
 
         if($request->hasfile('prof_image'))

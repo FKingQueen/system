@@ -97,7 +97,7 @@
             <!-- Change Password -->
             <div class="input-group mb-3">
                 <label for="password" class="input-group">Password:</label>
-                <button type="Button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#changepass_user">
+                <button type="Button" class="btn btn-close" data-dismiss="modal" data-toggle="modal" data-target="#changepass_user">
                 Change Password
                 </button>
                 <div class="input-group-append">
@@ -110,7 +110,7 @@
 
             </div>
             <div class="modal-footer justify-content-between">
-                <a  class="btn btn-default"  href="{{ route('home') }}">Close</a>
+                <a  class="btn btn-close"  href="{{ route('home') }}">Close</a>
                 <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
         </form>
@@ -168,7 +168,7 @@
     </div>
 
     <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#modal-accountSetting">Close</button>
+        <button type="button" class="btn btn-close" data-dismiss="modal" data-toggle="modal" data-target="#modal-accountSetting">Close</button>
         <button type="submit" class="btn btn-primary">Save changes</button>
     </div>
     </form>

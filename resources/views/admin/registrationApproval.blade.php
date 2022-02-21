@@ -67,7 +67,7 @@
                       @enderror
                     </td>
                     <td class="text-center">
-                      <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default_{{$approval->id}}">
+                      <button type="button" class="btn btn-close" data-toggle="modal" data-target="#modal-default_{{$approval->id}}">
                         view
                       </button>
                     </td>
