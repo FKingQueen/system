@@ -12,7 +12,7 @@ use App\Models\Approval;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Roles;
+use App\Models\Role;
 use Session;
 use Auth;
 

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Approval;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Roles;
+use App\Models\Role;
 use Session;
 use Auth;
 
