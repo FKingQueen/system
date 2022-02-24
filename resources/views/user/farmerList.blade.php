@@ -13,10 +13,13 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+  <!-- Ajax -->
+  <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+
 @endsection
 
 @section('content')
-
 
   <!-- Content Header (Page header) -->
   <div class="content-header">
@@ -76,62 +79,67 @@
                     <h4 class="modal-title">Adding Farmer</h4>
                   </div>
 
-                  <form method="POST" action="">
-                      @csrf
+                      <form method="POST" action="">
+                        @csrf
+                        <div class="modal-body ">
 
-                      <div class="modal-body ">
-
-                        <div class="input-group mb-3">
-                          <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full Name">
-                            @error('name')
-                              <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                              </span>
-                            @enderror          
-                          <div class="input-group-append">
-                            <div class="input-group-text">
-                              <span class="fas fa-user"></span>
+                          <div class="input-group mb-3">
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full Name">
+                              @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror          
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div class="input-group mb-3">
-                          <input id="municipality" type="text" class="form-control @error('municipality') is-invalid @enderror" name="municipality" value="{{ old('municipality') }}" required autocomplete="municipality" autofocus placeholder="Municipality">
-                            @error('municipality')
-                              <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                              </span>
-                            @enderror          
-                          <div class="input-group-append">
-                            <div class="input-group-text">
-                              <span class="fas fa-user"></span>
+                          <div class="input-group mb-3">
+                            <select id="municipality" type="text" name="municipality" class="form-control @error('municipality') is-invalid @enderror" name="municipality" required autocomplete="municipality" autofocus>
+                                <option value="" disabled selected>--- Select Municipality ---</option>
+                                @foreach ($municipalities as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                              @error('municipality')
+                                <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror          
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-
-
-                        <div class="input-group mb-3">
-                          <input id="barangay" type="text" class="form-control @error('barangay') is-invalid @enderror" name="barangay" value="{{ old('barangay') }}" required autocomplete="barangay" autofocus placeholder="Barangay">
-                            @error('barangay')
-                              <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                              </span>
-                            @enderror          
-                          <div class="input-group-append">
-                            <div class="input-group-text">
-                              <span class="fas fa-user"></span>
+                          <div class="input-group mb-3">
+                            <select id="barangay" type="text" name="barangay" class="form-control @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
+                              <option value="" disabled selected>--- Select Barangay ---</option>
+                            </select>
+                              @error('barangay')
+                                <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror          
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                              </div>
                             </div>
                           </div>
+
+
                         </div>
 
-                      </div>
-
-                      <div class="modal-footer justify-content-between ">
-                          <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Add Farmer</button>
-                      </div>
-                  </form>
+                        <div class="modal-footer justify-content-between ">
+                            <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Farmer</button>
+                        </div>
+                      </form>
                 </div>
               </div>
             <!-- /Add Farmer Modal -->  
@@ -150,6 +158,8 @@
   </section>
   <!-- /.content -->
 
+
+
 @endsection
 
 @section('js')
@@ -165,6 +175,9 @@
   <script src="https://adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="https://adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
+  <!-- Ajax -->
+  <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+
   <script>
     $(function () {
       $('#farmerList').DataTable({
@@ -178,4 +191,32 @@
       });
     });
   </script>
+
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('select[name="municipality"]').on('change', function() {
+              var municipalityID = $(this).val();
+              if(municipalityID) {
+                  $.ajax({
+                      url: '/farmerList/ajax/'+municipalityID,
+                      type: "GET",
+                      dataType: "json",
+                      success:function(data) {
+
+                          
+                          $('select[name="barangay"]').empty();
+                          $.each(data, function(key, value) {
+                              $('select[name="barangay"]').append('<option value="'+ key +'">'+ value +'</option>');
+                          });
+
+
+                      }
+                  });
+              }else{
+                  $('select[name="barangay"]').empty();
+              }
+          });
+      });
+  </script>
+
 @endsection

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UpdateAccountController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AccountSettingController;
+use App\Http\Controllers\User\FarmerListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,8 +41,14 @@ Route::group(['middleware' => 'auth'], function() {
 
 Route::group(['middleware' => 'isUser'], function() {
     //Farmer List
-    Route::get('/farmerList', [App\Http\Controllers\User\FarmerListController::class, 'farmerList'])->name('farmerList');
+    // Route::get('/farmerList', [App\Http\Controllers\User\FarmerListController::class, 'farmerList'])->name('farmerList');
+    // Route::post('/addFarmer/{id}', [App\Http\Controllers\User\FarmerListController::class, 'addFarmer'])->name('addFarmer');
+    
+    Route::get('myform',array('as'=>'myform','uses'=>'HomeController@myform'));
+    Route::get('myform/ajax/{id}',array('as'=>'myform.ajax','uses'=>'HomeController@myformAjax'));
 
+    Route::get('farmerList', [App\Http\Controllers\User\FarmerListController::class, 'farmerList'])->name('farmerList');
+    Route::get('farmerList/ajax/{id}', [App\Http\Controllers\User\FarmerListController::class, 'farmerListAjax'])->name('farmerListAjax');
 });
 
 
