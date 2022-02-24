@@ -56,16 +56,19 @@
                 </tr>
                 </thead>
                 <tbody>
+                  @foreach ($farmers as $farmer)
                   <tr>
-                    @csrf
-                    <td>Sample</td>
                     <td>
-                      Sample
+                      {{$farmer->name}}
                     </td>
                     <td>
-                      Sample
+                      {{$farmer->created_at}}
+                    </td>
+                    <td>
+                      Update
                     </td>
                   </tr>
+                  @endforeach
                 </tbody>
 
               </table>
@@ -79,7 +82,7 @@
                     <h4 class="modal-title">Adding Farmer</h4>
                   </div>
 
-                      <form method="POST" action="">
+                      <form method="POST" action="{{ route('addFarmer', Auth::user()->id) }}">
                         @csrf
                         <div class="modal-body ">
 

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Farmer;
+use App\Models\Municipality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 
 class FarmerListController extends Controller
@@ -13,16 +15,18 @@ class FarmerListController extends Controller
 
     public function farmerList()
     {
-        $municipalities = DB::table("municipalities")->pluck("name","id");
+        $municipality = DB::table("municipalities")->pluck("name","id");
 
-        return view('user/farmerList',compact('municipalities'));
+        $farmer = Farmer::all()->where("user_id", Auth::user()->id);
+
+        return view('user/farmerList', array('municipalities' => $municipality, 'farmers' => $farmer));
     }
 
     public function farmerListAjax($id)
     {
         $barangays = DB::table("barangays")
                     ->where("municipality_id",$id)
-                    ->pluck("name","id");
+                    ->pluck("name","name");
         return json_encode($barangays);
     }
 
@@ -35,13 +39,15 @@ class FarmerListController extends Controller
             'barangay'  => 'required',
         ]);
 
+        $muni = DB::table("municipalities")->where("id",$id)->value('name');
+
         $farmer =  new Farmer();
         $farmer->name = $request->name;
-        $farmer->municipality = $request->municipality;
+        $farmer->municipality = $muni;
         $farmer->barangay = $request->barangay;
         $farmer->user_id = $id;
         $farmer->save();
 
-        return view('user/farmerList');
+        return back();
     }
 }

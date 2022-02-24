@@ -17,13 +17,51 @@ class MunicipalitySeeder extends Seeder
         Municipality::truncate();
 
         $municipalities =  [
-            [
-              'name' => 'Currimao',
-            ],
-            [
-              'name' => 'Batac',
-            ],
-          ];
+          [
+            'id' => '1',
+            'name' => 'Badoc',
+          ],
+          [
+            'id' => '2',
+            'name' => 'Banna',
+          ],
+          [
+            'id' => '3',
+            'name' => 'Batac City',
+          ],
+          [
+            'id' => '4',
+            'name' => 'Currimao',
+          ],
+          [
+            'id' => '5',
+            'name' => 'Dingras',
+          ],
+          [
+            'id' => '6',
+            'name' => 'Marcos',
+          ],
+          [
+            'id' => '7',
+            'name' => 'Nueva Era',
+          ],
+          [
+            'id' => '8',
+            'name' => 'Paoay',
+          ],
+          [
+            'id' => '9',
+            'name' => 'Pinili',
+          ],
+          [
+            'id' => '10',
+            'name' => 'San Nicolas',
+          ],
+          [
+            'id' => '11',
+            'name' => 'Solsona',
+          ],
+        ];
 
         Municipality::insert( $municipalities);
     }
