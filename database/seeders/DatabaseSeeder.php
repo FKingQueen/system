@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             MunicipalitySeeder::class,
             BarangaySeeder::class,
+            CropSeeder::class,
+            CroppingseasonSeeder::class,
         ]);
     }
 }

@@ -30,7 +30,7 @@ class FarmerListController extends Controller
         return json_encode($barangays);
     }
 
-    public function addFarmer(Request $request, $id)
+    public function addFarmer(Request $request)
     {
 
         $request->validate([
@@ -39,13 +39,14 @@ class FarmerListController extends Controller
             'barangay'  => 'required',
         ]);
 
-        $muni = DB::table("municipalities")->where("id",$id)->value('name');
+        $muni = DB::table("municipalities")->where("id",$request->municipality)->value('name');
 
         $farmer =  new Farmer();
         $farmer->name = $request->name;
         $farmer->municipality = $muni;
+        $farmer->status = '1';
         $farmer->barangay = $request->barangay;
-        $farmer->user_id = $id;
+        $farmer->user_id = Auth::user()->id;
         $farmer->save();
 
         return back();

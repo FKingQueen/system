@@ -17,6 +17,7 @@ class CreateFarmersTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('name');
+            $table->integer('status');
             $table->string('municipality');
             $table->string('barangay');
             $table->timestamps();

@@ -43,28 +43,45 @@
             <!-- /.card-header -->
             <div class="card-body">
               <table id="farmerList"  class="table table-bordered">
-                <div class="d-flex justify-content-end mb-3">
+                <div class="d-flex justify-content-between mb-3">
+                  <div class="d-flex justify-content-start">
+                    <div>
+                      In Progress - <i class='fa fa-circle' style='color:#00db0f'></i>
+                    </div>
+                    <div class="ml-5">
+                      Inactive - <i class='fas fa-circle' style='color:#76756f'></i>
+                    </div>
+                  </div>
+                  <div>
                   <button type="button" data-toggle="modal" data-target="#addfarmer" class="btn btn-primary">
                     Add Farmer
                   </button>
+                  </div>
                 </div>
-                <thead>
-                <tr>
-                  <th class="text-center">Name</th>
-                  <th class="text-center">Date</th>
-                  <th class="text-center">Action</th>
+                <thead >
+                <tr class="bg-light" >
+                  <th ><i class="fas fa-male"></i> Farmers Name:</th>
+                  <th class="text-center" style="width: 20%;"><i class="fas fa-city"></i> Address</th>
+                  <th class="text-center" style="width: 10%;"><i class="fas fa-edit"></i> Action</th>
                 </tr>
                 </thead>
                 <tbody>
                   @foreach ($farmers as $farmer)
-                  <tr>
-                    <td>
-                      {{$farmer->name}}
+                  <tr >
+                    <td class="">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                        <a href="{{ route('farmerProfile', $farmer->id)}}">{{$farmer->name}}</a>
+                        </div>
+                        <div>
+                        <i class='fa fa-circle' style='color:#00db0f'></i>
+                        </div>
+                      </div>
                     </td>
-                    <td>
-                      {{$farmer->created_at}}
+                    <td class="text-center " >
+                      Brgy. {{$farmer->barangay}}, {{$farmer->municipality}}
                     </td>
-                    <td>
+                    <td class="text-center">
                       Update
                     </td>
                   </tr>
@@ -82,7 +99,7 @@
                     <h4 class="modal-title">Adding Farmer</h4>
                   </div>
 
-                      <form method="POST" action="{{ route('addFarmer', Auth::user()->id) }}">
+                      <form method="POST" action="{{ route('addFarmer')}}">
                         @csrf
                         <div class="modal-body ">
 
@@ -101,6 +118,7 @@
                           </div>
 
                           <div class="input-group mb-3">
+                            <label for="crop_name" class="input-group">Municipality:</label>
                             <select id="municipality" type="text" name="municipality" class="form-control @error('municipality') is-invalid @enderror" name="municipality" required autocomplete="municipality" autofocus>
                                 <option value="" disabled selected>--- Select Municipality ---</option>
                                 @foreach ($municipalities as $key => $value)
@@ -120,6 +138,7 @@
                           </div>
 
                           <div class="input-group mb-3">
+                            <label for="crop_name" class="input-group">Barangay:</label>
                             <select id="barangay" type="text" name="barangay" class="form-control @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
                               <option value="" disabled selected>--- Select Barangay ---</option>
                             </select>
@@ -177,9 +196,6 @@
   <script src="https://adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <script src="https://adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="https://adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
-  <!-- Ajax -->
-  <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
 
   <script>
     $(function () {

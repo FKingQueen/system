@@ -43,7 +43,9 @@ Route::group(['middleware' => 'isUser'], function() {
     //Farmer List
     Route::get('farmerList', [App\Http\Controllers\User\FarmerListController::class, 'farmerList'])->name('farmerList');
     Route::get('farmerList/ajax/{id}', [App\Http\Controllers\User\FarmerListController::class, 'farmerListAjax'])->name('farmerListAjax');
-    Route::post('/addFarmer/{id}', [App\Http\Controllers\User\FarmerListController::class, 'addFarmer'])->name('addFarmer');
+    Route::post('/addFarmer', [App\Http\Controllers\User\FarmerListController::class, 'addFarmer'])->name('addFarmer');
+    //Farmer Profile
+    Route::get('farmerList/farmerProfile/{id}', [App\Http\Controllers\User\FarmerProfileController::class, 'farmerProfile'])->name('farmerProfile');
 });
 
 
