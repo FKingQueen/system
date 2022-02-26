@@ -117,82 +117,57 @@
                             </div>
                           </div>
 
-                          <div class="input-group mb-3">
-                            <label for="crop_name" class="input-group">Cropping Season:</label>
-                            <select id="crop_id" type="text" name="crop_id" class="form-control @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
-                                <option disabled selected>--- Select Cropping Season ---</option>
-                                <option value="1">Dry Season</option>
-                                <option value="2">Wet Season</option>
-                            </select>
-                              @error('crop_id')
-                                <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                                </span>
-                              @enderror          
-                            <div class="input-group-append">
-                              <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+                          <div class="container-fluid p-3 border border-top-0 mb-3 rounded">
+
+                            <div class="input-group mb-1">
+                              <label for="field_unit" class="input-group">Field Size Unit:</label>
+                              <select id="field_unit" type="text" name="field_unit" class="custom-select form-control-border  @error('field_unit') is-invalid @enderror" name="field_unit" required autocomplete="field_unit" autofocus>
+                                  <option disabled selected>--- Select Field Size Unit ---</option>
+                                  <option value="1">Hectare</option>
+                                  <option value="2">Square Meter</option>
+                              </select>
+                                @error('field_unit')
+                                  <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                  </span>
+                                @enderror          
+                              <div class="input-group-append">
+                                <div class="input-group-text">
+                                  <span class="fas fa-user"></span>
+                                </div>
                               </div>
                             </div>
-                          </div>
 
-                          <div class="input-group mb-3">
-                            <label for="field_unit" class="input-group">Field Size Unit:</label>
-                            <select id="field_unit" type="text" name="field_unit" class="form-control @error('field_unit') is-invalid @enderror" name="field_unit" required autocomplete="field_unit" autofocus>
-                                <option disabled selected>--- Select Field Size Unit ---</option>
-                                <option value="1">Hectare</option>
-                                <option value="2">Square Meter</option>
-                            </select>
-                              @error('field_unit')
-                                <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                                </span>
-                              @enderror          
-                            <div class="input-group-append">
-                              <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+                            <div class="d-flex justify-content-center input-group">
+                              <div class="text-center w-25 input-group-sm">
+                                <label name="unit_name" class="font-weight-light">Hectare:</label>
+                                <input id="lot_size" type="text"  class="text-center form-control @error('lot_size') is-invalid @enderror" name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
+                                @error('lot_size')
+                                  <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                  </span>
+                                @enderror          
                               </div>
                             </div>
+
                           </div>
 
-                          <div class="d-flex justify-content-center input-group mb-3">
-                            <div class="text-center w-25">
-                              <label name="unit_name">Hectare:</label>
-                              <input id="lot_size" type="text" class="text-center form-control @error('lot_size') is-invalid @enderror" name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
-                              @error('lot_size')
-                                <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                                </span>
-                              @enderror          
-                            </div>
-                          </div>
-
-                          <div class="input-group mb-3">
-                            <label for="yield" class="input-group">Yield:</label>
-                            <input id="yield" type="text" class="form-control @error('yield') is-invalid @enderror" name="yield" required autocomplete="yield" autofocus placeholder="Yield">
-                              @error('yield')
-                                <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                                </span>
-                              @enderror          
-                            <div class="input-group-append">
-                              <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+                          <div class="input-group p-3 border border-top-0 mb-3 rounded">
+                            <label for="field_unit" class="input-group">Yield:</label>
+                            <div class="d-flex justify-content-center">
+                              <div>
+                                <br>
+                                <label for="yield" class="mt-2 font-weight-light">Yield (t/ha): </label>
                               </div>
-                            </div>
-                          </div>
-
-                          <div class="input-group mb-3">
-                            <label for="unit" class="input-group">unit:</label>
-                            <input id="unit" type="text" class="form-control @error('unit') is-invalid @enderror" name="unit" required autocomplete="unit" autofocus placeholder="unit">
-                              @error('unit')
-                                <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                                </span>
-                              @enderror          
-                            <div class="input-group-append">
-                              <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+                              
+                              <div class="col-4 input-group-sm">
+                                <label for="yield" class="input-group font-weight-light">Number of sacks: </label>
+                                <input type="number" class="form-control" placeholder="sacks">
+                              </div>
+                                
+                              <div class="col-4 input-group-sm">
+                                <label for="yield" class="input-group font-weight-light">Weight of sack: </label>
+                                <input type="number" class="form-control" placeholder="kg">
                               </div>
                             </div>
                           </div>
