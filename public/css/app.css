@@ -48,9 +48,14 @@
   box-sizing: border-box;
 }
 btn-close
-/* CSS */
 
-/* /CSS */
+/* CSS HISIAH*/
+
+.container {
+  height: 50vh;
+}
+/* CSS HISIAH */
+
 
 /* Created Button(btn) */
 

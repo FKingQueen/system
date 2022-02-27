@@ -1,12 +1,19 @@
 @extends('layouts.layout')
 
 @section('content')
-<div class="login-box">
-  <div class="login-logo">
-    <a href="../../index2.html"><b>Transcription System</b></a>
-  </div>
+<div class="container">
+  <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+    <div class="login-box">
+    <a href="../../index2.html"><b>Script Farming</b></a> 
+    </div>
+  </header>
+</div>
+  
+
+
   <!-- /.login-logo -->
-  <div class="card">
+<div class="container1 mt-5">
+  <div class="card ">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
@@ -69,6 +76,7 @@
     </div>
     <!-- /.login-card-body -->
   </div>
+</div>
 </div>
 <!-- /.login-box -->
 @endsection

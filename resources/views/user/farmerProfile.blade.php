@@ -99,7 +99,7 @@
                             <label for="crop_name" class="input-group">Crop Name:</label>
                             <select id="crop_id" type="text" name="crop_id" class="form-control @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
                                 <option disabled selected>--- Select Plant ---</option>
-                                <option value="1">Bitter Gourd (Ampalya)</option>
+                                <option value="1">Bitter Gourd (Ampalaya)</option>
                                 <option value="2">Corn</option>
                                 <option value="3">Ladys Finger (Okra)</option>
                                 <option value="4">Rice</option>
