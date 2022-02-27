@@ -20,6 +20,7 @@
 @endsection
 
 @section('content')
+@foreach($farmers as $farmer)
 
   <!-- Content Header (Page header) -->
   <div class="content-header">
@@ -46,9 +47,9 @@
             <table id="farmerList"  class="table table-bordered">
             <div class="d-flex justify-content-between mb-5">
                 <div class="ml-5">
-                    @foreach($farmers as $farmer)
-                        {{$farmer->name}}
-                    @endforeach
+                    
+                  {{$farmer->name}}
+
                 </div>
                 <div>
                     <button type="button" data-toggle="modal" data-target="#compose" class="btn btn-primary">
@@ -91,13 +92,13 @@
                     <h4 class="modal-title">Composing Farming Activity</h4>
                   </div>
 
-                      <form method="POST" action="">
+                      <form method="POST" action="{{ route('compose', $farmer->id)}}">
                         @csrf
                         <div class="modal-body ">
 
                           <div class="input-group mb-3">
                             <label for="crop_name" class="input-group">Crop Name:</label>
-                            <select id="crop_id" type="text" name="crop_id" class="form-control @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
+                            <select id="crop_id" type="text" name="crop_id" class="custom-select form-control-border @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
                                 <option disabled selected>--- Select Plant ---</option>
                                 <option value="1">Bitter Gourd (Ampalaya)</option>
                                 <option value="2">Corn</option>
@@ -106,6 +107,25 @@
                                 <option value="5">String Beans (Sitaw)</option>
                             </select>
                               @error('crop_id')
+                                <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror          
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="input-group mb-3">
+                            <label for="status_id" class="input-group">Data Classification:</label>
+                            <select id="status_id" type="text" name="status_id" class="custom-select form-control-border @error('status_id') is-invalid @enderror" name="status_id" required autocomplete="status_id" autofocus>
+                                <option disabled selected>--- Select Classification ---</option>
+                                <option value="1">Partial</option>
+                                <option value="2">Complete</option>
+                            </select>
+                              @error('status_id')
                                 <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>
                                 </span>
@@ -152,25 +172,27 @@
 
                           </div>
 
-                          <div class="input-group p-3 border border-top-0 mb-3 rounded">
-                            <label for="field_unit" class="input-group">Yield:</label>
+                          <div id="yield_id" class="input-group p-3 border border-top-0 mb-3 rounded">
+                            <label for="yield" class="input-group">Yield:</label>
                             <div class="d-flex justify-content-center">
                               <div>
                                 <br>
-                                <label for="yield" class="mt-2 font-weight-light">Yield (t/ha): </label>
+                                <label class="mt-2 font-weight-light">Yield (t/ha): </label>
                               </div>
                               
                               <div class="col-4 input-group-sm">
-                                <label for="yield" class="input-group font-weight-light">Number of sacks: </label>
-                                <input type="number" class="form-control" placeholder="sacks">
+                                <label for="kg" class="input-group  font-weight-light" >Number of sacks: </label>
+                                <input id="sacks" name="sacks" type="number" class="form-control" placeholder="sacks" min="0" autocomplete="kg" autofocus>
                               </div>
                                 
                               <div class="col-4 input-group-sm">
-                                <label for="yield" class="input-group font-weight-light">Weight of sack: </label>
-                                <input type="number" class="form-control" placeholder="kg">
+                                <label for="kg" class="input-group font-weight-light">Weight of sack: </label>
+                                <input id="kg" name="kg" type="number" class="form-control" min="0" step=".001" placeholder="kg" autocomplete="kg" autofocus>
                               </div>
                             </div>
                           </div>
+
+
 
                         </div>
 
@@ -197,7 +219,7 @@
   <!-- /.content -->
 
 
-
+@endforeach
 @endsection
 
 @section('js')
@@ -230,20 +252,40 @@
   <script type="text/javascript">
 
     $(function(){
+      $('[name="unit_name"]').hide();
+      $('[name="lot_size"]').hide();
       $('select[name="field_unit"]').on('change', function() {
         var field_unit = $(this).val();
           if(field_unit == 1){
+            $('[name="unit_name"]').show();
+            $('[name="lot_size"]').show();
             $('[name="unit_name"]').text("Hectare:");
             $('[name="lot_size"]').attr("placeholder", "ha");
           }
           else if(field_unit == 2){
+            $('[name="unit_name"]').show();
+            $('[name="lot_size"]').show();
             $('[name="unit_name"]').text("Square Meter:");
             $('[name="lot_size"]').attr("placeholder", "sq");
           }
-          
-          
       });
+    });
 
+    $(function(){
+      $('#yield_id').hide(); 
+      $('select[name="status_id"]').on('change', function() {
+        var status_id = $(this).val();
+          if(status_id == 1){
+            $('#yield_id').hide(); 
+            $("#sacks").removeAttr('required');
+            $("#kg").removeAttr('required');
+          }
+          else if(status_id == 2){
+            $('#yield_id').show(); 
+            $("#sacks").attr('required', '');
+            $("#kg").attr('required', '');
+          }
+      });
     });
   </script>
 @endsection
