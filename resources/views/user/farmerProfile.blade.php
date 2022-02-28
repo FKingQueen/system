@@ -45,13 +45,21 @@
             <div class="card-body">
 
             <table id="farmerList"  class="table table-bordered">
-            <div class="d-flex justify-content-between mb-3">
-                <div class="ml-5">
-                    
-                  {{$farmer->name}}
-
+            <div class="d-flex">
+                <div class="ml-2">
+                  <h1>
+                    {{$farmer->name}}
+                  </h1>
                 </div>
-                <div>
+                <div class="d-flex justify-content-start ml-5 mt-3 ">
+                    <div>
+                      In Progress - <i class='fa fa-circle' style='color:#00db0f'></i>
+                    </div>
+                    <div class="ml-5">
+                      Complete - <i class='fas fa-circle' style='color:#76756f'></i>
+                    </div>
+                  </div>
+                <div class="ml-auto">
                     <button type="button" data-toggle="modal" data-target="#compose" class="btn btn-primary">
                     Compose
                     </button>
@@ -59,11 +67,10 @@
                 </div>
                 <thead >
                     <tr class="bg-light" >
-                        <th >Crop Name</th>
-                        <th style="width: 15%;">Cropping Season</th>
-                        <th style="width: 10%;">Status</th>
-                        <th style="width: 10%;">Lot Size</th>
-                        <th style="width: 0%;">Yield</th>
+                        <th ><i class="fas fa-seedling"> </i>Crop Name</th>
+                        <th style="width: 15%;"><i class="fas fa-wind"></i> Cropping Season</th>
+                        <th style="width: 10%;"><i class="fas fa-drafting-compass"></i> Lot Size</th>
+                        <th style="width: 8%;"><i class="fas fa-hand-holding-usd"></i> Yield</th>
                         <th style="width: 0%;">Unit</th>
                         <th style="width: 0%;">Action</th>
                     </tr>
@@ -71,14 +78,17 @@
                 <tbody>
                   @foreach($farming_datas as $farming_data)
                     <tr >
-                        <td>
-                          {{$farming_data->crop->name}}
+                        <td class="d-flex justify-content-between">
+                          <a>{{$farming_data->crop->name}}</a>
+                          @if($farming_data->status->id == 1)
+                            <i class='mt-1 fa fa-circle' style='color:#00db0f'></i>
+                          @endif
+                          @if($farming_data->status->id == 2)
+                            <i class='mt-1 fas fa-circle' style='color:#76756f'></i>
+                          @endif
                         </td>
                         <td>
                           {{$farming_data->cropping_season->name}}
-                        </td>
-                        <td>
-                          {{$farming_data->status->name}}
                         </td>
                         <td>
                           {{$farming_data->lot_size}} Hectare
@@ -102,13 +112,13 @@
                 <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 
-                  <div class="modal-header">
+                  <div class="modal-header bg-green">
                     <h4 class="modal-title">Composing Farming Activity</h4>
                   </div>
 
                       <form method="POST" action="{{ route('compose', $farmer->id)}}">
                         @csrf
-                        <div class="modal-body ">
+                        <div class="modal-body bg-white">
 
                           <div class="input-group mb-3">
                             <label for="crop_name" class="input-group">Crop Name:</label>
@@ -210,7 +220,7 @@
 
                         </div>
 
-                        <div class="modal-footer justify-content-between ">
+                        <div class="modal-footer justify-content-between bg-white">
                             <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Add Farmer</button>
                         </div>

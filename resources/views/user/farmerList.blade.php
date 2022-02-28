@@ -62,27 +62,30 @@
                 <tr class="bg-light" >
                   <th ><i class="fas fa-male"></i> Farmers Name:</th>
                   <th class="text-center" style="width: 20%;"><i class="fas fa-city"></i> Address</th>
-                  <th class="text-center" style="width: 10%;"><i class="fas fa-edit"></i> Action</th>
+                  <th class="text-center" style="width: 10%;"><i class="fas fa-edit"></i></th>
                 </tr>
                 </thead>
                 <tbody>
                   @foreach ($farmers as $farmer)
                   <tr >
                     <td class="">
-                      <div class="d-flex justify-content-between">
-                        <div>
+                      <div class='d-flex justify-content-between'>
                         <a href="{{ route('farmerProfile', $farmer->id)}}">{{$farmer->name}}</a>
-                        </div>
-                        <div>
-                        <i class='fa fa-circle' style='color:#00db0f'></i>
-                        </div>
+                        @foreach($farming_datas as $farming_data)
+                          @if($farmer->id == $farming_data->farmer_id && $farming_data->status_id == 1)
+                            <i class='mt-1 fa fa-circle' style='color:#00db0f'></i>
+                            @break
+                          @elseif($loop->last)
+                            <i class='mt-1 fas fa-circle' style='color:#76756f'></i>
+                          @endif
+                        @endforeach
                       </div>
                     </td>
                     <td class="text-center " >
                       Brgy. {{$farmer->barangay}}, {{$farmer->municipality}}
                     </td>
                     <td class="text-center">
-                      Update
+                      <button type="button" class="p-0 btn btn-block bg-green btn-xs">Option</button>
                     </td>
                   </tr>
                   @endforeach
@@ -93,7 +96,7 @@
               <!-- Add Farmer Modal -->
               <div class="modal fade" id="addfarmer">
                 <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
+                <div class="modal-content  bg-green">
 
                   <div class="modal-header">
                     <h4 class="modal-title">Adding Farmer</h4>
@@ -101,9 +104,10 @@
 
                       <form method="POST" action="{{ route('addFarmer')}}">
                         @csrf
-                        <div class="modal-body ">
+                        <div class="modal-body bg-white">
 
                           <div class="input-group mb-3">
+                            <label for="crop_name" class="input-group">Name:</label>
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full Name">
                               @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -157,14 +161,14 @@
 
                         </div>
 
-                        <div class="modal-footer justify-content-between ">
+                        <div class="modal-footer justify-content-between bg-white ">
                             <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Add Farmer</button>
                         </div>
                       </form>
                 </div>
               </div>
-            <!-- /Add Farmer Modal -->  
+              <!-- /Add Farmer Modal -->  
 
             </div>
             </div>

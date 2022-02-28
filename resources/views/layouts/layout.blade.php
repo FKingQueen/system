@@ -32,7 +32,7 @@
             <!-- /.navbar -->
 
             <!-- Main Sidebar Container -->
-            <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <aside class="main-sidebar sidebar-light-success elevation-4">
                 <!-- Brand Logo -->
                 <a href="index3.html" class="brand-link">
                     <span class="brand-text font-weight-light">Transcription System</span>
@@ -64,7 +64,7 @@
 
                             <!-- Users Management Button -->          
                             <li class="nav-item ">
-                                <a href="{{ route('userManagement') }}" class="nav-link {{ route('userManagement') == url()->current() ? 'active' : '' }} ">
+                                <a href="{{ route('userManagement') }}" class="nav-link {{ route('userManagement') == url()->current() ? 'active' : ''}} {{ route('userManagement') == url()->current() ? 'bg-green' : ''}}">
                                 <i class="fas fa-lg fas fa-users"></i>
                                 <p>
                                     User Management

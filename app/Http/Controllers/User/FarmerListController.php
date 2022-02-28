@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Farming_data;
 use App\Models\Farmer;
 use App\Models\Municipality;
 use Illuminate\Http\Request;
@@ -16,10 +17,10 @@ class FarmerListController extends Controller
     public function farmerList()
     {
         $municipality = DB::table("municipalities")->pluck("name","id");
-
+        $farming_data= Farming_data::all(); 
         $farmer = Farmer::all()->where("user_id", Auth::user()->id);
 
-        return view('user/farmerList', array('municipalities' => $municipality, 'farmers' => $farmer));
+        return view('user/farmerList', array('municipalities' => $municipality, 'farmers' => $farmer, 'farming_datas' => $farming_data));
     }
 
     public function farmerListAjax($id)

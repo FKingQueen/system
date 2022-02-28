@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Farmer;
 use App\Models\Farming_data;
+use Carbon\Carbon;
 
 class FarmerProfileController extends Controller
 {
@@ -17,6 +18,10 @@ class FarmerProfileController extends Controller
     }
 
     public function compose(Request $request, $id){
+        $date = Carbon::now();
+        $month = $date->month;
+
+
         if($request->status_id==1){
             $request->validate([
                 'crop_id'  => 'required',
@@ -32,7 +37,14 @@ class FarmerProfileController extends Controller
 
         $farming_data = new Farming_data();
         $farming_data->crop_id = $request->crop_id;
-        $farming_data->cropping_season_id = 1; 
+        if(($month >= 1 && $month <= 4) || ($month >= 11 && $month <= 12 ))
+        {
+            $farming_data->cropping_season_id = 1; 
+        } else if(($month >= 5 && $month <= 10))
+        {
+            $farming_data->cropping_season_id = 2; 
+        }
+        
         $farming_data->status_id = $request->status_id; 
         $farming_data->farmer_id = $id;
         if ($request->field_unit == 1){
