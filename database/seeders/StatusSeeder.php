@@ -14,9 +14,9 @@ class StatusSeeder extends Seeder
      */
     public function run()
     {
-        Cropping_season::truncate();
+        Status::truncate();
 
-        $croppingseasons =  [
+        $status =  [
           [
             'id' => '1',
             'name' => 'In Progress',
@@ -27,6 +27,6 @@ class StatusSeeder extends Seeder
           ],
         ];
 
-        Cropping_season::insert($croppingseasons);
+        Status::insert($status);
     }
 }

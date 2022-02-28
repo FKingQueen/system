@@ -45,7 +45,7 @@
             <div class="card-body">
 
             <table id="farmerList"  class="table table-bordered">
-            <div class="d-flex justify-content-between mb-5">
+            <div class="d-flex justify-content-between mb-3">
                 <div class="ml-5">
                     
                   {{$farmer->name}}
@@ -60,26 +60,40 @@
                 <thead >
                     <tr class="bg-light" >
                         <th >Crop Name</th>
-                        <th >Cropping Season</th>
-                        <th >Status</th>
-                        <th >Action</th>
+                        <th style="width: 15%;">Cropping Season</th>
+                        <th style="width: 10%;">Status</th>
+                        <th style="width: 10%;">Lot Size</th>
+                        <th style="width: 0%;">Yield</th>
+                        <th style="width: 0%;">Unit</th>
+                        <th style="width: 0%;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                  @foreach($farming_datas as $farming_data)
                     <tr >
                         <td>
-
+                          {{$farming_data->crop->name}}
                         </td>
                         <td>
-
+                          {{$farming_data->cropping_season->name}}
                         </td>
                         <td>
-
+                          {{$farming_data->status->name}}
                         </td>
                         <td>
-
+                          {{$farming_data->lot_size}} Hectare
+                        </td>
+                        <td>
+                          {{$farming_data->yield}}
+                        </td>
+                        <td>
+                          {{$farming_data->unit}}
+                        </td>
+                        <td>
+                          Update
                         </td>
                     </tr>
+                  @endforeach
                 </tbody>
             </table>
 

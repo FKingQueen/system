@@ -12,7 +12,8 @@ class FarmerProfileController extends Controller
     public function farmerProfile($id)
     {
         $farmer = Farmer::all()->where("id", $id);
-        return view('user/farmerProfile', array("farmers"=> $farmer));
+        $farming_data = Farming_data::with('crop', 'cropping_season', 'status')->get()->where("farmer_id", $id);
+        return view('user/farmerProfile', array("farmers"=> $farmer, "farming_datas" => $farming_data));
     }
 
     public function compose(Request $request, $id){

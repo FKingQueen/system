@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             BarangaySeeder::class,
             CropSeeder::class,
             CroppingseasonSeeder::class,
+            StatusSeeder::class,
         ]);
     }
 }
