@@ -88,7 +88,7 @@
                             @if(Auth::user()->role_id == 2)
                             <!-- Farmer List Button -->          
                             <li class="nav-item">
-                                <a href="{{ route('farmerList') }}" class="nav-link {{ route('farmerList') == url()->current() ? 'active' : '' }} ">
+                                <a href="{{ route('farmerList') }}" class="nav-link {{ route('farmerList') == url()->previous() || route('farmerList') == url()->current() ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-user-check"></i>
                                 <p>
                                     Farmer List

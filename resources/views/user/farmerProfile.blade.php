@@ -68,11 +68,10 @@
                 <thead >
                     <tr class="bg-light" >
                         <th ><i class="fas fa-seedling"> </i>Crop Name</th>
-                        <th style="width: 15%;"><i class="fas fa-wind"></i> Cropping Season</th>
-                        <th style="width: 10%;"><i class="fas fa-drafting-compass"></i> Lot Size</th>
-                        <th style="width: 8%;"><i class="fas fa-hand-holding-usd"></i> Yield</th>
-                        <th style="width: 0%;">Unit</th>
-                        <th style="width: 0%;">Action</th>
+                        <th style="width: 20%;"><i class="fas fa-wind"></i> Cropping Season</th>
+                        <th style="width: 15%;"><i class="fas fa-drafting-compass"></i> Lot Size</th>
+                        <th style="width: 15%;"><i class="fas fa-hand-holding-usd"></i> Yield</th>
+                        <th class="text-center" style="width: 10%;"><i class="fas fa-edit"></i></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,13 +93,14 @@
                           {{$farming_data->lot_size}} Hectare
                         </td>
                         <td>
-                          {{$farming_data->yield}}
+                          @if(is_null($farming_data->yield))
+                            In progress
+                          @else
+                            {{$farming_data->yield}}
+                          @endif
                         </td>
-                        <td>
-                          {{$farming_data->unit}}
-                        </td>
-                        <td>
-                          Update
+                        <td class="text-center">
+                        <button type="button" class="p-0 btn btn-block bg-green btn-xs"   data-toggle="modal" data-target="#option_{{$farmer->id}}">Option</button>
                         </td>
                     </tr>
                   @endforeach
@@ -222,7 +222,7 @@
 
                         <div class="modal-footer justify-content-between bg-white">
                             <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add Farmer</button>
+                            <button type="submit" class="btn btn-primary">Compose</button>
                         </div>
                       </form>
                 </div>

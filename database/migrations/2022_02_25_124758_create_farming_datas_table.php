@@ -22,7 +22,6 @@ class CreateFarmingDatasTable extends Migration
             $table->integer('status_id');
             $table->float('lot_size');
             $table->decimal('yield', 8, 2)->nullable();
-            $table->integer('unit')->nullable();
             $table->timestamps();
         });
     }

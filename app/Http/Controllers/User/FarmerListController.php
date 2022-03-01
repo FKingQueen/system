@@ -52,4 +52,25 @@ class FarmerListController extends Controller
 
         return back();
     }
+
+    public function updateFarmer(Request $request, $id)
+    {
+        $muni = DB::table("municipalities")->where("id",$request->municipality)->value('name');
+        DB::table('farmers')
+            ->where('id', $id)
+            ->update([
+            'name' => $request->name, 
+            'municipality' => $muni,
+            'barangay'  => $request->barangay
+            ]);
+        return redirect()->route('farmerList')->with('success', 'Update Sucessfully');
+    }
+
+    public function DeleteFarmer($id)
+    {
+        DB::table('farmers')
+            ->where('id', $id)
+            ->delete();
+        return redirect()->route('farmerList')->with('success', 'Update Sucessfully');
+    }
 }
