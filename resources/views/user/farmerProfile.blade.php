@@ -17,6 +17,8 @@
   <!-- Ajax -->
   <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
 
+  
+
 @endsection
 
 @section('content')
@@ -41,29 +43,29 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <!-- /.card-header -->
             <div class="card-body">
 
-            <table id="farmerList"  class="table table-bordered">
-            <div class="d-flex">
-                <div class="ml-2">
-                  <h1>
-                    {{$farmer->name}}
-                  </h1>
-                </div>
-                <div class="d-flex justify-content-start ml-5 mt-3 ">
-                    <div>
-                      In Progress - <i class='fa fa-circle' style='color:#00db0f'></i>
+              <table id="farmerList"  class="table table-bordered">
+                <div class="d-flex">
+                  <div class="ml-2">
+                    <h1>
+                      {{$farmer->name}}
+                    </h1>
+                  </div>
+                  <div class="d-flex justify-content-start ml-5 mt-3 ">
+                      <div>
+                        In Progress - <i class='fa fa-circle' style='color:#00db0f'></i>
+                      </div>
+                      <div class="ml-5">
+                        Complete - <i class='fas fa-circle' style='color:#76756f'></i>
+                      </div>
                     </div>
-                    <div class="ml-5">
-                      Complete - <i class='fas fa-circle' style='color:#76756f'></i>
+                    <div class="ml-auto">
+                        <button type="button" data-toggle="modal" data-target="#compose" class="btn btn-primary">
+                        Compose
+                        </button>
                     </div>
                   </div>
-                <div class="ml-auto">
-                    <button type="button" data-toggle="modal" data-target="#compose" class="btn btn-primary">
-                    Compose
-                    </button>
-                </div>
                 </div>
                 <thead >
                     <tr class="bg-light" >
@@ -100,15 +102,36 @@
                           @endif
                         </td>
                         <td class="text-center">
-                        <button type="button" class="p-0 btn btn-block bg-green btn-xs"   data-toggle="modal" data-target="#option_{{$farmer->id}}">Option</button>
+                        <button type="button" class="p-0 btn btn-block bg-green btn-xs"   data-toggle="modal" data-target="#option_{{$farming_data->id}}">Option</button>
                         </td>
                     </tr>
+
                   @endforeach
                 </tbody>
-            </table>
+              </table>
 
-            <!-- Compose Modal -->
-            <div class="modal fade" id="compose">
+              @foreach($farming_datas as $farming_data)
+                <!-- Option Modal -->
+                <div class="modal fade rounded" id="option_{{$farming_data->id}}" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered modal-sm">
+                  <div class="modal-content rounded bg-green">
+
+                    <div class="modal-header p-0">
+                      <h4 class="modal-title ml-2 ">Option</h4>
+                    </div>
+
+                    <div class="modal-body bg-white">
+<table>{{$farming_data->crop->name}}</table>
+                    </div>
+
+                  </div>
+                  </div>
+                </div>
+                <!-- /Option Modal -->  
+              @endforeach
+
+              <!-- Compose Modal -->
+              <div class="modal fade" id="compose">
                 <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 
@@ -226,9 +249,9 @@
                         </div>
                       </form>
                 </div>
+                </div>
               </div>
-            <!-- /Compose Modal -->
-
+              <!-- /Compose Modal -->
             </div>
             <!-- /.card-body -->
           </div>
@@ -241,7 +264,7 @@
     <!-- /.container-fluid -->
   </section>
   <!-- /.content -->
-
+  
 
 @endforeach
 @endsection
@@ -313,3 +336,42 @@
     });
   </script>
 @endsection
+
+<!-- <div id="classModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <h4 class="modal-title" id="classModalLabel">
+              Class Info
+            </h4>
+      </div>
+      <div class="modal-body">
+        <table id="classTable" class="table table-bordered">
+          <thead>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CLN</td>
+              <td>Last Updated Date</td>
+              <td>Class Name</td>
+              <td># Tests</td>
+              <td>Test Coverage (Instruction)</td>
+              <td>Test Coverage (Complexity)</td>
+              <td>Complex Covered</td>
+              <td>Complex Total</td>
+              <td>Category</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
