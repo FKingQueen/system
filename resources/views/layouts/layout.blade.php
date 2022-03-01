@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Transcription System') }}</title>
+    <title>{{ config('app.name', 'Script Farm') }}</title>
     
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @yield('css')
@@ -35,7 +35,7 @@
             <aside class="main-sidebar sidebar-light-success elevation-4">
                 <!-- Brand Logo -->
                 <a href="index3.html" class="brand-link">
-                    <span class="brand-text font-weight-light">Transcription System</span>
+                    <span class="brand-text font-weight-light">Script Farm</span>
                 </a>
 
                 <!-- Sidebar -->

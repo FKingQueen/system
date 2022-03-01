@@ -8,7 +8,7 @@
 </div>
 </nav>
 <br><br>
-  <div class="d-flex justify-content-center mt-5">
+  <div class="d-flex justify-content-center mt-4">
     
     <div class="login-box" style="width: 30rem;">
       <!-- /.login-logo -->
