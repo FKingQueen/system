@@ -64,7 +64,7 @@
 
                             <!-- Users Management Button -->          
                             <li class="nav-item ">
-                                <a href="{{ route('userManagement') }}" class="nav-link {{ route('userManagement') == url()->current() ? 'active' : ''}} {{ route('userManagement') == url()->current() ? 'bg-green' : ''}}">
+                                <a href="{{ route('userManagement') }}" class="nav-link {{ route('userManagement') == url()->current() ? 'active' : ''}}">
                                 <i class="fas fa-lg fas fa-users"></i>
                                 <p>
                                     User Management
@@ -88,7 +88,7 @@
                             @if(Auth::user()->role_id == 2)
                             <!-- Farmer List Button -->          
                             <li class="nav-item">
-                                <a href="{{ route('farmerList') }}" class="nav-link {{ route('farmerList') == url()->previous() || route('farmerList') == url()->current() ? 'active' : '' }} ">
+                                <a href="{{ route('farmerList') }}" class="nav-link {{ (route('farmerList') == url()->previous() || route('farmerList') == url()->current()) && route('accountSetting') != url()->current()  ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-user-check"></i>
                                 <p>
                                     Farmer List

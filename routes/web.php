@@ -49,6 +49,9 @@ Route::group(['middleware' => 'isUser'], function() {
     //Farmer Profile
     Route::get('/farmerList/farmerProfile/{id}', [App\Http\Controllers\User\FarmerProfileController::class, 'farmerProfile'])->name('farmerProfile');
     Route::post('/compose/{id}', [App\Http\Controllers\User\FarmerProfileController::class, 'compose'])->name('compose');
+    Route::post('/updateCrop/{id}', [App\Http\Controllers\User\FarmerProfileController::class, 'updateCrop'])->name('updateCrop');
+    Route::post('/deleteCrop/{id}', [App\Http\Controllers\User\FarmerProfileController::class, 'deleteCrop'])->name('deleteCrop');
+    
 });
 
 

@@ -10,10 +10,6 @@
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
-  <!-- Theme style -->
-  <link rel="stylesheet" href="https://adminlte.io/themes/v3/dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-@endsection
 
 @section('content')
 @if(Auth::user())

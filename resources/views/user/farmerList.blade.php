@@ -11,11 +11,7 @@
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
   <!-- Theme style -->
-  <link rel="stylesheet" href="https://adminlte.io/themes/v3/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-  <!-- Ajax -->
-  <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
 
 @endsection
 
@@ -85,36 +81,45 @@
                       Brgy. {{$farmer->barangay}}, {{$farmer->municipality}}
                     </td>
                     <td class="text-center">
-                      <button type="button" class="p-0 btn btn-block bg-green btn-xs"   data-toggle="modal" data-target="#option_{{$farmer->id}}">Option</button>
+                      <button type="button" class="p-0 btn btn-block btn-primary btn-xm "   data-toggle="modal" data-target="#option_{{$farmer->id}}">Option</button>
+                      <!-- Option Modal -->
+                      <div class="modal fade rounded" id="option_{{$farmer->id}}">
+                        <div class="modal-dialog modal-dialog-centered modal-sm">
+                        <div class="modal-content rounded ">
+
+                          <div class="modal-header p-1 d-flex justify-content-center">
+                            <h4 class="modal-title">Option</h4>
+                          </div>
+
+                          <div class="modal-body rounded bg-white">
+                            <form method="POST" action="{{ route('deleteFarmer', $farmer->id)}}">
+                              @csrf
+                              <table class="table table-bordered">
+                                <tbody >
+                                  <tr >
+                                    <th class=" p-1 text-left font-weight-light"> Update the Farmer information</th>
+                                    <td class="p-1">
+                                      <button type="button" class="btn btn-block btn-default border" data-dismiss="modal" data-toggle="modal" data-target="#update_{{$farmer->id}}"><i class="fas fa-lg fa-edit " style="color: #42ba96;"></i></i></button>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th class=" pl-1 p-0 text-left font-weight-light" >Delete permanently the Farmer records</th>
+                                    <td class="p-1">
+                                      <button type="submit" class="btn btn-block btn-default border"><i class="fas fa-lg fa-trash" style="color: #d9534f;"></i></button>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </form>
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                      <!-- /Option Modal -->  
                     </td>
                   </tr>
 
-                  <!-- Option Modal -->
-                  <div class="modal fade rounded" id="option_{{$farmer->id}}">
-                    <div class="modal-dialog modal-dialog-centered modal-sm">
-                    <div class="modal-content rounded  bg-green">
-
-                      <div class="modal-header p-0">
-                        <h4 class="modal-title ml-2 ">Option</h4>
-                      </div>
-
-                      <div class="modal-body bg-white">
-                        <form method="POST" action="{{ route('deleteFarmer', $farmer->id)}}">
-                          @csrf
-                          <div class="d-flex justify-content-around">
-                            <div>
-                              <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#update_{{$farmer->id}}">Update</button>
-                            </div>
-                            <div>
-                              <button type="submit" class="btn btn-block btn-danger">Delete</button>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                    </div>
-                  </div>
-                  <!-- /Option Modal -->  
+                  
 
                   <!-- Update Modal -->
                   <div class="modal fade" id="update_{{$farmer->id}}">

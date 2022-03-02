@@ -10,14 +10,6 @@
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
-  <!-- Theme style -->
-  <link rel="stylesheet" href="https://adminlte.io/themes/v3/dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-  <!-- Ajax -->
-  <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
-
-  
 
 @endsection
 
@@ -102,33 +94,174 @@
                           @endif
                         </td>
                         <td class="text-center">
-                        <button type="button" class="p-0 btn btn-block bg-green btn-xs"   data-toggle="modal" data-target="#option_{{$farming_data->id}}">Option</button>
-                        </td>
+                          <button type="button" class="p-0 btn btn-block btn-primary btn-xm"   data-toggle="modal" data-target="#option_{{$farming_data->id}}">Option</button>
+                          <!-- Option Modal -->
+                          <div class="modal fade rounded" id="option_{{$farming_data->id}}" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-sm">
+                            <div class="modal-content rounded">
+
+                              <div class="modal-header p-1 d-flex justify-content-center">
+                                <h4 class="modal-title ml-2 ">Option</h4>
+                              </div>
+
+                              <div class="modal-body rounded bg-white">
+                                <table class="table table-bordered">
+                                  <tbody>
+                                    <form method="POST" action="{{ route('deleteCrop', $farming_data->id)}}">
+                                    @csrf
+                                      <tr>
+                                        <th class="pl-1 p-0 text-left font-weight-light"> Upload new Activity Data from the device</th>
+                                        <td class="p-1">
+                                        <button type="button" class="btn btn-block btn-default border" ><i class="fas fa-lg fa-upload" style="color: #0275d8;"></i></button> 
+                                        </td>
+                                      </tr>
+                                      <tr >
+                                        <th class="pl-1 p-0 text-left font-weight-light"> Update the Crop information</th>
+                                        <td class="p-1">
+                                          <button type="button" class="btn btn-block btn-default border" data-toggle="modal" data-dismiss="modal" data-target="#updateCrop_{{$farming_data->id}}"><i class="fas fa-lg fa-edit " style="color: #42ba96;"></i></i></button>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <th class=" pl-1 p-0 text-left font-weight-light" >Delete permanently the Crop records</th>
+                                        <td class="p-1">
+                                          <button type="submit" class="btn btn-block btn-default border"><i class="fas fa-lg fa-trash" style="color: #d9534f;"></i></button>
+                                        </td>
+                                      </tr>
+                                    </form>
+                                  </tbody>
+                                </table>
+                              </div>
+
+                            </div>
+                            </div>
+                          </div>
+                          <!-- /Option Modal -->
+                      </td>
                     </tr>
 
+                    <!-- Update Crop Modal -->
+                    <div class="modal fade" id="updateCrop_{{$farming_data->id}}">
+                      <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+
+                        <div class="modal-header bg-green">
+                          <h4 class="modal-title">Updating Farming Activity</h4>
+                        </div>
+
+                            <form method="POST" action="{{ route('updateCrop', $farming_data->id) }}"> 
+                              @csrf
+                              <div class="modal-body bg-white">
+
+                                <div class="input-group mb-3">
+                                  <label for="crop_name" class="input-group">Crop Name:</label>
+                                  <select id="crop_id" type="text" name="crop_id" class="custom-select form-control-border @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
+                                      <option class="bg-primary" value="{{$farming_data->crop_id}}" selected>{{$farming_data->crop->name}}</option>
+                                      <option value="1">Bitter Gourd (Ampalaya)</option>
+                                      <option value="2">Corn</option>
+                                      <option value="3">Ladys Finger (Okra)</option>
+                                      <option value="4">Rice</option>
+                                      <option value="5">String Beans (Sitaw)</option>
+                                  </select>
+                                    @error('crop_id')
+                                      <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                      </span>
+                                    @enderror          
+                                  <div class="input-group-append">
+                                    <div class="input-group-text">
+                                      <span class="fas fa-user"></span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                  <label for="status_id" class="input-group">Data Classification:</label>
+                                  <select id="updateStatus_id" type="text" name="status_id" class="custom-select form-control-border @error('status_id') is-invalid @enderror" name="status_id" required autocomplete="status_id" autofocus>
+                                      <option disabled selected>--- Select Classification ---</option>
+                                      <option value="1">Partial</option>
+                                      <option value="2">Complete</option>
+                                  </select>
+                                    @error('status_id')
+                                      <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                      </span>
+                                    @enderror          
+                                  <div class="input-group-append">
+                                    <div class="input-group-text">
+                                      <span class="fas fa-user"></span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="container-fluid p-3 border border-top-0 mb-3 rounded">
+
+                                  <div class="input-group mb-1">
+                                    <label for="updateField_unit" class="input-group">Field Size Unit:</label>
+                                    <select id="updateField_unit" type="text" name="field_unit" class="custom-select form-control-border  @error('field_unit') is-invalid @enderror" name="field_unit" required autocomplete="field_unit" autofocus>
+                                        <option disabled selected>--- Select Field Size Unit ---</option>
+                                        <option value="1">Hectare</option>
+                                        <option value="2">Square Meter</option>
+                                    </select>
+                                      @error('field_unit')
+                                        <span class="invalid-feedback" role="alert">
+                                          <strong>{{ $message }}</strong>
+                                        </span>
+                                      @enderror          
+                                    <div class="input-group-append">
+                                      <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="d-flex justify-content-center input-group">
+                                    <div class="text-center w-25 input-group-sm">
+                                      <label id="updateUnit_name" name="unit_name" class="font-weight-light">Hectare:</label>
+                                      <input id="updateLot_size" type="text"  class="text-center form-control @error('lot_size') is-invalid @enderror" name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
+                                      @error('lot_size')
+                                        <span class="invalid-feedback" role="alert">
+                                          <strong>{{ $message }}</strong>
+                                        </span>
+                                      @enderror          
+                                    </div>
+                                  </div>
+
+                                </div>
+
+                                <div id="updateYield_id" class="input-group p-3 border border-top-0 mb-3 rounded">
+                                  <label for="yield" class="input-group">Yield:</label>
+                                  <div class="d-flex justify-content-center">
+                                    <div>
+                                      <br>
+                                      <label class="mt-2 font-weight-light">Yield (t/ha): </label>
+                                    </div>
+                                    
+                                    <div class="col-4 input-group-sm">
+                                      <label for="kg" class="input-group  font-weight-light" >Number of sacks: </label>
+                                      <input id="updateSacks" name="sacks" type="number" class="form-control" placeholder="sacks" min="0" autocomplete="kg" autofocus>
+                                    </div>
+                                      
+                                    <div class="col-4 input-group-sm">
+                                      <label for="kg" class="input-group font-weight-light">Weight of sack: </label>
+                                      <input id="updateKg" name="kg" type="number" class="form-control" min="0" step=".001" placeholder="kg" autocomplete="kg" autofocus>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </div>
+
+                              <div class="modal-footer justify-content-between bg-white">
+                                  <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Save changes</button>
+                              </div>
+                            </form>
+                      </div>
+                      </div>
+                    </div>
+                    <!-- /Udpate Crop Modal -->
                   @endforeach
                 </tbody>
               </table>
-
-              @foreach($farming_datas as $farming_data)
-                <!-- Option Modal -->
-                <div class="modal fade rounded" id="option_{{$farming_data->id}}" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered modal-sm">
-                  <div class="modal-content rounded bg-green">
-
-                    <div class="modal-header p-0">
-                      <h4 class="modal-title ml-2 ">Option</h4>
-                    </div>
-
-                    <div class="modal-body bg-white">
-<table>{{$farming_data->crop->name}}</table>
-                    </div>
-
-                  </div>
-                  </div>
-                </div>
-                <!-- /Option Modal -->  
-              @endforeach
 
               <!-- Compose Modal -->
               <div class="modal fade" id="compose">
@@ -146,7 +279,7 @@
                           <div class="input-group mb-3">
                             <label for="crop_name" class="input-group">Crop Name:</label>
                             <select id="crop_id" type="text" name="crop_id" class="custom-select form-control-border @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
-                                <option disabled selected>--- Select Plant ---</option>
+                                <option disabled selected>--- Select Crop ---</option>
                                 <option value="1">Bitter Gourd (Ampalaya)</option>
                                 <option value="2">Corn</option>
                                 <option value="3">Ladys Finger (Okra)</option>
@@ -207,7 +340,7 @@
 
                             <div class="d-flex justify-content-center input-group">
                               <div class="text-center w-25 input-group-sm">
-                                <label name="unit_name" class="font-weight-light">Hectare:</label>
+                                <label id="unit_name" name="unit_name" class="font-weight-light">Hectare:</label>
                                 <input id="lot_size" type="text"  class="text-center form-control @error('lot_size') is-invalid @enderror" name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
                                 @error('lot_size')
                                   <span class="invalid-feedback" role="alert">
@@ -299,28 +432,48 @@
   <script type="text/javascript">
 
     $(function(){
-      $('[name="unit_name"]').hide();
-      $('[name="lot_size"]').hide();
-      $('select[name="field_unit"]').on('change', function() {
+      $('[id="unit_name"]').hide();
+      $('[id="lot_size"]').hide();
+      $('select[id="field_unit"]').on('change', function() {
         var field_unit = $(this).val();
           if(field_unit == 1){
-            $('[name="unit_name"]').show();
-            $('[name="lot_size"]').show();
-            $('[name="unit_name"]').text("Hectare:");
-            $('[name="lot_size"]').attr("placeholder", "ha");
+            $('[id="unit_name"]').show();
+            $('[id="lot_size"]').show();
+            $('[id="unit_name"]').text("Hectare:");
+            $('[id="lot_size"]').attr("placeholder", "ha");
           }
           else if(field_unit == 2){
-            $('[name="unit_name"]').show();
-            $('[name="lot_size"]').show();
-            $('[name="unit_name"]').text("Square Meter:");
-            $('[name="lot_size"]').attr("placeholder", "sq");
+            $('[id="unit_name"]').show();
+            $('[id="lot_size"]').show();
+            $('[id="unit_name"]').text("Square Meter:");
+            $('[id="lot_size"]').attr("placeholder", "sq");
+          }
+      });
+    });
+
+    $(function(){
+      $('[id="updateUnit_name"]').hide();
+      $('[id="updateLot_size"]').hide();
+      $('select[id="updateField_unit"]').on('change', function() {
+        var field_unit = $(this).val();
+          if(field_unit == 1){
+            $('[id="updateUnit_name"]').show();
+            $('[id="updateLot_size"]').show();
+            $('[id="updateUnit_name"]').text("Hectare:");
+            $('[id="updateLot_size"]').attr("placeholder", "ha");
+          }
+          else if(field_unit == 2){
+            $('[id="updateUnit_name"]').show();
+            $('[id="updateLot_size"]').show();
+            $('[id="updateUnit_name"]').text("Square Meter:");
+            $('[id="updateLot_size"]').attr("placeholder", "sq");
           }
       });
     });
 
     $(function(){
       $('#yield_id').hide(); 
-      $('select[name="status_id"]').on('change', function() {
+      $('select[id="status_id"]').on('change', function() {
         var status_id = $(this).val();
           if(status_id == 1){
             $('#yield_id').hide(); 
@@ -334,44 +487,22 @@
           }
       });
     });
+
+    $(function(){
+      $('[id="updateYield_id"]').hide(); 
+      $('select[id="updateStatus_id"]').on('change', function() {
+        var status_id = $(this).val();
+          if(status_id == 1){
+            $('[id="updateYield_id"]').hide(); 
+            $('[id="updateSacks"]').removeAttr('required');
+            $('[id="updateKg"]').removeAttr('required');
+          }
+          else if(status_id == 2){
+            $('[id="updateYield_id"]').show(); 
+            $('[id="updateSacks"]').attr('required', '');
+            $('[id="updateKg"]').attr('required', '');
+          }
+      });
+    });
   </script>
 @endsection
-
-<!-- <div id="classModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
-        </button>
-        <h4 class="modal-title" id="classModalLabel">
-              Class Info
-            </h4>
-      </div>
-      <div class="modal-body">
-        <table id="classTable" class="table table-bordered">
-          <thead>
-          </thead>
-          <tbody>
-            <tr>
-              <td>CLN</td>
-              <td>Last Updated Date</td>
-              <td>Class Name</td>
-              <td># Tests</td>
-              <td>Test Coverage (Instruction)</td>
-              <td>Test Coverage (Complexity)</td>
-              <td>Complex Covered</td>
-              <td>Complex Total</td>
-              <td>Category</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-</div> -->
