@@ -88,7 +88,7 @@
                             @if(Auth::user()->role_id == 2)
                             <!-- Farmer List Button -->          
                             <li class="nav-item">
-                                <a href="{{ route('farmerList') }}" class="nav-link {{ (route('farmerList') == url()->previous() || route('farmerList') == url()->current()) && route('accountSetting') != url()->current()  ? 'active' : '' }} ">
+                                <a href="{{ route('farmerList') }}" class="nav-link {{ route('farmerList') == url()->current() || 'farmerProfile' ==  Route::currentRouteName() ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-user-check"></i>
                                 <p>
                                     Farmer List
@@ -96,6 +96,17 @@
                                 </a>
                             </li>
                             <!-- /Farmer List Button -->
+
+                            <!-- Crop Calendar Button -->          
+                            <li class="nav-item">
+                                <a href="{{ route('cropCalendar') }}" class="nav-link {{ route('cropCalendar') == url()->current() ? 'active' : '' }} ">
+                                <i class="fas fa-lg fa-calendar-alt"></i>
+                                <p>
+                                   Crop Calendar
+                                </p>
+                                </a>
+                            </li>
+                            <!-- /Crop Calendar Button -->
                             @endif
                             
 
