@@ -139,7 +139,32 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-
+              <table class="table table-bordered">
+                <thead>
+                  <tr class="text-center">
+                    <th scope="col" style="width: 0%;"></th>
+                    <th scope="col" style="width: 8%;">J</th>
+                    <th scope="col" style="width: 8%;">F</th>
+                    <th scope="col" style="width: 8%;">M</th>
+                    <th scope="col" style="width: 8%;">A</th>
+                    <th scope="col" style="width: 8%;">M</th>
+                    <th scope="col" style="width: 8%;">Jn</th>
+                    <th scope="col" style="width: 8%;">Jl</th>
+                    <th scope="col" style="width: 8%;">A</th>
+                    <th scope="col" style="width: 8%;">S</th>
+                    <th scope="col" style="width: 8%;">O</th>
+                    <th scope="col" style="width: 8%;">N</th>
+                    <th scope="col" style="width: 8%;">D</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($brgys as $brgy)
+                    <tr>
+                      <td>B{{$brgy->id}}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
             </div>
             <!-- /.card-body -->
           </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Farming_data;
 use App\Models\Crop;
+use App\Models\Barangay;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -15,7 +16,7 @@ class CropCalendarController extends Controller
     {
         $crop = Crop::all();
         $date = Carbon::now();
-        $sample = Crop::count();
+        $brgy = Barangay::where('municipality_id','1')->get();
 
         for($i = 4; $i >= 0; $i--)
         {
@@ -44,6 +45,8 @@ class CropCalendarController extends Controller
             $total=0;
         }
 
-        return view('user/cropCalendar', array("years"=> $year,"percentages"=> $percentage,"crops" => $crop));
+
+
+        return view('user/cropCalendar', array("years"=> $year,"percentages"=> $percentage,"crops" => $crop, "brgys" => $brgy));
     }
 }
