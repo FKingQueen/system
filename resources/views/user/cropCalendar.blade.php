@@ -139,6 +139,53 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
+
+              <form action="{{ route('cropCalendar') }}" method="GET">
+                @csrf
+                <div class="input-group d-flex justify-content-left mb-3">
+                  <div>
+                    <label for="municipality_id" class="input-group">Municipality</label>
+                    <select id="municipality_id" type="text" name="municipality_id" class="custom-select form-control-border @error('municipality_id') is-invalid @enderror" name="municipality_id" required autocomplete="municipality_id" autofocus>
+                        <option disabled selected>--- Select Municipality ---</option>
+                        <option value="1">Badoc</option>
+                        <option value="2">Banna</option>
+                        <option value="3">Batac City</option>
+                        <option value="4">Currimao</option>
+                        <option value="5">Dingras</option>
+                        <option value="6">Marcos</option>
+                        <option value="7">Nueva Era</option>
+                        <option value="8">Paoay</option>
+                        <option value="9">Pinili</option>
+                        <option value="10">San Nicolas</option>
+                        <option value="11">Solsona</option>
+                    </select>
+                      @error('municipality_id')
+                        <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror          
+                  </div>
+
+                  <div class="ml-3">
+                    <label for="year_id" class="input-group">Year</label>
+                    <select id="year_id" type="text" name="year_id" class="custom-select form-control-border @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
+                        <option disabled selected>--- Select  Year ---</option>
+                        @foreach($years as $year)
+                          <option value="{{$loop->index}}">{{$year}}</option>
+                        @endforeach
+                    </select>
+                      @error('year_id')
+                        <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror          
+                  </div>
+                  <div class="ml-3 d-flex align-items-end"">
+                    <button type="submit" class="btn btn-block btn-primary input-group"> FIND </button>
+                  </div>
+                </div>
+              </form>
+
               <table class="table table-bordered">
                 <thead>
                   <tr class="text-center">
@@ -158,11 +205,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($brgys as $brgy)
-                    <tr>
-                      <td>B{{$brgy->id}}</td>
-                    </tr>
-                  @endforeach
+                    @php $i=0 @endphp
+                    @php $mc=11 @endphp
+                    @foreach($brgys as $brgy)
+                      <tr>
+                        <td>B{{$brgy->id}}</td>
+                        @while($i <=$mc)
+                          <td>
+                            @foreach($percs[$i] as $perc[0])
+                              {{$perc[0]}} % <br>
+                            @endforeach
+                          </td>
+                        @php $i++ @endphp
+                        @endwhile
+                      </tr>
+                      @php $i = ($loop->iteration)*12 @endphp
+                      @php $mc = $mc+12 @endphp
+                    @endforeach
                 </tbody>
               </table>
             </div>

@@ -19,6 +19,8 @@ class CreateFarmingDatasTable extends Migration
             $table->integer('cropping_season_id');
             $table->integer('crop_id');
             $table->integer('farmer_id');
+            $table->integer('municipality_id');
+            $table->integer('barangay_id');
             $table->integer('status_id');
             $table->float('lot_size');
             $table->decimal('yield', 8, 2)->nullable();

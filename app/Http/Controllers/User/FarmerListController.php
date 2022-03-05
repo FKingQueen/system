@@ -27,7 +27,7 @@ class FarmerListController extends Controller
     {
         $barangays = DB::table("barangays")
                     ->where("municipality_id",$id)
-                    ->pluck("name","name");
+                    ->pluck("name","id");
         return json_encode($barangays);
     }
 
@@ -44,6 +44,8 @@ class FarmerListController extends Controller
 
         $farmer =  new Farmer();
         $farmer->name = $request->name;
+        $farmer->municipality_id = $request->municipality;
+        $farmer->barangay_id = $request->barangay;
         $farmer->municipality = $muni;
         $farmer->status = '1';
         $farmer->barangay = $request->barangay;
@@ -61,6 +63,7 @@ class FarmerListController extends Controller
             ->update([
             'name' => $request->name, 
             'municipality' => $muni,
+            'municipality_id' => $request->municipality,
             'barangay'  => $request->barangay
             ]);
         return redirect()->route('farmerList')->with('success', 'Update Sucessfully');

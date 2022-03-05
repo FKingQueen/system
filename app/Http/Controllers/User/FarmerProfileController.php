@@ -47,6 +47,10 @@ class FarmerProfileController extends Controller
         }
         
         $farming_data->status_id = $request->status_id; 
+        
+        $farming_data->municipality_id = Farmer::where("id", $id)->value('municipality_id');
+        $farming_data->barangay_id = Farmer::where("id", $id)->value('barangay_id');; 
+
         $farming_data->farmer_id = $id;
         if ($request->field_unit == 1){
             $farming_data->lot_size = $request->lot_size;

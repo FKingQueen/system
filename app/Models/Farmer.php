@@ -13,7 +13,14 @@ class Farmer extends Model
         'user_id',
         'name',
         'municipality',
+        'municipality_id',
+        'status',
+        'barangay',
         'barangay',
     ];
 
+    public function municipality()
+    {
+        return $this->hasOne(Municipality::class, 'id', 'municipality_id');
+    }
 }

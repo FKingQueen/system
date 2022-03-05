@@ -16,6 +16,8 @@ class CreateFarmersTable extends Migration
         Schema::create('farmers', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->integer('municipality_id');
+            $table->integer('barangay_id');
             $table->string('name');
             $table->integer('status');
             $table->string('municipality');
