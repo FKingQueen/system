@@ -142,7 +142,8 @@
 
               <form action="{{ route('cropCalendar') }}" method="GET">
                 @csrf
-                <div class="input-group d-flex justify-content-left mb-3">
+                <div class="d-flex justify-content-between">
+                <div class="border d-flex justify-content-left mb-3">
                   <div>
                     <label for="municipality_id" class="input-group">Municipality</label>
                     <select id="municipality_id" type="text" name="municipality_id" class="custom-select form-control-border @error('municipality_id') is-invalid @enderror" name="municipality_id" required autocomplete="municipality_id" autofocus>
@@ -184,6 +185,19 @@
                     <button type="submit" class="btn btn-block btn-primary input-group"> FIND </button>
                   </div>
                 </div>
+
+                <div>
+                    <div class="input-group mt-4">
+                      @foreach($munis as $muni)
+                      <h1>{{$muni->name}}
+
+                        <small style="font-size: 20px;">({{$currentyear}})</small>
+                      </h1>
+                      @endforeach
+                    </div>
+                </div>
+                <div></div>
+                </div>
               </form>
 
               <table class="table table-bordered">
@@ -209,11 +223,24 @@
                     @php $mc=11 @endphp
                     @foreach($brgys as $brgy)
                       <tr>
-                        <td>B{{$brgy->id}}</td>
+                        <td>B{{$loop->iteration}}</td>
+                        
                         @while($i <=$mc)
-                          <td>
+                          <td class="p-0 text-center" style =" font-size: 10px;">
                             @foreach($percs[$i] as $perc[0])
-                              {{$perc[0]}} % <br>
+                            @php $try=$loop->iteration @endphp
+                              @if($perc[0] != null)
+                                @if($perc[0] != 0)
+                                  @foreach($crops as $crop)
+                                    @if($try == $loop->iteration)
+                                      {{$crop->name}} {{$perc[0]}} % <br>
+                                    @endif
+                                  @endforeach
+                                @endif
+                              @else
+                                
+                              @endif
+                              
                             @endforeach
                           </td>
                         @php $i++ @endphp

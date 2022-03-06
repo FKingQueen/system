@@ -8,6 +8,7 @@ use App\Models\Farming_data;
 use App\Models\Crop;
 use App\Models\Farmer;
 use App\Models\Barangay;
+use App\Models\Municipality;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -15,11 +16,18 @@ class CropCalendarController extends Controller
 {
     public function cropCalendar (Request $request)
     {   
+        if($request->municipality_id == null)
+        {
+            $request->municipality_id = 1;
+        }
+
+        $muni = Municipality::where('id',$request->municipality_id)->get();
+
         $crop = Crop::all();
         $date = Carbon::now();
-        $brgy = Barangay::where('municipality_id','1')->get();
-        $brgycount = Barangay::where('municipality_id','1')->count();
-        $brgyfirst = Barangay::where('municipality_id','1')->value('id');
+        $brgy = Barangay::where('municipality_id', $request->municipality_id)->get();
+        $brgycount = Barangay::where('municipality_id', $request->municipality_id)->count();
+        $brgyfirst = Barangay::where('municipality_id', $request->municipality_id)->value('id');
 
         for($i = 4; $i >= 0; $i--)
         {
@@ -67,8 +75,11 @@ class CropCalendarController extends Controller
         }
         else
         {
+            $year_id = 0;
             $total=1;
         }
+
+        $currentyear = $year[$year_id];
 
         $k=1;
         $x=$brgyfirst;
@@ -87,7 +98,7 @@ class CropCalendarController extends Controller
                         $i++;
                     } 
                     else  {
-                        $perc[$i][0] = 0;
+                        $perc[$i][0] = null;
                         $i++;
                     }
                     
@@ -95,8 +106,10 @@ class CropCalendarController extends Controller
                 }
                 $x++;
             }
+
+
             
         
-        return view('user/cropCalendar', array("years"=> $year,"percentages"=> $percentage,"crops" => $crop, "brgys" => $brgy, "percs" => $perc));
+        return view('user/cropCalendar', array("munis"=> $muni,"currentyear"=> $currentyear,"years"=> $year,"percentages"=> $percentage,"crops" => $crop, "brgys" => $brgy, "percs" => $perc));
     }
 }
