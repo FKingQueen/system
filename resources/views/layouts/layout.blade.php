@@ -107,6 +107,29 @@
                                 </a>
                             </li>
                             <!-- /Crop Calendar Button -->
+
+                            <!-- Crop Monitoring Button -->          
+                            <li class="nav-item">
+                                <a href="{{ route('cropMonitoring') }}" class="nav-link {{ route('cropMonitoring') == url()->current() ? 'active' : '' }} ">
+                                <i class="fas fa-lg fa-calendar-alt"></i>
+                                <p>
+                                   Crop Monitoring
+                                </p>
+                                </a>
+                            </li>
+                            <!-- /Crop Monitoring Button -->
+
+                            <!-- Yield Monitoring Button -->          
+                            <li class="nav-item">
+                                <a href="{{ route('yieldMonitoring') }}" class="nav-link {{ route('yieldMonitoring') == url()->current() ? 'active' : '' }} ">
+                                <i class="fas fa-lg fa-calendar-alt"></i>
+                                <p>
+                                   Yield Monitoring
+                                </p>
+                                </a>
+                            </li>
+                            <!-- /Crop Monitoring Button -->
+                            
                             @endif
                             
 

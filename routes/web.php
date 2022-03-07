@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\UpdateAccountController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AccountSettingController;
 use App\Http\Controllers\User\FarmerListController;
+use App\Http\Controllers\User\CropCalendarController;
+use App\Http\Controllers\User\CropMonitoringController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,8 +55,10 @@ Route::group(['middleware' => 'isUser'], function() {
     Route::post('/deleteCrop/{id}', [App\Http\Controllers\User\FarmerProfileController::class, 'deleteCrop'])->name('deleteCrop');
     //Crop Calendar
     Route::get('/cropCalendar', [App\Http\Controllers\User\CropCalendarController::class, 'cropCalendar'])->name('cropCalendar');
-
-    
+    //Crop Monitoring
+    Route::get('/cropMonitoring', [App\Http\Controllers\User\CropMonitoringController::class, 'cropMonitoring'])->name('cropMonitoring');
+    //Yield Monitoring
+    Route::get('/yieldMonitoring', [App\Http\Controllers\User\YieldMonitoringController::class, 'yieldMonitoring'])->name('yieldMonitoring');
 });
 
 

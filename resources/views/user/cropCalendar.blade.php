@@ -7,7 +7,7 @@
 @section('content')
 
   <!-- Content Header (Page header) -->
-  <div class="content-header">
+  <div class="content-header p-0">
       <div class="container-fluid">
       <div class="row">
           <div class="col-sm-6">
@@ -30,11 +30,11 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <div class="card-body">
+            <div class="card-body p-0">
 
-            <table class=" p-0" >
+            <table >
                 <thead>
-                <tr>
+                <tr >
                   <td class="p-0"><img src="{{ asset('images/greenline.png')}}" width="100%" alt="Image"></td>
                   <td class="p-0"><img src="{{ asset('images/greenline.png')}}" width="100%" alt="Image"></td>
                   <td class="p-0"><img src="{{ asset('images/greenline.png')}}" width="100%" alt="Image"></td>
@@ -48,9 +48,9 @@
                 </tr>
 
               </thead>
-              <tbody class="p-0">
+              <tbody >
                 <tr class="p-0">
-                  <th class="p-0">
+                  <th>
                     <div class="p-0 container-fluid text-center">
                         @foreach($crops as $crop)
                             @foreach($percentages[4] as $percentage[0])
@@ -63,7 +63,7 @@
                         @endforeach
                     </div>
                   </th>
-                  <th class="p-0">
+                  <th>
                     <div class="p-0 container-fluid text-center">
                         @foreach($crops as $crop)
                             @foreach($percentages[3] as $percentage[0])
@@ -76,7 +76,7 @@
                         @endforeach
                     </div>
                   </th>
-                  <th class="p-0">
+                  <th>
                     <div class="p-0 container-fluid text-center">
                         @foreach($crops as $crop)
                             @foreach($percentages[2] as $percentage[0])
@@ -89,7 +89,7 @@
                         @endforeach
                     </div>
                   </th>
-                  <th class="p-0">
+                  <th>
                     <div class="p-0 container-fluid text-center">
                         @foreach($crops as $crop)
                             @foreach($percentages[1] as $percentage[0])
@@ -102,7 +102,7 @@
                         @endforeach
                     </div>
                   </th>
-                  <th class="p-0">
+                  <th>
                     <div class="p-0 container-fluid text-center">
                     @foreach($crops as $crop)
                         @foreach($percentages[0] as $percentage[0])
@@ -143,7 +143,7 @@
               <form action="{{ route('cropCalendar') }}" method="GET">
                 @csrf
                 <div class="d-flex justify-content-between">
-                <div class="border d-flex justify-content-left mb-3">
+                <div class="d-flex justify-content-left mb-3">
                   <div>
                     <label for="municipality_id" class="input-group">Municipality</label>
                     <select id="municipality_id" type="text" name="municipality_id" class="custom-select form-control-border @error('municipality_id') is-invalid @enderror" name="municipality_id" required autocomplete="municipality_id" autofocus>
@@ -181,7 +181,7 @@
                         </span>
                       @enderror          
                   </div>
-                  <div class="ml-3 d-flex align-items-end"">
+                  <div class="ml-3 d-flex align-items-end">
                     <button type="submit" class="btn btn-block btn-primary input-group"> FIND </button>
                   </div>
                 </div>
@@ -222,26 +222,30 @@
                     @php $i=0 @endphp
                     @php $mc=11 @endphp
                     @foreach($brgys as $brgy)
-                      <tr>
-                        <td>B{{$loop->iteration}}</td>
+                      <tr >
+                        <td>{{$brgy->name}}</td>
                         
                         @while($i <=$mc)
                           <td class="p-0 text-center" style =" font-size: 10px;">
-                            @foreach($percs[$i] as $perc[0])
-                            @php $try=$loop->iteration @endphp
-                              @if($perc[0] != null)
-                                @if($perc[0] != 0)
-                                  @foreach($crops as $crop)
-                                    @if($try == $loop->iteration)
-                                      {{$crop->name}} {{$perc[0]}} % <br>
-                                    @endif
-                                  @endforeach
+                          <table >
+                            <tbody >
+                              @foreach($percs[$i] as $perc[0])
+                              @php $try=$loop->iteration @endphp
+                                @if($perc[0] != null)
+                                  @if($perc[0] != 0)
+                                    @foreach($crops as $crop)
+                                      @if($try == $loop->iteration)
+                                            <tr >
+                                              <td class="p-0">{{$crop->name}} {{$perc[0]}} % </td>
+                                            </tr>
+                                      @endif
+                                    @endforeach
+                                  @endif
+                                @else
                                 @endif
-                              @else
-                                
-                              @endif
-                              
-                            @endforeach
+                              @endforeach
+                            </tbody>
+                          </table>
                           </td>
                         @php $i++ @endphp
                         @endwhile
@@ -264,6 +268,6 @@
   </section>
   <!-- /.content -->
 
-  
+
 
 @endsection
