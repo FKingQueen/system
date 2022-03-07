@@ -76,7 +76,7 @@ class CropCalendarController extends Controller
         else
         {
             $year_id = 0;
-            $total=1;
+            $total = Farming_data::whereYear('created_at', $year[$year_id])->where('municipality_id', $request->municipality_id)->count();
         }
 
         $currentyear = $year[$year_id];
