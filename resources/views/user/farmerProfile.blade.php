@@ -272,7 +272,7 @@
                     <h4 class="modal-title">Composing Farming Activity</h4>
                   </div>
 
-                      <form method="POST" action="{{ route('compose', $farmer->id)}}">
+                      <form method="POST" action="{{ route('compose', $farmer->id)}}" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body bg-white">
 
@@ -372,7 +372,21 @@
                             </div>
                           </div>
 
-
+                          <div class="input-group">
+                            <label for="activity_file">Insert Activity File (Required):</label>
+                            <div class="input-group mb-3">  
+                                <input id="activity_file" type="file" class="form-control @error('activity_file') is-invalid @enderror" name="activity_file" required autocomplete="activity_file">
+                                @error('activity_file')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror 
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-portrait"></span>
+                                </div>
+                            </div>
+                          </div>
 
                         </div>
 
@@ -385,6 +399,7 @@
                 </div>
               </div>
               <!-- /Compose Modal -->
+
             </div>
             <!-- /.card-body -->
           </div>

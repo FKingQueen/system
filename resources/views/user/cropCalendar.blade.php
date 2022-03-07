@@ -227,25 +227,25 @@
                         
                         @while($i <=$mc)
                           <td class="p-0 text-center" style =" font-size: 10px;">
-                          <table >
-                            <tbody >
-                              @foreach($percs[$i] as $perc[0])
-                              @php $try=$loop->iteration @endphp
-                                @if($perc[0] != null)
-                                  @if($perc[0] != 0)
-                                    @foreach($crops as $crop)
-                                      @if($try == $loop->iteration)
-                                            <tr >
-                                              <td class="p-0">{{$crop->name}} {{$perc[0]}} % </td>
-                                            </tr>
-                                      @endif
-                                    @endforeach
+                            <table class="table container-fluid">
+                              <tbody>
+                                @foreach($percs[$i] as $perc[0])
+                                @php $try=$loop->iteration @endphp
+                                  @if($perc[0] != null)
+                                    @if($perc[0] != 0)
+                                      @foreach($crops as $crop)
+                                        @if($try == $loop->iteration)
+                                              <tr >
+                                                <td class="p-0">{{$crop->name}} {{$perc[0]}} % </td>
+                                              </tr>
+                                        @endif
+                                      @endforeach
+                                    @endif
+                                  @else
                                   @endif
-                                @else
-                                @endif
-                              @endforeach
-                            </tbody>
-                          </table>
+                                @endforeach
+                              </tbody>
+                            </table>
                           </td>
                         @php $i++ @endphp
                         @endwhile

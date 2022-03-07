@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Farmer;
 use App\Models\Farming_data;
+use App\Models\Activity_file;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FarmerProfileController extends Controller
 {
@@ -22,19 +25,12 @@ class FarmerProfileController extends Controller
         $date = Carbon::now();
         $month = $date->month;
 
+        $request->validate([
+            'crop_id'  => 'required',
+            'status_id'    => 'required',
+            'activity_file' => 'required|mimes:csv,txt',
+        ]);
 
-        if($request->status_id==1){
-            $request->validate([
-                'crop_id'  => 'required',
-                'status_id'    => 'required',
-            ]);
-        } 
-        else if($request->status_id==2){
-            $request->validate([
-                'crop_id'  => 'required',
-                'status_id'    => 'required',
-            ]);
-        }
 
         $farming_data = new Farming_data();
         $farming_data->crop_id = $request->crop_id;
@@ -63,6 +59,10 @@ class FarmerProfileController extends Controller
             $farming_data->yield = $total * (10 ** -3);
         }
         $farming_data->save();
+
+        $path = $request->file('activity_file')->getRealPath();
+
+        Excel::import(new UsersImport($farming_data->id), $path);
         
         return redirect()->route('farmerProfile', [$id])->with('success', 'Update Sucessfully');
     }
