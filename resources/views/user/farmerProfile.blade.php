@@ -112,7 +112,7 @@
                                       <tr>
                                         <th class="pl-1 p-0 text-left font-weight-light"> Upload new Activity Data from the device</th>
                                         <td class="p-1">
-                                        <button type="button" class="btn btn-block btn-default border" ><i class="fas fa-lg fa-upload" style="color: #0275d8;"></i></button> 
+                                        <button type="button" class="btn btn-block btn-default border" data-toggle="modal" data-dismiss="modal" data-target="#uploadActivity_{{$farming_data->id}}"><i class="fas fa-lg fa-upload" style="color: #0275d8;"></i></button> 
                                         </td>
                                       </tr>
                                       <tr >
@@ -259,6 +259,86 @@
                       </div>
                     </div>
                     <!-- /Udpate Crop Modal -->
+
+                    <!-- Uplaod Activity Modal -->
+                    <div class="modal fade" id="uploadActivity_{{$farming_data->id}}">
+                      <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+
+                        <div class="modal-header bg-green">
+                          <h4 class="modal-title">Uploading Farming Activity</h4>
+                        </div>
+
+                            <form method="POST" action="{{ route('uploadActivity', $farming_data->id) }}" enctype="multipart/form-data"> 
+                              @csrf
+                              <div class="modal-body bg-white">
+
+                                <div class="input-group mb-3">
+                                  <label for="status_id" class="input-group">Data Classification:</label>
+                                  <select id="updateStatus_id" type="text" name="status_id" class="custom-select form-control-border @error('status_id') is-invalid @enderror" name="status_id" required autocomplete="status_id" autofocus>
+                                      <option disabled selected>--- Select Classification ---</option>
+                                      <option value="1">Partial</option>
+                                      <option value="2">Complete</option>
+                                  </select>
+                                    @error('status_id')
+                                      <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                      </span>
+                                    @enderror          
+                                  <div class="input-group-append">
+                                    <div class="input-group-text">
+                                      <span class="fas fa-user"></span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div id="updateYield_id" class="input-group p-3 border border-top-0 mb-3 rounded">
+                                  <label for="yield" class="input-group">Yield:</label>
+                                  <div class="d-flex justify-content-center">
+                                    <div>
+                                      <br>
+                                      <label class="mt-2 font-weight-light">Yield (t/ha): </label>
+                                    </div>
+                                    
+                                    <div class="col-4 input-group-sm">
+                                      <label for="kg" class="input-group  font-weight-light" >Number of sacks: </label>
+                                      <input id="updateSacks" name="sacks" type="number" class="form-control" placeholder="sacks" min="0" autocomplete="kg" autofocus>
+                                    </div>
+                                      
+                                    <div class="col-4 input-group-sm">
+                                      <label for="kg" class="input-group font-weight-light">Weight of sack: </label>
+                                      <input id="updateKg" name="kg" type="number" class="form-control" min="0" step=".001" placeholder="kg" autocomplete="kg" autofocus>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="input-group">
+                                <label for="activity_file">Insert Activity File (Required):</label>
+                                <div class="input-group mb-3">  
+                                    <input id="activity_file" type="file" class="form-control @error('activity_file') is-invalid @enderror" name="activity_file" required autocomplete="activity_file">
+                                    @error('activity_file')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror 
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-portrait"></span>
+                                    </div>
+                                </div>
+                              </div>
+
+                              <div class="modal-footer justify-content-between bg-white">
+                                  <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Save changes</button>
+                              </div>
+                            </form>
+                      </div>
+                      </div>
+                    </div>
+                    <!-- /Upload Activity Modal -->
+
                   @endforeach
                 </tbody>
               </table>

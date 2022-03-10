@@ -99,7 +99,7 @@
 
                             <!-- Crop Calendar Button -->          
                             <li class="nav-item">
-                                <a href="{{ route('cropCalendar') }}" class="nav-link {{ route('cropCalendar') == url()->current() ? 'active' : '' }} ">
+                                <a type="button" data-toggle="modal" data-target="#cropCalendar" class="nav-link {{ route('cropCalendar') == url()->current() ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-calendar-alt"></i>
                                 <p>
                                    Crop Calendar
@@ -110,8 +110,8 @@
 
                             <!-- Crop Monitoring Button -->          
                             <li class="nav-item">
-                                <a href="{{ route('cropMonitoring') }}" class="nav-link {{ route('cropMonitoring') == url()->current() ? 'active' : '' }} ">
-                                <i class="fas fa-lg fa-calendar-alt"></i>
+                                <a type="button" data-toggle="modal" data-target="#cropMonitoring" class="nav-link {{ route('cropMonitoring') == url()->current() ? 'active' : '' }} ">
+                                <i class="fas fa-lg fa-leaf"></i>
                                 <p>
                                    Crop Monitoring
                                 </p>
@@ -122,7 +122,7 @@
                             <!-- Yield Monitoring Button -->          
                             <li class="nav-item">
                                 <a href="{{ route('yieldMonitoring') }}" class="nav-link {{ route('yieldMonitoring') == url()->current() ? 'active' : '' }} ">
-                                <i class="fas fa-lg fa-calendar-alt"></i>
+                                <i class="fas fa-lg fa-chalkboard"></i>
                                 <p>
                                    Yield Monitoring
                                 </p>
@@ -188,59 +188,199 @@
         </div>
         <!-- ./wrapper -->
 
-    </div>
-        <!-- Update Modal -->
-        <div class="modal fade" id="profile">
-        <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body ">
-                <div class="image text-center">
-                    <img src="{{ asset('uploads/user/'.(Auth::user()->prof_image))}}" class="img-circle w-50 img-fluid elevation-2 w-1" alt="User Image">
-                </div>
-                <br>
-                <div class="text-center">
-                    <a href="#" class="text-success text-decoration-none" data-dismiss="modal" data-toggle="modal" data-target="#upload" >Change Profile Picture</a>
-                </div>
-            </div>
-
-            <div class="modal-footer justify-content-between">
-            </div>
+        <!-- Update Profile Modal -->
         </div>
-        </div>
-    </div>
-    
-    <!-- /UplaodPicture Modal -->
-    <div class="modal fade" id="upload">
-        <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form method="POST" action="{{ route('changeProfile',Auth::user()->id) }}" enctype="multipart/form-data">
-                @csrf
+            <div class="modal fade" id="profile">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
                 <div class="modal-body ">
-                    <div class="input-group">
-                        <label for="prof_image">Insert Profile Picture:</label>
-                        <div class="input-group mb-3">  
-                            <input id="prof_image" type="file" class="form-control @error('prof_image') is-invalid @enderror" name="prof_image" required autocomplete="prof_image">
-                            @error('prof_image')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror 
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-portrait"></span>
+                    <div class="image text-center">
+                        <img src="{{ asset('uploads/user/'.(Auth::user()->prof_image))}}" class="img-circle w-50 img-fluid elevation-2 w-1" alt="User Image">
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <a href="#" class="text-success text-decoration-none" data-dismiss="modal" data-toggle="modal" data-target="#upload" >Change Profile Picture</a>
+                    </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Update Profile Modal -->
+        
+        <!-- UplaodPicture Modal -->
+        <div class="modal fade" id="upload">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form method="POST" action="{{ route('changeProfile',Auth::user()->id) }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body ">
+                        <div class="input-group">
+                            <label for="prof_image">Insert Profile Picture:</label>
+                            <div class="input-group mb-3">  
+                                <input id="prof_image" type="file" class="form-control @error('prof_image') is-invalid @enderror" name="prof_image" required autocomplete="prof_image">
+                                @error('prof_image')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror 
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-portrait"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer justify-content-between ">
-                    <button type="button" class="btn btn-close" data-dismiss="modal" data-toggle="modal" data-target="#profile">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </form>
+                    <div class="modal-footer justify-content-between ">
+                        <button type="button" class="btn btn-close" data-dismiss="modal" data-toggle="modal" data-target="#profile">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+            </div>
         </div>
+        <!-- /UplaodPicture Modal -->   
+
+        <!-- Crop Calendar Modal -->
         </div>
+            <div class="modal fade rounded" id="cropCalendar" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-md">
+                    <div class="modal-content rounded">
+                        <div class="modal-header p-1 d-flex justify-content-center">
+                        <h4 class="modal-title ml-2 ">Select</h4>
+                        </div>
+
+                        <form action="{{ route('cropCalendar') }}" method="GET">
+                            @csrf
+                            <div class="modal-body rounded bg-white">
+                                <div class="d-flex justify-content-left mb-3">
+                                    <div>
+                                        <label for="municipality_id" class="input-group">Municipality</label>
+                                        <select id="municipality_id" type="text" name="municipality_id" class="custom-select form-control-border @error('municipality_id') is-invalid @enderror" name="municipality_id" required autocomplete="municipality_id" autofocus>
+                                            <option disabled selected>--- Select Municipality ---</option>
+                                            <option value="1">Badoc</option>
+                                            <option value="2">Banna</option>
+                                            <option value="3">Batac City</option>
+                                            <option value="4">Currimao</option>
+                                            <option value="5">Dingras</option>
+                                            <option value="6">Marcos</option>
+                                            <option value="7">Nueva Era</option>
+                                            <option value="8">Paoay</option>
+                                            <option value="9">Pinili</option>
+                                            <option value="10">San Nicolas</option>
+                                            <option value="11">Solsona</option>
+                                        </select>
+                                            @error('municipality_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror          
+                                    </div>
+
+                                    <div class="ml-3">
+                                        <label for="year_id" class="input-group">Year</label>
+                                        <select id="year_id" type="text" name="year_id" class="custom-select form-control-border @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
+                                                <option disabled selected>--- Select  Year ---</option>
+                                            @php 
+                                                $year = now()->year-4;
+                                            @endphp
+
+                                            @for($i = 0; $i <= 4; $i++)
+                                                <option value="{{$i}}">{{$year}}</option>
+                                                @php $year = $year+1 @endphp
+                                            @endfor
+                                        </select>
+                                            @error('year_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror          
+                                    </div>
+                                    <div class="ml-3 d-flex align-items-end">
+                                        <button type="submit" class="btn btn-block btn-primary input-group"> FIND </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Crop Calendar Modal -->
+
+        <!-- Crop Monitoring Modal -->
+        </div>
+            <div class="modal fade rounded" id="cropMonitoring" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content rounded">
+                        <div class="modal-header p-1 d-flex justify-content-center">
+                        <h4 class="modal-title ml-2 ">Select</h4>
+                        </div>
+
+                        <form action="{{ route('cropMonitoring') }}" method="GET">
+                            @csrf
+                            <div class="modal-body rounded bg-white">
+                                <div class="d-flex justify-content-center mb-3">
+                                    <div>
+                                        <label for="crop_name" class="input-group">Municipality:</label>
+                                        <select id="municipality" type="text" name="municipality" class="form-control @error('municipality') is-invalid @enderror" name="municipality" required autocomplete="municipality" autofocus>
+                                            <option value="" disabled selected>--- Select Municipality ---</option>
+                                            @foreach ($municipalities as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                            @error('municipality')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror              
+                                    </div>
+
+                                    <div class="ml-3">
+                                        <label for="crop_name" class="input-group">Barangay:</label>
+                                        <select id="barangay" type="text" name="barangay" class="form-control @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
+                                            <option value="" disabled selected>--- Select Barangay ---</option>
+                                        </select>
+                                        @error('barangay')
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>   
+                                    <div class="ml-3">
+                                        <label for="year_id" class="input-group">Year</label>
+                                        <select id="year_id" type="text" name="year_id" class="custom-select form-control-border @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
+                                                <option disabled selected>--- Select  Year ---</option>
+                                            @php 
+                                                $year = now()->year-4;
+                                            @endphp
+
+                                            @for($i = 0; $i <= 4; $i++)
+                                                <option value="{{$year}}">{{$year}}</option>
+                                                @php $year = $year+1 @endphp
+                                            @endfor
+                                        </select>
+                                            @error('year_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror          
+                                    </div>     
+                                    <div class="ml-3 d-flex align-items-end">
+                                        <button type="submit" class="btn btn-block btn-primary input-group"> FIND </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Crop Monitoring Modal -->
+
     </div>
-    <!-- /UplaodPicture Modal -->   
 @else
 
     <div class="d-flex justify-content-center content">
@@ -278,6 +418,33 @@
             });
         </script>
     @endif
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $('select[name="municipality"]').on('change', function() {
+              var municipalityID = $(this).val();
+              if(municipalityID) {
+                  $.ajax({
+                      url: '/farmerList/ajax/'+municipalityID,
+                      type: "GET",
+                      dataType: "json",
+                      success:function(data) {
+
+                          
+                          $('select[name="barangay"]').empty();
+                          $.each(data, function(key, value) {
+                              $('select[name="barangay"]').append('<option value="'+ key +'">'+ value +'</option>');
+                          });
+
+
+                      }
+                  });
+              }else{
+                  $('select[name="barangay"]').empty();
+              }
+          });
+      });
+    </script>
 
 
     @yield('js')

@@ -10,7 +10,9 @@ use App\Models\Activity_file;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Imports\UsersImport;
+use App\Imports\UsersUpdate;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Municipality;
 
 class FarmerProfileController extends Controller
 {
@@ -18,7 +20,9 @@ class FarmerProfileController extends Controller
     {
         $farmer = Farmer::all()->where("id", $id);
         $farming_data = Farming_data::with('crop', 'cropping_season', 'status')->get()->where("farmer_id", $id);
-        return view('user/farmerProfile', array("farmers"=> $farmer, "farming_datas" => $farming_data));
+        $municipality = DB::table("municipalities")->pluck("name","id");
+
+        return view('user/farmerProfile', array("farmers"=> $farmer, "farming_datas" => $farming_data, "municipalities" => $municipality));
     }
 
     public function compose(Request $request, $id){
@@ -106,6 +110,41 @@ class FarmerProfileController extends Controller
         DB::table('farming_datas')
         ->where('id', $id)
         ->delete();
+
+        return redirect()->route('farmerProfile', [$farmer_id])->with('success', 'Update Sucessfully');
+    }
+
+    public function uploadActivity (Request $request, $id)
+    {
+        $request->validate([
+            'status_id'    => 'required',
+            'activity_file' => 'required|mimes:csv,txt',
+        ]);
+
+        $farmer_id = DB::table('farming_datas')->where('id', $id)->value('farmer_id');
+        $lot_size = DB::table('farming_datas')->where('id', $id)->value('lot_size');
+
+        if($request->status_id == 2){
+            $total = ($request->sacks*$request->kg)/$lot_size;
+            $yield = $total * (10 ** -3);
+
+            DB::table('farming_datas')
+            ->where('id', $id)
+            ->update([
+            'yield'  => $yield,
+            ]);
+        }
+
+        DB::table('farming_datas')
+            ->where('id', $id)
+            ->update([
+            'status_id' => $request->status_id,
+            ]);
+
+
+        $path = $request->file('activity_file')->getRealPath();
+
+        Excel::import(new UsersUpdate($id), $path);
 
         return redirect()->route('farmerProfile', [$farmer_id])->with('success', 'Update Sucessfully');
     }

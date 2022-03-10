@@ -202,8 +202,8 @@
 
               <table class="table table-bordered">
                 <thead>
-                  <tr class="text-center">
-                    <th scope="col" style="width: 0%;"></th>
+                  <tr class="text-center ">
+                    <th scope="col" style="width: 0%;">Barangay</th>
                     <th scope="col" style="width: 8%;">J</th>
                     <th scope="col" style="width: 8%;">F</th>
                     <th scope="col" style="width: 8%;">M</th>

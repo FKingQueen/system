@@ -16,10 +16,13 @@ class CropCalendarController extends Controller
 {
     public function cropCalendar (Request $request)
     {   
-        if($request->municipality_id == null)
-        {
-            $request->municipality_id = 1;
-        }
+
+        $request->validate([
+            'year_id'  => 'required',
+            'municipality_id'  => 'required',
+        ]);
+
+
 
         $muni = Municipality::where('id',$request->municipality_id)->get();
 
@@ -73,11 +76,6 @@ class CropCalendarController extends Controller
                 $total=1;
             }
         }
-        else
-        {
-            $year_id = 0;
-            $total = Farming_data::whereYear('created_at', $year[$year_id])->where('municipality_id', $request->municipality_id)->count();
-        }
 
         $currentyear = $year[$year_id];
 
@@ -107,9 +105,17 @@ class CropCalendarController extends Controller
                 $x++;
             }
 
-
-            
+            $municipality = DB::table("municipalities")->pluck("name","id");
         
-        return view('user/cropCalendar', array("munis"=> $muni,"currentyear"=> $currentyear,"years"=> $year,"percentages"=> $percentage,"crops" => $crop, "brgys" => $brgy, "percs" => $perc));
+        return view('user/cropCalendar', array(
+            "munis"=> $muni,
+            "currentyear"=> $currentyear,
+            "years"=> $year,
+            "percentages"=> $percentage,
+            "crops" => $crop, 
+            "brgys" => $brgy, 
+            "percs" => $perc,
+            "municipalities" => $municipality
+        ));
     }
 }
