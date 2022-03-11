@@ -64,9 +64,13 @@ class FarmerProfileController extends Controller
         }
         $farming_data->save();
 
+        $status_id = $farming_data->status_id;
+
+        $farmer_id = $farming_data->farmer_id;
+
         $path = $request->file('activity_file')->getRealPath();
 
-        Excel::import(new UsersImport($farming_data->id), $path);
+        Excel::import(new UsersImport($farmer_id, $farming_data->id, $status_id), $path);
         
         return redirect()->route('farmerProfile', [$id])->with('success', 'Update Sucessfully');
     }
@@ -141,10 +145,13 @@ class FarmerProfileController extends Controller
             'status_id' => $request->status_id,
             ]);
 
+        $status_id = $request->status_id;
+        $farmer_id = Farming_data::where('id', $id)->value('farmer_id');
 
+        
         $path = $request->file('activity_file')->getRealPath();
 
-        Excel::import(new UsersUpdate($id), $path);
+        Excel::import(new UsersUpdate($id, $status_id, $farmer_id), $path);
 
         return redirect()->route('farmerProfile', [$farmer_id])->with('success', 'Update Sucessfully');
     }

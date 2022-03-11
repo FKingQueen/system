@@ -97,7 +97,7 @@
               <h3 class="text-center">FARMING ACTIVITIES</h3>
             </div>
 
-            <div class="input-group">
+            <div class="input-group" >
               <table class="table table-hover text-center">
                 <thead>
                   <tr>
@@ -109,15 +109,40 @@
                 </thead>
                 <tbody>
                   @foreach($farmers as $farmer)
+                    @php $count = $loop->index @endphp
                     <tr>
-                        <th scope="row"> <a type="button">{{$farmer->name}}</a></th>
-                        @foreach($pwaters as $pwater)
-                        <td>{{$pwater}}</td>
+                        <th scope="row"> 
+                          <a type="button" data-toggle="collapse" data-target="#accordion_{{$farmer->id}}" class="clickable">
+                            {{$farmer->name}}
+                          </a>
+                        </th>
+                        @foreach($Fpercents[$count] as $Fpercent)
+                        @php $c = $loop->index @endphp
+                          <td>{{$Fpercent}}%</td>
                         @endforeach
                     </tr>
+
+                    <tr >
+                      <td colspan="0">
+                        <div id="accordion_{{$farmer->id}}" class="collapse"></div>
+                      </td>
+                      <td colspan="0">
+                        <div id="accordion_{{$farmer->id}}" class="collapse">wtf</div>
+                      </td>
+                      <td colspan="0">
+                        <div id="accordion_{{$farmer->id}}" class="collapse">wtf</div>
+                      </td>
+                      <td colspan="0">
+                        <div id="accordion_{{$farmer->id}}" class="collapse">wtf</div>
+                      </td>
+                    </tr>
+
+                
+                          
                   @endforeach
                 </tbody>
               </table>
+              
             </div>
 
             </div>
@@ -138,4 +163,13 @@
 
 @section('js')
 
+<script data-cfasync="false" src="https://adminlte.io/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
+
+<script src="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="https://adminlte.io/themes/AdminLTE/bower_components/fastclick/lib/fastclick.js"></script>
+
+<script src="https://adminlte.io/themes/AdminLTE/dist/js/adminlte.min.js"></script>
+
+<script src="https://adminlte.io/themes/AdminLTE/dist/js/demo.js"></script>
 @endsection

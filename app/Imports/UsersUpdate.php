@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Activity_file;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class UsersUpdate implements ToModel, WithHeadingRow
@@ -14,16 +15,28 @@ class UsersUpdate implements ToModel, WithHeadingRow
     * @return \Illuminate\Database\Eloquent\Model|null
     */
 
-    public function  __construct($id)
+    public function  __construct($id, $status_id, $farmer_id)
     {
         $this->id = $id;
+        $this->status_id = $status_id;
+        $this->farmer_id = $farmer_id;
     }
 
     public function model(array $row)
     {
-        return new Activity_file([
+        $activity_file = new Activity_file([
             "activity" => $row['activity'],
             "farming_data_id" =>  $this->id,
+            "status_id" =>  $this->status_id,
+            "farmer_id" =>  $this->farmer_id,
         ]);
+
+        DB::table('activity_files')
+        ->where('farming_data_id', $this->id)
+        ->update([
+        'status_id' => $this->status_id,
+        ]);
+
+        return $activity_file;
     }
 }

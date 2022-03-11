@@ -16,6 +16,8 @@ class CreateActivityFilesTable extends Migration
         Schema::create('activity_files', function (Blueprint $table) {
             $table->id();
             $table->integer('farming_data_id');
+            $table->integer('farmer_id');
+            $table->integer('status_id');
             $table->string('activity');
             $table->timestamps();
         });

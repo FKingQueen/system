@@ -21,81 +21,48 @@ class CropMonitoringController extends Controller
 
         ]);
 
-        $farmer = Farmer::where('municipality_id', $request->municipality)->where('barangay_id', $request->barangay)->get();
-        $count = Farming_data::all()->count();
+        $farmer = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', $request->municipality)->where('barangay_id', $request->barangay)->get();
+        $Fcount = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', $request->municipality)->where('barangay_id', $request->barangay)->count();
 
-
-        foreach($farmer as $key => $farmers){
-            $farming_data[$key] = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $farmers->id)->value('id');
+        for($i = 0; $i <= $Fcount-1; $i++)
+        {
+            $Fid[$i] = $farmer[$i]->id;
         }
 
-
-        foreach($farming_data as $key => $farming_datas){
-            $count = Farming_data::where('id', $farming_data[$key])->count();
-            dd($count); 
-            for($i = 0; $i <= 2; $i++)
+        for($i = 0; $i <= $Fcount-1; $i++)
+        {
+            for($j = 0; $j <= 2; $j++)
             {
-                
-                    $fwater[$i] = Activity_file::where('farming_data_id', $farming_data[$key])->where('activity', 'water')->count();
-                    $ffertilizer[$i] = Activity_file::where('farming_data_id', $farming_data[$key])->where('activity', 'fertilizer')->count();
-                    $fpesticide[$i] = Activity_file::where('farming_data_id', $farming_data[$key])->where('activity', 'pesticide')->count();
-                
-            }
-        }
-
-           
-        
-
-        foreach($farming_data as $key => $farming_datas){
-            for($i = 0; $i <= $count-1; $i++)
-            {
-                $tactivity[$i] = Activity_file::where('farming_data_id', $farming_data[$key])->count();
-            }
-        }
-
-        
-
-
-        for($i = 0; $i <= $count-1; $i++)
-            {
+                if($j==0)
                 {
-                    $pwater[$i] = ($fwater[$i]/$tactivity[$i])*100;
-                    $pfertilizer[$i] = ($ffertilizer[$i]/$tactivity[$i])*100;
-                    $ppesticide[$i] = ($fpesticide[$i]/$tactivity[$i])*100;
+                    $Fvalue[$i][$j] = Activity_file::where('farmer_id', $Fid[$i])->where('activity', 'water')->where('status_id', '2')->count();
+                } else if($j==1)
+                {
+                    $Fvalue[$i][$j] = Activity_file::where('farmer_id', $Fid[$i])->where('activity', 'fertilizer')->where('status_id', '2')->count();
+                } else if($j==2)
+                {
+                    $Fvalue[$i][$j] = Activity_file::where('farmer_id', $Fid[$i])->where('activity', 'pesticide')->where('status_id', '2')->count();
                 }
             }
-        
-        // foreach($farmer as $key => $farmers){
-        //     for($i = 0; $i <= $count-1; $i++)
-        //     {
-        //             $fwater[$i] = Activity_file::where('farming_data_id', $farming_data[$key])->where('activity', 'water')->count();
-        //             $ffertilizer[$i] = Activity_file::where('farming_data_id', $farming_data[$key])->where('activity', 'fertilizer')->count();
-        //             $fpesticide[$i] = Activity_file::where('farming_data_id', $farming_data[$key])->where('activity', 'pesticide')->count();
-        //     }
-        // }
+        }
 
-        // foreach($farmer as $key => $farmers){
-        //     for($i = 0; $i <= $count-1; $i++)
-        //     {
-        //         $tactivity[$i] = Activity_file::where('farming_data_id', $farming_data[$key])->count();
-        //     }
-        // }
-
-
-        // foreach($farmer as $key => $farmers){
-        //     for($i = 0; $i <= $count-1; $i++)
-        //         {
-        //             
-        //             
-        //                 $pwater[$key][$i] = ($fwater[$i]/$tactivity[$i])*100;
-        //                 $pfertilizer[$key][$i] = ($ffertilizer[$i]/$tactivity[$i])*100;
-        //                 $ppesticide[$key][$i] = ($fpesticide[$i]/$tactivity[$i])*100;
-        //             
-        //         }
-        // }
-        
+        for($i = 0; $i <= $Fcount-1; $i++)
+        {
+            $count = Activity_file::where('farmer_id', $Fid[$i])->count();
+            for($j = 0; $j <= 2; $j++)
+            {
+                if($count != 0)
+                {
+                    $Fpercent[$i][$j] = number_format(($Fvalue[$i][$j]/$count)*100);
+                } else if($count == 0)
+                {
+                    $Fpercent[$i][$j] = null;
+                }
+                
+            }
+        } 
         
         $municipality = DB::table("municipalities")->pluck("name","id");
-        return view('user/cropMonitoring', array("municipalities" => $municipality, "farmers" => $farmer, "pwaters" => $pwater, "pfertilizers" => $pfertilizer, "ppesticides" => $ppesticide));
+        return view('user/cropMonitoring', array("municipalities" => $municipality, "farmers" => $farmer, "Fpercents" => $Fpercent));
     }
 }
