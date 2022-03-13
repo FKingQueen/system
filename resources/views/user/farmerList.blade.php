@@ -78,7 +78,7 @@
                       </div>
                     </td>
                     <td class="text-center " >
-                      Brgy. {{$farmer->barangay}}, {{$farmer->municipality}}
+                      Brgy. {{$farmer->barangays->name}}, {{$farmer->municipality}}
                     </td>
                     <td class="text-center">
                       <button type="button" class="p-0 btn btn-block btn-primary btn-xm "   data-toggle="modal" data-target="#option_{{$farmer->id}}">Option</button>

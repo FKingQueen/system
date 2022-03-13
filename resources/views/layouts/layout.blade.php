@@ -26,6 +26,7 @@
             <!-- Navbar -->
             <nav class="main-header navbar navbar-expand navbar-white navbar-light">
                 
+                
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -103,7 +104,7 @@
 
                             <!-- Crop Calendar Button -->          
                             <li class="nav-item">
-                                <a type="button" data-toggle="modal" data-target="#cropCalendar" class="nav-link {{ route('cropCalendar') == url()->current() ? 'active' : '' }} ">
+                                <a type="button" data-toggle="{{ route('cropCalendar') == url()->current() ? '' : 'modal' }}" data-target="#cropCalendar" class="nav-link {{ route('cropCalendar') == url()->current() ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-calendar-alt"></i>
                                 <p>
                                    Crop Calendar
@@ -114,7 +115,7 @@
 
                             <!-- Crop Monitoring Button -->          
                             <li class="nav-item">
-                                <a type="button" data-toggle="modal" data-target="#cropMonitoring" class="nav-link {{ route('cropMonitoring') == url()->current() ? 'active' : '' }} ">
+                                <a type="button" data-toggle="{{ route('cropMonitoring') == url()->current() ? '' : 'modal' }}" data-target="#cropMonitoring" class="nav-link {{ route('cropMonitoring') == url()->current() ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-leaf"></i>
                                 <p>
                                    Crop Monitoring
@@ -394,8 +395,7 @@
     
 @endif
 
-    <!-- jQuery -->
-    <script src="{{ asset('js/app.js') }}"></script>
+
     
     <!-- SweetAlert2 -->
     <script src="https://adminlte.io/themes/v3/plugins/sweetalert2/sweetalert2.min.js"></script>
@@ -417,6 +417,29 @@
                         delay: 3000,
                         autohide: true,
                         body: 'Succesfully Change'
+                    })
+                });
+            });
+        </script>
+    @endif
+
+    @if(Session::has('failed'))
+        <script>
+            $(function() {
+                var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+                });
+
+                $(function() {
+                    $(document).Toasts('create', {
+                        class: 'bg-danger',
+                        title: 'Notification',
+                        delay: 3000,
+                        autohide: true,
+                        body: 'Something is Wrong'
                     })
                 });
             });
@@ -453,7 +476,9 @@
 
     @yield('js')
 
-
+    <!-- jQuery -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    
 </body>
 </html>
 

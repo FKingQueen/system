@@ -24,7 +24,10 @@ class CropMonitoringController extends Controller
 
         $farmer = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', $request->municipality)->where('barangay_id', $request->barangay)->get();
         $Fcount = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', $request->municipality)->where('barangay_id', $request->barangay)->count();
-
+        if($Fcount == 0)
+        {
+             return back()->with('failed', 'Update Sucessfully');
+        }
         for($i = 0; $i <= $Fcount-1; $i++)
         {
             $Fid[$i] = $farmer[$i]->id;
@@ -62,9 +65,12 @@ class CropMonitoringController extends Controller
                 }
                 
             }
+
         } 
 
-        $FDcount = Farming_data::whereYear('created_at', '=', $request->year_id)->where('municipality_id', $request->municipality)->where('barangay_id', $request->barangay)->count();
+        
+
+        $FDcount = Farming_data::whereYear('created_at', '=', $request->year_id)->where('municipality_id', $request->municipality)->where('status_id', '2')->where('barangay_id', $request->barangay)->count();
         $FData = Farming_data::with('crop')->whereYear('created_at', '=', $request->year_id)->where('municipality_id', $request->municipality)->where('barangay_id', $request->barangay)->get()->sortBy('farmer_id');
        
        
@@ -82,7 +88,7 @@ class CropMonitoringController extends Controller
         
         for($k = 0; $k <= $Fcount-1; $k++)
         {
-            $ccount = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $Fid[$k])->where('municipality_id', $request->municipality)->where('barangay_id', $request->barangay)->count();
+            $ccount = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $Fid[$k])->where('municipality_id', $request->municipality)->where('status_id', '2')->where('barangay_id', $request->barangay)->count();
             $realCount[$k] = $ccount; 
             for($i = 0; $i <= $ccount-1; $i++)
             {
@@ -110,7 +116,7 @@ class CropMonitoringController extends Controller
         for($k = 0; $k <= $Fcount-1; $k++)
         {
             $x = 0;
-            $ccount = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $Fid[$k])->where('municipality_id', $request->municipality)->where('barangay_id', $request->barangay)->count();
+            $ccount = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $Fid[$k])->where('municipality_id', $request->municipality)->where('status_id', '2')->where('barangay_id', $request->barangay)->count();
             while($x <= $ccount-1)
             {
                 
@@ -124,8 +130,10 @@ class CropMonitoringController extends Controller
 
         for($i = 0; $i <= $crops-1; $i++)
         {
-            $cropC[$i] = Farming_data::where('crop_id', $i+1)->count();
+            $cropC[$i] = Farming_data::whereYear('created_at', '=', $request->year_id)->where('status_id', '2')->where('municipality_id', $request->municipality)->where('crop_id', $i+1)->count();
         }
+
+      
 
         
         $municipality = DB::table("municipalities")->pluck("name","id");

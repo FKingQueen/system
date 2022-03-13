@@ -1,8 +1,6 @@
 @extends('layouts.layout')
 
 @section('css')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js" integrity="sha512-vBmx0N/uQOXznm/Nbkp7h0P1RfLSj0HQrFSzV8m7rOGyj30fYAOKHYvCNez+yM8IrfnW0TCodDEjRqf6fodf/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 @endsection
 
@@ -21,6 +19,68 @@
   </div>
   <!-- /.content-header -->
 
+
+  <div class="card-body">
+                
+    <form action="{{ route('cropMonitoring') }}" method="GET">
+      @csrf
+      <div class="modal-body rounded bg-white">
+          <div class="d-flex justify-content-left">
+              <div>
+                  <label for="crop_name" class="input-group">Municipality:</label>
+                  <select id="municipality" type="text" name="municipality" class="form-control @error('municipality') is-invalid @enderror" name="municipality" required autocomplete="municipality" autofocus>
+                      <option value="" disabled selected>--- Select Municipality ---</option>
+                      @foreach ($municipalities as $key => $value)
+                          <option value="{{ $key }}">{{ $value }}</option>
+                      @endforeach
+                  </select>
+                      @error('municipality')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror              
+              </div>
+
+              <div class="ml-3">
+                  <label for="crop_name" class="input-group">Barangay:</label>
+                  <select id="barangay" type="text" name="barangay" class="form-control @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
+                      <option value="" disabled selected>--- Select Barangay ---</option>
+                  </select>
+                  @error('barangay')
+                      <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+              </div>   
+              <div class="ml-3">
+                  <label for="year_id" class="input-group">Year</label>
+                  <select id="year_id" type="text" name="year_id" class="custom-select form-control-border @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
+                          <option disabled selected>--- Select  Year ---</option>
+                      @php 
+                          $year = now()->year-4;
+                      @endphp
+
+                      @for($i = 0; $i <= 4; $i++)
+                          <option value="{{$year}}">{{$year}}</option>
+                          @php $year = $year+1 @endphp
+                      @endfor
+                  </select>
+                      @error('year_id')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror          
+              </div>     
+              <div class="ml-3 d-flex align-items-end">
+                  <button type="submit" class="btn btn-block btn-primary input-group"> FIND </button>
+              </div>
+          </div>
+      </div>
+    </form>
+
+  </div>
+  <!-- /.card-body -->
+
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -29,54 +89,14 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-              <div style="width: 100%; margin: auto;">
-                <canvas  style="height: 50px;" id="barChart"></canvas>
+              
+
+              
+
+              <div>
+                <h4 class="text-center">Sowing-Harvesting Chart</h4>
+                <canvas style="position: relative; height:40vh; width:80vw" id="barChart"></canvas>
               </div>
-
-              <!-- <form action="{{ route('cropMonitoring') }}" method="GET">
-                @csrf
-                <div class="d-flex justify-content-between">
-                  <div class="d-flex justify-content-left mb-3">
-                    <div>
-                      <label for="municipality_id" class="input-group">Municipality</label>
-                      <select id="municipality_id" type="text" name="municipality_id" class="custom-select form-control-border @error('municipality_id') is-invalid @enderror" name="municipality_id" required autocomplete="municipality_id" autofocus>
-                          <option disabled selected>--- Select Municipality ---</option>
-                          <option value="1">Badoc</option>
-                          <option value="2">Banna</option>
-                          <option value="3">Batac City</option>
-                          <option value="4">Currimao</option>
-                          <option value="5">Dingras</option>
-                          <option value="6">Marcos</option>
-                          <option value="7">Nueva Era</option>
-                          <option value="8">Paoay</option>
-                          <option value="9">Pinili</option>
-                          <option value="10">San Nicolas</option>
-                          <option value="11">Solsona</option>
-                      </select>
-                        @error('municipality_id')
-                          <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                          </span>
-                        @enderror          
-                    </div>
-
-                    <div class="ml-3">
-                      <label for="year_id" class="input-group">Year</label>
-                      <select id="year_id" type="text" name="year_id" class="custom-select form-control-border @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
-                          <option disabled selected>--- Select  Year ---</option>
-                      </select>
-                        @error('year_id')
-                          <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                          </span>
-                        @enderror          
-                    </div>
-                    <div class="ml-3 d-flex align-items-end">
-                      <button type="submit" class="btn btn-block btn-primary input-group"> FIND </button>
-                    </div>
-                  </div>
-                </div>
-              </form> -->
 
             </div>
             <!-- /.card-body -->
@@ -189,20 +209,6 @@
 
 @section('js')
 
-<script data-cfasync="false" src="https://adminlte.io/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://adminlte.io/themes/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
-
-<script src="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<script src="https://adminlte.io/themes/AdminLTE/bower_components/fastclick/lib/fastclick.js"></script>
-
-<script src="https://adminlte.io/themes/AdminLTE/dist/js/adminlte.min.js"></script>
-
-<script src="https://adminlte.io/themes/AdminLTE/dist/js/demo.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js" integrity="sha512-vBmx0N/uQOXznm/Nbkp7h0P1RfLSj0HQrFSzV8m7rOGyj30fYAOKHYvCNez+yM8IrfnW0TCodDEjRqf6fodf/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
 <script>
   $(function(){
     var cropCs = <?php echo json_encode($cropCs); ?>;
@@ -210,12 +216,15 @@
     var barChart = new Chart(barCanvas,{
       type: 'bar',
       data:{
-        labels:['Bitter Gourd', 'Corn', 'Ladys Finger', 'Rice', 'String Beans', 'Corn', 'Ladys Finger', 'Rice', 'String Beans'],
+        labels:['Bitter Gourd', 'Corn', 'Ladys Finger', 'Rice', 'String Beans'],
         datasets:[
           {
             label: 'Total Crop',
             data:cropCs,
+            barThickness: 50,
+            minBarLength: 2,
             backgroundColor:['green', 'green', 'green', 'green', 'green']
+            
           }
         ]
       },
@@ -223,7 +232,8 @@
         scales:{
           yAxes:[{
             ticks:{
-              beginAtZero:true
+              beginAtZero:true,
+              max: 10
             }
           }]
         }

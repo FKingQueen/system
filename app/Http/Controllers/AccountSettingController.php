@@ -12,7 +12,8 @@ class AccountSettingController extends Controller
 {
     public function accountSetting()
     {
-        return view('accountSetting');
+        $municipality = DB::table("municipalities")->pluck("name","id");
+        return view('accountSetting', array("municipalities" => $municipality));
     }
 
     public function updateAccount(Request $request, $id)

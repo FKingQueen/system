@@ -2,23 +2,20 @@
 
 @section('content')
 <div class="container-fluid p-0">
-<nav class="navbar navbar-expand-md navbar-light mb-4 container-fluid" style="background-color: #1d800e;">
-<div class="container-fluid mb-4">
-  <a class="text-white"><b>Script Farm Logo</b></a>
-</div>
+<nav class="navbar navbar-expand-md navbar-light container-fluid" style="background-color: #1d800e; height: 10%;">
 </nav>
 <br><br>
-  <div class="d-flex justify-content-center mt-4">
-    
+
+  <div class="d-flex justify-content-center mt-0">
     <div class="login-box" style="width: 30rem;">
-      <!-- /.login-logo -->
-      <div class="register-logo">
-        <a><b>Script Farm</b></a>
-      </div>
+          <!-- /.login-logo -->
+          <div class="register-logo">
+            <img src="{{ asset('images/Logo1.png')}}" width="60%" height="60%" alt="Image" >
+          </div>
 
       <div class="card">
         <div class="card-body login-card-body"  style="background-color: #E5E4D7;">
-          <p class="login-box-msg">Sign in to start your session</p>
+          <p class="login-box-msg">Sign in to start your session </p>
 
           <form method="POST" action="{{ route('login') }}">
             @csrf

@@ -18,7 +18,7 @@ class FarmerListController extends Controller
     {
         $municipality = DB::table("municipalities")->pluck("name","id");
         $farming_data= Farming_data::all(); 
-        $farmer = Farmer::all()->where("user_id", Auth::user()->id);
+        $farmer = Farmer::with('barangays')->get()->where("user_id", Auth::user()->id);
 
         return view('user/farmerList', array('municipalities' => $municipality, 'farmers' => $farmer, 'farming_datas' => $farming_data));
     }

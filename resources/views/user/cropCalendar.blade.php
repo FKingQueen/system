@@ -204,18 +204,18 @@
                 <thead>
                   <tr class="text-center ">
                     <th scope="col" style="width: 0%;">Barangay</th>
-                    <th scope="col" style="width: 8%;">J</th>
-                    <th scope="col" style="width: 8%;">F</th>
-                    <th scope="col" style="width: 8%;">M</th>
-                    <th scope="col" style="width: 8%;">A</th>
-                    <th scope="col" style="width: 8%;">M</th>
-                    <th scope="col" style="width: 8%;">Jn</th>
-                    <th scope="col" style="width: 8%;">Jl</th>
-                    <th scope="col" style="width: 8%;">A</th>
-                    <th scope="col" style="width: 8%;">S</th>
-                    <th scope="col" style="width: 8%;">O</th>
-                    <th scope="col" style="width: 8%;">N</th>
-                    <th scope="col" style="width: 8%;">D</th>
+                    <th scope="col" style="width: 8%;">Jan</th>
+                    <th scope="col" style="width: 8%;">Feb</th>
+                    <th scope="col" style="width: 8%;">Mar</th>
+                    <th scope="col" style="width: 8%;">Apr</th>
+                    <th scope="col" style="width: 8%;">May</th>
+                    <th scope="col" style="width: 8%;">Jun</th>
+                    <th scope="col" style="width: 8%;">Jul</th>
+                    <th scope="col" style="width: 8%;">Aug</th>
+                    <th scope="col" style="width: 8%;">Sep</th>
+                    <th scope="col" style="width: 8%;">Oct</th>
+                    <th scope="col" style="width: 8%;">Nov</th>
+                    <th scope="col" style="width: 8%;">Dec</th>
                   </tr>
                 </thead>
                 <tbody>

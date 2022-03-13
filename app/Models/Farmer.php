@@ -23,4 +23,9 @@ class Farmer extends Model
     {
         return $this->hasOne(Municipality::class, 'id', 'municipality_id');
     }
+
+    public function barangays()
+    {
+        return $this->hasOne(Barangay::class, 'id', 'barangay_id');
+    }
 }

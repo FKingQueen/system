@@ -2,17 +2,15 @@
 
 @section('content')
 <div class="container-fluid p-0">
-<nav class="navbar navbar-expand-md navbar-light container-fluid" style="background-color: #1d800e;">
-<div class="container-fluid mb-3">
-  <a class="text-white"><b>Script Farm Logo</b></a>
-</div>
+<nav class="navbar navbar-expand-md navbar-light container-fluid" style="background-color: #1d800e; height: 10%;">
 </nav>
-<br><br>
-  <div class="d-flex justify-content-center mt-2">
+<br>
+
+  <div class="d-flex justify-content-center">
     <div class="register-box" style="width: 25rem;">
 
       <div class="register-logo">
-        <a><b>Script Farm</b></a>
+        <img src="{{ asset('images/Logo1.png')}}" width="60%" height="60%" alt="Image" >
       </div>
 
       <div class="card" >
@@ -138,9 +136,7 @@
         </div>
         <!-- /.form-box -->
       </div><!-- /.card -->
-      </div>
-      <!-- /.register-box -->
-
+    </div>
+    <!-- /.register-box -->
   </div>
-</div>
 @endsection
