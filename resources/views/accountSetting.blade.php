@@ -110,7 +110,7 @@
 
             </div>
             <div class="modal-footer justify-content-between">
-                <a  class="btn btn-close"  href="{{ route('home') }}">Close</a>
+                <a  class="btn btn-close"  href="{{ url()->previous() }}">Close</a>
                 <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
         </form>

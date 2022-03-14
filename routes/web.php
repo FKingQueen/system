@@ -20,7 +20,7 @@ use App\Http\Controllers\User\CropMonitoringController;
 */
 
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 Route::group(['middleware' => 'isUser'], function() {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     //Farmer List
     Route::get('/farmerList', [App\Http\Controllers\User\FarmerListController::class, 'farmerList'])->name('farmerList');
     Route::get('/farmerList/ajax/{id}', [App\Http\Controllers\User\FarmerListController::class, 'farmerListAjax'])->name('farmerListAjax');
