@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Approval;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -17,7 +18,8 @@ class RegistrationApprovalController extends Controller
     public function registrationApproval()
     {
         $approval = Approval::all();
-        return view('admin.registrationApproval', array('approvals' => $approval));
+        $municipality = DB::table("municipalities")->pluck("name","id");
+        return view('admin.registrationApproval', array('approvals' => $approval, "municipalities" => $municipality));
     }
 
     public function registration(Request $request)

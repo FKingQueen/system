@@ -61,10 +61,13 @@ Route::group(['middleware' => 'isUser'], function() {
     Route::get('/cropMonitoring', [App\Http\Controllers\User\CropMonitoringController::class, 'cropMonitoring'])->name('cropMonitoring');
     //Yield Monitoring
     Route::get('/yieldMonitoring', [App\Http\Controllers\User\YieldMonitoringController::class, 'yieldMonitoring'])->name('yieldMonitoring');
+    //Generate Report
+    Route::get('/generatePDF', [App\Http\Controllers\PDFController::class, 'generatePDF'])->name('generatePDF');
 });
 
 
 Route::group(['middleware' => 'isAdmin'], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     // Registration Approval
     Route::get('/registrationApproval', [App\Http\Controllers\Admin\RegistrationApprovalController::class, 'registrationApproval'])->name('registrationApproval');
     Route::post('/approved/{id}', [App\Http\Controllers\Auth\RegisterController::class, 'approved'])->name('approved');

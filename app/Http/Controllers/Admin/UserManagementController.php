@@ -14,7 +14,8 @@ class UserManagementController extends Controller
     public function userManagement()
     {
         $user = User::with('role')->get();
-        return view('admin.userManagement', array('users' => $user));
+        $municipality = DB::table("municipalities")->pluck("name","id");
+        return view('admin.userManagement', array('users' => $user, "municipalities" => $municipality));
     }
 
     public function userUpdate(Request $request, $id)

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class LoginController extends Controller
 {
     /*
@@ -23,12 +24,33 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect('/login');
+      }
+
+      
+      protected function authenticated(Request $request, $user)
+    {
+        if(Auth::user()->role_id == 1)
+        {
+            return redirect()->route('userManagement');
+        } 
+    
+        if(Auth::user()->role_id == 2)
+        {
+            return redirect()->route('farmerList');
+        }
+        
+        return redirect('/home');
+    }
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
@@ -37,11 +59,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest', ['except' => 'logout']);
     }
-
-    public function logout(Request $request) {
-        Auth::logout();
-        return redirect('/login');
-      }
+    
 }
