@@ -23,19 +23,51 @@ class CropSeeder extends Seeder
           ],
           [
             'id' => '2',
-            'name' => 'Corn',
+            'name' => 'Cabbage',
           ],
           [
             'id' => '3',
-            'name' => 'Ladys Finger (Okra)',
+            'name' => 'Corn',
           ],
           [
             'id' => '4',
-            'name' => 'Rice',
+            'name' => 'Eggplant',
           ],
           [
             'id' => '5',
+            'name' => 'Garlic',
+          ],
+          [
+            'id' => '6',
+            'name' => 'Ladys Finger (Okra)',
+          ],
+          [
+            'id' => '7',
+            'name' => 'Rice',
+          ],
+          [
+            'id' => '8',
+            'name' => 'Onion',
+          ],
+          [
+            'id' => '9',
+            'name' => 'Peanut',
+          ],
+          [
+            'id' => '10',
             'name' => 'String Beans (Sitaw)',
+          ],
+          [
+            'id' => '11',
+            'name' => 'Tobacco',
+          ],
+          [
+            'id' => '12',
+            'name' => 'Tomato',
+          ],
+          [
+            'id' => '13',
+            'name' => 'Water Melon',
           ],
         ];
 

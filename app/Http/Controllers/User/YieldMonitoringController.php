@@ -31,6 +31,7 @@ class YieldMonitoringController extends Controller
         ->where('status_id',  2)
         ->where('cropping_season_id',  $request->cropping_season)->orderBy('yield', 'desc')->count();
 
+
         if($auth == 0)
         {
             return back()->with('failed', 'Update Sucessfully');

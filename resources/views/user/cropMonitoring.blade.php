@@ -11,7 +11,7 @@
       <div class="container-fluid">
       <div class="row">
           <div class="col-sm-6">
-              <h1 class="m-0">Crop Monitoring</h1>
+              <h1 class="m-0 farm_title">Crop Monitoring</h1>
           </div>
           <!-- /.col -->
       </div><!-- /.row -->

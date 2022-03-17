@@ -11,7 +11,7 @@
       <div class="container-fluid">
       <div class="row">
           <div class="col-sm-6">
-              <h1 class="m-0">Yield Monitoring</h1>
+              <h1 class="m-0 farm_title">Yield Monitoring</h1>
           </div>
           <!-- /.col -->
       </div><!-- /.row -->
@@ -27,6 +27,89 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
+              <form action="{{ route('yieldMonitoring') }}" method="GET">
+                @csrf
+                <div class="modal-body rounded bg-white p-0">
+                    <div class="d-flex justify-content-left input-group mb-3">
+                        <div>
+                            <label for="crop_name" class="input-group">Municipality</label>
+                            <select id="municipality" type="text" name="municipality" class="form-control @error('municipality') is-invalid @enderror form-control-sm" name="municipality" required autocomplete="municipality" autofocus>
+                                <option value="" disabled selected>--- Select Municipality ---</option>
+                                @foreach ($municipalities as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                                @error('municipality')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror              
+                        </div>
+
+                        <div class="ml-3">
+                            <label for="crop_name" class="input-group">Barangay</label>
+                            <select id="barangay" type="text" name="barangay" class="form-control @error('barangay') is-invalid @enderror form-control-sm" name="barangay" required autocomplete="barangay" autofocus>
+                                <option value="" disabled selected>--- Select Barangay ---</option>
+                            </select>
+                            @error('barangay')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>   
+                        <div class="ml-3">
+                            <label for="year_id" class="input-group">Year</label>
+                            <select id="year_id" type="text" name="year_id" class="@error('year_id') is-invalid @enderror form-control form-control-sm" name="year_id" required autocomplete="year_id" autofocus>
+                                    <option disabled selected>--- Select  Year ---</option>
+                                @php 
+                                    $year = now()->year-4;
+                                @endphp
+
+                                @for($i = 0; $i <= 4; $i++)
+                                    <option value="{{$year}}">{{$year}}</option>
+                                    @php $year = $year+1 @endphp
+                                @endfor
+                            </select>
+                                @error('year_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror          
+                        </div>     
+                        <div class="ml-3">
+                            <label for="crop_name" class="input-group">Crop</label>
+                            <select id="crop_id" type="text" name="crop_id" class="form-control form-control-sm @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
+                                <option value="1">Bitter Gourd (Ampalaya)</option>
+                                <option value="2">Corn</option>
+                                <option value="3">Ladys Finger (Okra)</option>
+                                <option value="4">Rice</option>
+                                <option value="5">String Beans (Sitaw)</option>
+                            </select>
+                                @error('crop_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror          
+                        </div>
+
+                        <div class="ml-3">
+                            <label for="cropping_season" class="input-group">Cropping Season</label>
+                            <select id="cropping_season" type="text" name="cropping_season" class="form-control form-control-sm @error('cropping_season') is-invalid @enderror" name="cropping_season" required autocomplete="cropping_season" autofocus>
+                                <option value="1">Dry Season</option>
+                                <option value="2">Wet Season</option>
+                            </select>
+                                @error('cropping_season')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror          
+                        </div>
+                        <div class="ml-3 d-flex align-items-end">
+                            <button type="submit" class="btn btn-sm  btn-block btn-primary input-group"> Search </button>
+                        </div>
+                    </div>                        
+                </div>
+              </form>
               <table class="table">
                 <thead>
                   <tr class="text-center">

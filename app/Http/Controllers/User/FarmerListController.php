@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Farming_data;
 use App\Models\Farmer;
+use App\Models\Activity_files;
 use App\Models\Municipality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -74,6 +75,15 @@ class FarmerListController extends Controller
         DB::table('farmers')
             ->where('id', $id)
             ->delete();
+
+        DB::table('farming_datas')
+        ->where('farmer_id', $id)
+        ->delete();
+
+        DB::table('activity_files')
+        ->where('farmer_id', $id)
+        ->delete();
+
         return redirect()->route('farmerList')->with('success', 'Update Sucessfully');
     }
 }

@@ -21,7 +21,13 @@
       <div class="container-fluid">
       <div class="row mb-2">
           <div class="col-sm-6">
-              <h1 class="m-0">Farmer Profile</h1>
+              <h1 class="m-0 farm_title">Farmer Profile</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ route('farmerList') }}">FarmerList</a></li>
+              <li class="breadcrumb-item active">FarmerProfile</li>
+            </ol>
           </div>
           <!-- /.col -->
       </div><!-- /.row -->
@@ -157,10 +163,18 @@
                                   <select id="crop_id" type="text" name="crop_id" class="custom-select form-control-border @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
                                       <option class="bg-primary" value="{{$farming_data->crop_id}}" selected>{{$farming_data->crop->name}}</option>
                                       <option value="1">Bitter Gourd (Ampalaya)</option>
-                                      <option value="2">Corn</option>
-                                      <option value="3">Ladys Finger (Okra)</option>
-                                      <option value="4">Rice</option>
-                                      <option value="5">String Beans (Sitaw)</option>
+                                      <option value="2">Cabbage</option>
+                                      <option value="3">Corn</option>
+                                      <option value="4">Eggplant</option>
+                                      <option value="5">Garlic</option>
+                                      <option value="6">Ladys Finger (Okra)</option>
+                                      <option value="7">Rice</option>
+                                      <option value="8">Onion</option>
+                                      <option value="9">Peanut</option>
+                                      <option value="10">String Beans (Sitaw)</option>
+                                      <option value="11">Tobacco</option>
+                                      <option value="12">Tomato</option>
+                                      <option value="13">Water Melon</option>
                                   </select>
                                     @error('crop_id')
                                       <span class="invalid-feedback" role="alert">
@@ -359,12 +373,19 @@
                           <div class="input-group mb-3">
                             <label for="crop_name" class="input-group">Crop Name:</label>
                             <select id="crop_id" type="text" name="crop_id" class="custom-select form-control-border @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
-                                <option disabled selected>--- Select Crop ---</option>
-                                <option value="1">Bitter Gourd (Ampalaya)</option>
-                                <option value="2">Corn</option>
-                                <option value="3">Ladys Finger (Okra)</option>
-                                <option value="4">Rice</option>
-                                <option value="5">String Beans (Sitaw)</option>
+                            <option value="1">Bitter Gourd (Ampalaya)</option>
+                              <option value="2">Cabbage</option>
+                              <option value="3">Corn</option>
+                              <option value="4">Eggplant</option>
+                              <option value="5">Garlic</option>
+                              <option value="6">Ladys Finger (Okra)</option>
+                              <option value="7">Rice</option>
+                              <option value="8">Onion</option>
+                              <option value="9">Peanut</option>
+                              <option value="10">String Beans (Sitaw)</option>
+                              <option value="11">Tobacco</option>
+                              <option value="12">Tomato</option>
+                              <option value="13">Water Melon</option>
                             </select>
                               @error('crop_id')
                                 <span class="invalid-feedback" role="alert">

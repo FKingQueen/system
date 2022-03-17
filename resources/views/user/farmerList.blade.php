@@ -16,13 +16,12 @@
 @endsection
 
 @section('content')
-
   <!-- Content Header (Page header) -->
   <div class="content-header">
       <div class="container-fluid">
       <div class="row mb-2">
           <div class="col-sm-6">
-              <h1 class="m-0">Farmer List</h1>
+              <h1 class="m-0 farm_title">Farmer List</h1>
           </div>
           <!-- /.col -->
       </div><!-- /.row -->
@@ -62,19 +61,29 @@
                 </tr>
                 </thead>
                 <tbody>
+                  @php $chk = 0 @endphp
                   @foreach ($farmers as $farmer)
                   <tr >
                     <td class="">
                       <div class='d-flex justify-content-between'>
-                        <a href="{{ route('farmerProfile', $farmer->id)}}">{{$farmer->name}}</a>
+                        <a type="button" class="farmer_link p-0" href="{{ route('farmerProfile', $farmer->id)}}">{{$farmer->name}}</a>
                         @foreach($farming_datas as $farming_data)
-                          @if($farmer->id == $farming_data->farmer_id && $farming_data->status_id == 1)
-                            <i class='mt-1 fa fa-circle' style='color:#00db0f'></i>
+                        
+                          @if($farmer->id == $farming_data->farmer_id && $farming_data->status_id == 1 )
+                            <i class='mt-2 fa fa-circle' style='color:#00db0f'></i>
+                            @php $chk = 1 @endphp
                             @break
                           @elseif($loop->last)
-                            <i class='mt-1 fas fa-circle' style='color:#76756f'></i>
+                            <i class='mt-2 fas fa-circle' style='color:#76756f'></i>
+                            @php $chk = 1 @endphp
                           @endif
+
                         @endforeach
+
+                        @if($chk == 0)
+                          <i class='mt-2 fas fa-circle' style='color:#76756f'></i>
+                        @endif
+
                       </div>
                     </td>
                     <td class="text-center " >
@@ -246,7 +255,7 @@
                               @enderror          
                             <div class="input-group-append">
                               <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+                                <i class="fas fa-city"></i>
                               </div>
                             </div>
                           </div>
@@ -263,7 +272,7 @@
                               @enderror          
                             <div class="input-group-append">
                               <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+                                <i class="fas fa-home"></i>
                               </div>
                             </div>
                           </div>
