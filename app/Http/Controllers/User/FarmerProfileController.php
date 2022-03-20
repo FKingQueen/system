@@ -77,6 +77,12 @@ class FarmerProfileController extends Controller
 
     public function updateCrop(Request $request, $id)
     {
+        
+        $request->validate([
+            'crop_id'  => 'required',
+            'status_id'    => 'required',
+        ]);
+
         $farmer_id = DB::table('farming_datas')->where('id', $id)->value('farmer_id');
 
         if ($request->field_unit == 1){

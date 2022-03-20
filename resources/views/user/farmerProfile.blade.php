@@ -46,11 +46,12 @@
               <table id="farmerList"  class="table table-bordered">
                 <div class="d-flex">
                   <div class="ml-2">
-                    <h1>
-                      {{$farmer->name}}
+                    
+                    <h1 class="p-0 mb-1 m-0">
+                    <u style="color: #248139;" >{{$farmer->name}}</u> 
                     </h1>
                   </div>
-                  <div class="d-flex justify-content-start ml-5 mt-3 ">
+                  <div class="d-flex justify-content-start ml-5 mt-2">
                       <div>
                         In Progress - <i class='fa fa-circle' style='color:#00db0f'></i>
                       </div>
@@ -60,7 +61,7 @@
                     </div>
                     <div class="ml-auto">
                         <button type="button" data-toggle="modal" data-target="#compose" class="btn btn-primary">
-                        Compose
+                        Create Farming
                         </button>
                     </div>
                   </div>
@@ -77,7 +78,7 @@
                 <tbody>
                   @foreach($farming_datas as $farming_data)
                     <tr >
-                        <td class="d-flex justify-content-between">
+                        <th class="d-flex justify-content-between" style="color: #248139">
                           <a>{{$farming_data->crop->name}}</a>
                           @if($farming_data->status->id == 1)
                             <i class='mt-1 fa fa-circle' style='color:#00db0f'></i>
@@ -85,7 +86,7 @@
                           @if($farming_data->status->id == 2)
                             <i class='mt-1 fas fa-circle' style='color:#76756f'></i>
                           @endif
-                        </td>
+                        </th>
                         <td>
                           {{$farming_data->cropping_season->name}}
                         </td>
@@ -118,7 +119,7 @@
                                       <tr>
                                         <th class="pl-1 p-0 text-left font-weight-light"> Upload new Activity Data from the device</th>
                                         <td class="p-1">
-                                        <button type="button" class="btn btn-block btn-default border" data-toggle="modal" data-dismiss="modal" data-target="#uploadActivity_{{$farming_data->id}}"><i class="fas fa-lg fa-upload" style="color: #0275d8;"></i></button> 
+                                        <button type="button"  class="btn btn-block btn-default border" {{ $farming_data->status_id == 2 ? 'disabled' : '' }} data-toggle="modal" data-dismiss="modal" data-target="#uploadActivity_{{$farming_data->id}}"><i class="fas fa-lg fa-upload" style="color: #0275d8;"></i></button> 
                                         </td>
                                       </tr>
                                       <tr >
@@ -150,7 +151,7 @@
                       <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
 
-                        <div class="modal-header bg-green">
+                        <div class="modal-header bg-green p-2">
                           <h4 class="modal-title">Updating Farming Activity</h4>
                         </div>
 
@@ -183,7 +184,7 @@
                                     @enderror          
                                   <div class="input-group-append">
                                     <div class="input-group-text">
-                                      <span class="fas fa-user"></span>
+                                      <i class="fas fa-seedling"></i>
                                     </div>
                                   </div>
                                 </div>
@@ -202,7 +203,7 @@
                                     @enderror          
                                   <div class="input-group-append">
                                     <div class="input-group-text">
-                                      <span class="fas fa-user"></span>
+                                      <i class="fas fa-info-circle"></i>
                                     </div>
                                   </div>
                                 </div>
@@ -223,7 +224,7 @@
                                       @enderror          
                                     <div class="input-group-append">
                                       <div class="input-group-text">
-                                        <span class="fas fa-user"></span>
+                                        <i class="fas fa-arrows-alt-h"></i>
                                       </div>
                                     </div>
                                   </div>
@@ -279,7 +280,7 @@
                       <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
 
-                        <div class="modal-header bg-green">
+                        <div class="modal-header bg-green p-2">
                           <h4 class="modal-title">Uploading Farming Activity</h4>
                         </div>
 
@@ -301,7 +302,7 @@
                                     @enderror          
                                   <div class="input-group-append">
                                     <div class="input-group-text">
-                                      <span class="fas fa-user"></span>
+                                      <i class="fas fa-info-circle"></i>
                                     </div>
                                   </div>
                                 </div>
@@ -319,15 +320,16 @@
                                       <input id="updateSacks" name="sacks" type="number" class="form-control" placeholder="sacks" min="0" autocomplete="kg" autofocus>
                                     </div>
                                       
-                                    <div class="col-4 input-group-sm">
+                                    <div class="col-5
+                                    
+                                    \input-group-sm">
                                       <label for="kg" class="input-group font-weight-light">Weight of sack: </label>
-                                      <input id="updateKg" name="kg" type="number" class="form-control" min="0" step=".001" placeholder="kg" autocomplete="kg" autofocus>
+                                      <input id="updateKg" name="kg" type="number" class="form-control"  min="25" max="85" step=".001" placeholder="kg" autocomplete="kg" autofocus>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
 
-                              <div class="input-group">
+                                <div class="input-group">
                                 <label for="activity_file">Insert Activity File (Required):</label>
                                 <div class="input-group mb-3">  
                                     <input id="activity_file" type="file" class="form-control @error('activity_file') is-invalid @enderror" name="activity_file" required autocomplete="activity_file">
@@ -343,7 +345,11 @@
                                 </div>
                               </div>
 
-                              <div class="modal-footer justify-content-between bg-white">
+                              </div>
+
+
+
+                              <div class="modal-footer justify-content-between bg-white p-0">
                                   <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
                                   <button type="submit" class="btn btn-primary">Save changes</button>
                               </div>
@@ -357,13 +363,13 @@
                 </tbody>
               </table>
 
-              <!-- Compose Modal -->
+              <!-- Create Farming Modal -->
               <div class="modal fade" id="compose">
                 <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 
-                  <div class="modal-header bg-green">
-                    <h4 class="modal-title">Composing Farming Activity</h4>
+                  <div class="modal-header bg-green p-2">
+                    <h4 class="modal-title">Creating Farming Activity</h4>
                   </div>
 
                       <form method="POST" action="{{ route('compose', $farmer->id)}}" enctype="multipart/form-data">
@@ -394,7 +400,7 @@
                               @enderror          
                             <div class="input-group-append">
                               <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+                                <i class="fas fa-seedling"></i>
                               </div>
                             </div>
                           </div>
@@ -413,7 +419,7 @@
                               @enderror          
                             <div class="input-group-append">
                               <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+                                <i class="fas fa-info-circle"></i>
                               </div>
                             </div>
                           </div>
@@ -434,7 +440,7 @@
                                 @enderror          
                               <div class="input-group-append">
                                 <div class="input-group-text">
-                                  <span class="fas fa-user"></span>
+                                  <i class="fas fa-arrows-alt-h"></i>
                                 </div>
                               </div>
                             </div>
@@ -442,7 +448,7 @@
                             <div class="d-flex justify-content-center input-group">
                               <div class="text-center w-25 input-group-sm">
                                 <label id="unit_name" name="unit_name" class="font-weight-light">Hectare:</label>
-                                <input id="lot_size" type="text"  class="text-center form-control @error('lot_size') is-invalid @enderror" name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
+                                <input id="lot_size" type="number"  class="text-center form-control @error('lot_size') is-invalid @enderror"  name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
                                 @error('lot_size')
                                   <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -461,14 +467,14 @@
                                 <label class="mt-2 font-weight-light">Yield (t/ha): </label>
                               </div>
                               
-                              <div class="col-4 input-group-sm">
+                              <div class="col-5 input-group-sm">
                                 <label for="kg" class="input-group  font-weight-light" >Number of sacks: </label>
                                 <input id="sacks" name="sacks" type="number" class="form-control" placeholder="sacks" min="0" autocomplete="kg" autofocus>
                               </div>
                                 
                               <div class="col-4 input-group-sm">
                                 <label for="kg" class="input-group font-weight-light">Weight of sack: </label>
-                                <input id="kg" name="kg" type="number" class="form-control" min="0" step=".001" placeholder="kg" autocomplete="kg" autofocus>
+                                <input id="kg" name="kg" type="number" class="form-control" min="25" max="85"  placeholder="kg" autocomplete="kg" autofocus>
                               </div>
                             </div>
                           </div>
@@ -484,14 +490,14 @@
                                 @enderror 
                             <div class="input-group-append">
                                 <div class="input-group-text">
-                                    <span class="fas fa-portrait"></span>
+                                  <i class="fas fa-file-alt"></i>
                                 </div>
                             </div>
                           </div>
 
                         </div>
 
-                        <div class="modal-footer justify-content-between bg-white">
+                        <div class="modal-footer justify-content-between bg-white p-0">
                             <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Compose</button>
                         </div>
@@ -499,7 +505,7 @@
                 </div>
                 </div>
               </div>
-              <!-- /Compose Modal -->
+              <!-- /Create Farming Modal -->
 
             </div>
             <!-- /.card-body -->
@@ -546,50 +552,40 @@
       });
     });
   </script>
-
+    
   <script type="text/javascript">
-
+    // Create Farming Activity Field Unit JS 
     $(function(){
+      
       $('[id="unit_name"]').hide();
       $('[id="lot_size"]').hide();
       $('select[id="field_unit"]').on('change', function() {
         var field_unit = $(this).val();
+        
           if(field_unit == 1){
             $('[id="unit_name"]').show();
             $('[id="lot_size"]').show();
             $('[id="unit_name"]').text("Hectare:");
             $('[id="lot_size"]').attr("placeholder", "ha");
+            $('[id="lot_size"]').attr("max", "10");
+            $('[id="lot_size"]').attr("min", ".1");
+            $('[id="lot_size"]').attr("step", ".1");
           }
+
           else if(field_unit == 2){
             $('[id="unit_name"]').show();
             $('[id="lot_size"]').show();
             $('[id="unit_name"]').text("Square Meter:");
             $('[id="lot_size"]').attr("placeholder", "sq");
+            $('[id="lot_size"]').attr("max", "100000");
+            $('[id="lot_size"]').attr("min", "50");
+            $('[id="lot_size"]').attr("step", ".1");
           }
       });
     });
-
+    
     $(function(){
-      $('[id="updateUnit_name"]').hide();
-      $('[id="updateLot_size"]').hide();
-      $('select[id="updateField_unit"]').on('change', function() {
-        var field_unit = $(this).val();
-          if(field_unit == 1){
-            $('[id="updateUnit_name"]').show();
-            $('[id="updateLot_size"]').show();
-            $('[id="updateUnit_name"]').text("Hectare:");
-            $('[id="updateLot_size"]').attr("placeholder", "ha");
-          }
-          else if(field_unit == 2){
-            $('[id="updateUnit_name"]').show();
-            $('[id="updateLot_size"]').show();
-            $('[id="updateUnit_name"]').text("Square Meter:");
-            $('[id="updateLot_size"]').attr("placeholder", "sq");
-          }
-      });
-    });
 
-    $(function(){
       $('#yield_id').hide(); 
       $('select[id="status_id"]').on('change', function() {
         var status_id = $(this).val();
@@ -602,6 +598,34 @@
             $('#yield_id').show(); 
             $("#sacks").attr('required', '');
             $("#kg").attr('required', '');
+          }
+      });
+      
+    });
+
+    // Update Farming Activity Field Unit JS 
+    $(function(){
+      $('[id="updateUnit_name"]').hide();
+      $('[id="updateLot_size"]').hide();
+      $('select[id="updateField_unit"]').on('change', function() {
+        var field_unit = $(this).val();
+          if(field_unit == 1){
+            $('[id="updateUnit_name"]').show();
+            $('[id="updateLot_size"]').show();
+            $('[id="updateUnit_name"]').text("Hectare:");
+            $('[id="updateLot_size"]').attr("placeholder", "ha");
+            $('[id="updateLot_size"]').attr("max", "10");
+            $('[id="updateLot_size"]').attr("min", ".1");
+            $('[id="updateLot_size"]').attr("step", ".1");
+          }
+          else if(field_unit == 2){
+            $('[id="updateUnit_name"]').show();
+            $('[id="updateLot_size"]').show();
+            $('[id="updateUnit_name"]').text("Square Meter:");
+            $('[id="updateLot_size"]').attr("placeholder", "sq");
+            $('[id=updateLot_size"]').attr("max", "100000");
+            $('[id=updateLot_size"]').attr("min", "50");
+            $('[id=updateLot_size"]').attr("step", ".1");
           }
       });
     });
