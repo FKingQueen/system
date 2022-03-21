@@ -28,7 +28,7 @@
           <div class="d-flex justify-content-left">
               <div>
                   <label for="crop_name" class="input-group">Municipality:</label>
-                  <select id="municipality" type="text" name="municipality" class="form-control @error('municipality') is-invalid @enderror" name="municipality" required autocomplete="municipality" autofocus>
+                  <select id="municipality" type="text" name="municipality" class="form-control form-control-sm @error('municipality') is-invalid @enderror" name="municipality" required autocomplete="municipality" autofocus>
                       <option value="" disabled selected>--- Select Municipality ---</option>
                       @foreach ($municipalities as $key => $value)
                           <option value="{{ $key }}">{{ $value }}</option>
@@ -43,7 +43,7 @@
 
               <div class="ml-3">
                   <label for="crop_name" class="input-group">Barangay:</label>
-                  <select id="barangay" type="text" name="barangay" class="form-control @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
+                  <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
                       <option value="" disabled selected>--- Select Barangay ---</option>
                   </select>
                   @error('barangay')
@@ -54,7 +54,7 @@
               </div>   
               <div class="ml-3">
                   <label for="year_id" class="input-group">Year</label>
-                  <select id="year_id" type="text" name="year_id" class="custom-select form-control-border @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
+                  <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
                           <option disabled selected>--- Select  Year ---</option>
                       @php 
                           $year = now()->year-4;
@@ -72,7 +72,7 @@
                       @enderror          
               </div>     
               <div class="ml-3 d-flex align-items-end">
-                  <button type="submit" class="btn btn-block btn-primary input-group"> FIND </button>
+                  <button type="submit" class="btn btn-sm btn-block btn-primary input-group"> Search </button>
               </div>
           </div>
       </div>

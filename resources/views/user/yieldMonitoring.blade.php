@@ -30,10 +30,10 @@
               <form action="{{ route('yieldMonitoring') }}" method="GET">
                 @csrf
                 <div class="modal-body rounded bg-white p-0">
-                    <div class="d-flex justify-content-left input-group mb-3">
+                    <div class="d-flex justify-content-left input-group mb-3 ">
                         <div>
                             <label for="crop_name" class="input-group">Municipality</label>
-                            <select id="municipality" type="text" name="municipality" class="form-control @error('municipality') is-invalid @enderror form-control-sm" name="municipality" required autocomplete="municipality" autofocus>
+                            <select id="municipality" type="text" name="municipality" class=" form-control @error('municipality') is-invalid @enderror form-control-sm" name="municipality" required autocomplete="municipality" autofocus>
                                 <option value="" disabled selected>--- Select Municipality ---</option>
                                 @foreach ($municipalities as $key => $value)
                                     <option value="{{ $key }}">{{ $value }}</option>
@@ -79,11 +79,19 @@
                         <div class="ml-3">
                             <label for="crop_name" class="input-group">Crop</label>
                             <select id="crop_id" type="text" name="crop_id" class="form-control form-control-sm @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
-                                <option value="1">Bitter Gourd (Ampalaya)</option>
-                                <option value="2">Corn</option>
-                                <option value="3">Ladys Finger (Okra)</option>
-                                <option value="4">Rice</option>
-                                <option value="5">String Beans (Sitaw)</option>
+                              <option value="1">Bitter Gourd (Ampalaya)</option>
+                              <option value="2">Cabbage</option>
+                              <option value="3">Corn</option>
+                              <option value="4">Eggplant</option>
+                              <option value="5">Garlic</option>
+                              <option value="6">Ladys Finger (Okra)</option>
+                              <option value="7">Rice</option>
+                              <option value="8">Onion</option>
+                              <option value="9">Peanut</option>
+                              <option value="10">String Beans (Sitaw)</option>
+                              <option value="11">Tobacco</option>
+                              <option value="12">Tomato</option>
+                              <option value="13">Water Melon</option>
                             </select>
                                 @error('crop_id')
                                 <span class="invalid-feedback" role="alert">

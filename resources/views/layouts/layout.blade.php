@@ -260,10 +260,10 @@
                         <form action="{{ route('cropCalendar') }}" method="GET">
                             @csrf
                             <div class="modal-body rounded bg-white">
-                                <div class="d-flex justify-content-left mb-3">
+                                <div class="d-flex justify-content-center mb-3">
                                     <div>
                                         <label for="municipality_id" class="input-group">Municipality</label>
-                                        <select id="municipality_id" type="text" name="municipality_id" class="custom-select form-control-border @error('municipality_id') is-invalid @enderror" name="municipality_id" required autocomplete="municipality_id" autofocus>
+                                        <select id="municipality_id" type="text" name="municipality_id" class="form-control form-control-sm @error('municipality_id') is-invalid @enderror" name="municipality_id" required autocomplete="municipality_id" autofocus>
                                             <option disabled selected>--- Select Municipality ---</option>
                                             <option value="1">Badoc</option>
                                             <option value="2">Banna</option>
@@ -286,7 +286,7 @@
 
                                     <div class="ml-3">
                                         <label for="year_id" class="input-group">Year</label>
-                                        <select id="year_id" type="text" name="year_id" class="custom-select form-control-border @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
+                                        <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
                                                 <option disabled selected>--- Select  Year ---</option>
                                             @php 
                                                 $year = now()->year-4;
@@ -304,7 +304,7 @@
                                             @enderror          
                                     </div>
                                     <div class="ml-3 d-flex align-items-end">
-                                        <button type="submit" class="btn btn-block btn-primary input-group"> FIND </button>
+                                        <button type="submit" class="btn btn-sm  btn-block btn-primary input-group"> Search </button>
                                     </div>
                                 </div>
                             </div>
@@ -330,7 +330,7 @@
                                 <div class="d-flex justify-content-center mb-3">
                                     <div>
                                         <label for="crop_name" class="input-group">Municipality</label>
-                                        <select id="municipality" type="text" name="municipality" class="form-control @error('municipality') is-invalid @enderror" name="municipality" required autocomplete="municipality" autofocus>
+                                        <select id="municipality" type="text" name="municipality" class="form-control form-control-sm @error('municipality') is-invalid @enderror" name="municipality" required autocomplete="municipality" autofocus>
                                             <option value="" disabled selected>--- Select Municipality ---</option>
                                             @foreach ($municipalities as $key => $value)
                                                 <option value="{{ $key }}">{{ $value }}</option>
@@ -345,7 +345,7 @@
 
                                     <div class="ml-3">
                                         <label for="crop_name" class="input-group">Barangay</label>
-                                        <select id="barangay" type="text" name="barangay" class="form-control @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
+                                        <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
                                             <option value="" disabled selected>--- Select Barangay ---</option>
                                         </select>
                                         @error('barangay')
@@ -356,7 +356,7 @@
                                     </div>   
                                     <div class="ml-3">
                                         <label for="year_id" class="input-group">Year</label>
-                                        <select id="year_id" type="text" name="year_id" class="custom-select form-control-border @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
+                                        <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
                                                 <option disabled selected>--- Select  Year ---</option>
                                             @php 
                                                 $year = now()->year-4;
@@ -375,7 +375,7 @@
                                     </div>
 
                                     <div class="ml-3 d-flex align-items-end">
-                                        <button type="submit" class="btn btn-block btn-primary input-group"> FIND </button>
+                                        <button type="submit" class="btn btn-sm  btn-block btn-primary input-group"> Search </button>
                                     </div>
                                 </div>
                             </div>
@@ -401,7 +401,7 @@
                                 <div class="d-flex justify-content-center input-group mb-3">
                                     <div>
                                         <label for="crop_name" class="input-group">Municipality</label>
-                                        <select id="municipality" type="text" name="municipality" class="form-control @error('municipality') is-invalid @enderror" name="municipality" required autocomplete="municipality" autofocus>
+                                        <select id="municipality" type="text" name="municipality" class="form-control form-control-sm @error('municipality') is-invalid @enderror" name="municipality" required autocomplete="municipality" autofocus>
                                             <option value="" disabled selected>--- Select Municipality ---</option>
                                             @foreach ($municipalities as $key => $value)
                                                 <option value="{{ $key }}">{{ $value }}</option>
@@ -416,7 +416,7 @@
 
                                     <div class="ml-3">
                                         <label for="crop_name" class="input-group">Barangay</label>
-                                        <select id="barangay" type="text" name="barangay" class="form-control @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
+                                        <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
                                             <option value="" disabled selected>--- Select Barangay ---</option>
                                         </select>
                                         @error('barangay')
@@ -427,7 +427,7 @@
                                     </div>   
                                     <div class="ml-3">
                                         <label for="year_id" class="input-group">Year</label>
-                                        <select id="year_id" type="text" name="year_id" class="custom-select form-control-border @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
+                                        <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
                                                 <option disabled selected>--- Select  Year ---</option>
                                             @php 
                                                 $year = now()->year-4;
@@ -448,12 +448,20 @@
                                 <div class="d-flex justify-content-center input-group mb-3">
                                     <div class="ml-3">
                                         <label for="crop_name" class="input-group">Crop</label>
-                                        <select id="crop_id" type="text" name="crop_id" class="custom-select form-control-border @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
+                                        <select id="crop_id" type="text" name="crop_id" class="form-control form-control-sm @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
                                             <option value="1">Bitter Gourd (Ampalaya)</option>
-                                            <option value="2">Corn</option>
-                                            <option value="3">Ladys Finger (Okra)</option>
-                                            <option value="4">Rice</option>
-                                            <option value="5">String Beans (Sitaw)</option>
+                                            <option value="2">Cabbage</option>
+                                            <option value="3">Corn</option>
+                                            <option value="4">Eggplant</option>
+                                            <option value="5">Garlic</option>
+                                            <option value="6">Ladys Finger (Okra)</option>
+                                            <option value="7">Rice</option>
+                                            <option value="8">Onion</option>
+                                            <option value="9">Peanut</option>
+                                            <option value="10">String Beans (Sitaw)</option>
+                                            <option value="11">Tobacco</option>
+                                            <option value="12">Tomato</option>
+                                            <option value="13">Water Melon</option>
                                         </select>
                                             @error('crop_id')
                                             <span class="invalid-feedback" role="alert">
@@ -464,7 +472,7 @@
 
                                     <div class="ml-3">
                                         <label for="cropping_season" class="input-group">Cropping Season</label>
-                                        <select id="cropping_season" type="text" name="cropping_season" class="custom-select form-control-border @error('cropping_season') is-invalid @enderror" name="cropping_season" required autocomplete="cropping_season" autofocus>
+                                        <select id="cropping_season" type="text" name="cropping_season" class="form-control form-control-sm @error('cropping_season') is-invalid @enderror" name="cropping_season" required autocomplete="cropping_season" autofocus>
                                             <option value="1">Dry Season</option>
                                             <option value="2">Wet Season</option>
                                         </select>
@@ -477,7 +485,7 @@
                                 </div>
                                 <div class="d-flex justify-content-center input-group mb-3">
                                     <div class="ml-3 d-flex align-items-end">
-                                        <button type="submit" class="btn btn-block btn-primary input-group"> FIND </button>
+                                        <button type="submit" class="btn btn-sm  btn-block btn-primary input-group"> Search </button>
                                     </div>
                                 </div>                          
                             </div>

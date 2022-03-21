@@ -146,7 +146,7 @@
                 <div class="d-flex justify-content-left mb-3">
                   <div>
                     <label for="municipality_id" class="input-group">Municipality</label>
-                    <select id="municipality_id" type="text" name="municipality_id" class="custom-select form-control-border @error('municipality_id') is-invalid @enderror" name="municipality_id" required autocomplete="municipality_id" autofocus>
+                    <select id="municipality_id" type="text" name="municipality_id" class="form-control form-control-sm @error('municipality_id') is-invalid @enderror" name="municipality_id" required autocomplete="municipality_id" autofocus>
                         <option disabled selected>--- Select Municipality ---</option>
                         <option value="1">Badoc</option>
                         <option value="2">Banna</option>
@@ -169,7 +169,7 @@
 
                   <div class="ml-3">
                     <label for="year_id" class="input-group">Year</label>
-                    <select id="year_id" type="text" name="year_id" class="custom-select form-control-border @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
+                    <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
                         <option disabled selected>--- Select  Year ---</option>
                         @foreach($years as $year)
                           <option value="{{$loop->index}}">{{$year}}</option>
@@ -182,7 +182,7 @@
                       @enderror          
                   </div>
                   <div class="ml-3 d-flex align-items-end">
-                    <button type="submit" class="btn btn-block btn-primary input-group"> FIND </button>
+                    <button type="submit" class="btn btn-sm btn-block btn-primary input-group"> Search </button>
                   </div>
                 </div>
 
