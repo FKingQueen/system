@@ -15,6 +15,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js" integrity="sha512-vBmx0N/uQOXznm/Nbkp7h0P1RfLSj0HQrFSzV8m7rOGyj30fYAOKHYvCNez+yM8IrfnW0TCodDEjRqf6fodf/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/toastr/toastr.min.css">
 
 
 
@@ -39,10 +40,9 @@
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-light-success elevation-4">
                 <!-- Brand Logo -->
-                <a href="index3.html" class="brand-link">
-                    <span class="brand-text font-weight-light">Script Farm</span>
-                </a>
-
+                    <div class="ml-4 image">
+                        <img src="{{ asset('images/logo.png')}}" width="100%" height="100%" alt="Image" >  
+                    </div>
                 <!-- Sidebar -->
                 <div class="sidebar">
                     <!-- Sidebar user panel (optional) -->
@@ -510,52 +510,55 @@
     
     <!-- SweetAlert2 -->
     <script src="https://adminlte.io/themes/v3/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/toastr/toastr.min.js"></script>
 
-    @if(Session::has('success'))
-        <script>
-            $(function() {
-                var Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
-                });
 
-                $(function() {
-                    $(document).Toasts('create', {
-                        class: 'bg-success',
-                        title: 'Account Setting Notification',
-                        delay: 3000,
-                        autohide: true,
-                        body: 'Succesfully Change'
-                    })
-                });
+    <script>
+        $(function() {
+            var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
             });
-        </script>
-    @endif
 
-    @if(Session::has('failed'))
-        <script>
-            $(function() {
-                var Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
-                });
-
+            @if(Session::has('createdfarmer'))
                 $(function() {
-                    $(document).Toasts('create', {
-                        class: 'bg-danger',
-                        title: 'Notification',
-                        delay: 3000,
-                        autohide: true,
-                        body: 'Something is Wrong'
-                    })
+                    toastr.success('New Farmer is Successfully Added')
                 });
-            });
-        </script>
-    @endif
+            @endif
+            @if(Session::has('createfarmerfailed'))
+                $(function() {
+                    toastr.warning('Something is Wrong, Try to Check')
+                });
+            @endif
+
+            @if(Session::has('updatedfarmer'))
+                $(function() {
+                    toastr.success('Farmer Information Updated')
+                });
+            @endif
+            @if(Session::has('updatefarmerfailed'))
+                $(function() {
+                    toastr.warning('Nothing to Change')
+                });
+            @endif
+
+            @if(Session::has('deletedfarmer'))
+                $(function() {
+                    toastr.success('Farmer Successfully Deleted')
+                });
+            @endif
+            @if(Session::has('deletefarmerfailed'))
+                $(function() {
+                    toastr.warning('Something is Wrong, Try to Check')
+                });
+            @endif
+
+        });
+    </script>
+
+    
 
     <script type="text/javascript">
       $(document).ready(function() {

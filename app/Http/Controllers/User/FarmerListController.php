@@ -53,13 +53,17 @@ class FarmerListController extends Controller
         $farmer->user_id = Auth::user()->id;
         $farmer->save();
 
-        return back();
+        if($farmer){
+            return back()->with('createdfarmer', 'Success');
+        } else{
+            return back()->with('createfarmerfailed', 'Failed');
+        }
     }
 
     public function updateFarmer(Request $request, $id)
     {
         $muni = DB::table("municipalities")->where("id",$request->municipality)->value('name');
-        DB::table('farmers')
+        $res = DB::table('farmers')
             ->where('id', $id)
             ->update([
             'name' => $request->name, 
@@ -67,23 +71,37 @@ class FarmerListController extends Controller
             'municipality_id' => $request->municipality,
             'barangay'  => $request->barangay
             ]);
-        return redirect()->route('farmerList')->with('success', 'Update Sucessfully');
+
+        if($res){
+            return redirect()->route('farmerList')->with('updatedfarmer', 'Updated');
+        } else{
+            return redirect()->route('farmerList')->with('updatefarmerfailed', 'Failed');
+        }
     }
 
     public function DeleteFarmer($id)
     {
-        DB::table('farmers')
+        $res = DB::table('farmers')
             ->where('id', $id)
             ->delete();
 
-        DB::table('farming_datas')
-        ->where('farmer_id', $id)
-        ->delete();
+        if($res)
+        {
+            DB::table('farming_datas')
+            ->where('farmer_id', $id)
+            ->delete();
+    
+            DB::table('activity_files')
+            ->where('farmer_id', $id)
+            ->delete();
+        }
 
-        DB::table('activity_files')
-        ->where('farmer_id', $id)
-        ->delete();
+        if($res){
+            return redirect()->route('farmerList')->with('deletedfarmer', 'Deleted');
+        } else{
+            return redirect()->route('farmerList')->with('deletefarmerfailed', 'Failed');
+        }
 
-        return redirect()->route('farmerList')->with('success', 'Update Sucessfully');
+        
     }
 }

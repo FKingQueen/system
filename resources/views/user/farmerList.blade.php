@@ -42,6 +42,7 @@
                   <div class="d-flex justify-content-start">
                     <div>
                       In Progress - <i class='fa fa-circle' style='color:#00db0f'></i>
+                      
                     </div>
                     <div class="ml-5">
                       Inactive - <i class='fas fa-circle' style='color:#76756f'></i>
@@ -360,5 +361,8 @@
           });
       });
   </script>
+
+
+
 
 @endsection
