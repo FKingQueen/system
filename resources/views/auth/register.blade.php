@@ -10,7 +10,7 @@
     <div class="register-box" style="width: 25rem;">
 
       <div class="register-logo">
-        <img src="{{ asset('images/Logo1.png')}}" width="60%" height="60%" alt="Image" >
+        <img src="{{ asset('images/logo.png')}}" width="60%" height="60%" alt="Image" >
       </div>
 
       <div class="card" >
