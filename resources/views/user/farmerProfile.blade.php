@@ -102,6 +102,7 @@
                         </td>
                         <td class="text-center">
                           <button type="button" class="p-0 btn btn-block btn-primary btn-xm"   data-toggle="modal" data-target="#option_{{$farming_data->id}}">Option</button>
+                          
                           <!-- Option Modal -->
                           <div class="modal fade rounded" id="option_{{$farming_data->id}}" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -143,6 +144,7 @@
                             </div>
                           </div>
                           <!-- /Option Modal -->
+                          
                       </td>
                     </tr>
 

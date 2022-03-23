@@ -518,9 +518,11 @@
             var Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
-            showConfirmButton: false,
+            showConfirmButton: true,
             timer: 3000
             });
+
+            //FarmerList Notifications
 
             @if(Session::has('createdfarmer'))
                 $(function() {
@@ -546,7 +548,7 @@
 
             @if(Session::has('deletedfarmer'))
                 $(function() {
-                    toastr.success('Farmer Successfully Deleted')
+                    toastr.error('Farmer Successfully Deleted')
                 });
             @endif
             @if(Session::has('deletefarmerfailed'))
@@ -554,6 +556,25 @@
                     toastr.warning('Something is Wrong, Try to Check')
                 });
             @endif
+
+            //FarmerList Notifications
+
+            //FarmerProfile Notifications
+
+            @if(Session::has('createdfarming'))
+                $(function() {
+                    toastr.success('Farming Activity Successfully Created')
+                });
+            @endif
+            @if(Session::has('createfarmingfailed'))
+                $(function() {
+                    toastr.warning('Something is Wrong, Try to Check')
+                });
+            @endif
+
+            //FarmerProfile Notifications
+            
+
 
         });
     </script>

@@ -72,7 +72,12 @@ class FarmerProfileController extends Controller
 
         Excel::import(new UsersImport($farmer_id, $farming_data->id, $status_id), $path);
         
-        return redirect()->route('farmerProfile', [$id])->with('success', 'Update Sucessfully');
+        if($farming_data){
+            return redirect()->route('farmerProfile', [$id])->with('createdfarming', 'Success');
+        } else{
+            return redirect()->route('farmerProfile', [$id])->with('createfarmingfailed', 'Failed');
+        }
+
     }
 
     public function updateCrop(Request $request, $id)
@@ -102,7 +107,7 @@ class FarmerProfileController extends Controller
             ]);
         }
 
-        DB::table('farming_datas')
+        $res = DB::table('farming_datas')
             ->where('id', $id)
             ->update([
             'crop_id' => $request->crop_id, 
@@ -110,7 +115,12 @@ class FarmerProfileController extends Controller
             'lot_size'  => $lot_size,
             ]);
 
-        return redirect()->route('farmerProfile', [$farmer_id])->with('success', 'Update Sucessfully');
+        if($res){
+            return redirect()->route('farmerProfile', [$farmer_id])->with('updatedfarming', 'Success');
+        } else{
+            return redirect()->route('farmerProfile', [$farmer_id])->with('updatefarmingfailed', 'Failed');
+        }
+
     }
 
     public function deleteCrop ($id)
