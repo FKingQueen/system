@@ -19,9 +19,7 @@
   </div>
   <!-- /.content-header -->
 
-  <div class="p-0 d-flex container-fluid justify-content-center">
-    <h5>Year</h5>
-  </div>
+
 
   <!-- Main content -->
   <section class="content">
@@ -31,7 +29,9 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body p-0">
-
+            <div class="pt-2 d-flex container-fluid justify-content-center">
+              <h5>Year</h5>
+            </div>
             <table >
                 <thead>
                 <tr >
@@ -189,7 +189,8 @@
                 <div>
                     <div class="input-group mt-4">
                       @foreach($munis as $muni)
-                      <h1>{{$muni->name}}
+                      <h1>
+                      <u style="color: #248139;" >{{$muni->name}}</u> 
 
                         <small style="font-size: 20px;">({{$currentyear}})</small>
                       </h1>

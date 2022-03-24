@@ -259,7 +259,7 @@
 
                         <form action="{{ route('cropCalendar') }}" method="GET">
                             @csrf
-                            <div class="modal-body rounded bg-white">
+                            <div class="modal-body rounded bg-white p-1">
                                 <div class="d-flex justify-content-center mb-3">
                                     <div>
                                         <label for="municipality_id" class="input-group">Municipality</label>
@@ -326,7 +326,7 @@
 
                         <form action="{{ route('cropMonitoring') }}" method="GET">
                             @csrf
-                            <div class="modal-body rounded bg-white">
+                            <div class="modal-body rounded bg-white p-1">
                                 <div class="d-flex justify-content-center mb-3">
                                     <div>
                                         <label for="crop_name" class="input-group">Municipality</label>
@@ -397,7 +397,7 @@
 
                         <form action="{{ route('yieldMonitoring') }}" method="GET">
                             @csrf
-                            <div class="modal-body rounded bg-white">
+                            <div class="modal-body rounded bg-white p-1">
                                 <div class="d-flex justify-content-center input-group mb-3">
                                     <div>
                                         <label for="crop_name" class="input-group">Municipality</label>
@@ -567,6 +567,28 @@
                 });
             @endif
             @if(Session::has('createfarmingfailed'))
+                $(function() {
+                    toastr.warning('Something is Wrong, Try to Check')
+                });
+            @endif
+
+            @if(Session::has('updatedfarming'))
+                $(function() {
+                    toastr.success('Farming Activity Successfully Updated')
+                });
+            @endif
+            @if(Session::has('updatefarmingfailed'))
+                $(function() {
+                    toastr.warning('Nothing to Change')
+                });
+            @endif
+
+            @if(Session::has('deletedfarming'))
+                $(function() {
+                    toastr.error('Farmer Successfully Deleted')
+                });
+            @endif
+            @if(Session::has('deletefarmingfailed'))
                 $(function() {
                     toastr.warning('Something is Wrong, Try to Check')
                 });

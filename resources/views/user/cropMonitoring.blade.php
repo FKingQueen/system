@@ -216,14 +216,14 @@
     var barChart = new Chart(barCanvas,{
       type: 'bar',
       data:{
-        labels:['Bitter Gourd', 'Corn', 'Ladys Finger', 'Rice', 'String Beans'],
+        labels:['Bitter Gourd', 'Cabbage', 'Corn', 'Eggplant', 'Garlic','Ladys Finger', 'Rice', 'Onion', 'Peanut', 'String Beans', 'Tobacco', 'Tomato', 'Water Melon'],
         datasets:[
           {
             label: 'Total Crop',
             data:cropCs,
             barThickness: 50,
             minBarLength: 2,
-            backgroundColor:['green', 'green', 'green', 'green', 'green']
+            backgroundColor:['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green']
             
           }
         ]

@@ -19,7 +19,7 @@ class FarmerProfileController extends Controller
     public function farmerProfile($id)
     {
         $farmer = Farmer::all()->where("id", $id);
-        $farming_data = Farming_data::with('crop', 'cropping_season', 'status')->get()->where("farmer_id", $id);
+        $farming_data = Farming_data::with('crop', 'cropping_season', 'status')->orderBy('status_id', 'asc')->get()->where("farmer_id", $id);
         $municipality = DB::table("municipalities")->pluck("name","id");
 
         return view('user/farmerProfile', array("farmers"=> $farmer, "farming_datas" => $farming_data, "municipalities" => $municipality));
@@ -82,7 +82,6 @@ class FarmerProfileController extends Controller
 
     public function updateCrop(Request $request, $id)
     {
-        
         $request->validate([
             'crop_id'  => 'required',
             'status_id'    => 'required',
@@ -127,11 +126,17 @@ class FarmerProfileController extends Controller
     {
         $farmer_id = DB::table('farming_datas')->where('id', $id)->value('farmer_id');
 
-        DB::table('farming_datas')
+        $res = DB::table('farming_datas')
         ->where('id', $id)
         ->delete();
 
-        return redirect()->route('farmerProfile', [$farmer_id])->with('success', 'Update Sucessfully');
+        if($res){
+            return redirect()->route('farmerProfile', [$farmer_id])->with('deletedfarming', 'Success');
+        } else{
+            return redirect()->route('farmerProfile', [$farmer_id])->with('deletefarmingfailed', 'Failed');
+        }
+
+        
     }
 
     public function uploadActivity (Request $request, $id)
@@ -155,7 +160,7 @@ class FarmerProfileController extends Controller
             ]);
         }
 
-        DB::table('farming_datas')
+        $res = DB::table('farming_datas')
             ->where('id', $id)
             ->update([
             'status_id' => $request->status_id,
@@ -169,6 +174,12 @@ class FarmerProfileController extends Controller
 
         Excel::import(new UsersUpdate($id, $status_id, $farmer_id), $path);
 
-        return redirect()->route('farmerProfile', [$farmer_id])->with('success', 'Update Sucessfully');
+        if($res){
+            return redirect()->route('farmerProfile', [$farmer_id])->with('uploadedfarming', 'Success');
+        } else{
+            return redirect()->route('farmerProfile', [$farmer_id])->with('uploadfarmingfailed', 'Failed');
+        }
+
+        
     }
 }

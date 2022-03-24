@@ -68,20 +68,10 @@
                     <td class="">
                       <div class='d-flex justify-content-between'>
                         <a type="button" class="farmer_link p-0" href="{{ route('farmerProfile', $farmer->id)}}">{{$farmer->name}}</a>
-                        @foreach($farming_datas as $farming_data)
                         
-                          @if($farmer->id == $farming_data->farmer_id && $farming_data->status_id == 1 )
-                            <i class='mt-2 fa fa-circle' style='color:#00db0f'></i>
-                            @php $chk = 1 @endphp
-                            @break
-                          @elseif($loop->last)
-                            <i class='mt-2 fas fa-circle' style='color:#76756f'></i>
-                            @php $chk = 1 @endphp
-                          @endif
-
-                        @endforeach
-
-                        @if($chk == 0)
+                        @if($farmer->status == 1)
+                          <i class='mt-2 fa fa-circle' style='color:#00db0f'></i>
+                        @elseif($farmer->status == 2)
                           <i class='mt-2 fas fa-circle' style='color:#76756f'></i>
                         @endif
 

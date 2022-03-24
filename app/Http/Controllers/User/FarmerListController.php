@@ -18,8 +18,30 @@ class FarmerListController extends Controller
     public function farmerList()
     {
         $municipality = DB::table("municipalities")->pluck("name","id");
-        $farming_data= Farming_data::all(); 
+        $farming_data = Farming_data::all(); 
         $farmer = Farmer::with('barangays')->get()->where("user_id", Auth::user()->id);
+
+        foreach($farmer as $farmers)
+        {
+            $chk = Farming_data::get()->where("farmer_id", $farmers->id)->where("status_id", 1)->count();
+            if($chk == 0 || $chk == null)
+            {
+                DB::table('farmers')
+                    ->where('id', $farmers->id)
+                    ->update([
+                    'status' => 2, 
+                ]);
+            } else if($chk != 0)
+            {
+                DB::table('farmers')
+                    ->where('id', $farmers->id)
+                    ->update([
+                    'status' => 1, 
+                ]);
+            }
+        }
+
+        $farmer = Farmer::with('barangays')->orderBy('status', 'asc')->get()->where("user_id", Auth::user()->id);
 
         return view('user/farmerList', array('municipalities' => $municipality, 'farmers' => $farmer, 'farming_datas' => $farming_data));
     }
@@ -48,7 +70,7 @@ class FarmerListController extends Controller
         $farmer->municipality_id = $request->municipality;
         $farmer->barangay_id = $request->barangay;
         $farmer->municipality = $muni;
-        $farmer->status = '1';
+        $farmer->status = '2';
         $farmer->barangay = $request->barangay;
         $farmer->user_id = Auth::user()->id;
         $farmer->save();
@@ -71,6 +93,7 @@ class FarmerListController extends Controller
             'municipality_id' => $request->municipality,
             'barangay'  => $request->barangay
             ]);
+
 
         if($res){
             return redirect()->route('farmerList')->with('updatedfarmer', 'Updated');

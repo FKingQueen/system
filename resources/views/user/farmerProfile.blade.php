@@ -304,7 +304,7 @@
                                     @enderror          
                                   <div class="input-group-append">
                                     <div class="input-group-text">
-                                      <i class="fas fa-info-circle"></i>
+                                      <i class="fas fa-seedling"></i>
                                     </div>
                                   </div>
                                 </div>
@@ -342,7 +342,7 @@
                                     @enderror 
                                 <div class="input-group-append">
                                     <div class="input-group-text">
-                                        <span class="fas fa-portrait"></span>
+                                    <i class="fas fa-file-alt"></i>
                                     </div>
                                 </div>
                               </div>
