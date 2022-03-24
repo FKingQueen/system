@@ -153,17 +153,17 @@
                       <div class="modal-content rounded">
 
                         <div class="modal-header p-1 d-flex justify-content-around">
-                          <h4 class="modal-title ml-2 ">{{$farmer->name}}</h4>
-                          <h4 class="modal-title ml-2 ">Activities</h4>
+                          <h4 class="modal-title ml-2 "><u style="color: #248139;" >{{$farmer->name}}</u> </h4>
+                          <h4 class="modal-title ml-2 " style="color: #57A0D3;">Activities</h4>
                         </div>
 
                         <div class="modal-body rounded bg-white p-0">
                           <div class="d-flex justify-content-between"> 
-                              <div class="p-2"> <b>Crops</b> </div>
+                              <div class="p-2"> <b style="color: #248139">Crops</b> </div>
                               <div class="d-flex justify-content-between w-50"> 
-                                <div class="p-2"> <b>Water</b> </div>
-                                <div class="p-2"> <b>Pesticide</b> </div>
-                                <div class="p-2"> <b>Fertilizer</b> </div>
+                                <div class="p-2" style="color: #008ECC;"> <b>Water</b> </div>
+                                <div class="p-2" style="color: #008ECC;"> <b>Pesticide</b> </div>
+                                <div class="p-2" style="color: #008ECC;"> <b>Fertilizer</b> </div>
                               </div>
                           </div>
                         @for($i= 0; $i <= $realCounts[$count]-1; $i++)

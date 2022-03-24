@@ -449,6 +449,7 @@
                                     <div class="ml-3">
                                         <label for="crop_name" class="input-group">Crop</label>
                                         <select id="crop_id" type="text" name="crop_id" class="form-control form-control-sm @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
+                                            <option disabled selected>--- Select  Crop ---</option>
                                             <option value="1">Bitter Gourd (Ampalaya)</option>
                                             <option value="2">Cabbage</option>
                                             <option value="3">Corn</option>
@@ -473,6 +474,7 @@
                                     <div class="ml-3">
                                         <label for="cropping_season" class="input-group">Cropping Season</label>
                                         <select id="cropping_season" type="text" name="cropping_season" class="form-control form-control-sm @error('cropping_season') is-invalid @enderror" name="cropping_season" required autocomplete="cropping_season" autofocus>
+                                            <option disabled selected>--- Select  Cropping Season ---</option>
                                             <option value="1">Dry Season</option>
                                             <option value="2">Wet Season</option>
                                         </select>
@@ -511,6 +513,22 @@
     <!-- SweetAlert2 -->
     <script src="https://adminlte.io/themes/v3/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="https://adminlte.io/themes/v3/plugins/toastr/toastr.min.js"></script>
+
+    @if(Session::has('cropmonitorfailed') && route('cropMonitoring') != url()->current())
+    <script>
+    $(function() {
+        $('#cropMonitoring').modal('show');
+    });
+    </script>
+    @endif
+
+    @if(Session::has('yieldmonitorfailed') && route('yieldMonitoring') != url()->current())
+    <script>
+    $(function() {
+        $('#yieldMonitoring').modal('show');
+    });
+    </script>
+    @endif
 
 
     <script>
@@ -594,8 +612,29 @@
                 });
             @endif
 
-            //FarmerProfile Notifications
+            // FarmerProfile Notifications
             
+            // Crop Monitoring Notifications
+            @if(Session::has('cropmonitorfailed'))
+                $(function() {
+                    toastr.warning('No data/information on the selected options')
+                });
+            @endif
+            // Crop Monitoring Notifications
+
+            // yield Monitoring Notifications
+            @if(Session::has('yieldmonitorfailed'))
+                $(function() {
+                    toastr.warning('No data/information on the selected options')
+                });
+            @endif
+
+            @if(Session::has('YMselectedfailed'))
+                $(function() {
+                    toastr.warning('Something is Wrong, Try again')
+                });
+            @endif
+            // yield Monitoring Notifications
 
 
         });

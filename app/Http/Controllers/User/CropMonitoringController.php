@@ -10,23 +10,29 @@ use App\Models\Crop;
 use Illuminate\Http\Request;
 use App\Models\Municipality;
 use Illuminate\Support\Facades\DB;
+use Validator;
 
 class CropMonitoringController extends Controller
 {
     public function cropMonitoring (Request $request)
     {
-        $request->validate([
-            'year_id'  => 'required',
-            'municipality'  => 'required',
-            'barangay'  => 'required',
+        $validator = Validator::make(
+            ['year_id'  => 'required'],
+            ['municipality'  => 'required'],
+            [ 'barangay'  => 'required']
+        );
 
-        ]);
+
+        if($validator->fails()) 
+        {
+            return back()->with('cropmonitorfailed', 'Failed');
+        }
 
         $farmer = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', $request->municipality)->where('barangay_id', $request->barangay)->get();
         $Fcount = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', $request->municipality)->where('barangay_id', $request->barangay)->count();
         if($Fcount == 0)
         {
-             return back()->with('failed', 'Update Sucessfully');
+             return back()->with('cropmonitorfailed', 'Failed');
         }
         for($i = 0; $i <= $Fcount-1; $i++)
         {

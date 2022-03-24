@@ -381,7 +381,8 @@
                           <div class="input-group mb-3">
                             <label for="crop_name" class="input-group">Crop Name:</label>
                             <select id="crop_id" type="text" name="crop_id" class="custom-select form-control-border @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
-                            <option value="1">Bitter Gourd (Ampalaya)</option>
+                              <option disabled selected>--- Select  Crop ---</option>
+                              <option value="1">Bitter Gourd (Ampalaya)</option>
                               <option value="2">Cabbage</option>
                               <option value="3">Corn</option>
                               <option value="4">Eggplant</option>

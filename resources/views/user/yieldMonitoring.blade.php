@@ -79,6 +79,7 @@
                         <div class="ml-3">
                             <label for="crop_name" class="input-group">Crop</label>
                             <select id="crop_id" type="text" name="crop_id" class="form-control form-control-sm @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
+                              <option disabled selected>--- Select  Crop ---</option>
                               <option value="1">Bitter Gourd (Ampalaya)</option>
                               <option value="2">Cabbage</option>
                               <option value="3">Corn</option>
@@ -103,8 +104,9 @@
                         <div class="ml-3">
                             <label for="cropping_season" class="input-group">Cropping Season</label>
                             <select id="cropping_season" type="text" name="cropping_season" class="form-control form-control-sm @error('cropping_season') is-invalid @enderror" name="cropping_season" required autocomplete="cropping_season" autofocus>
-                                <option value="1">Dry Season</option>
-                                <option value="2">Wet Season</option>
+                              <option disabled selected>--- Select  Cropping Season ---</option>
+                              <option value="1">Dry Season</option>
+                              <option value="2">Wet Season</option>
                             </select>
                                 @error('cropping_season')
                                 <span class="invalid-feedback" role="alert">
