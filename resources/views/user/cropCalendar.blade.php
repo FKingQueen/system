@@ -1,7 +1,16 @@
 @extends('layouts.layout')
 
 @section('css')
-
+<style>
+  /* Tooltip */
+.tooltip > .tooltip-inner {
+    background-color: #fff; 
+    width: 200px;
+    color:  #248139; 
+    border: solid 1px;
+    border-color: #248139;
+  }
+  </style>
 @endsection
 
 @section('content')
@@ -238,8 +247,15 @@
                                         @if($try == $loop->iteration)
                                               <tr class="p-0">
                                                 <td class="p-0 font-weight-bold" style="color: #248139; ">
-                                                {{$crop->name}}
 
+                                                  <a type="button" id="try_{{$loop->iteration}}" > {{$crop->name}} {{$perc[0]}}</a>
+
+                                                  <script>
+                                                    $(document).ready(function(){
+                                                      $('#try_{{$loop->iteration}}').tooltip({title: "<h4>{{$crop->name}} <br> {{$perc[0]}} %</h4>",html: true, placement: "top", animation: true,}); 
+                                                    });
+                                                  </script>
+                                                  
                                                 </td>
                                               </tr>
                                         @endif
@@ -272,6 +288,11 @@
   </section>
   <!-- /.content -->
 
+
+
+@endsection
+
+@section('js')
 
 
 @endsection
