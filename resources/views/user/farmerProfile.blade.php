@@ -163,7 +163,7 @@
 
                                 <div class="input-group mb-3">
                                   <label for="crop_name" class="input-group">Crop Name:</label>
-                                  <select id="crop_id" type="text" name="crop_id" class="custom-select form-control-border @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
+                                  <select value="" id="crop_id" type="text" name="crop_id" class="custom-select form-control-border @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
                                       <option class="bg-primary" value="{{$farming_data->crop_id}}" selected>{{$farming_data->crop->name}}</option>
                                       <option value="1">Bitter Gourd (Ampalaya)</option>
                                       <option value="2">Cabbage</option>
@@ -194,7 +194,7 @@
                                 <div class="input-group mb-3">
                                   <label for="status_id" class="input-group">Data Classification:</label>
                                   <select id="updateStatus_id" type="text" name="status_id" class="custom-select form-control-border @error('status_id') is-invalid @enderror" name="status_id" required autocomplete="status_id" autofocus>
-                                      <option disabled selected>--- Select Classification ---</option>
+                                      <option value="" disabled selected>--- Select Classification ---</option>
                                       <option value="1">Partial</option>
                                       <option value="2">Complete</option>
                                   </select>
@@ -215,7 +215,7 @@
                                   <div class="input-group mb-1">
                                     <label for="updateField_unit" class="input-group">Field Size Unit:</label>
                                     <select id="updateField_unit" type="text" name="field_unit" class="custom-select form-control-border  @error('field_unit') is-invalid @enderror" name="field_unit" required autocomplete="field_unit" autofocus>
-                                        <option disabled selected>--- Select Field Size Unit ---</option>
+                                        <option value="" disabled selected>--- Select Field Size Unit ---</option>
                                         <option value="1">Hectare</option>
                                         <option value="2">Square Meter</option>
                                     </select>
@@ -293,7 +293,7 @@
                                 <div class="input-group mb-3">
                                   <label for="status_id" class="input-group">Data Classification:</label>
                                   <select id="updateStatus_id" type="text" name="status_id" class="custom-select form-control-border @error('status_id') is-invalid @enderror" name="status_id" required autocomplete="status_id" autofocus>
-                                      <option disabled selected>--- Select Classification ---</option>
+                                      <option value="" disabled selected>--- Select Classification ---</option>
                                       <option value="1">Partial</option>
                                       <option value="2">Complete</option>
                                   </select>
@@ -381,7 +381,7 @@
                           <div class="input-group mb-3">
                             <label for="crop_name" class="input-group">Crop Name:</label>
                             <select id="crop_id" type="text" name="crop_id" class="custom-select form-control-border @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
-                              <option disabled selected>--- Select  Crop ---</option>
+                              <option value="" disabled selected>--- Select  Crop ---</option>
                               <option value="1">Bitter Gourd (Ampalaya)</option>
                               <option value="2">Cabbage</option>
                               <option value="3">Corn</option>
@@ -411,7 +411,7 @@
                           <div class="input-group mb-3">
                             <label for="status_id" class="input-group">Data Classification:</label>
                             <select id="status_id" type="text" name="status_id" class="custom-select form-control-border @error('status_id') is-invalid @enderror" name="status_id" required autocomplete="status_id" autofocus>
-                                <option disabled selected>--- Select Classification ---</option>
+                                <option value="" disabled selected>--- Select Classification ---</option>
                                 <option value="1">Partial</option>
                                 <option value="2">Complete</option>
                             </select>
@@ -432,7 +432,7 @@
                             <div class="input-group mb-1">
                               <label for="field_unit" class="input-group">Field Size Unit:</label>
                               <select id="field_unit" type="text" name="field_unit" class="custom-select form-control-border  @error('field_unit') is-invalid @enderror" name="field_unit" required autocomplete="field_unit" autofocus>
-                                  <option disabled selected>--- Select Field Size Unit ---</option>
+                                  <option value=""s disabled selected>--- Select Field Size Unit ---</option>
                                   <option value="1">Hectare</option>
                                   <option value="2">Square Meter</option>
                               </select>

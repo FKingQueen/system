@@ -19,7 +19,7 @@ class CropSeeder extends Seeder
         $crops =  [
           [
             'id' => '1',
-            'name' => 'Bitter Gourd (Ampalaya)',
+            'name' => 'Bitter Gourd',
           ],
           [
             'id' => '2',
@@ -39,7 +39,7 @@ class CropSeeder extends Seeder
           ],
           [
             'id' => '6',
-            'name' => 'Ladys Finger (Okra)',
+            'name' => 'Ladys Finger',
           ],
           [
             'id' => '7',
@@ -55,7 +55,7 @@ class CropSeeder extends Seeder
           ],
           [
             'id' => '10',
-            'name' => 'String Beans (Sitaw)',
+            'name' => 'String Beans',
           ],
           [
             'id' => '11',

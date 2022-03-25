@@ -11,28 +11,19 @@ use App\Models\Activity_file;
 use DateTime;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Validator;
 
 class YieldMonitoringController extends Controller
 {
     public function yieldMonitoring(Request $request)
     {
-        $validator = Validator::make(
-            ['year_id'  => 'required'],
-            ['municipality'  => 'required'],
-            [ 'barangay'  => 'required'],
-            [ 'crop_id'  => 'required'],
-            [ 'crpping_season'  => 'required']
-        );
+        $request->validate([
+            'year_id'  => 'required',
+            'municipality'  => 'required',
+            'barangay'  => 'required',
+            'crop_id'  => 'required',
+            'cropping_season'  => 'required',
+        ]);
 
-
-        if($validator->fails()) 
-        {
-            return back()->with('YMselectedfailed', 'Failed');
-        }
-
-
-        
         $data1 = Farming_data::with('crop' , 'cropping_season')->whereYear('created_at', '=', $request->year_id)
         ->where('municipality_id',  $request->municipality)
         ->where('barangay_id',  $request->barangay)

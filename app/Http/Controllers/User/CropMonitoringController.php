@@ -16,17 +16,12 @@ class CropMonitoringController extends Controller
 {
     public function cropMonitoring (Request $request)
     {
-        $validator = Validator::make(
-            ['year_id'  => 'required'],
-            ['municipality'  => 'required'],
-            [ 'barangay'  => 'required']
-        );
 
-
-        if($validator->fails()) 
-        {
-            return back()->with('cropmonitorfailed', 'Failed');
-        }
+        $request->validate([
+            'year_id'  => 'required',
+            'municipality'  => 'required',
+            'barangay'  => 'required',
+        ]);
 
         $farmer = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', $request->municipality)->where('barangay_id', $request->barangay)->get();
         $Fcount = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', $request->municipality)->where('barangay_id', $request->barangay)->count();

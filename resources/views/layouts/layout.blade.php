@@ -263,8 +263,8 @@
                                 <div class="d-flex justify-content-center mb-3">
                                     <div>
                                         <label for="municipality_id" class="input-group">Municipality</label>
-                                        <select id="municipality_id" type="text" name="municipality_id" class="form-control form-control-sm @error('municipality_id') is-invalid @enderror" name="municipality_id" required autocomplete="municipality_id" autofocus>
-                                            <option disabled selected>--- Select Municipality ---</option>
+                                        <select  id="municipality_id" type="text" name="municipality_id" class="form-control form-control-sm @error('municipality_id') is-invalid @enderror" name="municipality_id" required autocomplete="municipality_id" autofocus>
+                                            <option value="" disabled selected>--- Select Municipality ---</option>
                                             <option value="1">Badoc</option>
                                             <option value="2">Banna</option>
                                             <option value="3">Batac City</option>
@@ -287,7 +287,7 @@
                                     <div class="ml-3">
                                         <label for="year_id" class="input-group">Year</label>
                                         <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
-                                                <option disabled selected>--- Select  Year ---</option>
+                                                <option value="" disabled selected>--- Select  Year ---</option>
                                             @php 
                                                 $year = now()->year-4;
                                             @endphp
@@ -357,7 +357,7 @@
                                     <div class="ml-3">
                                         <label for="year_id" class="input-group">Year</label>
                                         <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
-                                                <option disabled selected>--- Select  Year ---</option>
+                                                <option value="" disabled selected>--- Select  Year ---</option>
                                             @php 
                                                 $year = now()->year-4;
                                             @endphp
@@ -428,7 +428,7 @@
                                     <div class="ml-3">
                                         <label for="year_id" class="input-group">Year</label>
                                         <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
-                                                <option disabled selected>--- Select  Year ---</option>
+                                                <option value="" disabled selected>--- Select  Year ---</option>
                                             @php 
                                                 $year = now()->year-4;
                                             @endphp
@@ -449,7 +449,7 @@
                                     <div class="ml-3">
                                         <label for="crop_name" class="input-group">Crop</label>
                                         <select id="crop_id" type="text" name="crop_id" class="form-control form-control-sm @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
-                                            <option disabled selected>--- Select  Crop ---</option>
+                                            <option value="" disabled selected>--- Select  Crop ---</option>
                                             <option value="1">Bitter Gourd (Ampalaya)</option>
                                             <option value="2">Cabbage</option>
                                             <option value="3">Corn</option>
@@ -474,7 +474,7 @@
                                     <div class="ml-3">
                                         <label for="cropping_season" class="input-group">Cropping Season</label>
                                         <select id="cropping_season" type="text" name="cropping_season" class="form-control form-control-sm @error('cropping_season') is-invalid @enderror" name="cropping_season" required autocomplete="cropping_season" autofocus>
-                                            <option disabled selected>--- Select  Cropping Season ---</option>
+                                            <option value="" disabled selected>--- Select  Cropping Season ---</option>
                                             <option value="1">Dry Season</option>
                                             <option value="2">Wet Season</option>
                                         </select>
@@ -529,6 +529,7 @@
     });
     </script>
     @endif
+
 
 
     <script>
@@ -626,12 +627,6 @@
             @if(Session::has('yieldmonitorfailed'))
                 $(function() {
                     toastr.warning('No data/information on the selected options')
-                });
-            @endif
-
-            @if(Session::has('YMselectedfailed'))
-                $(function() {
-                    toastr.warning('Something is Wrong, Try again')
                 });
             @endif
             // yield Monitoring Notifications

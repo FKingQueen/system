@@ -43,7 +43,7 @@
                 </tr>
                 <tr>
                     @foreach($years as $year)
-                        <td class="p-0 text-center">{{$year}}</td>
+                        <td class="p-0 text-center font-weight-bold">{{$year}}</td>
                     @endforeach
                 </tr>
 
@@ -56,7 +56,7 @@
                             @foreach($percentages[4] as $percentage[0])
                                 @if($percentage[0] != 0)
                                     @if($crop->id == $loop->iteration)
-                                        <small class="p-0">{{$crop->name}} {{$percentage[0]}} %</small> <br>
+                                        <small class="p-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
                                     @endif
                                 @endif
                             @endforeach
@@ -69,7 +69,7 @@
                             @foreach($percentages[3] as $percentage[0])
                                 @if($percentage[0] != 0)
                                     @if($crop->id == $loop->iteration)
-                                        <small class="p-0">{{$crop->name}} {{$percentage[0]}} %</small> <br>
+                                        <small class="p-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
                                     @endif
                                 @endif
                             @endforeach
@@ -82,7 +82,7 @@
                             @foreach($percentages[2] as $percentage[0])
                                 @if($percentage[0] != 0)
                                     @if($crop->id == $loop->iteration)
-                                        <small class="p-0">{{$crop->name}} {{$percentage[0]}} %</small> <br>
+                                        <small class="p-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
                                     @endif
                                 @endif
                             @endforeach
@@ -95,7 +95,7 @@
                             @foreach($percentages[1] as $percentage[0])
                                 @if($percentage[0] != 0)
                                     @if($crop->id == $loop->iteration)
-                                        <small class="p-0">{{$crop->name}} {{$percentage[0]}} %</small> <br>
+                                        <small class="p-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
                                     @endif
                                 @endif
                             @endforeach
@@ -108,7 +108,7 @@
                         @foreach($percentages[0] as $percentage[0])
                             @if($percentage[0] != 0)
                                 @if($crop->id == $loop->iteration)
-                                    <small class="p-0 m-0">{{$crop->name}} {{$percentage[0]}} %</small> <br>
+                                    <small class="p-0 m-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
                                 @endif
                             @endif
                         @endforeach
@@ -147,7 +147,7 @@
                   <div>
                     <label for="municipality_id" class="input-group">Municipality</label>
                     <select id="municipality_id" type="text" name="municipality_id" class="form-control form-control-sm @error('municipality_id') is-invalid @enderror" name="municipality_id" required autocomplete="municipality_id" autofocus>
-                        <option disabled selected>--- Select Municipality ---</option>
+                        <option value="" disabled selected>--- Select Municipality ---</option>
                         <option value="1">Badoc</option>
                         <option value="2">Banna</option>
                         <option value="3">Batac City</option>
@@ -170,7 +170,7 @@
                   <div class="ml-3">
                     <label for="year_id" class="input-group">Year</label>
                     <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
-                        <option disabled selected>--- Select  Year ---</option>
+                        <option value="" disabled selected>--- Select  Year ---</option>
                         @foreach($years as $year)
                           <option value="{{$loop->index}}">{{$year}}</option>
                         @endforeach
@@ -223,12 +223,12 @@
                     @php $i=0 @endphp
                     @php $mc=11 @endphp
                     @foreach($brgys as $brgy)
-                      <tr >
+                      <tr>
                         <td>{{$brgy->name}}</td>
                         
                         @while($i <=$mc)
                           <td class="p-0 text-center" style =" font-size: 10px;">
-                            <table class="table container-fluid">
+                            <table class="container-fluid">
                               <tbody>
                                 @foreach($percs[$i] as $perc[0])
                                 @php $try=$loop->iteration @endphp
@@ -236,8 +236,11 @@
                                     @if($perc[0] != 0)
                                       @foreach($crops as $crop)
                                         @if($try == $loop->iteration)
-                                              <tr >
-                                                <td class="p-0">{{$crop->name}} {{$perc[0]}} % </td>
+                                              <tr class="p-0">
+                                                <td class="p-0 font-weight-bold" style="color: #248139; ">
+                                                {{$crop->name}}
+
+                                                </td>
                                               </tr>
                                         @endif
                                       @endforeach

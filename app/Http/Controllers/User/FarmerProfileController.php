@@ -21,9 +21,12 @@ class FarmerProfileController extends Controller
         $farmer = Farmer::all()->where("id", $id);
         $farming_data = Farming_data::with('crop', 'cropping_season', 'status')->orderBy('status_id', 'asc')->get()->where("farmer_id", $id);
         $municipality = DB::table("municipalities")->pluck("name","id");
-
+        foreach($farming_data as $farming_datas)
+        {
+            dd($farming_datas->crop->id);
+        }
         return view('user/farmerProfile', array("farmers"=> $farmer, "farming_datas" => $farming_data, "municipalities" => $municipality));
-    }
+    }   
 
     public function compose(Request $request, $id){
         $date = Carbon::now();
