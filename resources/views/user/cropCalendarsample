@@ -5,8 +5,7 @@
   /* Tooltip */
 .tooltip > .tooltip-inner {
     background-color: #fff; 
-    width: 100%;
-    padding-bottom: 0%;
+    width: 200px;
     color:  #248139; 
     border: solid 1px;
     border-color: #248139;
@@ -208,7 +207,6 @@
                     </div>
                 </div>
                 <div></div>
-                
                 </div>
               </form>
 
@@ -238,25 +236,23 @@
                         <td>{{$brgy->name}}</td>
                         
                         @while($i <=$mc)
-                          <td class="p-0 text-center" style ="{{ $percs[$i] == null ? 'background-color: green;' : ''}} font-size: 10px;">
-                            <table class=" container-fluid">
-                              <tbody> 
-
+                          <td class="p-0 text-center" style =" font-size: 10px;">
+                            <table class="container-fluid">
+                              <tbody>
                                 @foreach($percs[$i] as $perc[0])
-
                                 @php $try=$loop->iteration @endphp
+                                  @if($perc[0] != null)
                                     @if($perc[0] != 0)
-                                      @php $check=1 @endphp
                                       @foreach($crops as $crop)
                                         @if($try == $loop->iteration)
                                               <tr class="p-0">
-                                                <td class="p-0 font-weight-bold" style="color: #248139; background-color: #C1E1C1;">
+                                                <td class="p-0 font-weight-bold" style="color: #248139; ">
 
-                                                  <a type="button" id="try_{{$loop->iteration}}" > {{$crop->name}}</a>
+                                                  <a type="button" id="try_{{$loop->iteration}}" > {{$crop->name}} {{$perc[0]}}</a>
 
                                                   <script>
                                                     $(document).ready(function(){
-                                                      $('#try_{{$loop->iteration}}').tooltip({title: "<h5>{{$crop->name}} <br> {{$perc[0]}}%</h5>",html: true, placement: "top", animation: true,}); 
+                                                      $('#try_{{$loop->iteration}}').tooltip({title: "<h4>{{$crop->name}} <br> {{$perc[0]}} %</h4>",html: true, placement: "top", animation: true,}); 
                                                     });
                                                   </script>
                                                   
@@ -265,6 +261,8 @@
                                         @endif
                                       @endforeach
                                     @endif
+                                  @else
+                                  @endif
                                 @endforeach
                               </tbody>
                             </table>

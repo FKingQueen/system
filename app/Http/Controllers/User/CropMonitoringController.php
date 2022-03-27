@@ -134,10 +134,13 @@ class CropMonitoringController extends Controller
             $cropC[$i] = Farming_data::whereYear('created_at', '=', $request->year_id)->where('status_id', '2')->where('municipality_id', $request->municipality)->where('crop_id', $i+1)->count();
         }
 
+        
       
-
+        $dmuni = Municipality::where('id', $request->municipality)->value('name');
+        $dyear = $request->year_id;
         
         $municipality = DB::table("municipalities")->pluck("name","id");
-        return view('user/cropMonitoring', array("municipalities" => $municipality, "farmers" => $farmer, "Fpercents" => $Fpercent, "realCounts" => $realCount, "FDcrops" => $FDcrop, "FDvalues" => $FDvalue, "cropCs" => $cropC));
+
+        return view('user/cropMonitoring', array("dmuni" => $dmuni,"dyear" => $dyear,"municipalities" => $municipality, "farmers" => $farmer, "Fpercents" => $Fpercent, "realCounts" => $realCount, "FDcrops" => $FDcrop, "FDvalues" => $FDvalue, "cropCs" => $cropC));
     }
 }

@@ -19,6 +19,8 @@
   </div>
   <!-- /.content-header -->
 
+  
+
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -29,7 +31,7 @@
             <div class="card-body">
               <form action="{{ route('yieldMonitoring') }}" method="GET">
                 @csrf
-                <div class="modal-body rounded bg-white p-0">
+                <div class="rounded bg-white p-0">
                     <div class="d-flex justify-content-left input-group mb-3 ">
                         <div>
                             <label for="crop_name" class="input-group">Municipality</label>
@@ -120,7 +122,7 @@
                     </div>                        
                 </div>
               </form>
-              <table class="table">
+              <table class="table mt-4">
                 <thead>
                   <tr class="text-center">
                     <th scope="col"></th>
@@ -133,14 +135,14 @@
                 <tbody class="text-center">
                   @foreach($data1s as $key => $data1)
                     <tr>
-                      <th scope="row">{{$key+1}}</th>
-                      <td>{{$farmerName[$key]}}</td>
+                      <th scope="row">{{$key+1}}.</th>
+                      <td > <h5 class="mt-1"><b>{{$farmerName[$key]}}</b></h5> </td>
                       <td> 
-                        <a type="button" data-toggle="modal" data-target="#activity_{{$data1->id}}">Inspect</a>
+                        <a type="button"  class="p-1 btn btn-close btn-xm " data-toggle="modal" data-target="#activity_{{$data1->id}}">Inspect</a>
                       </td>
-                      <td>{{$data1->yield}}</td>
+                      <td ><h6 class="mt-2">{{$data1->yield}}</h6></td>
                       <td>
-                        <a class="btn btn-success" href="{{ route('generatePDF') }}">Report</a>
+                        <a type="button" class="p-1 btn btn-primary btn-xm " href="{{ route('generatePDF') }}">Report</a>
                       </td>
                       <td>
                         <!-- Farming Activity Modal -->
@@ -153,7 +155,7 @@
                             </div>
 
                             <div class="modal-body">
-                              <div><h2>{{$data1->crop->name}}</h2></div>
+                              <div><h2 style="color: #248139">{{$data1->crop->name}}</h2></div>
                               <table class="table table-bordered">
                                 <tbody>
                                   @for($i= 0; $i <= 2; $i++)

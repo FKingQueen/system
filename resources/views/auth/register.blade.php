@@ -92,7 +92,7 @@
             </div>
 
             <div class="input-group mb-3">
-              <input id="password_confirmation" type="text" class="form-control" name="password_confirmation"  required autocomplete="new-password" placeholder="Retype Password">
+              <input id="password_confirmation" type="text" class="form-control" name="password_confirmation"  required autocomplete="new-password" placeholder="Confirm">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-lock"></span>

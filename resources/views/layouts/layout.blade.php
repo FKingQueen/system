@@ -40,8 +40,10 @@
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-light-success elevation-4">
                 <!-- Brand Logo -->
-                    <div class="ml-4 image">
-                        <img src="{{ asset('images/logo.png')}}" width="100%" height="100%" alt="Image" >  
+                    <div class="ml-1 p-1 image">
+                        <a href="{{ route('farmerList') }}">
+                            <img src="{{ asset('images/logo.png')}}" width="100%" height="100%" alt="Image" >  
+                        </a>
                     </div>
                 <!-- Sidebar -->
                 <div class="sidebar">
@@ -178,7 +180,7 @@
             </div>
             <!-- /.content-wrapper -->
             <footer class="main-footer">
-            <strong>Copyright &copy; 2021-2022 <a href="#">Transcription System</a>.</strong>
+            <strong>Copyright &copy; 2021-2022 <a class="text-info">Ilocos Norte Crop Manager</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 3.1.0
@@ -618,7 +620,7 @@
             // Crop Monitoring Notifications
             @if(Session::has('cropmonitorfailed'))
                 $(function() {
-                    toastr.warning('No data/information on the selected options')
+                    toastr.warning('There is no data or information available for the specified options')
                 });
             @endif
             // Crop Monitoring Notifications
@@ -626,7 +628,7 @@
             // yield Monitoring Notifications
             @if(Session::has('yieldmonitorfailed'))
                 $(function() {
-                    toastr.warning('No data/information on the selected options')
+                    toastr.warning('There is no data or information available for the specified options')
                 });
             @endif
             // yield Monitoring Notifications

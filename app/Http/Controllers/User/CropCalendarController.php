@@ -96,7 +96,9 @@ class CropCalendarController extends Controller
                         $i++;
                     } 
                     else  {
-                        $perc[$i][0] = null;
+                        $perc[$i][0
+                        ] = null;
+                        // $perc[$i][0] = null; orig
                         $i++;
                     }
                     

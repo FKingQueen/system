@@ -25,7 +25,8 @@
     <form action="{{ route('cropMonitoring') }}" method="GET">
       @csrf
       <div class="modal-body rounded bg-white">
-          <div class="d-flex justify-content-left">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-left mb-3">
               <div>
                   <label for="crop_name" class="input-group">Municipality:</label>
                   <select id="municipality" type="text" name="municipality" class="form-control form-control-sm @error('municipality') is-invalid @enderror" name="municipality" required autocomplete="municipality" autofocus>
@@ -74,7 +75,20 @@
               <div class="ml-3 d-flex align-items-end">
                   <button type="submit" class="btn btn-sm btn-block btn-primary input-group"> Search </button>
               </div>
+
           </div>
+
+            <div class="ml-5">
+              <div class="input-group mt-4">
+                <h1>
+                <u style="color: #248139;" >{{$dmuni}}</u> 
+
+                  <small style="font-size: 20px;">({{$dyear}})</small>
+                </h1>
+              </div>
+            </div> 
+            <div></div> 
+        </div>
       </div>
     </form>
 
@@ -147,7 +161,7 @@
                         @endforeach
                     </tr>
  
-                    <!-- Option Modal -->
+                    <!-- Farming Activities Modal -->
                     <div class="modal fade rounded" id="activity_{{$farmer->id}}" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered modal-lg">
                       <div class="modal-content rounded">
@@ -182,7 +196,7 @@
                       </div>
                       </div>
                     </div>
-                    <!-- /Option Modal -->
+                    <!-- /Farming Activities Modal -->
 
                   @endforeach
                 </tbody>

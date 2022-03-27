@@ -317,14 +317,12 @@
                                       <label class="mt-2 font-weight-light">Yield (t/ha): </label>
                                     </div>
                                     
-                                    <div class="col-4 input-group-sm">
+                                    <div class="col-5 input-group-sm">
                                       <label for="kg" class="input-group  font-weight-light" >Number of sacks: </label>
                                       <input id="updateSacks" name="sacks" type="number" class="form-control" placeholder="sacks" min="0" autocomplete="kg" autofocus>
                                     </div>
                                       
-                                    <div class="col-5
-                                    
-                                    \input-group-sm">
+                                    <div class="col-4 input-group-sm">
                                       <label for="kg" class="input-group font-weight-light">Weight of sack: </label>
                                       <input id="updateKg" name="kg" type="number" class="form-control"  min="25" max="85" step=".001" placeholder="kg" autocomplete="kg" autofocus>
                                     </div>
