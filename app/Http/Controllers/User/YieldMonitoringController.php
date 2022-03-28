@@ -16,6 +16,7 @@ class YieldMonitoringController extends Controller
 {
     public function yieldMonitoring(Request $request)
     {
+
         $request->validate([
             'year_id'  => 'required',
             'municipality'  => 'required',
