@@ -142,7 +142,7 @@
                       </td>
                       <td ><h6 class="mt-2">{{$data1->yield}}</h6></td>
                       <td>
-                        <a type="button" class="p-1 btn btn-primary btn-xm " href="{{ route('generatePDF') }}">Report</a>
+                        <a type="button" class="p-1 btn btn-primary btn-xm " href="{{ route('generatePDF', $data1->id) }}">Report</a>
                       </td>
                       <td>
                         <!-- Farming Activity Modal -->
@@ -202,6 +202,7 @@
                           </div>
                         </div>
                         <!-- /Farming Activity Modal -->
+
                       </td>
                     </tr>
 
