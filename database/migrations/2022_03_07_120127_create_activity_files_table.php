@@ -19,7 +19,7 @@ class CreateActivityFilesTable extends Migration
             $table->integer('farmer_id');
             $table->integer('status_id');
             $table->string('activity');
-            $table->dateTime('activity_date');
+            $table->date('date');
             $table->timestamps();
         });
     }

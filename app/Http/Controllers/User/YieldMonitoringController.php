@@ -103,10 +103,10 @@ class YieldMonitoringController extends Controller
         foreach($data1 as $key => $data)
         {
             $firstdate = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('status_id', '2')->first();
-            $latestdate = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('status_id', '2')->latest('created_at')->first();
+            $latestdate = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('status_id', '2')->latest('date')->first();
             
-            $firstdate = $firstdate->created_at;            
-            $latestdate = $latestdate->created_at;            
+            $firstdate = $firstdate->date;            
+            $latestdate = $latestdate->date;            
             
             $firstdate = new DateTime($firstdate);
             $latestdate = new DateTime($latestdate);
@@ -121,10 +121,10 @@ class YieldMonitoringController extends Controller
         foreach($data1 as $key => $data)
         {
             $firstmonth = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('status_id', '2')->first();
-            $latestmonth = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('status_id', '2')->latest('created_at')->first();
+            $latestmonth = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('status_id', '2')->latest('date')->first();
             
-            $firstmonth = $firstmonth->created_at;            
-            $latestmonth = $latestmonth->created_at;  
+            $firstmonth = $firstmonth->date;            
+            $latestmonth = $latestmonth->date;  
 
             $firstmonth = new DateTime($firstmonth);
             $latestmonth = new DateTime($latestmonth);

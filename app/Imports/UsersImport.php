@@ -28,9 +28,7 @@ class UsersImport implements ToModel, WithHeadingRow
 
         return new Activity_file([
             "activity" => $row['activity'],
-            // $date = strtotime($row['date']),
-            // $new_date = Carbon::parse($date)->format('d/m/Y'),
-            "activity_date" =>  date("Y-m-d H:i:s", strtotime($row['date'])),
+            "date" => Carbon::createFromFormat('d/m/Y',  $row['date']),
             "farming_data_id" =>  $this->farming_data_id,
             "farmer_id" =>  $this->farmer_id,
             "status_id" =>  $this->status_id,
