@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Farming_data;
 use App\Models\Farmer;
+use App\Models\Barangay;
 use App\Models\Activity_files;
 use App\Models\Municipality;
 use Illuminate\Http\Request;
@@ -17,9 +18,11 @@ class FarmerListController extends Controller
 
     public function farmerList()
     {
+
         $municipality = DB::table("municipalities")->pluck("name","id");
         $farming_data = Farming_data::all(); 
         $farmer = Farmer::with('barangays')->get()->where("user_id", Auth::user()->id);
+        $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
 
         foreach($farmer as $farmers)
         {
@@ -41,15 +44,15 @@ class FarmerListController extends Controller
             }
         }
 
-        $farmer = Farmer::with('barangays')->orderBy('status', 'asc')->get()->where("user_id", Auth::user()->id);
+        $farmer = Farmer::with('barangays', 'municipality')->orderBy('status', 'asc')->get()->where("user_id", Auth::user()->id);
 
-        return view('user/farmerList', array('municipalities' => $municipality, 'farmers' => $farmer, 'farming_datas' => $farming_data));
+        return view('user/farmerList', array('municipalities' => $municipality, 'farmers' => $farmer, 'farming_datas' => $farming_data, 'barangays' => $barangay));
     }
 
     public function farmerListAjax($id)
     {
         $barangays = DB::table("barangays")
-                    ->where("municipality_id",$id)
+                    ->where("municipality_id",Auth::user()->muni_address)
                     ->pluck("name","id");
         return json_encode($barangays);
     }
@@ -59,19 +62,16 @@ class FarmerListController extends Controller
 
         $request->validate([
             'name'  => 'required|unique:farmers',
-            'municipality'  => 'required',
             'barangay'  => 'required',
         ]);
 
-        $muni = DB::table("municipalities")->where("id",$request->municipality)->value('name');
+        $muni = DB::table("municipalities")->where("id", Auth::user()->muni_address)->value('name');
 
         $farmer =  new Farmer();
         $farmer->name = $request->name;
-        $farmer->municipality_id = $request->municipality;
+        $farmer->municipality_id = Auth::user()->muni_address;
         $farmer->barangay_id = $request->barangay;
-        $farmer->municipality = $muni;
         $farmer->status = '2';
-        $farmer->barangay = $request->barangay;
         $farmer->user_id = Auth::user()->id;
         $farmer->save();
 
@@ -84,14 +84,12 @@ class FarmerListController extends Controller
 
     public function updateFarmer(Request $request, $id)
     {
-        $muni = DB::table("municipalities")->where("id",$request->municipality)->value('name');
+       
         $res = DB::table('farmers')
             ->where('id', $id)
             ->update([
             'name' => $request->name, 
-            'municipality' => $muni,
-            'municipality_id' => $request->municipality,
-            'barangay'  => $request->barangay
+            'barangay_id'  => $request->barangay
             ]);
 
 

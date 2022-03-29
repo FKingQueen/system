@@ -64,36 +64,6 @@
             </div>
             <!-- /Update Email -->
 
-            <!-- Update Municipality Address -->
-            <div class="input-group mb-3">
-                <label for="muni_address" class="input-group">Municipality Address:</label>
-                <select id="muni_address" type="number" class="form-control @error('muni_address') is-invalid @enderror" name="muni_address" required autocomplete="muni_address" autofocus>
-                    <option disable selected>{{Auth::user()->muni_address}}</option>
-                    <option value="Badoc" >Badoc</option>
-                    <option value="Banna" >Banna</option>
-                    <option value="Batac City" >Batac City</option>
-                    <option value="Currimao" >Currimao</option>
-                    <option value="Dingras" >Dingras</option>
-                    <option value="Marcos" >Marcos</option>
-                    <option value="Nueva Era" >Nueva Era</option>
-                    <option value="Paoay" >Paoay</option>
-                    <option value="Pinili" >Pinili</option>
-                    <option value="San Nicolas" >San Nicolas</option>
-                    <option value="Solsona" >Solsona</option>
-                </select>
-                @error('muni_address')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror 
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                    <span class="fas fa-building"></span>
-                    </div>
-                </div>
-            </div>
-            <!-- /Update Municipality Address -->
-
             <!-- Change Password -->
             <div class="input-group mb-3">
                 <label for="password" class="input-group">Password:</label>

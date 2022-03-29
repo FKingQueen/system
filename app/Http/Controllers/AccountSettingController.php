@@ -7,13 +7,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
 use Hash;
+use Auth;
 
 class AccountSettingController extends Controller
 {
     public function accountSetting()
     {
-        $municipality = DB::table("municipalities")->pluck("name","id");
-        return view('accountSetting', array("municipalities" => $municipality));
+        $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
+        return view('accountSetting', array("barangays" => $barangay));
     }
 
     public function updateAccount(Request $request, $id)

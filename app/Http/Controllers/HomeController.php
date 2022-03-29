@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 
 class HomeController extends Controller
@@ -25,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $municipality = DB::table("municipalities")->pluck("name","id");
-        return view('layouts.layout', array("municipalities" => $municipality));
+        $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
+        return view('layouts.layout', array("barangays" => $barangay));
     }
 }

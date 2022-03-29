@@ -34,6 +34,7 @@
       </div><!-- /.container-fluid -->
   </div>
   <!-- /.content-header -->
+  
 
   <!-- Main content -->
   <section class="content">
@@ -425,38 +426,31 @@
                             </div>
                           </div>
 
-                          <div class="container-fluid p-3 border border-top-0 mb-3 rounded">
+                          <div class="p-0 input-group mb-3">
 
-                            <div class="input-group mb-1">
-                              <label for="field_unit" class="input-group">Field Size Unit:</label>
+                            <div class="w-50">
+                              <label for="field_unit">Field Size Unit:</label>
                               <select id="field_unit" type="text" name="field_unit" class="custom-select form-control-border  @error('field_unit') is-invalid @enderror" name="field_unit" required autocomplete="field_unit" autofocus>
-                                  <option value=""s disabled selected>--- Select Field Size Unit ---</option>
                                   <option value="1">Hectare</option>
                                   <option value="2">Square Meter</option>
                               </select>
+                              
                                 @error('field_unit')
                                   <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                   </span>
-                                @enderror          
-                              <div class="input-group-append">
-                                <div class="input-group-text">
-                                  <i class="fas fa-arrows-alt-h"></i>
-                                </div>
-                              </div>
+                                @enderror    
                             </div>
 
-                            <div class="d-flex justify-content-center input-group">
-                              <div class="text-center w-25 input-group-sm">
-                                <label id="unit_name" name="unit_name" class="font-weight-light">Hectare:</label>
-                                <input id="lot_size" type="number"  class="text-center form-control @error('lot_size') is-invalid @enderror"  name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
+                            <div class="text-center w-50 col-auto" >
+                                <label id="unit_name" name="unit_name" class="font-weight-light"></label>
+                                <input id="lot_size" type="number"  class="text-center form-control @error('lot_size') is-invalid @enderror mt-2"  name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
                                 @error('lot_size')
                                   <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                   </span>
                                 @enderror          
-                              </div>
-                            </div>
+                              </div>   
 
                           </div>
 
@@ -558,15 +552,13 @@
     // Create Farming Activity Field Unit JS 
     $(function(){
       
-      $('[id="unit_name"]').hide();
-      $('[id="lot_size"]').hide();
+
       $('select[id="field_unit"]').on('change', function() {
         var field_unit = $(this).val();
         
           if(field_unit == 1){
             $('[id="unit_name"]').show();
             $('[id="lot_size"]').show();
-            $('[id="unit_name"]').text("Hectare:");
             $('[id="lot_size"]').attr("placeholder", "ha");
             $('[id="lot_size"]').attr("max", "10");
             $('[id="lot_size"]').attr("min", ".1");
@@ -576,7 +568,6 @@
           else if(field_unit == 2){
             $('[id="unit_name"]').show();
             $('[id="lot_size"]').show();
-            $('[id="unit_name"]').text("Square Meter:");
             $('[id="lot_size"]').attr("placeholder", "sq");
             $('[id="lot_size"]').attr("max", "100000");
             $('[id="lot_size"]').attr("min", "50");

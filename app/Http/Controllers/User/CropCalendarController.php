@@ -11,26 +11,22 @@ use App\Models\Barangay;
 use App\Models\Municipality;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Auth;
 
 class CropCalendarController extends Controller
 {
     public function cropCalendar (Request $request)
     {   
 
-        $request->validate([
-            'year_id'  => 'required',
-            'municipality_id'  => 'required',
-        ]);
 
+        $muni = Municipality::where('id',Auth::user()->muni_address)->get();
 
-
-        $muni = Municipality::where('id',$request->municipality_id)->get();
 
         $crop = Crop::all();
         $date = Carbon::now();
-        $brgy = Barangay::where('municipality_id', $request->municipality_id)->get();
-        $brgycount = Barangay::where('municipality_id', $request->municipality_id)->count();
-        $brgyfirst = Barangay::where('municipality_id', $request->municipality_id)->value('id');
+        $brgy = Barangay::where('municipality_id', Auth::user()->muni_address)->get();
+        $brgycount = Barangay::where('municipality_id', Auth::user()->muni_address)->count();
+        $brgyfirst = Barangay::where('municipality_id', Auth::user()->muni_address)->value('id');
 
         for($i = 4; $i >= 0; $i--)
         {
@@ -61,23 +57,15 @@ class CropCalendarController extends Controller
             $total=0;
         }
 
-        if($request->year_id != null)
+
+
+        $total = Farming_data::whereYear('created_at', $year[0])->where('municipality_id', Auth::user()->muni_address)->count();
+        if($total==0)
         {
-
-            if($request->year_id == 0){$year_id = 4;}
-            if($request->year_id == 1){$year_id = 3;}
-            if($request->year_id == 2){$year_id = 2;}
-            if($request->year_id == 3){$year_id = 1;}
-            if($request->year_id == 4){$year_id = 0;}
-
-            $total = Farming_data::whereYear('created_at', $year[$year_id])->where('municipality_id', $request->municipality_id)->count();
-            if($total==0)
-            {
-                $total=1;
-            }
+            $total=1;
         }
 
-        $currentyear = $year[$year_id];
+        $currentyear = $year[0];
 
         $k=1;
         $x=$brgyfirst;
@@ -86,12 +74,12 @@ class CropCalendarController extends Controller
             {
                 for($p=1;$p<=12;$p++)  
                 {
-                    $chk = Farming_data::whereMonth('created_at', '=', $p )->whereYear('created_at', '=', $year[$year_id])->where('barangay_id', $x)->count();
+                    $chk = Farming_data::whereMonth('created_at', '=', $p )->whereYear('created_at', '=', $year[0])->where('barangay_id', $x)->count();
                     if($chk!=0)
                     {
                         for($j = 1; $j<=Crop::count(); $j++)
                         {
-                            $perc[$i][$j] = number_format((Farming_data::whereMonth('created_at', '=', $p )->whereYear('created_at', '=', $year[$year_id])->where('barangay_id', $x)->where('crop_id', $j)->count() / $total)*100,0);
+                            $perc[$i][$j] = number_format((Farming_data::whereMonth('created_at', '=', $p )->whereYear('created_at', '=', $year[0])->where('barangay_id', $x)->where('crop_id', $j)->count() / $total)*100,0);
                         }
                         $i++;
                     } 
@@ -107,7 +95,7 @@ class CropCalendarController extends Controller
                 $x++;
             }
 
-            $municipality = DB::table("municipalities")->pluck("name","id");
+            $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
         
         return view('user/cropCalendar', array(
             "munis"=> $muni,
@@ -117,7 +105,7 @@ class CropCalendarController extends Controller
             "crops" => $crop, 
             "brgys" => $brgy, 
             "percs" => $perc,
-            "municipalities" => $municipality
+            "barangays" => $barangay
         ));
     }
 }

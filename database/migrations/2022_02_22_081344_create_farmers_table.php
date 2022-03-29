@@ -20,8 +20,6 @@ class CreateFarmersTable extends Migration
             $table->integer('barangay_id');
             $table->string('name');
             $table->integer('status');
-            $table->string('municipality');
-            $table->string('barangay');
             $table->timestamps();
         });
     }

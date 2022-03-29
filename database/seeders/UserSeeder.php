@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name'=>'Patrick Borja',
-            'muni_address'=>'Currimao',
+            'muni_address'=>'4',
             'role_id'=>'1',
             'email'=>'p@gmail.com',
             'password'=>Hash::make('12345')
@@ -25,9 +25,17 @@ class UserSeeder extends Seeder
 
         User::create([
             'name'=>'Hisiah Nidoy',
-            'muni_address'=>'Batac',
+            'muni_address'=>'3',
             'role_id'=>'2',
             'email'=>'h@gmail.com',
+            'password'=>Hash::make('12345')
+        ]); 
+
+        User::create([
+            'name'=>'Jelene Mae',
+            'muni_address'=>'1',
+            'role_id'=>'2',
+            'email'=>'jm@gmail.com',
             'password'=>Hash::make('12345')
         ]); 
 

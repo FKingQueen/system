@@ -38,17 +38,17 @@
             <div class="input-group mb-3">
                   <select id="muni_address" type="number" class="form-control @error('muni_address') is-invalid @enderror" name="muni_address" required autocomplete="muni_address" autofocus>
                       <option disabled selected>Municipal Department Office</option>
-                      <option value="Badoc" >Badoc</option>
-                      <option value="Banna" >Banna</option>
-                      <option value="Batac City" >Batac City</option>
-                      <option value="Currimao" >Currimao</option>
-                      <option value="Dingras" >Dingras</option>
-                      <option value="Marcos" >Marcos</option>
-                      <option value="Nueva Era" >Nueva Era</option>
-                      <option value="Paoay" >Paoay</option>
-                      <option value="Pinili" >Pinili</option>
-                      <option value="San Nicolas" >San Nicolas</option>
-                      <option value="Solsona" >Solsona</option>
+                      <option value="1" >Badoc</option>
+                      <option value="2" >Banna</option>
+                      <option value="3" >Batac City</option>
+                      <option value="4" >Currimao</option>
+                      <option value="5" >Dingras</option>
+                      <option value="6" >Marcos</option>
+                      <option value="7" >Nueva Era</option>
+                      <option value="8" >Paoay</option>
+                      <option value="9" >Pinili</option>
+                      <option value="10" >San Nicolas</option>
+                      <option value="11" >Solsona</option>
                   </select>
 
                   @error('unit_id')

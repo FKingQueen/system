@@ -150,67 +150,22 @@
             <!-- /.card-header -->
             <div class="card-body">
 
-              <form action="{{ route('cropCalendar') }}" method="GET">
-                @csrf
-                <div class="d-flex justify-content-between">
-                <div class="d-flex justify-content-left mb-3">
+                <div class="d-flex justify-content-center">
+              
                   <div>
-                    <label for="municipality_id" class="input-group">Municipality</label>
-                    <select id="municipality_id" type="text" name="municipality_id" class="form-control form-control-sm @error('municipality_id') is-invalid @enderror" name="municipality_id" required autocomplete="municipality_id" autofocus>
-                        <option value="" disabled selected>--- Select Municipality ---</option>
-                        <option value="1">Badoc</option>
-                        <option value="2">Banna</option>
-                        <option value="3">Batac City</option>
-                        <option value="4">Currimao</option>
-                        <option value="5">Dingras</option>
-                        <option value="6">Marcos</option>
-                        <option value="7">Nueva Era</option>
-                        <option value="8">Paoay</option>
-                        <option value="9">Pinili</option>
-                        <option value="10">San Nicolas</option>
-                        <option value="11">Solsona</option>
-                    </select>
-                      @error('municipality_id')
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                        </span>
-                      @enderror          
-                  </div>
+                      <div class="input-group">
+                        @foreach($munis as $muni)
+                        <h1>
+                        <u style="color: #248139;" >{{$muni->name}}</u> 
 
-                  <div class="ml-3">
-                    <label for="year_id" class="input-group">Year</label>
-                    <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
-                        <option value="" disabled selected>--- Select  Year ---</option>
-                        @foreach($years as $year)
-                          <option value="{{$loop->index}}">{{$year}}</option>
+                          <small style="font-size: 20px;">({{$currentyear}})</small>
+                        </h1>
                         @endforeach
-                    </select>
-                      @error('year_id')
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                        </span>
-                      @enderror          
+                      </div>
                   </div>
-                  <div class="ml-3 d-flex align-items-end">
-                    <button type="submit" class="btn btn-sm btn-block btn-primary input-group"> Search </button>
-                  </div>
-                </div>
-
-                <div>
-                    <div class="input-group mt-4">
-                      @foreach($munis as $muni)
-                      <h1>
-                      <u style="color: #248139;" >{{$muni->name}}</u> 
-
-                        <small style="font-size: 20px;">({{$currentyear}})</small>
-                      </h1>
-                      @endforeach
-                    </div>
-                </div>
-                <div></div>
                 
                 </div>
-              </form>
+
 
               <table class="table table-bordered">
                 <thead>

@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Municipality;
 use App\Models\Farmer;
+use App\Models\Barangay;
 use App\Models\Farming_data;
 use App\Models\Activity_file;
 use DateTime;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class YieldMonitoringController extends Controller
 {
@@ -19,21 +21,20 @@ class YieldMonitoringController extends Controller
 
         $request->validate([
             'year_id'  => 'required',
-            'municipality'  => 'required',
             'barangay'  => 'required',
             'crop_id'  => 'required',
             'cropping_season'  => 'required',
         ]);
 
         $data1 = Farming_data::with('crop' , 'cropping_season')->whereYear('created_at', '=', $request->year_id)
-        ->where('municipality_id',  $request->municipality)
+        ->where('municipality_id',  Auth::user()->muni_address)
         ->where('barangay_id',  $request->barangay)
         ->where('crop_id',  $request->crop_id)
         ->where('status_id',  2)
         ->where('cropping_season_id',  $request->cropping_season)->orderBy('yield', 'desc')->get();
 
         $auth= Farming_data::whereYear('created_at', '=', $request->year_id)
-        ->where('municipality_id',  $request->municipality)
+        ->where('municipality_id',  Auth::user()->muni_address)
         ->where('barangay_id',  $request->barangay)
         ->where('crop_id',  $request->crop_id)
         ->where('status_id',  2)
@@ -133,7 +134,7 @@ class YieldMonitoringController extends Controller
             $lmonth[$key] = $latestmonth->format('F');
         }
 
-        $municipality = DB::table("municipalities")->pluck("name","id");
-        return view('user/yieldMonitoring', array("municipalities" => $municipality, "data1s" => $data1, "farmerName" => $farmerName, "activity" => $activity, "activityC" => $activityC, "days" => $days, "fmonth" => $fmonth, "lmonth" => $lmonth));
+        $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
+        return view('user/yieldMonitoring', array("barangays" => $barangay, "data1s" => $data1, "farmerName" => $farmerName, "activity" => $activity, "activityC" => $activityC, "days" => $days, "fmonth" => $fmonth, "lmonth" => $lmonth));
     }
 }

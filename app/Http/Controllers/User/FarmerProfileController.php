@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\Farmer;
 use App\Models\Farming_data;
 use App\Models\Activity_file;
+use App\Models\Barangay;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Imports\UsersImport;
 use App\Imports\UsersUpdate;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Municipality;
+use auth;
 
 class FarmerProfileController extends Controller
 {
@@ -20,10 +22,10 @@ class FarmerProfileController extends Controller
     {
         $farmer = Farmer::all()->where("id", $id);
         $farming_data = Farming_data::with('crop', 'cropping_season', 'status')->orderBy('status_id', 'asc')->get()->where("farmer_id", $id);
-        $municipality = DB::table("municipalities")->pluck("name","id");
+        $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
 
         
-        return view('user/farmerProfile', array("farmers"=> $farmer, "farming_datas" => $farming_data, "municipalities" => $municipality));
+        return view('user/farmerProfile', array("farmers"=> $farmer, "farming_datas" => $farming_data, "barangays" => $barangay));
     }   
 
     public function compose(Request $request, $id){

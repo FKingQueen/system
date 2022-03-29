@@ -34,31 +34,19 @@
                 <div class="rounded bg-white p-0">
                     <div class="d-flex justify-content-left input-group mb-3 ">
                         <div>
-                            <label for="crop_name" class="input-group">Municipality</label>
-                            <select id="municipality" type="text" name="municipality" class=" form-control @error('municipality') is-invalid @enderror form-control-sm" name="municipality" required autocomplete="municipality" autofocus>
-                                <option value="" disabled selected>--- Select Municipality ---</option>
-                                @foreach ($municipalities as $key => $value)
-                                    <option value="{{ $key }}">{{ $value }}</option>
-                                @endforeach
-                            </select>
-                                @error('municipality')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror              
-                        </div>
-
-                        <div class="ml-3">
-                            <label for="crop_name" class="input-group">Barangay</label>
-                            <select id="barangay" type="text" name="barangay" class="form-control @error('barangay') is-invalid @enderror form-control-sm" name="barangay" required autocomplete="barangay" autofocus>
-                                <option value="" disabled selected>--- Select Barangay ---</option>
+                            <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
+                            <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
+                            <option value="" disabled selected>--- Select Barangay ---</option>
+                            @foreach($barangays as $barangay)
+                                <option value="{{$barangay->id}}">{{$barangay->name}}</option>
+                            @endforeach
                             </select>
                             @error('barangay')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                                 </span>
-                            @enderror
-                        </div>   
+                            @enderror          
+                        </div>
                         <div class="ml-3">
                             <label for="year_id" class="input-group">Year</label>
                             <select id="year_id" type="text" name="year_id" class="@error('year_id') is-invalid @enderror form-control form-control-sm" name="year_id" required autocomplete="year_id" autofocus>
