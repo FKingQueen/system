@@ -13,6 +13,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
   <style>
     .modal-confirm {		
       color: #636363;
@@ -20,6 +22,7 @@
     }
     .modal-confirm .modal-content {
       padding: 20px;
+      padding-bottom: 0px;
       border-radius: 5px;
       border: none;
       text-align: center;
@@ -47,7 +50,7 @@
       text-align: center;		
       border-radius: 5px;
       font-size: 13px;
-      padding: 10px 15px 25px;
+      padding: 5px 5x 15px;
     }
     .modal-confirm .modal-footer a {
       color: #999;
@@ -190,7 +193,7 @@
                                   <tr>
                                     <th class=" pl-1 p-0 text-left font-weight-light" >Delete permanently the Farmer records</th>
                                     <td class="p-1">
-                                      <button type="button" data-target="#myModal" data-toggle="modal" class="btn btn-block btn-default border"><i class="fas fa-lg fa-trash" style="color: #d9534f;"></i></button>
+                                      <button type="button" data-dismiss="modal" data-target="#delete_{{$farmer->id}}" data-toggle="modal" class="btn btn-block btn-default border"><i class="fas fa-lg fa-trash" style="color: #d9534f;"></i></button>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -269,6 +272,36 @@
                     </div>
                   </div>
                   <!-- /Update Farmer Modal --> 
+
+                  <!-- Delete Confirmation Modal -->
+                  <form method="POST" action="{{ route('deleteFarmer', $farmer->id)}}">
+                  @csrf
+                  <div id="delete_{{$farmer->id}}" class="modal fade">
+                    <div class="modal-dialog modal-confirm modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header flex-column">
+                          <div class="icon-box">
+                          <i class="material-icons">&#xE5CD;</i>
+                          
+                          </div>						
+                          <h4 class="modal-title w-100 ">Are you sure?</h4>	
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body p-0">
+                          <p>Do you really want to delete these records? This process cannot be undone.</p>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+                  <!-- /Delete Confirmation Modal --> 
+                  
                   @endforeach
                 </tbody>
 
@@ -337,28 +370,6 @@
                 </div>
               </div>
               <!-- /Add Farmer Modal -->  
-
-              <!-- Modal HTML -->
-              <div id="myModal" class="modal fade">
-                <div class="modal-dialog modal-confirm">
-                  <div class="modal-content">
-                    <div class="modal-header flex-column">
-                      <div class="icon-box">
-                        <i class="material-icons">&#xE5CD;</i>
-                      </div>						
-                      <h4 class="modal-title w-100">Are you sure?</h4>	
-                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                      <p>Do you really want to delete these records? This process cannot be undone.</p>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                      <button type="button" class="btn btn-danger">Delete</button>
-                    </div>
-                  </div>
-                </div>
-              </div>     
 
             </div>
             <!-- /.card-body -->

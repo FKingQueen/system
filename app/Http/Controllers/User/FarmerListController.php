@@ -92,6 +92,12 @@ class FarmerListController extends Controller
             'barangay_id'  => $request->barangay
             ]);
 
+            DB::table('farming_datas')
+            ->where('farmer_id', $id)
+            ->update([
+            'barangay_id'  => $request->barangay
+            ]);
+
 
         if($res){
             return redirect()->route('farmerList')->with('updatedfarmer', 'Updated');
