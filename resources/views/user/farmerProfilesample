@@ -1,0 +1,54 @@
+<button type="button" class="p-0 btn btn-block btn-primary btn-xm"   data-toggle="modal" data-target="#option_{{$farming_data->id}}">Option</button>
+                          
+<!-- Option Modal -->
+<div class="modal fade rounded" id="option_{{$farming_data->id}}" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-sm">
+<div class="modal-content rounded">
+
+    <div class="modal-header p-1 d-flex justify-content-center">
+    <h4 class="modal-title ml-2 ">Option</h4>
+    </div>
+
+    <div class="modal-body rounded bg-white">
+    <table class="table table-bordered">
+        <tbody>
+        <form method="POST" action="{{ route('deleteCrop', $farming_data->id)}}">
+        @csrf
+            <tr>
+            <th class="pl-1 p-0 text-left font-weight-light"> Upload new Activity Data from the device</th>
+            <td class="p-1">
+            <button type="button"  class="btn btn-block btn-default border" {{ $farming_data->status_id == 2 ? 'disabled' : '' }} data-toggle="modal" data-dismiss="modal" data-target="#uploadActivity_{{$farming_data->id}}"><i class="fas fa-lg fa-upload" style="color: #0275d8;"></i></button> 
+            </td>
+            </tr>
+            <tr >
+            <th class="pl-1 p-0 text-left font-weight-light"> Update the Crop information</th>
+            <td class="p-1">
+                <button type="button" class="btn btn-block btn-default border" data-toggle="modal" data-dismiss="modal" data-target="#updateCrop_{{$farming_data->id}}"><i class="fas fa-lg fa-edit " style="color: #42ba96;"></i></button>
+            </td>
+            </tr>
+            <tr>
+            <th class=" pl-1 p-0 text-left font-weight-light" >Delete permanently the Crop records</th>
+            <td class="p-1">
+                <button type="submit" data-dismiss="modal" data-target="#delete_{{$farming_data->id}}" data-toggle="modal" class="btn btn-block btn-default border"><i class="fas fa-lg fa-trash" style="color: #d9534f;"></i></button>
+            </td>
+            </tr>
+            <tr>
+            <th>
+            <div class=" custom-control custom-switch custom-switch-xl">
+                <input type="checkbox" class="custom-control-input toggle-class2_{{$farming_data->id}}" id="customSwitch3_{{$farming_data->id}}" data-id="{{$farming_data->id}}" data-size="sm" data-width="80" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $farming_data->status ? 'checked' : '' }}>
+                <label class="custom-control-label" for="customSwitch3_{{$farming_data->id}}">
+                    
+                </label>
+            </div>
+            </th>
+            </tr>
+        </form>
+        </tbody>
+    </table>
+
+    </div>
+
+</div>
+</div>
+</div>
+<!-- /Option Modal -->

@@ -16,10 +16,10 @@ class UsersUpdate implements ToModel, WithHeadingRow
     * @return \Illuminate\Database\Eloquent\Model|null
     */
 
-    public function  __construct($id, $status_id, $farmer_id)
+    public function  __construct($id, $status, $farmer_id)
     {
         $this->id = $id;
-        $this->status_id = $status_id;
+        $this->status = $status;
         $this->farmer_id = $farmer_id;
     }
 
@@ -30,14 +30,14 @@ class UsersUpdate implements ToModel, WithHeadingRow
             "activity" => $row['activity'],
             "date" => Carbon::createFromFormat('d/m/Y',  $row['date']),
             "farming_data_id" =>  $this->id,
-            "status_id" =>  $this->status_id,
+            "status" =>  $this->status,
             "farmer_id" =>  $this->farmer_id,
         ]);
 
         DB::table('activity_files')
         ->where('farming_data_id', $this->id)
         ->update([
-        'status_id' => $this->status_id,
+        'status' => $this->status,
         ]);
 
         return $activity_file;

@@ -12,6 +12,11 @@
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+ 
+
+
   <style>
     .modal-confirm {		
       color: #636363;
@@ -96,6 +101,102 @@
       display: inline-block;
       margin: 100px auto;
     }
+
+    /* for sm */
+
+    .custom-switch.custom-switch-sm .custom-control-label {
+        padding-left: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .custom-switch.custom-switch-sm .custom-control-label::before {
+        height: 1rem;
+        width: calc(1rem + 0.75rem);
+        border-radius: 2rem;
+    }
+
+    .custom-switch.custom-switch-sm .custom-control-label::after {
+        width: calc(1rem - 4px);
+        height: calc(1rem - 4px);
+        border-radius: calc(1rem - (1rem / 2));
+    }
+
+    .custom-switch.custom-switch-sm .custom-control-input:checked ~ .custom-control-label::after {
+        transform: translateX(calc(1rem - 0.25rem));
+    }
+
+    /* for md */
+
+    .custom-switch.custom-switch-md .custom-control-label {
+        padding-left: 2rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .custom-switch.custom-switch-md .custom-control-label::before {
+        height: 1.5rem;
+        width: calc(2rem + 0.75rem);
+        border-radius: 3rem;
+    }
+
+    .custom-switch.custom-switch-md .custom-control-label::after {
+        width: calc(1.5rem - 4px);
+        height: calc(1.5rem - 4px);
+        border-radius: calc(2rem - (1.5rem / 2));
+    }
+
+    .custom-switch.custom-switch-md .custom-control-input:checked ~ .custom-control-label::after {
+        transform: translateX(calc(1.5rem - 0.25rem));
+    }
+
+    /* for lg */
+
+    .custom-switch.custom-switch-lg .custom-control-label {
+        padding-left: 3rem;
+        padding-bottom: 2rem;
+    }
+
+    .custom-switch.custom-switch-lg .custom-control-label::before {
+        height: 2rem;
+        width: calc(3rem + 0.75rem);
+        border-radius: 4rem;
+    }
+
+    .custom-switch.custom-switch-lg .custom-control-label::after {
+        width: calc(2rem - 4px);
+        height: calc(2rem - 4px);
+        border-radius: calc(3rem - (2rem / 2));
+    }
+
+    .custom-switch.custom-switch-lg .custom-control-input:checked ~ .custom-control-label::after {
+        transform: translateX(calc(2rem - 0.25rem));
+    }
+
+    /* for xl */
+
+    .custom-switch.custom-switch-xl .custom-control-label {
+        padding-left: 4rem;
+        padding-bottom: 2.5rem;
+    }
+
+    .custom-switch.custom-switch-xl .custom-control-label::before {
+        height: 2.5rem;
+        width: calc(4rem + 0.75rem);
+        border-radius: 5rem;
+    }
+
+    .custom-switch.custom-switch-xl .custom-control-label::after {
+        width: calc(2.5rem - 4px);
+        height: calc(2.5rem - 4px);
+        border-radius: calc(4rem - (2.5rem / 2));
+    }
+
+    .custom-switch.custom-switch-xl .custom-control-input:checked ~ .custom-control-label::after {
+        transform: translateX(calc(2.5rem - 0.25rem));
+    }
+    
+}
+
+    
   </style>
 @endsection
 
@@ -109,6 +210,11 @@
           <div class="col-sm-6">
               <h1 class="m-0 farm_title">Farmer Profile</h1>
           </div>
+
+              
+              
+
+
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('farmerList') }}">FarmerList</a></li>
@@ -167,12 +273,7 @@
                     <tr >
                         <th class="d-flex justify-content-between" style="color: #248139">
                           <a>{{$farming_data->crop->name}}</a>
-                          @if($farming_data->status->id == 1)
-                            <i class='mt-1 fa fa-circle' style='color:#00db0f'></i>
-                          @endif
-                          @if($farming_data->status->id == 2)
-                            <i class='mt-1 fas fa-circle' style='color:#76756f'></i>
-                          @endif
+
                         </th>
                         <td>
                           {{$farming_data->cropping_season->name}}
@@ -188,51 +289,42 @@
                           @endif
                         </td>
                         <td class="text-center">
-                          <button type="button" class="p-0 btn btn-block btn-primary btn-xm"   data-toggle="modal" data-target="#option_{{$farming_data->id}}">Option</button>
                           
-                          <!-- Option Modal -->
-                          <div class="modal fade rounded" id="option_{{$farming_data->id}}" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-sm">
-                            <div class="modal-content rounded">
+                          <li class="nav-item dropdown" style="list-style-type: none;">
+                            <a class="p-0 btn btn-block btn-primary btn-xm" data-toggle="dropdown" href="#">
+                              Option
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
+                              
+                              <div class="dropdown-divider"></div>
+                                <a class="btn btn-block btn-default border d-flex justify-content-around" {{ $farming_data->status_id == 2 ? 'disabled' : '' }} data-toggle="modal" data-dismiss="modal" data-target="#uploadActivity_{{$farming_data->id}}">
+                                  <b>Upload</b> 
+                                  <i class="fas fa-lg fa-upload" style="color: #0275d8;"></i>
+                                </a>
+          
+                              <div class="dropdown-divider"></div>
+                                <a class="btn btn-block btn-default border d-flex justify-content-around" data-toggle="modal" data-dismiss="modal" data-target="#updateCrop_{{$farming_data->id}}">
+                                  <b class="ml-1">Edit</b> 
+                                  <i class="fas fa-lg fa-edit ml-4" style="color: #42ba96;"></i>
+                                </a>
 
-                              <div class="modal-header p-1 d-flex justify-content-center">
-                                <h4 class="modal-title ml-2 ">Option</h4>
-                              </div>
+                              <div class="dropdown-divider"></div>
+                                <a data-dismiss="modal" data-target="#delete_{{$farming_data->id}}" data-toggle="modal" class="btn btn-block btn-default border d-flex justify-content-around">
+                                  <b>Delete</b> 
+                                  <i class="fas fa-lg fa-trash" style="color: #d9534f;"></i>
+                                </a>
 
-                              <div class="modal-body rounded bg-white">
-                                <table class="table table-bordered">
-                                  <tbody>
-                                    <form method="POST" action="{{ route('deleteCrop', $farming_data->id)}}">
-                                    @csrf
-                                      <tr>
-                                        <th class="pl-1 p-0 text-left font-weight-light"> Upload new Activity Data from the device</th>
-                                        <td class="p-1">
-                                        <button type="button"  class="btn btn-block btn-default border" {{ $farming_data->status_id == 2 ? 'disabled' : '' }} data-toggle="modal" data-dismiss="modal" data-target="#uploadActivity_{{$farming_data->id}}"><i class="fas fa-lg fa-upload" style="color: #0275d8;"></i></button> 
-                                        </td>
-                                      </tr>
-                                      <tr >
-                                        <th class="pl-1 p-0 text-left font-weight-light"> Update the Crop information</th>
-                                        <td class="p-1">
-                                          <button type="button" class="btn btn-block btn-default border" data-toggle="modal" data-dismiss="modal" data-target="#updateCrop_{{$farming_data->id}}"><i class="fas fa-lg fa-edit " style="color: #42ba96;"></i></i></button>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <th class=" pl-1 p-0 text-left font-weight-light" >Delete permanently the Crop records</th>
-                                        <td class="p-1">
-                                          <button type="submit" data-dismiss="modal" data-target="#delete_{{$farming_data->id}}" data-toggle="modal" class="btn btn-block btn-default border"><i class="fas fa-lg fa-trash" style="color: #d9534f;"></i></button>
-                                        </td>
-                                      </tr>
-                                    </form>
-                                  </tbody>
-                                </table>
-                              </div>
+                              <div class="dropdown-divider"></div>
+                                <div class=" custom-control custom-switch custom-switch-lg">
+                                <input type="checkbox" class="custom-control-input toggle-class2_{{$farming_data->id}}" id="customSwitch3_{{$farming_data->id}}" data-id="{{$farming_data->id}}" data-size="sm" data-width="80" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $farming_data->status ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="customSwitch3_{{$farming_data->id}}">
+                                    
+                                </label>
+                                </div>
 
-                            </div>
-                            </div>
-                          </div>
-                          <!-- /Option Modal -->
+                          </li>
                           
-                      </td>
+                        </td>
                     </tr>
 
                     <!-- Update Crop Modal -->
@@ -461,11 +553,13 @@
                                 </div>
                               </div>
 
+                              
                               </div>
 
 
 
                               <div class="modal-footer justify-content-between bg-white p-0">
+                                
                                   <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
                                   <button type="submit" class="btn btn-primary">Save changes</button>
                               </div>
@@ -474,6 +568,29 @@
                       </div>
                     </div>
                     <!-- /Upload Activity Modal -->
+
+                    <script>
+                    $(function() {
+                      $('.toggle-class2_{{$farming_data->id}}').change(function() {
+                          var status = $(this).prop('checked') == true ? 1 : 0; 
+                          var yield = ('{{$farming_data->yield}}');
+                          console.log(status);
+                          var id = $(this).data('id'); 
+                        
+                          $.ajax({
+                              type: 'GET',
+                              url: '/changeStatus',
+                              dataType: 'json',
+                              data: {'status': status, 'id': id},
+                              //success: function(data){console.log(data.success)}
+                            });
+                            if(status == 0 && yield=='')
+                            {
+                              $("#compose").modal("show");
+                            }
+                        });
+                      });
+                    </script>
 
                   @endforeach
                 </tbody>
@@ -518,25 +635,6 @@
                             <div class="input-group-append">
                               <div class="input-group-text">
                                 <i class="fas fa-seedling"></i>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="input-group mb-3">
-                            <label for="status_id" class="input-group">Data Classification:</label>
-                            <select id="status_id" type="text" name="status_id" class="custom-select form-control-border @error('status_id') is-invalid @enderror" name="status_id" required autocomplete="status_id" autofocus>
-                                <option value="" disabled selected>--- Select Classification ---</option>
-                                <option value="1">Partial</option>
-                                <option value="2">Complete</option>
-                            </select>
-                              @error('status_id')
-                                <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                                </span>
-                              @enderror          
-                            <div class="input-group-append">
-                              <div class="input-group-text">
-                                <i class="fas fa-info-circle"></i>
                               </div>
                             </div>
                           </div>
@@ -649,6 +747,9 @@
   <script src="https://adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="https://adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+
+  
   <script>
     $(function () {
       $('#farmerList').DataTable({

@@ -21,7 +21,7 @@ class FarmerProfileController extends Controller
     public function farmerProfile($id)
     {
         $farmer = Farmer::all()->where("id", $id);
-        $farming_data = Farming_data::with('crop', 'cropping_season', 'status')->orderBy('status_id', 'asc')->get()->where("farmer_id", $id);
+        $farming_data = Farming_data::with('crop', 'cropping_season', 'status')->orderBy('status', 'asc')->get()->where("farmer_id", $id);
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
 
         
@@ -34,13 +34,13 @@ class FarmerProfileController extends Controller
 
         $request->validate([
             'crop_id'  => 'required',
-            'status_id'    => 'required',
             'activity_file' => 'required|mimes:csv,txt',
         ]);
 
 
         $farming_data = new Farming_data();
         $farming_data->crop_id = $request->crop_id;
+
         if(($month >= 1 && $month <= 4) || ($month >= 11 && $month <= 12 ))
         {
             $farming_data->cropping_season_id = 1; 
@@ -49,7 +49,6 @@ class FarmerProfileController extends Controller
             $farming_data->cropping_season_id = 2; 
         }
         
-        $farming_data->status_id = $request->status_id; 
         
         $farming_data->municipality_id = Farmer::where("id", $id)->value('municipality_id');
         $farming_data->barangay_id = Farmer::where("id", $id)->value('barangay_id');; 
@@ -61,19 +60,20 @@ class FarmerProfileController extends Controller
             $farming_data->lot_size = $request->lot_size/1000;
         }
         
-        if($request->status_id == 2){
-            $total = ($request->sacks*$request->kg)/$farming_data->lot_size;
-            $farming_data->yield = $total * (10 ** -3);
-        }
+        // if($request->status_id == 2){
+        //     $total = ($request->sacks*$request->kg)/$farming_data->lot_size;
+        //     $farming_data->yield = $total * (10 ** -3);
+        // }
+        $farming_data->status = 1;
         $farming_data->save();
 
-        $status_id = $farming_data->status_id;
+        $status = 1;
 
         $farmer_id = $farming_data->farmer_id;
 
         $path = $request->file('activity_file')->getRealPath();
 
-        Excel::import(new UsersImport($farmer_id, $farming_data->id, $status_id), $path);
+        Excel::import(new UsersImport($farmer_id, $farming_data->id, $status), $path);
         
         if($farming_data){
             return redirect()->route('farmerProfile', [$id])->with('createdfarming', 'Success');
@@ -185,4 +185,21 @@ class FarmerProfileController extends Controller
 
         
     }
+
+    public function changeStatus(Request $request)
+    {
+        $farming_data = Farming_data::find($request->id);
+        $farming_data->status = $request->status;
+        $farming_data->save();
+
+        DB::table('activity_files')
+            ->where('farming_data_id', $request->id)
+            ->update([
+            'status' => $request->status,
+            ]);
+
+
+        return response()->json(['success'=>'Status change successfully.']);
+    } 
+
 }

@@ -21,7 +21,7 @@ class CreateFarmingDatasTable extends Migration
             $table->integer('farmer_id');
             $table->integer('municipality_id');
             $table->integer('barangay_id');
-            $table->integer('status_id');
+            $table->boolean('status')->default(0);
             $table->float('lot_size');
             $table->decimal('yield', 8, 2)->nullable();
             $table->timestamps();
