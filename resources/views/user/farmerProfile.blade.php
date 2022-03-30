@@ -271,7 +271,7 @@
                 <tbody>
                   @foreach($farming_datas as $farming_data)
                     <tr >
-                        <th class="d-flex justify-content-between" style="color: #248139">
+                        <th style="color: #248139">
                           <a>{{$farming_data->crop->name}}</a>
 
                         </th>
@@ -290,11 +290,10 @@
                         </td>
                         <td class="text-center">
                           
-                          <li class="nav-item dropdown" style="list-style-type: none;">
                             <a class="p-0 btn btn-block btn-primary btn-xm" data-toggle="dropdown" href="#">
                               Option
                             </a>
-                            <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
+                            <div id="sample" class="dropdown-menu dropdown-menu-xl dropdown-menu-right ">
                               
                               <div class="dropdown-divider"></div>
                                 <a class="btn btn-block btn-default border d-flex justify-content-around" {{ $farming_data->status_id == 2 ? 'disabled' : '' }} data-toggle="modal" data-dismiss="modal" data-target="#uploadActivity_{{$farming_data->id}}">
@@ -315,17 +314,50 @@
                                 </a>
 
                               <div class="dropdown-divider"></div>
-                                <div class=" custom-control custom-switch custom-switch-lg">
-                                <input type="checkbox" class="custom-control-input toggle-class2_{{$farming_data->id}}" id="customSwitch3_{{$farming_data->id}}" data-id="{{$farming_data->id}}" data-size="sm" data-width="80" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $farming_data->status ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="customSwitch3_{{$farming_data->id}}">
-                                    
-                                </label>
+                              
+                                <div class="m-2 custom-control custom-switch custom-switch-md">
+                                
+                                  <input type="checkbox" class=" custom-control-input toggle-class2_{{$farming_data->id}}" id="customSwitch3_{{$farming_data->id}}" data-id="{{$farming_data->id}}" data-size="sm" data-width="80" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $farming_data->status ? 'checked' : '' }}>
+                                  
+                                  <label class="custom-control-label" for="customSwitch3_{{$farming_data->id}}"></label>
+                                  <b id="status_{{$farming_data->id}}">Completed</b>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                  
                                 </div>
 
-                          </li>
-                          
                         </td>
                     </tr>
+
+
+
+                    <script>
+                    $(function() {
+                      $('.toggle-class2_{{$farming_data->id}}').change(function() {
+                          var status = $(this).prop('checked') == true ? 1 : 0; 
+                          var yield = ('{{$farming_data->yield}}');
+                          console.log(status);
+                          var id = $(this).data('id'); 
+                        
+                          $.ajax({
+                              type: 'GET',
+                              url: '/changeStatus',
+                              dataType: 'json',
+                              data: {'status': status, 'id': id},
+                              //success: function(data){console.log(data.success)}
+                            });
+                            if(status == 0 && yield=='')
+                            {
+                              $('[id="status_{{$farming_data->id}}"]').text("Completed");
+                              $("#compose").modal("show");
+                            } else {
+                              $('[id="status_{{$farming_data->id}}"]').text("In progress");
+                            }
+                        });
+                      });
+                    </script>
+                    
+
 
                     <!-- Update Crop Modal -->
                     <div class="modal fade" id="updateCrop_{{$farming_data->id}}">
@@ -568,29 +600,6 @@
                       </div>
                     </div>
                     <!-- /Upload Activity Modal -->
-
-                    <script>
-                    $(function() {
-                      $('.toggle-class2_{{$farming_data->id}}').change(function() {
-                          var status = $(this).prop('checked') == true ? 1 : 0; 
-                          var yield = ('{{$farming_data->yield}}');
-                          console.log(status);
-                          var id = $(this).data('id'); 
-                        
-                          $.ajax({
-                              type: 'GET',
-                              url: '/changeStatus',
-                              dataType: 'json',
-                              data: {'status': status, 'id': id},
-                              //success: function(data){console.log(data.success)}
-                            });
-                            if(status == 0 && yield=='')
-                            {
-                              $("#compose").modal("show");
-                            }
-                        });
-                      });
-                    </script>
 
                   @endforeach
                 </tbody>
