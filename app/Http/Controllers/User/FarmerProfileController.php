@@ -60,10 +60,7 @@ class FarmerProfileController extends Controller
             $farming_data->lot_size = $request->lot_size/1000;
         }
         
-        // if($request->status_id == 2){
-        //     $total = ($request->sacks*$request->kg)/$farming_data->lot_size;
-        //     $farming_data->yield = $total * (10 ** -3);
-        // }
+
         $farming_data->status = 1;
         $farming_data->save();
 
@@ -201,5 +198,33 @@ class FarmerProfileController extends Controller
 
         return response()->json(['success'=>'Status change successfully.']);
     } 
+
+    public function updateYield(Request $request, $id)
+    {
+
+        $request->validate([
+            'sacks'    => 'required',
+            'kg' => 'required',
+        ]);
+
+        $f_data = Farming_data::find($id);
+        
+        $total = ($request->sacks*$request->kg)/$f_data->lot_size;
+        $yield = $total * (10 ** -3);
+
+        $res = Farming_data::find($id)->update([
+            'yield' => $yield,
+            'sacks'  => $request->sacks,
+            'kg'    => $request->kg,
+        ]);
+
+        $farmer_id = Farming_data::find($id)->value('farmer_id');
+
+        if($res){
+            return redirect()->route('farmerProfile', [$farmer_id])->with('uploadedfarming', 'Success');
+        } else{
+            return redirect()->route('farmerProfile', [$farmer_id])->with('uploadfarmingfailed', 'Failed');
+        }
+    }
 
 }

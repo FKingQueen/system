@@ -14,6 +14,8 @@ class Farming_data extends Model
         'farmer_id',
         'lot_size',
         'yield',
+        'sacks',
+        'kg',
     ];
 
     public function crop()

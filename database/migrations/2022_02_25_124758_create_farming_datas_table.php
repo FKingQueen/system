@@ -24,6 +24,8 @@ class CreateFarmingDatasTable extends Migration
             $table->boolean('status')->default(0);
             $table->float('lot_size');
             $table->decimal('yield', 8, 2)->nullable();
+            $table->decimal('sacks', 8, 2)->nullable();
+            $table->decimal('kg', 8, 2)->nullable();
             $table->timestamps();
         });
     }

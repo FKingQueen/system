@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 
 @section('css')
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -10,13 +11,12 @@
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
+  <script src="{{ asset('js/app.js') }}"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
-
  
-
-
+  
+  
   <style>
     .modal-confirm {		
       color: #636363;
@@ -102,100 +102,6 @@
       margin: 100px auto;
     }
 
-    /* for sm */
-
-    .custom-switch.custom-switch-sm .custom-control-label {
-        padding-left: 1rem;
-        padding-bottom: 1rem;
-    }
-
-    .custom-switch.custom-switch-sm .custom-control-label::before {
-        height: 1rem;
-        width: calc(1rem + 0.75rem);
-        border-radius: 2rem;
-    }
-
-    .custom-switch.custom-switch-sm .custom-control-label::after {
-        width: calc(1rem - 4px);
-        height: calc(1rem - 4px);
-        border-radius: calc(1rem - (1rem / 2));
-    }
-
-    .custom-switch.custom-switch-sm .custom-control-input:checked ~ .custom-control-label::after {
-        transform: translateX(calc(1rem - 0.25rem));
-    }
-
-    /* for md */
-
-    .custom-switch.custom-switch-md .custom-control-label {
-        padding-left: 2rem;
-        padding-bottom: 1.5rem;
-    }
-
-    .custom-switch.custom-switch-md .custom-control-label::before {
-        height: 1.5rem;
-        width: calc(2rem + 0.75rem);
-        border-radius: 3rem;
-    }
-
-    .custom-switch.custom-switch-md .custom-control-label::after {
-        width: calc(1.5rem - 4px);
-        height: calc(1.5rem - 4px);
-        border-radius: calc(2rem - (1.5rem / 2));
-    }
-
-    .custom-switch.custom-switch-md .custom-control-input:checked ~ .custom-control-label::after {
-        transform: translateX(calc(1.5rem - 0.25rem));
-    }
-
-    /* for lg */
-
-    .custom-switch.custom-switch-lg .custom-control-label {
-        padding-left: 3rem;
-        padding-bottom: 2rem;
-    }
-
-    .custom-switch.custom-switch-lg .custom-control-label::before {
-        height: 2rem;
-        width: calc(3rem + 0.75rem);
-        border-radius: 4rem;
-    }
-
-    .custom-switch.custom-switch-lg .custom-control-label::after {
-        width: calc(2rem - 4px);
-        height: calc(2rem - 4px);
-        border-radius: calc(3rem - (2rem / 2));
-    }
-
-    .custom-switch.custom-switch-lg .custom-control-input:checked ~ .custom-control-label::after {
-        transform: translateX(calc(2rem - 0.25rem));
-    }
-
-    /* for xl */
-
-    .custom-switch.custom-switch-xl .custom-control-label {
-        padding-left: 4rem;
-        padding-bottom: 2.5rem;
-    }
-
-    .custom-switch.custom-switch-xl .custom-control-label::before {
-        height: 2.5rem;
-        width: calc(4rem + 0.75rem);
-        border-radius: 5rem;
-    }
-
-    .custom-switch.custom-switch-xl .custom-control-label::after {
-        width: calc(2.5rem - 4px);
-        height: calc(2.5rem - 4px);
-        border-radius: calc(4rem - (2.5rem / 2));
-    }
-
-    .custom-switch.custom-switch-xl .custom-control-input:checked ~ .custom-control-label::after {
-        transform: translateX(calc(2.5rem - 0.25rem));
-    }
-    
-}
-
     
   </style>
 @endsection
@@ -203,17 +109,19 @@
 @section('content')
 @foreach($farmers as $farmer)
 
+
   <!-- Content Header (Page header) -->
   <div class="content-header">
       <div class="container-fluid">
       <div class="row mb-2">
           <div class="col-sm-6">
               <h1 class="m-0 farm_title">Farmer Profile</h1>
+              <button data-toggle="modal" data-target="#delete"  class="btn btn-block btn-default border d-flex justify-content-around">
+                <b>Delete</b> 
+              </button>
+
           </div>
-
-              
-              
-
+          
 
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -240,37 +148,31 @@
                 <div class="d-flex">
                   <div class="ml-2">
                     
-                    <h1 class="p-0 mb-1 m-0">
+                    <h1 class="p-0 mb-1 mb-3 m-0">
                     <u style="color: #248139;" >{{$farmer->name}}</u> 
                     </h1>
                   </div>
-                  <div class="d-flex justify-content-start ml-5 mt-2">
-                      <div>
-                        In Progress - <i class='fa fa-circle' style='color:#00db0f'></i>
-                      </div>
-                      <div class="ml-5">
-                        Complete - <i class='fas fa-circle' style='color:#76756f'></i>
-                      </div>
-                    </div>
                     <div class="ml-auto">
                         <button type="button" data-toggle="modal" data-target="#compose" class="btn btn-primary">
                         Create Farming
                         </button>
                     </div>
                   </div>
+                  
                 </div>
                 <thead >
                     <tr class="bg-light" >
-                        <th ><i class="fas fa-seedling"> </i>Crop Name</th>
-                        <th style="width: 20%;"><i class="fas fa-wind"></i> Cropping Season</th>
-                        <th style="width: 15%;"><i class="fas fa-drafting-compass"></i> Lot Size</th>
-                        <th style="width: 15%;"><i class="fas fa-hand-holding-usd"></i> Yield</th>
-                        <th class="text-center" style="width: 10%;"><i class="fas fa-edit"></i></th>
+                        <th ><i class="fas fa-seedling" style="color: #248139"> </i>Crop Name</th>
+                        <th style="width: 20%;"><i class="fas fa-wind" style="color: #248139"></i> Cropping Season</th>
+                        <th style="width: 15%;"><i class="fas fa-drafting-compass" style="color: #248139"></i> Lot Size</th>
+                        <th style="width: 15%;"><i class="fas fa-hand-holding-usd" style="color: #248139"></i> Yield</th>
+                        <th style="width: 10%;"><i class="fas fa-solid fa-code" style="color: #248139"></i> Status</th>
+                        <th class="text-center" style="width: 10%;"><i class="fas fa-edit" style="color: #248139"></i></th>
                     </tr>
                 </thead>
                 <tbody>
                   @foreach($farming_datas as $farming_data)
-                    <tr >
+                    <tr>
                         <th style="color: #248139">
                           <a>{{$farming_data->crop->name}}</a>
 
@@ -288,6 +190,37 @@
                             {{$farming_data->yield}}
                           @endif
                         </td>
+                        <td class="text-center pt-2">
+                          <input type="checkbox" class="toggle-class_{{$farming_data->id}}" data-id="{{$farming_data->id}}" data-size="sm" data-width="90"   data-onstyle="success" data-offstyle="secondary" data-toggle="toggle" data-on="Inprogress" data-off="Completed" {{ $farming_data->status ? 'checked' : '' }}>
+
+                          <script>
+                            $(function() {
+                              $('.toggle-class_{{$farming_data->id}}').change(function() {
+                                  var status = $(this).prop('checked') == true ? 1 : 0; 
+                                  var yield = ('');
+                                  console.log(status);
+                                  var id = $(this).data('id'); 
+                                  
+                                  $.ajax({
+                                      type: 'GET',
+                                      url: '/changeStatus',
+                                      dataType: 'json',
+                                      data: {'status': status, 'id': id},
+                                      //success: function(data){console.log(data.success)}
+                                  });
+
+                                  if(status == 0)
+                                  {
+                                    $("#yield{{$farming_data->id}}").modal("show");
+                                    $("#updatedisabled_{{$farming_data->id}}").attr("class", "btn btn-block btn-default border d-flex justify-content-around disabled");
+                                  }
+
+                              });
+                            });
+                          </script>
+                          
+                        </td>
+                          
                         <td class="text-center">
                           
                             <a class="p-0 btn btn-block btn-primary btn-xm" data-toggle="dropdown" href="#">
@@ -296,310 +229,248 @@
                             <div id="sample" class="dropdown-menu dropdown-menu-xl dropdown-menu-right ">
                               
                               <div class="dropdown-divider"></div>
-                                <a class="btn btn-block btn-default border d-flex justify-content-around" {{ $farming_data->status_id == 2 ? 'disabled' : '' }} data-toggle="modal" data-dismiss="modal" data-target="#uploadActivity_{{$farming_data->id}}">
+                                <a id="updatedisabled_{{$farming_data->id}}" data-dismiss="modal"  data-toggle="modal" data-target="#uploadActivity_{{$farming_data->id}}" class="btn btn-block btn-default border d-flex justify-content-around">
                                   <b>Upload</b> 
                                   <i class="fas fa-lg fa-upload" style="color: #0275d8;"></i>
                                 </a>
           
                               <div class="dropdown-divider"></div>
-                                <a class="btn btn-block btn-default border d-flex justify-content-around" data-toggle="modal" data-dismiss="modal" data-target="#updateCrop_{{$farming_data->id}}">
+                                <a data-dismiss="modal" data-toggle="modal" data-target="#updateCrop_{{$farming_data->id}}" class="btn btn-block btn-default border d-flex justify-content-around" >
                                   <b class="ml-1">Edit</b> 
                                   <i class="fas fa-lg fa-edit ml-4" style="color: #42ba96;"></i>
                                 </a>
 
                               <div class="dropdown-divider"></div>
-                                <a data-dismiss="modal" data-target="#delete_{{$farming_data->id}}" data-toggle="modal" class="btn btn-block btn-default border d-flex justify-content-around">
+                                <a data-dismiss="modal" data-toggle="modal" data-target="#delete_{{$farming_data->id}}"  class="btn btn-block btn-default border d-flex justify-content-around">
                                   <b>Delete</b> 
                                   <i class="fas fa-lg fa-trash" style="color: #d9534f;"></i>
                                 </a>
+                            </div>
 
-                              <div class="dropdown-divider"></div>
-                              
-                                <div class="m-2 custom-control custom-switch custom-switch-md">
-                                
-                                  <input type="checkbox" class=" custom-control-input toggle-class2_{{$farming_data->id}}" id="customSwitch3_{{$farming_data->id}}" data-id="{{$farming_data->id}}" data-size="sm" data-width="80" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $farming_data->status ? 'checked' : '' }}>
-                                  
-                                  <label class="custom-control-label" for="customSwitch3_{{$farming_data->id}}"></label>
-                                  <b id="status_{{$farming_data->id}}">Completed</b>
+
+                            <!-- Delete Confirmation Modal -->
+                            <div id="delete_{{$farming_data->id}}" class="modal fade">
+                              <div class="modal-dialog modal-confirm modal-dialog-centered">
+                                <form method="POST" action="{{ route('deleteCrop', $farming_data->id) }}">
+                                @csrf
+                                <div class="modal-content">
+                                  <div class="modal-header flex-column">
+                                    <div class="icon-box">
+                                    <i class="material-icons">&#xE5CD;</i>
+                                    
+                                    </div>						
+                                    <h4 class="modal-title w-100 ">Are you sure?</h4>	
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body p-0">
+                                    <p>Do you really want to delete these records? This process cannot be undone.</p>
+                                  </div>
+                                  <div class="modal-footer justify-content-center">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                  </div>
                                 </div>
-                                <div class="d-flex justify-content-center">
-                                  
+                                </form>
+                              </div>
+                            </div>
+                          <!-- /Delete Confirmation Modal --> 
+
+                          <!-- Update Crop Modal -->
+                          <div class="modal fade" id="updateCrop_{{$farming_data->id}}">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+
+                                <div class="modal-header bg-green p-2">
+                                  <h4 class="modal-title">Updating Farming Activity</h4>
                                 </div>
+
+                                    <form method="POST" action="{{ route('updateCrop', $farming_data->id) }}"> 
+                                      @csrf
+                                      <div class="modal-body bg-white">
+
+                                        <div class="input-group mb-3">
+                                          <label for="crop_name" class="input-group">Crop Name:</label>
+                                          <select value="" id="crop_id" type="text" name="crop_id" class="custom-select form-control-border @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
+                                          <option value="" disabled selected>--- Select  Crop ---</option>
+                                              <option value="1">Bitter Gourd (Ampalaya)</option>
+                                              <option value="2">Cabbage</option>
+                                              <option value="3">Corn</option>
+                                              <option value="4">Eggplant</option>
+                                              <option value="5">Garlic</option>
+                                              <option value="6">Ladys Finger (Okra)</option>
+                                              <option value="7">Rice</option>
+                                              <option value="8">Onion</option>
+                                              <option value="9">Peanut</option>
+                                              <option value="10">String Beans (Sitaw)</option>
+                                              <option value="11">Tobacco</option>
+                                              <option value="12">Tomato</option>
+                                              <option value="13">Water Melon</option>
+                                          </select>
+                                            @error('crop_id')
+                                              <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                              </span>
+                                            @enderror          
+                                          <div class="input-group-append">
+                                            <div class="input-group-text">
+                                              <i class="fas fa-seedling"></i>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <div class="container-fluid p-3 border border-top-0 mb-3 rounded">
+
+                                          <div class="input-group mb-1">
+                                            <label for="updateField_unit" class="input-group">Field Size Unit:</label>
+                                            <select id="updateField_unit" type="text" name="field_unit" class="custom-select form-control-border  @error('field_unit') is-invalid @enderror" name="field_unit" required autocomplete="field_unit" autofocus>
+                                                <option value="" disabled selected>--- Select Field Size Unit ---</option>
+                                                <option value="1">Hectare</option>
+                                                <option value="2">Square Meter</option>
+                                            </select>
+                                              @error('field_unit')
+                                                <span class="invalid-feedback" role="alert">
+                                                  <strong>{{ $message }}</strong>
+                                                </span>
+                                              @enderror          
+                                            <div class="input-group-append">
+                                              <div class="input-group-text">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                          <div class="d-flex justify-content-center input-group">
+                                            <div class="text-center w-25 input-group-sm">
+                                              <label id="updateUnit_name" name="unit_name" class="font-weight-light">Hectare:</label>
+                                              <input id="updateLot_size" type="text"  class="text-center form-control @error('lot_size') is-invalid @enderror" name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
+                                              @error('lot_size')
+                                                <span class="invalid-feedback" role="alert">
+                                                  <strong>{{ $message }}</strong>
+                                                </span>
+                                              @enderror          
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+                                      <div class="modal-footer justify-content-between bg-white">
+                                          <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                                          <button type="submit" class="btn btn-primary">Save changes</button>
+                                      </div>
+                                    </form>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- /Udpate Crop Modal -->
+
+
+                          <!-- Yield Farming Modal -->
+                          <div class="modal fade" id="yield{{$farming_data->id}}">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+
+                                  <div class="modal-header bg-green p-2">
+                                  <h4 class="modal-title">Update Yield</h4>
+                                  </div>
+
+                                      <form method="POST" action="{{ route('updateYield', $farming_data->id)}}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="modal-body bg-white">
+
+                                            <div class="d-flex justify-content-center">
+                                                <div>
+                                                <br>
+                                                <label class="mt-2 font-weight-light">Yield (t/ha): </label>
+                                                </div>
+                                                
+                                                <div class="col-5 input-group-sm">
+                                                <label for="kg" class="input-group  font-weight-light" >Number of sacks: </label>
+                                                <input id="sacks" name="sacks" type="number" class="form-control" placeholder="sacks" min="0" autocomplete="kg" autofocus value="{{$farming_data->sacks}}">
+                                                </div>
+                                                
+                                                <div class="col-4 input-group-sm">
+                                                <label for="kg" class="input-group font-weight-light">Weight of sack: </label>
+                                                <input id="kg" name="kg" type="number" class="form-control" min="25" max="85"  placeholder="kg" autocomplete="kg" autofocus value="{{$farming_data->kg}}">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="modal-footer justify-content-around bg-white p-0">
+                                            <button  type="button" class="btn btn-close" data-dismiss="modal">Don't Update</button>
+                                            <button  type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                      </form>
+                              </div>
+                            </div>
+                        </div>
+                        <!-- /Yield Farming Modal -->
+
+                        <!-- Upload Activity Modal -->
+                        <div class="modal fade" id="uploadActivity_{{$farming_data->id}}">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+
+                              <div class="modal-header bg-green p-2">
+                                <h4 class="modal-title">Uploading Farming Activity</h4>
+                              </div>
+
+                                  <form method="POST" action="{{ route('uploadActivity', $farming_data->id) }}" enctype="multipart/form-data"> 
+                                    @csrf
+                                    <div class="modal-body bg-white">
+
+                                      <div id="updateYield_id" class="input-group p-3 border border-top-0 mb-3 rounded">
+                                        <label for="yield" class="input-group">Yield:</label>
+                                        <div class="d-flex justify-content-center">
+                                          <div>
+                                            <br>
+                                            <label class="mt-2 font-weight-light">Yield (t/ha): </label>
+                                          </div>
+                                          
+                                          <div class="col-5 input-group-sm">
+                                            <label for="kg" class="input-group  font-weight-light" >Number of sacks: </label>
+                                            <input id="updateSacks" name="sacks" type="number" class="form-control" placeholder="sacks" min="0" autocomplete="kg" autofocus>
+                                          </div>
+                                            
+                                          <div class="col-4 input-group-sm">
+                                            <label for="kg" class="input-group font-weight-light">Weight of sack: </label>
+                                            <input id="updateKg" name="kg" type="number" class="form-control"  min="25" max="85" step=".001" placeholder="kg" autocomplete="kg" autofocus>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="input-group">
+                                      <label for="activity_file">Insert Activity File (Required):</label>
+                                      <div class="input-group mb-3">  
+                                          <input id="activity_file" type="file" class="form-control @error('activity_file') is-invalid @enderror" name="activity_file" required autocomplete="activity_file">
+                                          @error('activity_file')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                          @enderror 
+                                      <div class="input-group-append">
+                                          <div class="input-group-text">
+                                          <i class="fas fa-file-alt"></i>
+                                          </div>
+                                      </div>
+                                    </div>       
+                                    </div>
+                                    <div class="modal-footer justify-content-between bg-white p-0">
+                                      
+                                        <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                  </form>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /Upload Activity Modal -->
 
                         </td>
                     </tr>
-
-
-
-                    <script>
-                    $(function() {
-                      $('.toggle-class2_{{$farming_data->id}}').change(function() {
-                          var status = $(this).prop('checked') == true ? 1 : 0; 
-                          var yield = ('{{$farming_data->yield}}');
-                          console.log(status);
-                          var id = $(this).data('id'); 
-                        
-                          $.ajax({
-                              type: 'GET',
-                              url: '/changeStatus',
-                              dataType: 'json',
-                              data: {'status': status, 'id': id},
-                              //success: function(data){console.log(data.success)}
-                            });
-                            if(status == 0 && yield=='')
-                            {
-                              $('[id="status_{{$farming_data->id}}"]').text("Completed");
-                              $("#compose").modal("show");
-                            } else {
-                              $('[id="status_{{$farming_data->id}}"]').text("In progress");
-                            }
-                        });
-                      });
-                    </script>
-                    
-
-
-                    <!-- Update Crop Modal -->
-                    <div class="modal fade" id="updateCrop_{{$farming_data->id}}">
-                      <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-
-                        <div class="modal-header bg-green p-2">
-                          <h4 class="modal-title">Updating Farming Activity</h4>
-                        </div>
-
-                            <form method="POST" action="{{ route('updateCrop', $farming_data->id) }}"> 
-                              @csrf
-                              <div class="modal-body bg-white">
-
-                                <div class="input-group mb-3">
-                                  <label for="crop_name" class="input-group">Crop Name:</label>
-                                  <select value="" id="crop_id" type="text" name="crop_id" class="custom-select form-control-border @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
-                                      <option class="bg-primary" value="{{$farming_data->crop_id}}" selected>{{$farming_data->crop->name}}</option>
-                                      <option value="1">Bitter Gourd (Ampalaya)</option>
-                                      <option value="2">Cabbage</option>
-                                      <option value="3">Corn</option>
-                                      <option value="4">Eggplant</option>
-                                      <option value="5">Garlic</option>
-                                      <option value="6">Ladys Finger (Okra)</option>
-                                      <option value="7">Rice</option>
-                                      <option value="8">Onion</option>
-                                      <option value="9">Peanut</option>
-                                      <option value="10">String Beans (Sitaw)</option>
-                                      <option value="11">Tobacco</option>
-                                      <option value="12">Tomato</option>
-                                      <option value="13">Water Melon</option>
-                                  </select>
-                                    @error('crop_id')
-                                      <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                      </span>
-                                    @enderror          
-                                  <div class="input-group-append">
-                                    <div class="input-group-text">
-                                      <i class="fas fa-seedling"></i>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="input-group mb-3">
-                                  <label for="status_id" class="input-group">Data Classification:</label>
-                                  <select id="updateStatus_id" type="text" name="status_id" class="custom-select form-control-border @error('status_id') is-invalid @enderror" name="status_id" required autocomplete="status_id" autofocus>
-                                      <option value="" disabled selected>--- Select Classification ---</option>
-                                      <option value="1">Partial</option>
-                                      <option value="2">Complete</option>
-                                  </select>
-                                    @error('status_id')
-                                      <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                      </span>
-                                    @enderror          
-                                  <div class="input-group-append">
-                                    <div class="input-group-text">
-                                      <i class="fas fa-info-circle"></i>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="container-fluid p-3 border border-top-0 mb-3 rounded">
-
-                                  <div class="input-group mb-1">
-                                    <label for="updateField_unit" class="input-group">Field Size Unit:</label>
-                                    <select id="updateField_unit" type="text" name="field_unit" class="custom-select form-control-border  @error('field_unit') is-invalid @enderror" name="field_unit" required autocomplete="field_unit" autofocus>
-                                        <option value="" disabled selected>--- Select Field Size Unit ---</option>
-                                        <option value="1">Hectare</option>
-                                        <option value="2">Square Meter</option>
-                                    </select>
-                                      @error('field_unit')
-                                        <span class="invalid-feedback" role="alert">
-                                          <strong>{{ $message }}</strong>
-                                        </span>
-                                      @enderror          
-                                    <div class="input-group-append">
-                                      <div class="input-group-text">
-                                        <i class="fas fa-arrows-alt-h"></i>
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div class="d-flex justify-content-center input-group">
-                                    <div class="text-center w-25 input-group-sm">
-                                      <label id="updateUnit_name" name="unit_name" class="font-weight-light">Hectare:</label>
-                                      <input id="updateLot_size" type="text"  class="text-center form-control @error('lot_size') is-invalid @enderror" name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
-                                      @error('lot_size')
-                                        <span class="invalid-feedback" role="alert">
-                                          <strong>{{ $message }}</strong>
-                                        </span>
-                                      @enderror          
-                                    </div>
-                                  </div>
-
-                                </div>
-
-                                <div id="updateYield_id" class="input-group p-3 border border-top-0 mb-3 rounded">
-                                  <label for="yield" class="input-group">Yield:</label>
-                                  <div class="d-flex justify-content-center">
-                                    <div>
-                                      <br>
-                                      <label class="mt-2 font-weight-light">Yield (t/ha): </label>
-                                    </div>
-                                    
-                                    <div class="col-4 input-group-sm">
-                                      <label for="kg" class="input-group  font-weight-light" >Number of sacks: </label>
-                                      <input id="updateSacks" name="sacks" type="number" class="form-control" placeholder="sacks" min="0" autocomplete="kg" autofocus>
-                                    </div>
-                                      
-                                    <div class="col-4 input-group-sm">
-                                      <label for="kg" class="input-group font-weight-light">Weight of sack: </label>
-                                      <input id="updateKg" name="kg" type="number" class="form-control" min="0" step=".001" placeholder="kg" autocomplete="kg" autofocus>
-                                    </div>
-                                  </div>
-                                </div>
-
-                              </div>
-
-                              <div class="modal-footer justify-content-between bg-white">
-                                  <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-                                  <button type="submit" class="btn btn-primary">Save changes</button>
-                              </div>
-                            </form>
-                      </div>
-                      </div>
-                    </div>
-                    <!-- /Udpate Crop Modal -->
-
-                    <!-- Delete Confirmation Modal -->
-                    <form method="POST" action="{{ route('deleteCrop', $farming_data->id) }}">
-                    @csrf
-                    <div id="delete_{{$farming_data->id}}" class="modal fade">
-                      <div class="modal-dialog modal-confirm modal-dialog-centered">
-                        <div class="modal-content">
-                          <div class="modal-header flex-column">
-                            <div class="icon-box">
-                            <i class="material-icons">&#xE5CD;</i>
-                            
-                            </div>						
-                            <h4 class="modal-title w-100 ">Are you sure?</h4>	
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body p-0">
-                            <p>Do you really want to delete these records? This process cannot be undone.</p>
-                          </div>
-                          <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    </form>
-                    <!-- /Delete Confirmation Modal --> 
-
-                    <!-- Upload Activity Modal -->
-                    <div class="modal fade" id="uploadActivity_{{$farming_data->id}}">
-                      <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-
-                        <div class="modal-header bg-green p-2">
-                          <h4 class="modal-title">Uploading Farming Activity</h4>
-                        </div>
-
-                            <form method="POST" action="{{ route('uploadActivity', $farming_data->id) }}" enctype="multipart/form-data"> 
-                              @csrf
-                              <div class="modal-body bg-white">
-
-                                <div class="input-group mb-3">
-                                  <label for="status_id" class="input-group">Data Classification:</label>
-                                  <select id="updateStatus_id" type="text" name="status_id" class="custom-select form-control-border @error('status_id') is-invalid @enderror" name="status_id" required autocomplete="status_id" autofocus>
-                                      <option value="" disabled selected>--- Select Classification ---</option>
-                                      <option value="1">Partial</option>
-                                      <option value="2">Complete</option>
-                                  </select>
-                                    @error('status_id')
-                                      <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                      </span>
-                                    @enderror          
-                                  <div class="input-group-append">
-                                    <div class="input-group-text">
-                                      <i class="fas fa-seedling"></i>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div id="updateYield_id" class="input-group p-3 border border-top-0 mb-3 rounded">
-                                  <label for="yield" class="input-group">Yield:</label>
-                                  <div class="d-flex justify-content-center">
-                                    <div>
-                                      <br>
-                                      <label class="mt-2 font-weight-light">Yield (t/ha): </label>
-                                    </div>
-                                    
-                                    <div class="col-5 input-group-sm">
-                                      <label for="kg" class="input-group  font-weight-light" >Number of sacks: </label>
-                                      <input id="updateSacks" name="sacks" type="number" class="form-control" placeholder="sacks" min="0" autocomplete="kg" autofocus>
-                                    </div>
-                                      
-                                    <div class="col-4 input-group-sm">
-                                      <label for="kg" class="input-group font-weight-light">Weight of sack: </label>
-                                      <input id="updateKg" name="kg" type="number" class="form-control"  min="25" max="85" step=".001" placeholder="kg" autocomplete="kg" autofocus>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="input-group">
-                                <label for="activity_file">Insert Activity File (Required):</label>
-                                <div class="input-group mb-3">  
-                                    <input id="activity_file" type="file" class="form-control @error('activity_file') is-invalid @enderror" name="activity_file" required autocomplete="activity_file">
-                                    @error('activity_file')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror 
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                    <i class="fas fa-file-alt"></i>
-                                    </div>
-                                </div>
-                              </div>
-
-                              
-                              </div>
-
-
-
-                              <div class="modal-footer justify-content-between bg-white p-0">
-                                
-                                  <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-                                  <button type="submit" class="btn btn-primary">Save changes</button>
-                              </div>
-                            </form>
-                      </div>
-                      </div>
-                    </div>
-                    <!-- /Upload Activity Modal -->
 
                   @endforeach
                 </tbody>
@@ -676,26 +547,6 @@
 
                           </div>
 
-                          <div id="yield_id" class="input-group p-3 border border-top-0 mb-3 rounded">
-                            <label for="yield" class="input-group">Yield:</label>
-                            <div class="d-flex justify-content-center">
-                              <div>
-                                <br>
-                                <label class="mt-2 font-weight-light">Yield (t/ha): </label>
-                              </div>
-                              
-                              <div class="col-5 input-group-sm">
-                                <label for="kg" class="input-group  font-weight-light" >Number of sacks: </label>
-                                <input id="sacks" name="sacks" type="number" class="form-control" placeholder="sacks" min="0" autocomplete="kg" autofocus>
-                              </div>
-                                
-                              <div class="col-4 input-group-sm">
-                                <label for="kg" class="input-group font-weight-light">Weight of sack: </label>
-                                <input id="kg" name="kg" type="number" class="form-control" min="25" max="85"  placeholder="kg" autocomplete="kg" autofocus>
-                              </div>
-                            </div>
-                          </div>
-
                           <div class="input-group">
                             <label for="activity_file">Insert Activity File (Required):</label>
                             <div class="input-group mb-3">  
@@ -744,6 +595,8 @@
 @endsection
 
 @section('js')
+  
+  
   <!-- DataTables  & Plugins -->
   <script src="https://adminlte.io/themes/v3/plugins/datatables/jquery.dataTables.min.js"></script>
   <script src="https://adminlte.io/themes/v3/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -757,8 +610,12 @@
   <script src="https://adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
-
+  <script src="{{ asset('js/app.js') }}"></script>
+  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
   
+  
+
   <script>
     $(function () {
       $('#farmerList').DataTable({
