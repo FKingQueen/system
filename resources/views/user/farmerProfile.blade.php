@@ -322,10 +322,10 @@
                                           </div>
                                         </div>
 
-                                        <div class="container-fluid p-3 border border-top-0 mb-3 rounded">
+                                        <div class="p-0 input-group mb-3">
 
-                                          <div class="input-group mb-1">
-                                            <label for="updateField_unit" class="input-group">Field Size Unit:</label>
+                                          <div class="w-50">
+                                            <label for="updateField_unit" >Field Size Unit:</label>
                                             <select id="updateField_unit" type="text" name="field_unit" class="custom-select form-control-border  @error('field_unit') is-invalid @enderror" name="field_unit" required autocomplete="field_unit" autofocus>
                                                 <option value="" disabled selected>--- Select Field Size Unit ---</option>
                                                 <option value="1">Hectare</option>
@@ -336,23 +336,16 @@
                                                   <strong>{{ $message }}</strong>
                                                 </span>
                                               @enderror          
-                                            <div class="input-group-append">
-                                              <div class="input-group-text">
-                                                <i class="fas fa-arrows-alt-h"></i>
-                                              </div>
-                                            </div>
                                           </div>
 
-                                          <div class="d-flex justify-content-center input-group">
-                                            <div class="text-center w-25 input-group-sm">
-                                              <label id="updateUnit_name" name="unit_name" class="font-weight-light">Hectare:</label>
-                                              <input id="updateLot_size" type="text"  class="text-center form-control @error('lot_size') is-invalid @enderror" name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
+                                          <div class="text-center w-50 col-auto">
+                                              <label id="unit_name" name="unit_name" class="font-weight-light"></label>
+                                              <input id="updateLot_size" type="number"  class="text-center form-control @error('lot_size') is-invalid @enderror mt-2" name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
                                               @error('lot_size')
                                                 <span class="invalid-feedback" role="alert">
                                                   <strong>{{ $message }}</strong>
                                                 </span>
                                               @enderror          
-                                            </div>
                                           </div>
 
                                         </div>
@@ -681,27 +674,20 @@
 
     // Update Farming Activity Field Unit JS 
     $(function(){
-      $('[id="updateUnit_name"]').hide();
-      $('[id="updateLot_size"]').hide();
       $('select[id="updateField_unit"]').on('change', function() {
         var field_unit = $(this).val();
+        console.log(field_unit);
           if(field_unit == 1){
-            $('[id="updateUnit_name"]').show();
-            $('[id="updateLot_size"]').show();
-            $('[id="updateUnit_name"]').text("Hectare:");
             $('[id="updateLot_size"]').attr("placeholder", "ha");
             $('[id="updateLot_size"]').attr("max", "10");
             $('[id="updateLot_size"]').attr("min", ".1");
             $('[id="updateLot_size"]').attr("step", ".1");
           }
           else if(field_unit == 2){
-            $('[id="updateUnit_name"]').show();
-            $('[id="updateLot_size"]').show();
-            $('[id="updateUnit_name"]').text("Square Meter:");
             $('[id="updateLot_size"]').attr("placeholder", "sq");
-            $('[id=updateLot_size"]').attr("max", "100000");
-            $('[id=updateLot_size"]').attr("min", "50");
-            $('[id=updateLot_size"]').attr("step", ".1");
+            $('[id="updateLot_size"]').attr("max", "100000");
+            $('[id="updateLot_size"]').attr("min", "50");
+            $('[id="updateLot_size"]').attr("step", ".1");
           }
       });
     });

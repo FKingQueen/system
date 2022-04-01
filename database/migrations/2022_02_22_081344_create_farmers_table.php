@@ -19,7 +19,7 @@ class CreateFarmersTable extends Migration
             $table->integer('municipality_id');
             $table->integer('barangay_id');
             $table->string('name');
-            $table->integer('status');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

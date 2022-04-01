@@ -39,95 +39,57 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body p-0">
-            <div class="pt-2 d-flex container-fluid justify-content-center">
-              <h5>Year</h5>
+            <div class=" d-flex container-fluid justify-content-center">
+              <h5 class="mr-3">Year</h5>
             </div>
             <table >
                 <thead>
                 <tr >
-                  <td class="p-0"><img src="{{ asset('images/greenline.png')}}" width="100%" alt="Image"></td>
-                  <td class="p-0"><img src="{{ asset('images/greenline.png')}}" width="100%" alt="Image"></td>
-                  <td class="p-0"><img src="{{ asset('images/greenline.png')}}" width="100%" alt="Image"></td>
-                  <td class="p-0"><img src="{{ asset('images/greenline.png')}}" width="100%" alt="Image"></td>
-                  <td class="p-0"><img src="{{ asset('images/greenline.png')}}" width="100%" alt="Image"></td>
+                <form id="yearform" action="{{ route('yearform') }}" method="post">
+                  @csrf
+                  <div class="btn-group input-group" role="group" aria-label="Basic radio toggle button group">
+                    <input value="4" style="margin-left: 6%;" type="radio" class="btn-check " name="btnradio" id="btnradio1" autocomplete="off" {{$currentyear == 2018 ? 'checked': ''}}>
+                    
+                    
+                    <input value="3" style="margin-left: 20%;" type="radio" class="btn-check cursor-pointer" name="btnradio" id="btnradio2" autocomplete="off" {{$currentyear == 2019 ? 'checked': ''}}>
+                    
+
+                    <input value="2" style="margin-left: 20%;" type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" {{$currentyear == 2020 ? 'checked': ''}}>
+                    
+
+                    <input value="1" style="margin-left: 20%;" type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" {{$currentyear == 2021 ? 'checked': ''}}>
+
+
+                    <input value="0" style="margin-left: 20%;" type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" {{$currentyear == 2022 ? 'checked': ''}} >
+                    
+                  </div>
+                </form>
+                
+
+                <script type='text/javascript'>
+
+                $(document).ready(function() { 
+                  $('input[name=btnradio]').change(function(){
+                        $('form[id=yearform]').submit();
+                  });
+                  });
+
+                </script>
+                <div class="btn-group input-group" role="group" aria-label="Basic radio toggle button group">
+                  <label style="margin-left: 5%;" > 2018</label>
+                  <label style="margin-left: 18%;"> 2019</label>
+                  <label style="margin-left: 18%;"> 2020</label>
+                  <label style="margin-left: 18%;"> 2021</label>
+                  <label style="margin-left: 18%;"> 2022</label>
+                  
+                </div>
                 </tr>
-                <tr>
+                <!-- <tr>
                     @foreach($years as $year)
                         <td class="p-0 text-center font-weight-bold">{{$year}}</td>
                     @endforeach
-                </tr>
-
+                </tr> -->
               </thead>
-              <tbody >
-                <tr class="p-0">
-                  <th>
-                    <div class="p-0 container-fluid text-center">
-                        @foreach($crops as $crop)
-                            @foreach($percentages[4] as $percentage[0])
-                                @if($percentage[0] != 0)
-                                    @if($crop->id == $loop->iteration)
-                                        <small class="p-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
-                                    @endif
-                                @endif
-                            @endforeach
-                        @endforeach
-                    </div>
-                  </th>
-                  <th>
-                    <div class="p-0 container-fluid text-center">
-                        @foreach($crops as $crop)
-                            @foreach($percentages[3] as $percentage[0])
-                                @if($percentage[0] != 0)
-                                    @if($crop->id == $loop->iteration)
-                                        <small class="p-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
-                                    @endif
-                                @endif
-                            @endforeach
-                        @endforeach
-                    </div>
-                  </th>
-                  <th>
-                    <div class="p-0 container-fluid text-center">
-                        @foreach($crops as $crop)
-                            @foreach($percentages[2] as $percentage[0])
-                                @if($percentage[0] != 0)
-                                    @if($crop->id == $loop->iteration)
-                                        <small class="p-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
-                                    @endif
-                                @endif
-                            @endforeach
-                        @endforeach
-                    </div>
-                  </th>
-                  <th>
-                    <div class="p-0 container-fluid text-center">
-                        @foreach($crops as $crop)
-                            @foreach($percentages[1] as $percentage[0])
-                                @if($percentage[0] != 0)
-                                    @if($crop->id == $loop->iteration)
-                                        <small class="p-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
-                                    @endif
-                                @endif
-                            @endforeach
-                        @endforeach
-                    </div>
-                  </th>
-                  <th>
-                    <div class="p-0 container-fluid text-center">
-                    @foreach($crops as $crop)
-                        @foreach($percentages[0] as $percentage[0])
-                            @if($percentage[0] != 0)
-                                @if($crop->id == $loop->iteration)
-                                    <small class="p-0 m-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
-                                @endif
-                            @endif
-                        @endforeach
-                     @endforeach
-                    </div>
-                  </th>
-                </tr>
-              </tbody>
-
             </table>
             
             </div>

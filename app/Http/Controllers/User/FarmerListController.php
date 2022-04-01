@@ -24,15 +24,15 @@ class FarmerListController extends Controller
         $farmer = Farmer::with('barangays')->get()->where("user_id", Auth::user()->id);
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
 
-        foreach($farmer as $farmers)
+        foreach($farmer as $key => $farmers)
         {
-            $chk = Farming_data::get()->where("farmer_id", $farmers->id)->where("status_id", 1)->count();
+            $chk = Farming_data::where("farmer_id", $farmers->id)->where("status", 1)->count();
             if($chk == 0 || $chk == null)
             {
                 DB::table('farmers')
                     ->where('id', $farmers->id)
                     ->update([
-                    'status' => 2, 
+                    'status' => 0, 
                 ]);
             } else if($chk != 0)
             {
@@ -42,11 +42,17 @@ class FarmerListController extends Controller
                     'status' => 1, 
                 ]);
             }
+
         }
 
         $farmer = Farmer::with('barangays', 'municipality')->orderBy('status', 'asc')->get()->where("user_id", Auth::user()->id);
 
-        return view('user/farmerList', array('municipalities' => $municipality, 'farmers' => $farmer, 'farming_datas' => $farming_data, 'barangays' => $barangay));
+        foreach($farmer as $key=> $f)
+        {
+            $far[$key][0] = Farming_data::where("farmer_id", $f->id)->where("status", 1)->count();
+        }
+        
+        return view('user/farmerList', array('far' => $far, 'municipalities' => $municipality, 'farmers' => $farmer, 'farming_datas' => $farming_data, 'barangays' => $barangay));
     }
 
     public function farmerListAjax($id)

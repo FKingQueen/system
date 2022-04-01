@@ -296,3 +296,75 @@
 
 
 @endsection
+
+
+
+<tbody >
+                <tr class="p-0">
+                  <th>
+                    <div class="p-0 container-fluid text-center">
+                        @foreach($crops as $crop)
+                            @foreach($percentages[4] as $percentage[0])
+                                @if($percentage[0] != 0)
+                                    @if($crop->id == $loop->iteration)
+                                        <small class="p-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endforeach
+                    </div>
+                  </th>
+                  <th>
+                    <div class="p-0 container-fluid text-center">
+                        @foreach($crops as $crop)
+                            @foreach($percentages[3] as $percentage[0])
+                                @if($percentage[0] != 0)
+                                    @if($crop->id == $loop->iteration)
+                                        <small class="p-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endforeach
+                    </div>
+                  </th>
+                  <th>
+                    <div class="p-0 container-fluid text-center">
+                        @foreach($crops as $crop)
+                            @foreach($percentages[2] as $percentage[0])
+                                @if($percentage[0] != 0)
+                                    @if($crop->id == $loop->iteration)
+                                        <small class="p-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endforeach
+                    </div>
+                  </th>
+                  <th>
+                    <div class="p-0 container-fluid text-center">
+                        @foreach($crops as $crop)
+                            @foreach($percentages[1] as $percentage[0])
+                                @if($percentage[0] != 0)
+                                    @if($crop->id == $loop->iteration)
+                                        <small class="p-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endforeach
+                    </div>
+                  </th>
+                  <th>
+                    <div class="p-0 container-fluid text-center">
+                    @foreach($crops as $crop)
+                        @foreach($percentages[0] as $percentage[0])
+                            @if($percentage[0] != 0)
+                                @if($crop->id == $loop->iteration)
+                                    <small class="p-0 m-0" style="color: #248139; ">{{$crop->name}} {{$percentage[0]}} %</small> <br>
+                                @endif
+                            @endif
+                        @endforeach
+                     @endforeach
+                    </div>
+                  </th>
+                </tr>
+              </tbody>

@@ -59,6 +59,7 @@ Route::group(['middleware' => 'isUser'], function() {
     Route::post('/updateYield/{id}', [App\Http\Controllers\User\FarmerProfileController::class, 'updateYield'])->name('updateYield');
     //Crop Calendar
     Route::get('/cropCalendar', [App\Http\Controllers\User\CropCalendarController::class, 'cropCalendar'])->name('cropCalendar');
+    Route::post('/yearform', [App\Http\Controllers\User\CropCalendarController::class, 'yearform'])->name('yearform');
     //Crop Monitoring
     Route::get('/cropMonitoring', [App\Http\Controllers\User\CropMonitoringController::class, 'cropMonitoring'])->name('cropMonitoring');
     //Yield Monitoring

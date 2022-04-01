@@ -103,10 +103,9 @@
                                 </a>
                             </li>
                             <!-- /Farmer List Button -->
-
                             <!-- Crop Calendar Button -->          
                             <li class="nav-item">
-                                <a type="button"href="{{ route('cropCalendar') }}" class="nav-link {{ route('cropCalendar') == url()->current() ? 'active' : '' }} ">
+                                <a type="button"href="{{ route('cropCalendar') }}" class="nav-link {{ route('cropCalendar') == url()->current() ||  route('yearform') == url()->current()  ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-calendar-alt"></i>
                                 <p>
                                    Crop Calendar

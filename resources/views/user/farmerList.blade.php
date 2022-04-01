@@ -126,22 +126,11 @@
             <!-- /.card-header -->
             <div class="card-body">
               <table id="farmerList"  class="table table-bordered">
-                <div class="d-flex justify-content-between mb-3">
-                  <div class="d-flex justify-content-start">
-                    <div>
-                      In Progress - <i class='fa fa-circle' style='color:#00db0f'></i>
-                      
-                    </div>
-                    <div class="ml-5">
-                      Inactive - <i class='fas fa-circle' style='color:#76756f'></i>
-                    </div>
+                  <div class="d-flex justify-content-end mb-2">
+                    <button type="button" data-toggle="modal" data-target="#addfarmer" class="btn btn-primary">
+                      Add Farmer
+                    </button>
                   </div>
-                  <div>
-                  <button type="button" data-toggle="modal" data-target="#addfarmer" class="btn btn-primary">
-                    Add Farmer
-                  </button>
-                  </div>
-                </div>
                 <thead >
                 <tr class="bg-light" >
                   <th ><i class="fas fa-male"></i> Farmers Name:</th>
@@ -151,156 +140,141 @@
                 </thead>
                 <tbody>
                   @php $chk = 0 @endphp
-                  @foreach ($farmers as $farmer)
+                  @foreach ($farmers as $key => $farmer)
                   <tr >
                     <td class="">
                       <div class='d-flex justify-content-between'>
                         <a type="button" class="farmer_link p-0" href="{{ route('farmerProfile', $farmer->id)}}">{{$farmer->name}}</a>
-                        
-                        @if($farmer->status == 1)
-                          <i class='mt-2 fa fa-circle' style='color:#00db0f'></i>
-                        @elseif($farmer->status == 2)
-                          <i class='mt-2 fas fa-circle' style='color:#76756f'></i>
+                        @if($far[$key][0] != 0)
+                          <div class="rounded w-20 bg-success p-1">{{$far[$key][0]}}</div>
+                        @elseif($far[$key][0] == 0)
+                          <div class="rounded w-20 bg-secondary p-1">{{$far[$key][0]}}</div>
                         @endif
-
+                      
                       </div>
                     </td>
                     <td class="text-center " >
                       Brgy. {{$farmer->barangays->name}}, {{$farmer->municipality->name}}
                     </td>
                     <td class="text-center">
-                      <button type="button" class="p-0 btn btn-block btn-primary btn-xm "   data-toggle="modal" data-target="#option_{{$farmer->id}}">Option</button>
-                      <!-- Option Modal -->
-                      <div class="modal fade rounded" id="option_{{$farmer->id}}">
-                        <div class="modal-dialog modal-dialog-centered modal-sm">
-                        <div class="modal-content rounded ">
+                      <a class="p-0 btn btn-block btn-primary btn-xm" data-toggle="dropdown" href="#">
+                        Option
+                      </a>
+                      <div id="sample" class="dropdown-menu dropdown-menu-xl dropdown-menu-right ">
+                      
+                        <div class="dropdown-divider"></div>
+                          <a data-dismiss="modal" data-toggle="modal" data-target="#update_{{$farmer->id}}" class="btn btn-block btn-default border d-flex justify-content-around" >
+                            <b class="ml-1">Edit</b> 
+                            <i class="fas fa-lg fa-edit ml-4" style="color: #42ba96;"></i>
+                          </a>
 
-                          <div class="modal-header p-1 d-flex justify-content-center">
-                            <h4 class="modal-title">Option</h4>
+                        <div class="dropdown-divider"></div>
+                          <a data-dismiss="modal" data-toggle="modal" data-target="#delete_{{$farmer->id}}"  class="btn btn-block btn-default border d-flex justify-content-around">
+                            <b>Delete</b> 
+                            <i class="fas fa-lg fa-trash" style="color: #d9534f;"></i>
+                          </a>
+                      </div>
+
+                      <!-- Update Modal -->
+                      <div class="modal fade" id="update_{{$farmer->id}}">
+                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content  bg-green">
+
+                          <div class="modal-header p-2">
+                            <h4 class="modal-title">Updating Farmer</h4>
                           </div>
 
-                          <div class="modal-body rounded bg-white">
-                            <form method="POST" action="{{ route('deleteFarmer', $farmer->id)}}">
-                              @csrf
-                              <table class="table table-bordered">
-                                <tbody >
-                                  <tr >
-                                    <th class=" p-1 text-left font-weight-light"> Update the Farmer information</th>
-                                    <td class="p-1">
-                                      <button type="button" class="btn btn-block btn-default border" data-dismiss="modal" data-toggle="modal" data-target="#update_{{$farmer->id}}"><i class="fas fa-lg fa-edit " style="color: #42ba96;"></i></i></button>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th class=" pl-1 p-0 text-left font-weight-light" >Delete permanently the Farmer records</th>
-                                    <td class="p-1">
-                                      <button type="button" data-dismiss="modal" data-target="#delete_{{$farmer->id}}" data-toggle="modal" class="btn btn-block btn-default border"><i class="fas fa-lg fa-trash" style="color: #d9534f;"></i></button>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </form>
-                          </div>
+                              <form method="POST" action="{{ route('updateFarmer', $farmer->id)}}">
+                                @csrf
+                                <div class="modal-body bg-white">
+
+                                  <!-- UpdateFarmer Input Name -->
+                                  <div class="input-group mb-3">
+                                    <label for="crop_name" class="input-group">Name:</label>
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{$farmer->name}}" required autocomplete="name" autofocus placeholder="Full Name">
+                                      @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                          <strong>{{ $message }}</strong>
+                                        </span>
+                                      @enderror          
+                                    <div class="input-group-append">
+                                      <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- ./UpdateFarmer Input Name -->
+
+                                  <!-- UpdateFarmer Select Barangay -->
+                                  <div class="input-group mb-3">
+                                    <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
+                                    <select id="barangay" type="text" name="barangay" class="form-control @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
+                                      <option value="" disabled selected>--- Select Barangay ---</option>
+                                      @foreach($barangays as $barangay)
+                                        <option value="{{$barangay->id}}">{{$barangay->name}}</option>
+                                      @endforeach
+                                    </select>
+                                      @error('barangay')
+                                        <span class="invalid-feedback" role="alert">
+                                          <strong>{{ $message }}</strong>
+                                        </span>
+                                      @enderror          
+                                    <div class="input-group-append">
+                                      <div class="input-group-text">
+                                        <i class="fas fa-home"></i>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- /UpdateFarmer Select Barangay -->
+
+                                </div>
+
+                                <div class="modal-footer justify-content-between bg-white p-1">
+                                    <button type="button" class="btn btn-close" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </form>
                         </div>
                         </div>
                       </div>
-                      <!-- /Option Modal -->  
+                      <!-- /Update Farmer Modal --> 
+
+                      <!-- Delete Confirmation Modal -->
+                     
+                      <div id="delete_{{$farmer->id}}" class="modal fade">
+                        <div class="modal-dialog modal-confirm modal-dialog-centered">
+                          <form method="POST" action="{{ route('deleteFarmer', $farmer->id)}}">
+                          @csrf  
+                          <div class="modal-content">
+                            <div class="modal-header flex-column">
+                              <div class="icon-box">
+                              <i class="material-icons">&#xE5CD;</i>
+                              
+                              </div>						
+                              <h4 class="modal-title w-100 ">Are you sure?</h4>	
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body p-0">
+                              <p>Do you really want to delete these records? This process cannot be undone.</p>
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                          </div>
+                        </form>
+                        </div>
+                      </div>
+                     
+                      <!-- /Delete Confirmation Modal --> 
                     </td>
                   </tr>
 
                   
 
-                  <!-- Update Modal -->
-                  <div class="modal fade" id="update_{{$farmer->id}}">
-                    <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content  bg-green">
 
-                      <div class="modal-header p-2">
-                        <h4 class="modal-title">Updating Farmer</h4>
-                      </div>
-
-                          <form method="POST" action="{{ route('updateFarmer', $farmer->id)}}">
-                            @csrf
-                            <div class="modal-body bg-white">
-
-                              <!-- UpdateFarmer Input Name -->
-                              <div class="input-group mb-3">
-                                <label for="crop_name" class="input-group">Name:</label>
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{$farmer->name}}" required autocomplete="name" autofocus placeholder="Full Name">
-                                  @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                      <strong>{{ $message }}</strong>
-                                    </span>
-                                  @enderror          
-                                <div class="input-group-append">
-                                  <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                  </div>
-                                </div>
-                              </div>
-                              <!-- ./UpdateFarmer Input Name -->
-
-                              <!-- UpdateFarmer Select Barangay -->
-                              <div class="input-group mb-3">
-                                <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
-                                <select id="barangay" type="text" name="barangay" class="form-control @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
-                                  <option value="" disabled selected>--- Select Barangay ---</option>
-                                  @foreach($barangays as $barangay)
-                                    <option value="{{$barangay->id}}">{{$barangay->name}}</option>
-                                  @endforeach
-                                </select>
-                                  @error('barangay')
-                                    <span class="invalid-feedback" role="alert">
-                                      <strong>{{ $message }}</strong>
-                                    </span>
-                                  @enderror          
-                                <div class="input-group-append">
-                                  <div class="input-group-text">
-                                    <i class="fas fa-home"></i>
-                                  </div>
-                                </div>
-                              </div>
-                              <!-- /UpdateFarmer Select Barangay -->
-
-                            </div>
-
-                            <div class="modal-footer justify-content-between bg-white p-1">
-                                <button type="button" class="btn btn-close" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                          </form>
-                    </div>
-                    </div>
-                  </div>
-                  <!-- /Update Farmer Modal --> 
-
-                  <!-- Delete Confirmation Modal -->
-                  <form method="POST" action="{{ route('deleteFarmer', $farmer->id)}}">
-                  @csrf
-                  <div id="delete_{{$farmer->id}}" class="modal fade">
-                    <div class="modal-dialog modal-confirm modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header flex-column">
-                          <div class="icon-box">
-                          <i class="material-icons">&#xE5CD;</i>
-                          
-                          </div>						
-                          <h4 class="modal-title w-100 ">Are you sure?</h4>	
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body p-0">
-                          <p>Do you really want to delete these records? This process cannot be undone.</p>
-                        </div>
-                        <div class="modal-footer justify-content-center">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                          <button type="submit" class="btn btn-danger">Delete</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  </form>
-                  <!-- /Delete Confirmation Modal --> 
                   
                   @endforeach
                 </tbody>

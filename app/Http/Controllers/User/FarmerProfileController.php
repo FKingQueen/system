@@ -82,10 +82,13 @@ class FarmerProfileController extends Controller
 
     public function updateCrop(Request $request, $id)
     {
+
         $request->validate([
             'crop_id'  => 'required',
-            'status_id'    => 'required',
+            'lot_size' => 'required',
         ]);
+
+        
 
         $farmer_id = DB::table('farming_datas')->where('id', $id)->value('farmer_id');
 
@@ -94,23 +97,23 @@ class FarmerProfileController extends Controller
         } else if ($request->field_unit == 2){
             $lot_size = $request->lot_size/1000;
         }
-        
-        if($request->status_id == 2){
-            $total = ($request->sacks*$request->kg)/$lot_size;
-            $yield = $total * (10 ** -3);
 
-            DB::table('farming_datas')
-            ->where('id', $id)
-            ->update([
-            'yield'  => $yield,
-            ]);
-        }
+        $f_data = Farming_data::find($id);
+        
+        $total = ($f_data->sacks*$f_data->kg)/$lot_size;
+        $yield = $total * (10 ** -3);
+
+        DB::table('farming_datas')
+        ->where('id', $id)
+        ->update([
+        'yield'  => $yield,
+        ]);
+        
 
         $res = DB::table('farming_datas')
             ->where('id', $id)
             ->update([
             'crop_id' => $request->crop_id, 
-            'status_id' => $request->status_id,
             'lot_size'  => $lot_size,
             ]);
 
@@ -142,37 +145,19 @@ class FarmerProfileController extends Controller
     public function uploadActivity (Request $request, $id)
     {
         $request->validate([
-            'status_id'    => 'required',
             'activity_file' => 'required|mimes:csv,txt',
         ]);
 
         $farmer_id = DB::table('farming_datas')->where('id', $id)->value('farmer_id');
         $lot_size = DB::table('farming_datas')->where('id', $id)->value('lot_size');
 
-        if($request->status_id == 2){
-            $total = ($request->sacks*$request->kg)/$lot_size;
-            $yield = $total * (10 ** -3);
-
-            DB::table('farming_datas')
-            ->where('id', $id)
-            ->update([
-            'yield'  => $yield,
-            ]);
-        }
-
-        $res = DB::table('farming_datas')
-            ->where('id', $id)
-            ->update([
-            'status_id' => $request->status_id,
-            ]);
-
-        $status_id = $request->status_id;
+        $status_id = $f_data = Farming_data::find($id)->value('status');
         $farmer_id = Farming_data::where('id', $id)->value('farmer_id');
 
         
         $path = $request->file('activity_file')->getRealPath();
 
-        Excel::import(new UsersUpdate($id, $status_id, $farmer_id), $path);
+        $res = Excel::import(new UsersUpdate($id, $status_id, $farmer_id), $path);
 
         if($res){
             return redirect()->route('farmerProfile', [$farmer_id])->with('uploadedfarming', 'Success');
