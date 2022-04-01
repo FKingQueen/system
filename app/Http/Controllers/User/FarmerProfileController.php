@@ -21,7 +21,7 @@ class FarmerProfileController extends Controller
     public function farmerProfile($id)
     {
         $farmer = Farmer::all()->where("id", $id);
-        $farming_data = Farming_data::with('crop', 'cropping_season', 'status')->orderBy('status', 'asc')->get()->where("farmer_id", $id);
+        $farming_data = Farming_data::with('crop', 'cropping_season', 'status')->orderBy('status', 'desc')->get()->where("farmer_id", $id);
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
 
         

@@ -191,14 +191,13 @@
                           @endif
                         </td>
                         <td class="text-center pt-2">
-                          <input type="checkbox" class="toggle-class_{{$farming_data->id}}" data-id="{{$farming_data->id}}" data-size="sm" data-width="90"   data-onstyle="success" data-offstyle="secondary" data-toggle="toggle" data-on="Inprogress" data-off="Completed" {{ $farming_data->status ? 'checked' : '' }}>
+                          <input type="checkbox" class="toggle-class_{{$farming_data->id}}" data-id="{{$farming_data->id}}" data-size="sm" data-width="90"   data-onstyle="success" data-offstyle="secondary" data-toggle="toggle" data-on="In progress" data-off="Completed" {{ $farming_data->status ? 'checked' : '' }}>
 
                           <script>
                             $(function() {
                               $('.toggle-class_{{$farming_data->id}}').change(function() {
                                   var status = $(this).prop('checked') == true ? 1 : 0; 
                                   var yield = ('');
-                                  console.log(status);
                                   var id = $(this).data('id'); 
                                   
                                   $.ajax({
@@ -213,6 +212,9 @@
                                   {
                                     $("#yield{{$farming_data->id}}").modal("show");
                                     $("#updatedisabled_{{$farming_data->id}}").attr("class", "btn btn-block btn-default border d-flex justify-content-around disabled");
+                                  } else 
+                                  {
+                                    $("#updatedisabled_{{$farming_data->id}}").attr("class", "btn btn-block btn-default border d-flex justify-content-around");
                                   }
 
                               });
@@ -400,7 +402,7 @@
                                         </div>
 
                                         <div class="modal-footer justify-content-around bg-white p-0">
-                                            <button  type="button" class="btn btn-close" data-dismiss="modal">Don't Update</button>
+                                            <button type="button" class="btn btn-close" data-dismiss="modal">Cancel</button>
                                             <button  type="submit" class="btn btn-primary">Update</button>
                                         </div>
                                       </form>
