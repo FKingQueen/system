@@ -40,28 +40,34 @@
             <!-- /.card-header -->
             <div class="card-body p-0">
             <div class=" d-flex container-fluid justify-content-center">
-              <h5 class="mr-3">Year</h5>
+              <h5 >Year</h5>
             </div>
             <table >
                 <thead>
                 <tr >
                 <form id="yearform" action="{{ route('yearform') }}" method="post">
                   @csrf
-                  <div class="btn-group input-group" role="group" aria-label="Basic radio toggle button group">
-                    <input value="4" style="margin-left: 6%;" type="radio" class="btn-check " name="btnradio" id="btnradio1" autocomplete="off" {{$currentyear == 2018 ? 'checked': ''}}>
-                    
-                    
-                    <input value="3" style="margin-left: 20%;" type="radio" class="btn-check cursor-pointer" name="btnradio" id="btnradio2" autocomplete="off" {{$currentyear == 2019 ? 'checked': ''}}>
-                    
+                  <div class="container-fluid d-flex justify-content-center" role="group" aria-label="Basic radio toggle button group">
+                    <div style="border-width:3px !important;" class="p-1 w-25  d-flex justify-content-center border-bottom border-success">
+                      <input value="4" type="radio" class="btn-check " name="btnradio" id="btnradio1" autocomplete="off" {{$currentyear == 2018 ? 'checked': ''}}>
+                    </div>
 
-                    <input value="2" style="margin-left: 20%;" type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" {{$currentyear == 2020 ? 'checked': ''}}>
-                    
+                    <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
+                      <input value="3"  type="radio" class="btn-check cursor-pointer" name="btnradio" id="btnradio2" autocomplete="off" {{$currentyear == 2019 ? 'checked': ''}}>
+                    </div>
 
-                    <input value="1" style="margin-left: 20%;" type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" {{$currentyear == 2021 ? 'checked': ''}}>
+                    <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
+                      <input value="2" type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" {{$currentyear == 2020 ? 'checked': ''}}>
+                    </div>
 
+                    <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
+                    <input value="1"  type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" {{$currentyear == 2021 ? 'checked': ''}}>
+                    </div>
 
-                    <input value="0" style="margin-left: 20%;" type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" {{$currentyear == 2022 ? 'checked': ''}} >
-                    
+                    <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
+                    <input value="0"  type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" {{$currentyear == 2022 ? 'checked': ''}} >
+                    </div>
+
                   </div>
                 </form>
                 
@@ -75,14 +81,28 @@
                   });
 
                 </script>
-                <div class="btn-group input-group" role="group" aria-label="Basic radio toggle button group">
-                  <label style="margin-left: 5%;" > 2018</label>
-                  <label style="margin-left: 18%;"> 2019</label>
-                  <label style="margin-left: 18%;"> 2020</label>
-                  <label style="margin-left: 18%;"> 2021</label>
-                  <label style="margin-left: 18%;"> 2022</label>
-                  
-                </div>
+                  <div class="container-fluid d-flex justify-content-center" role="group" aria-label="Basic radio toggle button group">
+                    <div class="w-25 p-1 d-flex justify-content-center">
+                      <label> 2018</label>
+                    </div>
+
+                    <div class="w-25  d-flex justify-content-center">
+                      <label > 2019</label>
+                    </div>
+
+                    <div class="w-25  d-flex justify-content-center">
+                      <label > 2020</label>
+                    </div>
+
+                    <div class="w-25  d-flex justify-content-center">
+                      <label > 2021</label>
+                    </div>
+
+                    <div class="w-25  d-flex justify-content-center">
+                      <label > 2022</label>
+                    </div>
+                  </div>
+
                 </tr>
                 <!-- <tr>
                     @foreach($years as $year)
@@ -152,7 +172,7 @@
                     @php $mc=11 @endphp
                     @foreach($brgys as $brgy)
                       <tr>
-                        <td>{{$brgy->name}}</td>
+                        <td style="height: 75px;">{{$brgy->name}}</td>
                         
                         @while($i <=$mc)
                           <td class="p-0 text-center" style ="{{ $percs[$i] == null ? 'background-color: green;' : ''}} font-size: 10px;">

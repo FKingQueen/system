@@ -51,6 +51,12 @@ class FarmerListController extends Controller
         {
             $far[$key][0] = Farming_data::where("farmer_id", $f->id)->where("status", 1)->count();
         }
+
+        if($farmer->isEmpty())
+        {
+            $far[0] = null;
+        } 
+
         
         return view('user/farmerList', array('far' => $far, 'municipalities' => $municipality, 'farmers' => $farmer, 'farming_datas' => $farming_data, 'barangays' => $barangay));
     }

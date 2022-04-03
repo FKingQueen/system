@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('css')
-
+<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 @endsection
 
 @section('content')
@@ -66,16 +66,6 @@
 
           </div>
 
-            <div class="ml-5">
-              <div class="input-group mt-4">
-                <h1>
-                <u style="color: #248139;" >{{$dmuni}}</u> 
-
-                  <small style="font-size: 20px;">({{$dyear}})</small>
-                </h1>
-              </div>
-            </div> 
-            <div></div> 
         </div>
       </div>
     </form>
@@ -90,110 +80,129 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <div class="card-body">
-              
+              <div class="card-body">
 
-              
+                <div class="input-group  d-flex justify-content-center">
+                  <h3 class="text-center ">FARMING ACTIVITY</h3>
+                </div>
 
-              <div>
-                <h4 class="text-center">Sowing-Harvesting Chart</h4>
-                <canvas style="position: relative; height:40vh; width:80vw" id="barChart"></canvas>
-              </div>
+                <div class="input-group" >
+                  <table class="table table-bordered text-center">
+                    <thead>
 
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-  </section>
-
-    <!-- Main content -->
-    <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <!-- /.card-header -->
-            <div class="card-body">
-            <div class="input-group  d-flex justify-content-center">
-              <h3 class="text-center">FARMING ACTIVITIES</h3>
-            </div>
-
-            <div class="input-group" >
-              <table class="table table-hover text-center">
-                <thead>
-                  <tr>
-                    <th scope="col" style="width: 25%;">Farmer</th>
-                    <th scope="col" style="width: 25%;">Water</th>
-                    <th scope="col" style="width: 25%;">Fertilizer</th>
-                    <th scope="col" style="width: 25%;">Pesticide</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach($farmers as $farmer)
-                    @php $count = $loop->index @endphp
-                    <tr>
-                        <th scope="row"> 
-                          <a type="button" data-toggle="modal" data-target="#activity_{{$farmer->id}}">
-                            {{$farmer->name}}
-                          </a>
+                      <tr> 
+                        <th scope="col" style="width: 25%;" >
+                        Farmer
                         </th>
-                        @foreach($Fpercents[$count] as $Fpercent)
-                        @php $c = $loop->index @endphp
-                          <td>{{$Fpercent}}%</td>
-                        @endforeach
-                    </tr>
- 
-                    <!-- Farming Activities Modal -->
-                    <div class="modal fade rounded" id="activity_{{$farmer->id}}" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered modal-lg">
-                      <div class="modal-content rounded">
 
-                        <div class="modal-header p-1 d-flex justify-content-around">
-                          <h4 class="modal-title ml-2 "><u style="color: #248139;" >{{$farmer->name}}</u> </h4>
-                          <h4 class="modal-title ml-2 " style="color: #57A0D3;">Activities</h4>
-                        </div>
+                        <th style="width: 100%;" >
+                          <div class=" d-flex justify-content-center">
+                            <div class="ml-5">
+                              Water 
+                            </div>
+                            <div style="width: 5%;" class="mr-5 bg-primary"></div>
 
-                        <div class="modal-body rounded bg-white p-0">
-                          <div class="d-flex justify-content-between"> 
-                              <div class="p-2"> <b style="color: #248139">Crops</b> </div>
-                              <div class="d-flex justify-content-between w-50"> 
-                                <div class="p-2" style="color: #008ECC;"> <b>Water</b> </div>
-                                <div class="p-2" style="color: #008ECC;"> <b>Pesticide</b> </div>
-                                <div class="p-2" style="color: #008ECC;"> <b>Fertilizer</b> </div>
-                              </div>
+                            <div >
+                              Fertilizer 
+                            </div>
+                            <div style="width: 5%;" class="mr-5 bg-success"></div>
+
+                            <div class="d-flex">
+                              Pesticide 
+                            </div>
+                            <div style="width: 5%;" class="mr-5 bg-secondary"></div>
                           </div>
-                        @for($i= 0; $i <= $realCounts[$count]-1; $i++)
-                          <div class="d-flex justify-content-between border "> 
-                              <div class="p-2">{{$FDcrops[$count][$i]}}</div>
-                              <div class="d-flex justify-content-between w-50"> 
-                              @foreach($FDvalues[$count][$i] as $FDvalue)
-                                <div class="p-2">{{$FDvalue}}%</div>
-                              @endforeach
+                        </th>
+                      </tr>
+
+                    </thead>
+                    <tbody>
+
+                      @php $j = 0 @endphp
+                      @foreach($FA_counts as $key1 => $FA_count)
+                        @if($FA_counts[$key1] != 0)
+                          <tr>
+                            <th style="cursor:pointer" data-toggle="modal" data-target="#activity_{{$key1}}">{{$Farmers[$key1]->name}}</th>
+                            <td>
+                              <div class="input-group w-100 d-flex justify-content-center">
+                                <div class="bg-primary rounded-left" style="width: {{$FA_percents[$key1][0]}}%; opacity: 0.8;">{{$FA_percents[$key1][0]}}% ({{$FA_counts[$key1][0]}})</div>
+                                <div class="bg-success " style="width: {{$FA_percents[$key1][1]}}%; opacity: 0.8;">{{$FA_percents[$key1][1]}}% ({{$FA_counts[$key1][1]}})</div>
+                                <div class="bg-secondary rounded-right" style="width: {{$FA_percents[$key1][2]}}%; opacity: 0.8;">{{$FA_percents[$key1][2]}}% ({{$FA_counts[$key1][2]}})</div>
                               </div>
-                              
-                          </div>
-                        @endfor
-                        </div>
 
-                      </div>
-                      </div>
-                    </div>
-                    <!-- /Farming Activities Modal -->
+                              <!-- Farming Activities Modal -->
+                              <div class="modal fade rounded" id="activity_{{$key1}}" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content rounded">
 
-                  @endforeach
-                </tbody>
-              </table>
-              
-              
-            </div>
+                                  <div class="modal-header p-1 d-flex justify-content-center">
+                                    <h4 class="modal-title ml-2 "><u style="color: #248139;" >{{$Farmers[$key1]->name}}</u> </h4>
+                                  </div>
 
-            </div>
+                                  <div class="modal-body rounded p-1 ">
+
+                                    <table class="table ">
+                                      <thead >
+                                        <tr >
+                                          <th style="width: 20%;" class="p-1">Crop</th>
+                                          <th style="width: 10%;" class="p-1">Hectare</th>
+                                          <th  class=" d-flex justify-content-around">
+                                            <div class="ml-5">
+                                              Water - 
+                                            </div>
+                                            <div style="width: 5%;" class="mr-5 bg-primary"></div>
+
+                                            <div>
+                                              Fertilizer - 
+                                            </div>
+                                            <div style="width: 5%;" class="mr-5 bg-success"></div>
+  
+                                            <div class="d-flex">
+                                              Pesticide -   
+                                            </div>
+                                            <div style="width: 5%;" class="mr-5 bg-secondary"></div>
+                                            
+                                          </th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+
+                                      @for($i = 0; $i <= $FD_counters[$key1]-1; $i++)
+                                        
+                                        <tr >
+                                          <th class="">
+                                              {{$FD_crops[$key1][$i][0]->crop->name}}
+                                          </th >
+                                          <td class="p-1"></td>
+                                          <td class="w-100 ">
+                                            <div class="d-flex justify-content-center">
+                                              <div class="bg-primary rounded-left" style="width: {{$FD_percents[$key1][$i][0]}}%; opacity: 0.8;">{{$FD_percents[$key1][$i][0]}}% ({{$FD_counts[$key1][$i][0]}})</div>
+                                              <div class="bg-success " style="width: {{$FD_percents[$key1][$i][1]}}%; opacity: 0.8;">{{$FD_percents[$key1][$i][1]}}% ({{$FD_counts[$key1][$i][1]}})</div>
+                                              <div class="bg-secondary rounded-right" style="width: {{$FD_percents[$key1][$i][2]}}%; opacity: 0.8;">{{$FD_percents[$key1][$i][2]}}% ({{$FD_counts[$key1][$i][2]}})</div>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                      @php $j++ @endphp
+                                      @endfor         
+                                      </tbody>
+                                    </table>
+
+                                </div>
+                                </div>
+                              </div>
+                              <!-- /Farming Activities Modal -->
+
+                            </td>
+                          </tr>
+                          @php $i++ @endphp
+                        @endif
+                      @endforeach
+                      
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
@@ -204,44 +213,12 @@
     </div>
     <!-- /.container-fluid -->
   </section>
+
 
 
 
 @endsection
 
 @section('js')
-
-<script>
-  $(function(){
-    var cropCs = <?php echo json_encode($cropCs); ?>;
-    var barCanvas = $("#barChart");
-    var barChart = new Chart(barCanvas,{
-      type: 'bar',
-      data:{
-        labels:['Bitter Gourd', 'Cabbage', 'Corn', 'Eggplant', 'Garlic','Ladys Finger', 'Rice', 'Onion', 'Peanut', 'String Beans', 'Tobacco', 'Tomato', 'Water Melon'],
-        datasets:[
-          {
-            label: 'Total Crop',
-            data:cropCs,
-            barThickness: 50,
-            minBarLength: 2,
-            backgroundColor:['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green']
-            
-          }
-        ]
-      },
-      options:{
-        scales:{
-          yAxes:[{
-            ticks:{
-              beginAtZero:true,
-              max: 10
-            }
-          }]
-        }
-      }
-    });
-  });
-</script>
 
 @endsection
