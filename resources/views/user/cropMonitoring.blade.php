@@ -20,31 +20,6 @@
   </div>
   <!-- /.content-header -->
 
-  <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <!-- /.card-header -->
-              <div class="card-body">
-                <canvas id="barChart" width="400" height="400"></canvas>
-              </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-  </section>
-  <!-- Main /.content -->
-
-
-
-
   <div class="card-body">
                 
     <form action="{{ route('cropMonitoring') }}" method="GET">
@@ -97,6 +72,28 @@
 
   </div>
   <!-- /.card-body -->
+
+    <!-- Main content -->
+    <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+              <div class="card-body">
+                <canvas id="barChart" width="400" height="170"></canvas>
+              </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- Main /.content -->
 
   <!-- Main content -->
   <section class="content">
@@ -196,7 +193,7 @@
                                         
                                         <tr >
                                           <th class="">
-                                              {{$FD_crops[$key1][$i][0]->crop->name}}
+                                              {{$FD_crops[$key1][$i]->crop->name}}
                                           </th >
                                           <td class="p-1"></td>
                                           <td class="w-100 ">
@@ -208,7 +205,7 @@
                                           </td>
                                         </tr>
                                       @php $j++ @endphp
-                                      @endfor         
+                                      @endfor      
                                       </tbody>
                                     </table>
 
@@ -285,6 +282,7 @@ var barChart = new Chart(barCanvas,{
   $(function(){
     var  n_farmers =  @json($n_farmers);
     console.log(n_farmers);
+    
     var barCanvas = $("#barChart");
     var barChart = new Chart(barCanvas,{
       type: 'bar',
@@ -293,113 +291,160 @@ var barChart = new Chart(barCanvas,{
         datasets:[
           {
             label: 'Bitter Gourd',
-            data:@json($crops[0]),
+            data: @json($Bitter_gourds), 
+            barThickness: 50,
+            datalabel: 'naruto',  
+            minBarLength: 2,
+            backgroundColor:'rgba(255, 99, 132, 0.2)',
+          },
+          {
+            label: 'Cabbage',
+            data: @json($Cabbages), 
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(54, 162, 235, 0.2)',
+          },
+          {
+            label: 'Corn',
+            data: @json($Corns), 
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(255, 206, 86, 0.2)',
+          },
+          {
+            label: 'Eggplant',
+            data: @json($Eggplants), 
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(75, 192, 192, 0.2)',
+          },
+          {
+            label: 'Garlic',
+            data: @json($Garlics), 
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(153, 102, 255, 0.2)',
+          },
+          {
+            label: 'Ladys Finger',
+            data: @json($Ladys_fingers), 
             barThickness: 50,
             minBarLength: 2,
             backgroundColor:'rgba(255, 159, 64, 0.2)'
           },
           {
-            label: 'Cabbage',
-            data:@json($crops[1]),
-            barThickness: 50,
-            minBarLength: 2,
-            backgroundColor:'rgba(54, 162, 235, 0.2)',
-          }
-          ,
-          {
-            label: 'Corn',
-            data:@json($crops[]),
-            barThickness: 50,
-            minBarLength: 2,
-            backgroundColor:'rgba(255, 99, 132, 0.2)',
-          },
-          {
-            label: 'Eggplant',
-            data:@json($crops[0]),
-            barThickness: 50,
-            minBarLength: 2,
-            backgroundColor:'rgba(54, 162, 235, 0.2)',
-          },
-          {
-            label: 'Garlic',
-            data:@json($crops[0]),
-            barThickness: 50,
-            minBarLength: 2,
-            backgroundColor:'rgba(255, 99, 132, 0.2)',
-          },
-          {
-            label: 'Ladys Finger',
-            data:@json($crops[0]),
-            barThickness: 50,
-            minBarLength: 2,
-            backgroundColor:'rgba(54, 162, 235, 0.2)',
-          },
-          {
             label: 'Rice',
-            data:@json($crops[0]),
+            data: @json($Rices), 
             barThickness: 50,
             minBarLength: 2,
             backgroundColor:'rgba(255, 99, 132, 0.2)',
           },
           {
             label: 'Onion',
-            data:@json($crops[0]),
+            data: @json($Onions), 
             barThickness: 50,
             minBarLength: 2,
             backgroundColor:'rgba(54, 162, 235, 0.2)',
           },
           {
             label: 'Peanut',
-            data:@json($crops[0]),
+            data: @json($Peanuts), 
             barThickness: 50,
             minBarLength: 2,
-            backgroundColor:'rgba(255, 99, 132, 0.2)',
+            backgroundColor:'rgba(255, 206, 86, 0.2)',
           },
           {
             label: 'String Beans',
-            data:@json($crops[0]),
+            data: @json($String_beans), 
             barThickness: 50,
             minBarLength: 2,
-            backgroundColor:'rgba(54, 162, 235, 0.2)',
+            backgroundColor:'rgba(75, 192, 192, 0.2)',
           },
           {
             label: 'Tobacco',
-            data:@json($crops[0]),
+            data: @json($Tobaccos), 
             barThickness: 50,
             minBarLength: 2,
-            backgroundColor:'rgba(255, 99, 132, 0.2)',
+            backgroundColor:'rgba(153, 102, 255, 0.2)',
           },
           {
             label: 'Tomato',
-            data:@json($crops[0]),
+            data: @json($Tomatos), 
             barThickness: 50,
             minBarLength: 2,
-            backgroundColor:'rgba(54, 162, 235, 0.2)',
+            backgroundColor:'rgba(255, 159, 64, 0.2)'
           },
           {
             label: 'Water Melon',
-            data:@json($crops[0]),
+            data: @json($Water_melons), 
             barThickness: 50,
             minBarLength: 2,
-            backgroundColor:'rgba(255, 99, 132, 0.2)',
+            backgroundColor:'rgba(255, 159, 64, 0.2)'
+          }]
+      },
+      options:{
+        
+        scales:{
+          yAxes:[{
+            scaleLabel: {
+              display: true,
+              labelString: 'Percent%'
+            },
+            stacked: true,
+            ticks: {
+              callback: function(value, index){
+                return value + '%'
+              }
+
+            }
+            
+          }],
+          xAxes:[{
+            stacked: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Farmers'
+            },
+          }]
+        }
+      },
+    });
+  });
+</script>
+
+<!-- <script>
+  $(function(){
+    var cropCs = @json($n_farmers);
+    var barCanvas = $("#barChart");
+    var barChart = new Chart(barCanvas,{
+      type: 'bar',
+      data:{
+        labels:['Bitter Gourd', 'Cabbage', 'Corn', 'Eggplant', 'Garlic','Ladys Finger', 'Rice', 'Onion', 'Peanut', 'String Beans', 'Tobacco', 'Tomato', 'Water Melon'],
+        datasets:[
+          {
+            label: 'Total Crop',
+            data:cropCs,
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green']
+            
           }
         ]
       },
       options:{
+        indexAxis: "x",
         scales:{
           yAxes:[{
-            stacked: true,
             ticks:{
               beginAtZero:true,
-              max: 100
+              max: 10
             }
-          }],
-          xAxes:[{
-            stacked: true
           }]
         }
       }
     });
   });
-</script>
+</script> -->
 @endsection
+
+

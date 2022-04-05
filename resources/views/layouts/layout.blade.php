@@ -319,7 +319,7 @@
         <!-- Crop Monitoring Modal -->
         </div>
             <div class="modal fade rounded" id="cropMonitoring" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-dialog modal-dialog-centered modal-sm">
                     <div class="modal-content rounded">
                         <div class="modal-header p-1 d-flex justify-content-center">
                         <h4 class="modal-title ml-2 ">Select</h4>
@@ -342,27 +342,6 @@
                                             <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror          
-                                    </div>
-
-                                    
-                                    <div class="ml-3">
-                                        <label for="year_id" class="input-group">Year</label>
-                                        <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
-                                                <option value="" disabled selected>--- Select  Year ---</option>
-                                            @php 
-                                                $year = now()->year-4;
-                                            @endphp
-
-                                            @for($i = 0; $i <= 4; $i++)
-                                                <option value="{{$year}}">{{$year}}</option>
-                                                @php $year = $year+1 @endphp
-                                            @endfor
-                                        </select>
-                                            @error('year_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror          
                                     </div>
 
                                     <div class="ml-3 d-flex align-items-end">

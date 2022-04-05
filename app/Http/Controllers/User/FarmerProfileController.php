@@ -186,7 +186,6 @@ class FarmerProfileController extends Controller
 
     public function updateYield(Request $request, $id)
     {
-
         $request->validate([
             'sacks'    => 'required',
             'kg' => 'required',
@@ -203,12 +202,12 @@ class FarmerProfileController extends Controller
             'kg'    => $request->kg,
         ]);
 
-        $farmer_id = Farming_data::find($id)->value('farmer_id');
+        $farmer_id = Farming_data::find($id);
 
         if($res){
-            return redirect()->route('farmerProfile', [$farmer_id])->with('uploadedfarming', 'Success');
+            return redirect()->route('farmerProfile', [$farmer_id->farmer_id])->with('uploadedfarming', 'Success');
         } else{
-            return redirect()->route('farmerProfile', [$farmer_id])->with('uploadfarmingfailed', 'Failed');
+            return redirect()->route('farmerProfile', [$farmer_id->farmer_id])->with('uploadfarmingfailed', 'Failed');
         }
     }
 
