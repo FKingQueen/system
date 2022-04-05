@@ -138,7 +138,27 @@ class CropMonitoringController extends Controller
                 $x++;
             }
         }
+
+        $c_crop = Crop::count();
+        $c_farmer = Farmer::whereYear('created_at', '=', $request->year_id)->where('barangay_id', $request->barangay)->count();
         
+        for($i = 0; $i <= $c_farmer-1; $i++)
+        {
+            $n_farmer[$i] = $i+1;
+
+        }
+
+        foreach($Farmer as $key => $f)
+        {
+
+            for($i = 0; $i <= $c_crop-1; $i++)
+            {         
+                $crop[$key][$i] = Farming_data::where('farmer_id', $f->id)->where('crop_id', $i+1)->count();
+            }
+        }
+
+        // dd($crop);
+
 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
         return view('user/cropMonitoring',  array(
@@ -149,7 +169,9 @@ class CropMonitoringController extends Controller
             'FD_counts' => $FD_count,
             'FD_percents' => $FD_percent,
             'FD_counters'   => $FD_counter,
-            'FD_crops'   => $FD_crop
+            'FD_crops'   => $FD_crop,
+            'n_farmers'   => $n_farmer,
+            'crops'   => $crop
         ));
 
 

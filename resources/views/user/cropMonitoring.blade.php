@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
 @endsection
 
 @section('content')
@@ -18,6 +19,30 @@
       </div><!-- /.container-fluid -->
   </div>
   <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+              <div class="card-body">
+                <canvas id="barChart" width="400" height="400"></canvas>
+              </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- Main /.content -->
+
+
 
 
   <div class="card-body">
@@ -215,10 +240,166 @@
   </section>
 
 
-
-
 @endsection
 
 @section('js')
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<!-- <script>
+var n_farmers =  @json($n_farmers);
+var barCanvas = $("#barChart");
+var barChart = new Chart(barCanvas,{
+    type: 'bar',
+    data: {
+      labels: n_farmers,
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        },
+        {
+        label: '# of Votes',
+        data: n_famers,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            x: {
+              stacked: true
+            },
+            y: {
+                beginAtZero: true,
+                stacked: true,
+                max: 100
+            }
+        }
+    }
+});
+</script> -->
 
+<script>
+  $(function(){
+    var  n_farmers =  @json($n_farmers);
+    console.log(n_farmers);
+    var barCanvas = $("#barChart");
+    var barChart = new Chart(barCanvas,{
+      type: 'bar',
+      data:{
+        labels: @json($n_farmers),
+        datasets:[
+          {
+            label: 'Bitter Gourd',
+            data:@json($crops[0]),
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(255, 159, 64, 0.2)'
+          },
+          {
+            label: 'Cabbage',
+            data:@json($crops[1]),
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(54, 162, 235, 0.2)',
+          }
+          ,
+          {
+            label: 'Corn',
+            data:@json($crops[]),
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(255, 99, 132, 0.2)',
+          },
+          {
+            label: 'Eggplant',
+            data:@json($crops[0]),
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(54, 162, 235, 0.2)',
+          },
+          {
+            label: 'Garlic',
+            data:@json($crops[0]),
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(255, 99, 132, 0.2)',
+          },
+          {
+            label: 'Ladys Finger',
+            data:@json($crops[0]),
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(54, 162, 235, 0.2)',
+          },
+          {
+            label: 'Rice',
+            data:@json($crops[0]),
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(255, 99, 132, 0.2)',
+          },
+          {
+            label: 'Onion',
+            data:@json($crops[0]),
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(54, 162, 235, 0.2)',
+          },
+          {
+            label: 'Peanut',
+            data:@json($crops[0]),
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(255, 99, 132, 0.2)',
+          },
+          {
+            label: 'String Beans',
+            data:@json($crops[0]),
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(54, 162, 235, 0.2)',
+          },
+          {
+            label: 'Tobacco',
+            data:@json($crops[0]),
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(255, 99, 132, 0.2)',
+          },
+          {
+            label: 'Tomato',
+            data:@json($crops[0]),
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(54, 162, 235, 0.2)',
+          },
+          {
+            label: 'Water Melon',
+            data:@json($crops[0]),
+            barThickness: 50,
+            minBarLength: 2,
+            backgroundColor:'rgba(255, 99, 132, 0.2)',
+          }
+        ]
+      },
+      options:{
+        scales:{
+          yAxes:[{
+            stacked: true,
+            ticks:{
+              beginAtZero:true,
+              max: 100
+            }
+          }],
+          xAxes:[{
+            stacked: true
+          }]
+        }
+      }
+    });
+  });
+</script>
 @endsection
