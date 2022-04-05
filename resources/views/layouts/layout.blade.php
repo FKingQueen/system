@@ -368,7 +368,7 @@
                         <form action="{{ route('yieldMonitoring') }}" method="GET">
                             @csrf
                             <div class="modal-body rounded bg-white p-1">
-                                <div class="d-flex justify-content-center input-group mb-3">
+                                <!-- <div class="d-flex justify-content-center input-group mb-3">
                                     <div>
                                         <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
                                         <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
@@ -443,7 +443,7 @@
                                             </span>
                                             @enderror          
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="d-flex justify-content-center input-group mb-3">
                                     <div class="ml-3 d-flex align-items-end">
                                         <button type="submit" class="btn btn-sm  btn-block btn-primary input-group"> Search </button>
@@ -472,14 +472,6 @@
     <!-- SweetAlert2 -->
     <script src="https://adminlte.io/themes/v3/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="https://adminlte.io/themes/v3/plugins/toastr/toastr.min.js"></script>
-
-    @if(Session::has('cropmonitorfailed') && route('cropMonitoring') != url()->current())
-    <script>
-    $(function() {
-        $('#cropMonitoring').modal('show');
-    });
-    </script>
-    @endif
 
     @if(Session::has('yieldmonitorfailed') && route('yieldMonitoring') != url()->current())
     <script>

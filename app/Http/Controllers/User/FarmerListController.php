@@ -26,7 +26,7 @@ class FarmerListController extends Controller
 
         foreach($farmer as $key => $farmers)
         {
-            $chk = Farming_data::where("farmer_id", $farmers->id)->where("status", 1)->count();
+            $chk = Farming_data::where("farmer_id", $farmers->id)->where("status", 0)->count();
             if($chk == 0 || $chk == null)
             {
                 DB::table('farmers')

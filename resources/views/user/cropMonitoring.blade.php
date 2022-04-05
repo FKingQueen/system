@@ -22,7 +22,7 @@
 
   <div class="card-body">
                 
-    <form action="{{ route('cropMonitoring') }}" method="GET">
+    <form action="{{ route('cropMonitoringsearch') }}" method="GET">
       @csrf
       <div class="modal-body rounded bg-white">
         <div class="d-flex justify-content-between">
@@ -73,15 +73,15 @@
   </div>
   <!-- /.card-body -->
 
-    <!-- Main content -->
-    <section class="content">
+  <!-- Main content -->
+  <section class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
               <div class="card-body">
-                <canvas id="barChart" width="400" height="170"></canvas>
+                <canvas id="myChart" width="400" height="200"></canvas>
               </div>
             <!-- /.card-body -->
           </div>
@@ -113,8 +113,11 @@
                     <thead>
 
                       <tr> 
-                        <th scope="col" style="width: 25%;" >
+                        <th scope="col" style="width: 20%;" >
                         Farmer
+                        </th>
+                        <th scope="col" style="width: 5%;" >
+                        Crops
                         </th>
 
                         <th style="width: 100%;" >
@@ -122,17 +125,17 @@
                             <div class="ml-5">
                               Water 
                             </div>
-                            <div style="width: 5%;" class="mr-5 bg-primary"></div>
+                            <div style="width: 5%; background-color: rgba(117, 190, 218, 0.5);" class="mr-5 "></div>
 
                             <div >
                               Fertilizer 
                             </div>
-                            <div style="width: 5%;" class="mr-5 bg-success"></div>
+                            <div style="width: 5%;  background-color: rgba(75, 192, 192, 0.5);" class="mr-5"></div>
 
                             <div class="d-flex">
                               Pesticide 
                             </div>
-                            <div style="width: 5%;" class="mr-5 bg-secondary"></div>
+                            <div style="width: 5%; background-color: rgba(153, 102, 255, 0.5);" class="mr-5y"></div>
                           </div>
                         </th>
                       </tr>
@@ -144,12 +147,13 @@
                       @foreach($FA_counts as $key1 => $FA_count)
                         @if($FA_counts[$key1] != 0)
                           <tr>
-                            <th style="cursor:pointer" data-toggle="modal" data-target="#activity_{{$key1}}">{{$Farmers[$key1]->name}}</th>
+                            <th style="cursor:pointer; color: #248139;"   data-toggle="modal" data-target="#activity_{{$key1}}">{{$Farmers[$key1]->name}}</th>
+                            <td>{{$N_crops[$key1]}}</td>
                             <td>
                               <div class="input-group w-100 d-flex justify-content-center">
-                                <div class="bg-primary rounded-left" style="width: {{$FA_percents[$key1][0]}}%; opacity: 0.8;">{{$FA_percents[$key1][0]}}% ({{$FA_counts[$key1][0]}})</div>
-                                <div class="bg-success " style="width: {{$FA_percents[$key1][1]}}%; opacity: 0.8;">{{$FA_percents[$key1][1]}}% ({{$FA_counts[$key1][1]}})</div>
-                                <div class="bg-secondary rounded-right" style="width: {{$FA_percents[$key1][2]}}%; opacity: 0.8;">{{$FA_percents[$key1][2]}}% ({{$FA_counts[$key1][2]}})</div>
+                                <div class=" rounded-left" style="width: {{$FA_percents[$key1][0]}}%; background-color: rgba(117, 190, 218, 0.5);">{{$FA_percents[$key1][0]}}% ({{$FA_counts[$key1][0]}})</div>
+                                <div  style="width: {{$FA_percents[$key1][1]}}%; background-color: rgba(75, 192, 192, 0.5);">{{$FA_percents[$key1][1]}}% ({{$FA_counts[$key1][1]}})</div>
+                                <div class="rounded-right" style="width: {{$FA_percents[$key1][2]}}%; background-color: rgba(153, 102, 255, 0.5);">{{$FA_percents[$key1][2]}}% ({{$FA_counts[$key1][2]}})</div>
                               </div>
 
                               <!-- Farming Activities Modal -->
@@ -172,17 +176,17 @@
                                             <div class="ml-5">
                                               Water - 
                                             </div>
-                                            <div style="width: 5%;" class="mr-5 bg-primary"></div>
+                                            <div style="width: 5%; background-color: rgba(117, 190, 218, 0.5);" class="mr-5"></div>
 
                                             <div>
                                               Fertilizer - 
                                             </div>
-                                            <div style="width: 5%;" class="mr-5 bg-success"></div>
+                                            <div style="width: 5%; background-color: rgba(75, 192, 192, 0.5);" class="mr-5 "></div>
   
                                             <div class="d-flex">
                                               Pesticide -   
                                             </div>
-                                            <div style="width: 5%;" class="mr-5 bg-secondary"></div>
+                                            <div style="width: 5%; background-color: rgba(153, 102, 255, 0.5);" class="mr-5 "></div>
                                             
                                           </th>
                                         </tr>
@@ -195,12 +199,12 @@
                                           <th class="">
                                               {{$FD_crops[$key1][$i]->crop->name}}
                                           </th >
-                                          <td class="p-1"></td>
+                                          <td class="">{{$FD_hectares[$key1][$i]}}</td>
                                           <td class="w-100 ">
                                             <div class="d-flex justify-content-center">
-                                              <div class="bg-primary rounded-left" style="width: {{$FD_percents[$key1][$i][0]}}%; opacity: 0.8;">{{$FD_percents[$key1][$i][0]}}% ({{$FD_counts[$key1][$i][0]}})</div>
-                                              <div class="bg-success " style="width: {{$FD_percents[$key1][$i][1]}}%; opacity: 0.8;">{{$FD_percents[$key1][$i][1]}}% ({{$FD_counts[$key1][$i][1]}})</div>
-                                              <div class="bg-secondary rounded-right" style="width: {{$FD_percents[$key1][$i][2]}}%; opacity: 0.8;">{{$FD_percents[$key1][$i][2]}}% ({{$FD_counts[$key1][$i][2]}})</div>
+                                              <div class=" rounded-left" style="width: {{$FD_percents[$key1][$i][0]}}%; background-color: rgba(117, 190, 218, 0.5);">{{$FD_percents[$key1][$i][0]}}% ({{$FD_counts[$key1][$i][0]}})</div>
+                                              <div style="width: {{$FD_percents[$key1][$i][1]}}%; background-color: rgba(75, 192, 192, 0.5);">{{$FD_percents[$key1][$i][1]}}% ({{$FD_counts[$key1][$i][1]}})</div>
+                                              <div class=" rounded-right" style="width: {{$FD_percents[$key1][$i][2]}}%; background-color: rgba(153, 102, 255, 0.5);">{{$FD_percents[$key1][$i][2]}}% ({{$FD_counts[$key1][$i][2]}})</div>
                                             </div>
                                           </td>
                                         </tr>
@@ -239,212 +243,147 @@
 
 @endsection
 
+
 @section('js')
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-<!-- <script>
-var n_farmers =  @json($n_farmers);
-var barCanvas = $("#barChart");
-var barChart = new Chart(barCanvas,{
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var brgy = @json($brgy);
+var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: n_farmers,
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1
-        },
-        {
-        label: '# of Votes',
-        data: n_famers,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            x: {
-              stacked: true
-            },
-            y: {
-                beginAtZero: true,
-                stacked: true,
-                max: 100
-            }
-        }
-    }
-});
-</script> -->
-
-<script>
-  $(function(){
-    var  n_farmers =  @json($n_farmers);
-    console.log(n_farmers);
-    
-    var barCanvas = $("#barChart");
-    var barChart = new Chart(barCanvas,{
-      type: 'bar',
-      data:{
-        labels: @json($n_farmers),
+      labels: @json($n_farmers),
         datasets:[
           {
             label: 'Bitter Gourd',
             data: @json($Bitter_gourds), 
-            barThickness: 50,
+            barThickness: 25,
             datalabel: 'naruto',  
-            minBarLength: 2,
+            
             backgroundColor:'rgba(255, 99, 132, 0.2)',
-          },
-          {
+          },{
             label: 'Cabbage',
             data: @json($Cabbages), 
-            barThickness: 50,
-            minBarLength: 2,
+            barThickness: 25,
+            
             backgroundColor:'rgba(54, 162, 235, 0.2)',
-          },
-          {
+          },{
             label: 'Corn',
             data: @json($Corns), 
-            barThickness: 50,
-            minBarLength: 2,
+            barThickness: 25,
+            
             backgroundColor:'rgba(255, 206, 86, 0.2)',
-          },
-          {
+          },{
             label: 'Eggplant',
             data: @json($Eggplants), 
-            barThickness: 50,
-            minBarLength: 2,
+            barThickness: 25,
+            
             backgroundColor:'rgba(75, 192, 192, 0.2)',
-          },
-          {
+          },{
             label: 'Garlic',
             data: @json($Garlics), 
-            barThickness: 50,
-            minBarLength: 2,
+            barThickness: 25,
+            
             backgroundColor:'rgba(153, 102, 255, 0.2)',
-          },
-          {
+          },{
             label: 'Ladys Finger',
             data: @json($Ladys_fingers), 
-            barThickness: 50,
-            minBarLength: 2,
+            barThickness: 25,
+            
             backgroundColor:'rgba(255, 159, 64, 0.2)'
-          },
-          {
+          },{
             label: 'Rice',
             data: @json($Rices), 
-            barThickness: 50,
-            minBarLength: 2,
+            barThickness: 25,
+            
             backgroundColor:'rgba(255, 99, 132, 0.2)',
-          },
-          {
+          },{
             label: 'Onion',
             data: @json($Onions), 
-            barThickness: 50,
-            minBarLength: 2,
+            barThickness: 25,
+            
             backgroundColor:'rgba(54, 162, 235, 0.2)',
-          },
-          {
+          },{
             label: 'Peanut',
             data: @json($Peanuts), 
-            barThickness: 50,
-            minBarLength: 2,
+            barThickness: 25,
+            
             backgroundColor:'rgba(255, 206, 86, 0.2)',
-          },
-          {
+          },{
             label: 'String Beans',
             data: @json($String_beans), 
-            barThickness: 50,
-            minBarLength: 2,
+            barThickness: 25,
+            
             backgroundColor:'rgba(75, 192, 192, 0.2)',
-          },
-          {
+          },{
             label: 'Tobacco',
             data: @json($Tobaccos), 
-            barThickness: 50,
-            minBarLength: 2,
+            barThickness: 25,
+            
             backgroundColor:'rgba(153, 102, 255, 0.2)',
-          },
-          {
+          },{
             label: 'Tomato',
             data: @json($Tomatos), 
-            barThickness: 50,
-            minBarLength: 2,
+            barThickness: 25,
+            
             backgroundColor:'rgba(255, 159, 64, 0.2)'
-          },
-          {
+          },{
             label: 'Water Melon',
             data: @json($Water_melons), 
-            barThickness: 50,
-            minBarLength: 2,
+            barThickness: 25,
+            
             backgroundColor:'rgba(255, 159, 64, 0.2)'
-          }]
-      },
-      options:{
-        
-        scales:{
-          yAxes:[{
-            scaleLabel: {
-              display: true,
-              labelString: 'Percent%'
-            },
-            stacked: true,
-            ticks: {
-              callback: function(value, index){
-                return value + '%'
-              }
-
-            }
-            
-          }],
-          xAxes:[{
-            stacked: true,
-            scaleLabel: {
-              display: true,
-              labelString: 'Farmers'
-            },
-          }]
-        }
-      },
-    });
-  });
-</script>
-
-<!-- <script>
-  $(function(){
-    var cropCs = @json($n_farmers);
-    var barCanvas = $("#barChart");
-    var barChart = new Chart(barCanvas,{
-      type: 'bar',
-      data:{
-        labels:['Bitter Gourd', 'Cabbage', 'Corn', 'Eggplant', 'Garlic','Ladys Finger', 'Rice', 'Onion', 'Peanut', 'String Beans', 'Tobacco', 'Tomato', 'Water Melon'],
-        datasets:[
-          {
-            label: 'Total Crop',
-            data:cropCs,
-            barThickness: 50,
-            minBarLength: 2,
-            backgroundColor:['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green']
-            
           }
         ]
+    },
+    options: {
+      responsive: true,
+      indexAxis: 'y',
+      scales: {
+        x: {
+          stacked: true,
+          ticks: {
+              // Include a dollar sign in the ticks
+              callback: function(value, index, ticks) {
+                  return value + '%';
+              }
+          },
+          title: {
+            display: true,
+            text: 'Percentage %'
+          }
+        },
+        y: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'List of Farmers'
+          }
+        }
       },
-      options:{
-        indexAxis: "x",
-        scales:{
-          yAxes:[{
-            ticks:{
-              beginAtZero:true,
-              max: 10
+      plugins: {
+        datalabels: {
+          formatter: (value, context) => {
+            if(value != null)
+            {
+              return `${value}%`;
             }
-          }]
+          }
+        },
+        legend: {
+            display: false
+        },
+        title: {
+            display: true,
+            text: 'The total number of crops sown in barangay ' + @json($brgy)
         }
       }
-    });
-  });
-</script> -->
+    },
+    plugins: [ChartDataLabels]
+});
+</script>
 @endsection
 
 

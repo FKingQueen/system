@@ -88,7 +88,6 @@ class FarmerProfileController extends Controller
             'lot_size' => 'required',
         ]);
 
-        
 
         $farmer_id = DB::table('farming_datas')->where('id', $id)->value('farmer_id');
 
@@ -102,11 +101,13 @@ class FarmerProfileController extends Controller
         
         $total = ($f_data->sacks*$f_data->kg)/$lot_size;
         $yield = $total * (10 ** -3);
+        $unit = $f_data->sacks*$f_data->kg;
 
         DB::table('farming_datas')
         ->where('id', $id)
         ->update([
         'yield'  => $yield,
+        'unit'  => $unit,
         ]);
         
 
@@ -180,6 +181,27 @@ class FarmerProfileController extends Controller
             'status' => $request->status,
             ]);
 
+        $farmer = Farmer::with('barangays')->get()->where("user_id", Auth::user()->id);
+        foreach($farmer as $key => $farmers)
+                {
+            $chk = Farming_data::where("farmer_id", $farmers->id)->where("status", 0)->count();
+            if($chk == 0 || $chk == null)
+            {
+                DB::table('farmers')
+                    ->where('id', $farmers->id)
+                    ->update([
+                    'status' => 0, 
+                ]);
+            } else if($chk != 0)
+            {
+                DB::table('farmers')
+                    ->where('id', $farmers->id)
+                    ->update([
+                    'status' => 1, 
+                ]);
+            }
+
+        }
 
         return response()->json(['success'=>'Status change successfully.']);
     } 
@@ -195,11 +217,13 @@ class FarmerProfileController extends Controller
         
         $total = ($request->sacks*$request->kg)/$f_data->lot_size;
         $yield = $total * (10 ** -3);
+        $unit = $request->sacks*$request->kg;
 
         $res = Farming_data::find($id)->update([
             'yield' => $yield,
             'sacks'  => $request->sacks,
             'kg'    => $request->kg,
+            'unit'    => $unit,
         ]);
 
         $farmer_id = Farming_data::find($id);

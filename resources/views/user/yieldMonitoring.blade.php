@@ -110,94 +110,6 @@
                     </div>                        
                 </div>
               </form>
-              <table class="table mt-4">
-                <thead>
-                  <tr class="text-center">
-                    <th scope="col"></th>
-                    <th scope="col">Farmer</th>
-                    <th scope="col">Activities</th>
-                    <th scope="col">Yield</th>
-                    <th scope="col" >Generate</th>
-                  </tr>
-                </thead>
-                <tbody class="text-center">
-                  @foreach($data1s as $key => $data1)
-                    <tr>
-                      <th scope="row">{{$key+1}}.</th>
-                      <td > <h5 class="mt-1"><b>{{$farmerName[$key]}}</b></h5> </td>
-                      <td> 
-                        <a type="button"  class="p-1 btn btn-close btn-xm " data-toggle="modal" data-target="#activity_{{$data1->id}}">Inspect</a>
-                      </td>
-                      <td ><h6 class="mt-2">{{$data1->yield}}</h6></td>
-                      <td>
-                        <a type="button" class="p-1 btn btn-primary btn-xm " href="{{ route('generatePDF', $data1->id) }}">Report</a>
-                      </td>
-                      <td>
-                        <!-- Farming Activity Modal -->
-                        <div class="modal fade rounded" id="activity_{{$data1->id}}" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered modal-lg">
-                          <div class="modal-content rounded">
-
-                            <div class="modal-header p-1 d-flex justify-content-around">
-                              <h4 class="modal-title ml-2 ">Farming Activities</h4>
-                            </div>
-
-                            <div class="modal-body">
-                              <div><h2 style="color: #248139">{{$data1->crop->name}}</h2></div>
-                              <table class="table table-bordered">
-                                <tbody>
-                                  @for($i= 0; $i <= 2; $i++)
-                                    <tr>
-                                      <th class="w-50">                                    
-                                        @if($i == 0)
-                                          Water
-                                        @elseif($i == 1)
-                                          Fertilizer
-                                        @elseif($i == 2)
-                                          Pesticide
-                                        @endif
-                                      </th>
-                                      <td  class="w-50">
-                                        {{$activity[$key][$i]}}%({{$activityC[$key][$i]}})
-                                      </td>
-                                    </tr>
-                                  @endfor
-                                </tbody>
-                              </table>
-
-                              <div class="d-flex justify-content-center">
-                                <table class="w-50">
-                                  <tbody>
-                                    <tr>
-                                      <th class="w-50">Cropping Season</th>
-                                      <td  class="w-50">{{$data1->cropping_season->name}}</td>
-                                    </tr>
-                                    <tr>
-                                      <th class="w-50">Duration</th>
-                                      <td  class="w-50">{{$days[$key]}} Days</td>
-                                    </tr>
-                                    <tr>
-                                      <th class="w-50">Start-End</th>
-                                      <td  class="w-50">{{$fmonth[$key]}}-{{$lmonth[$key]}}</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </div>
-
-                            </div>
-
-                          </div>
-                          </div>
-                        </div>
-                        <!-- /Farming Activity Modal -->
-
-                      </td>
-                    </tr>
-
-
-                  @endforeach
-                </tbody>
-              </table>
             </div>
             <!-- /.card-body -->
           </div>
@@ -210,4 +122,166 @@
     <!-- /.container-fluid -->
   </section>
 
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <canvas id="myChart" width="400" height="150"></canvas>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- Main /.content -->
+
+@endsection
+
+
+@section('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: @json($n_farmers),
+        datasets:[
+          {
+            label: 'Bitter Gourd',
+            data: @json($Bitter_gourds), 
+            barThickness: 25,
+            datalabel: 'naruto',  
+            
+            backgroundColor:'rgba(255, 99, 132, 0.2)',
+          },{
+            label: 'Cabbage',
+            data: @json($Cabbages), 
+            barThickness: 25,
+            
+            backgroundColor:'rgba(54, 162, 235, 0.2)',
+          },{
+            label: 'Corn',
+            data: @json($Corns), 
+            barThickness: 25,
+            
+            backgroundColor:'rgba(255, 206, 86, 0.2)',
+          },{
+            label: 'Eggplant',
+            data: @json($Eggplants), 
+            barThickness: 25,
+            
+            backgroundColor:'rgba(75, 192, 192, 0.2)',
+          },{
+            label: 'Garlic',
+            data: @json($Garlics), 
+            barThickness: 25,
+            
+            backgroundColor:'rgba(153, 102, 255, 0.2)',
+          },{
+            label: 'Ladys Finger',
+            data: @json($Ladys_fingers), 
+            barThickness: 25,
+            
+            backgroundColor:'rgba(255, 159, 64, 0.2)'
+          },{
+            label: 'Rice',
+            data: @json($Rices), 
+            barThickness: 25,
+            
+            backgroundColor:'rgba(255, 99, 132, 0.2)',
+          },{
+            label: 'Onion',
+            data: @json($Onions), 
+            barThickness: 25,
+            
+            backgroundColor:'rgba(54, 162, 235, 0.2)',
+          },{
+            label: 'Peanut',
+            data: @json($Peanuts), 
+            barThickness: 25,
+            
+            backgroundColor:'rgba(255, 206, 86, 0.2)',
+          },{
+            label: 'String Beans',
+            data: @json($String_beans), 
+            barThickness: 25,
+            
+            backgroundColor:'rgba(75, 192, 192, 0.2)',
+          },{
+            label: 'Tobacco',
+            data: @json($Tobaccos), 
+            barThickness: 25,
+            
+            backgroundColor:'rgba(153, 102, 255, 0.2)',
+          },{
+            label: 'Tomato',
+            data: @json($Tomatos), 
+            barThickness: 25,
+            
+            backgroundColor:'rgba(255, 159, 64, 0.2)'
+          },{
+            label: 'Water Melon',
+            data: @json($Water_melons), 
+            barThickness: 25,
+            
+            backgroundColor:'rgba(255, 159, 64, 0.2)'
+          }
+        ]
+    },
+    options: {
+      responsive: true,
+      indexAxis: 'y',
+      scales: {
+        x: {
+          stacked: true,
+          ticks: {
+              // Include a dollar sign in the ticks
+              callback: function(value, index, ticks) {
+                  return value + '%';
+              }
+          },
+          title: {
+            display: true,
+            text: 'Percentage %'
+          }
+        },
+        y: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'List of Farmers'
+          }
+        }
+      },
+      plugins: {
+        datalabels: {
+          formatter: (value, context) => {
+            if(value != null)
+            {
+              return `${value}%`;
+            }
+          }
+        },
+        legend: {
+            display: false
+        },
+        title: {
+            display: true,
+            text: 'The total number of crops sown in barangay '
+        }
+      }
+    },
+    plugins: [ChartDataLabels]
+});
+</script>
 @endsection

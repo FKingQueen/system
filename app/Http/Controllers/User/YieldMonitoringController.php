@@ -17,124 +17,90 @@ use Auth;
 class YieldMonitoringController extends Controller
 {
     public function yieldMonitoring(Request $request)
-    {
-
-        $request->validate([
-            'year_id'  => 'required',
-            'barangay'  => 'required',
-            'crop_id'  => 'required',
-            'cropping_season'  => 'required',
-        ]);
-
-        $data1 = Farming_data::with('crop' , 'cropping_season')->whereYear('created_at', '=', $request->year_id)
-        ->where('municipality_id',  Auth::user()->muni_address)
-        ->where('barangay_id',  $request->barangay)
-        ->where('crop_id',  $request->crop_id)
-        ->where('status_id',  2)
-        ->where('cropping_season_id',  $request->cropping_season)->orderBy('yield', 'desc')->get();
-
-        $auth= Farming_data::whereYear('created_at', '=', $request->year_id)
-        ->where('municipality_id',  Auth::user()->muni_address)
-        ->where('barangay_id',  $request->barangay)
-        ->where('crop_id',  $request->crop_id)
-        ->where('status_id',  2)
-        ->where('cropping_season_id',  $request->cropping_season)->orderBy('yield', 'desc')->count();
-
-
-        if($auth == 0)
+    {   
+        $Farmer = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', 52)->get();
+        $F_id = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', 52)->pluck('id');
+        
+        foreach($F_id as $key1 => $f)
         {
-            return back()->with('yieldmonitorfailed', 'Failed');
+            $counter = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', 52)->count();
+            $FD_crop[$key1] = Farming_data::with('crop')->whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', 52)->get();
+            
         }
-
-
-        foreach($data1 as $key => $data)
+        
+        $i = 0;
+        foreach($Farmer as $key1 => $fars)
         {
-            $farmerName[$key] =  farmer::where('id' , $data->farmer_id)->value('name');
-        }
-
-        foreach($data1 as $key => $data)
-        {
-            $farmerId[$key] =  $data->farmer_id;
-        }
-
-        foreach($data1 as $key => $data)
-        {
-            $farmingId[$key] =  $data->id;
-        }
-
-
-        foreach($data1 as $key => $data)
-        {
-            $total = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('status_id', '2')->count();
-            for($i = 0; $i <= 2; $i++)
+            $chk = Farming_data::where('farmer_id', $fars->id)->where('status', 0)->count();
+            if($chk != 0)
             {
-                if($i == 0)
+                foreach($FD_crop[$key1] as $key2 => $fs)
                 {
-                    $activity[$key][$i] =  number_format((Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('activity', 'water')->where('status_id', '2')->count() / $total) *100);
-                } else if($i == 1)
-                {
-                    $activity[$key][$i] = number_format((Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('activity', 'fertilizer')->where('status_id', '2')->count() / $total) *100);
-                } else if($i == 2)
-                {
-                    $activity[$key][$i] = number_format((Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('activity', 'pesticide')->where('status_id', '2')->count() / $total) *100);
+                    $n_farmer[$i] = Farmer::where('id', $FD_crop[$key1][$key2]->farmer_id)->value('name');
                 }
-               
+                $i++;
             }
         }
 
-        foreach($data1 as $key => $data)
+        
+        $i = 0;
+        $total_unit = 0;
+        foreach($Farmer as $key => $f)
         {
-           
-            for($i = 0; $i <= 2; $i++)
+            $chk = Farming_data::where('farmer_id', $f->id)->where('status', 0)->count();  
+            
+            if($chk != 0)
             {
-                if($i == 0)
-                {
-                    $activityC[$key][$i] = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('activity', 'water')->where('status_id', '2')->count();
-                } else if($i == 1)
-                {
-                    $activityC[$key][$i] = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('activity', 'fertilizer')->where('status_id', '2')->count();
-                } else if($i == 2)
-                {
-                    $activityC[$key][$i] = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('activity', 'pesticide')->where('status_id', '2')->count();
-                }
-               
+ 
+            $Bitter_gourd[$i] = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 1)->value('unit');
+
+            $Cabbage[$i]  = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 2)->value('unit');
+
+            $Corn[$i]  = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 3)->value('unit');
+
+            $Eggplant[$i]  = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 4)->value('unit');
+
+            $Garlic[$i]  = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 5)->value('unit');
+
+            $Ladys_finger[$i] = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 6)->value('unit');
+
+            $Rice[$i] = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 7)->value('unit');
+
+            $Onion[$i] = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 8)->value('unit');
+
+            $Peanut[$i] = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 9)->value('unit');
+
+            $String_bean[$i] = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 10)->value('unit');
+
+            $Tobacco[$i] = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 11)->value('unit');
+
+            $Tomato[$i] = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->value('unit');
+
+            $Tomato[$i] = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->value('unit');
+            
+            $Water_melon[$i] = Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 13)->value('unit');
+            $i++;
             }
         }
 
-        foreach($data1 as $key => $data)
-        {
-            $firstdate = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('status_id', '2')->first();
-            $latestdate = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('status_id', '2')->latest('date')->first();
-            
-            $firstdate = $firstdate->date;            
-            $latestdate = $latestdate->date;            
-            
-            $firstdate = new DateTime($firstdate);
-            $latestdate = new DateTime($latestdate);
-            
-            
-            $interval = $firstdate->diff($latestdate);
-            $d = $interval->format('%a');//now do whatever you like with $days
-
-            $days[$key] = $d;
-        }
-
-        foreach($data1 as $key => $data)
-        {
-            $firstmonth = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('status_id', '2')->first();
-            $latestmonth = Activity_file::where('farming_data_id',$farmingId[$key])->where('farmer_id',$farmerId[$key])->where('status_id', '2')->latest('date')->first();
-            
-            $firstmonth = $firstmonth->date;            
-            $latestmonth = $latestmonth->date;  
-
-            $firstmonth = new DateTime($firstmonth);
-            $latestmonth = new DateTime($latestmonth);
-
-            $fmonth[$key] = $firstmonth->format('F');
-            $lmonth[$key] = $latestmonth->format('F');
-        }
 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
-        return view('user/yieldMonitoring', array("barangays" => $barangay, "data1s" => $data1, "farmerName" => $farmerName, "activity" => $activity, "activityC" => $activityC, "days" => $days, "fmonth" => $fmonth, "lmonth" => $lmonth));
+        return view('user/yieldMonitoring', array(
+            "barangays" => $barangay, 
+            'Bitter_gourds'   => $Bitter_gourd,
+            'Cabbages'   => $Cabbage,
+            'Corns'   => $Corn,
+            'Eggplants'   => $Eggplant,
+            'Garlics'   => $Garlic,
+            'Ladys_fingers'   => $Ladys_finger,
+            'Rices'   => $Rice,
+            'Onions'   => $Onion,
+            'Peanuts'   => $Peanut,
+            'String_beans'   => $String_bean,
+            'Tobaccos'   => $Tobacco,
+            'Tomatos'   => $Tomato,
+            'Water_melons'   => $Water_melon,
+            'n_farmers'   => $n_farmer
+        ));
     }
 }

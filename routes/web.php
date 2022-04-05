@@ -62,6 +62,7 @@ Route::group(['middleware' => 'isUser'], function() {
     Route::post('/yearform', [App\Http\Controllers\User\CropCalendarController::class, 'yearform'])->name('yearform');
     //Crop Monitoring
     Route::get('/cropMonitoring', [App\Http\Controllers\User\CropMonitoringController::class, 'cropMonitoring'])->name('cropMonitoring');
+    Route::get('/cropMonitoringsearch', [App\Http\Controllers\User\CropMonitoringController::class, 'cropMonitoringsearch'])->name('cropMonitoringsearch');
     //Yield Monitoring
     Route::get('/yieldMonitoring', [App\Http\Controllers\User\YieldMonitoringController::class, 'yieldMonitoring'])->name('yieldMonitoring');
     //Generate Report

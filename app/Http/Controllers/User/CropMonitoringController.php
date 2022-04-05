@@ -117,7 +117,9 @@ class CropMonitoringController extends Controller
                     {
                         $FD_count[$key1][$j][$i] = Activity_file::where('farming_data_id', $FD_id[$j])->where('activity', 'pesticide')->where('status', '0')->count();
                     }
+                    
                 }
+                $FD_hectare[$key1][$j] = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->value('lot_size');
             }
         }
         
@@ -141,7 +143,7 @@ class CropMonitoringController extends Controller
 
 
         $FD_id = Farming_data::whereYear('created_at', '=', 2022)->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
-        $x = 0;
+
         foreach($F_id as $key1 => $f)
         {
             $counter = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->count();
@@ -188,23 +190,135 @@ class CropMonitoringController extends Controller
             if($chk != 0)
             {
             $FC_total = Farming_data::where('farmer_id', $f->id)->where('status', 0)->count();
-            $Bitter_gourd[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 1)->count()/$FC_total)*100);
-            $Cabbage[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 2)->count()/$FC_total)*100);
-            $Corn[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 3)->count()/$FC_total)*100);
-            $Eggplant[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 4)->count()/$FC_total)*100);
-            $Garlic[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 5)->count()/$FC_total)*100);
-            $Ladys_finger[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 6)->count()/$FC_total)*100);
-            $Rice[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 7)->count()/$FC_total)*100);
-            $Onion[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 8)->count()/$FC_total)*100);
-            $Peanut[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 9)->count()/$FC_total)*100);
-            $String_bean[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 10)->count()/$FC_total)*100);
-            $Tobacco[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 11)->count()/$FC_total)*100);
-            $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100);
-            $Water_melon[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 13)->count()/$FC_total)*100);
-            $i++;
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 1)->count()/$FC_total)*100) != 0)
+            {
+                $Bitter_gourd[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 1)->count()/$FC_total)*100);
+            } else 
+            {
+                $Bitter_gourd[$i] = NULL;
             }
 
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 2)->count()/$FC_total)*100) != 0)
+            {
+                $Cabbage[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 2)->count()/$FC_total)*100);
+            } else 
+            {
+                $Cabbage[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 3)->count()/$FC_total)*100) != 0)
+            {
+                $Corn[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 3)->count()/$FC_total)*100);
+            } else 
+            {
+                $Corn[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 4)->count()/$FC_total)*100) != 0)
+            {
+                $Eggplant[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 4)->count()/$FC_total)*100);
+            } else 
+            {
+                $Eggplant = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 5)->count()/$FC_total)*100) != 0)
+            {
+                $Garlic[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 5)->count()/$FC_total)*100);
+            } else 
+            {
+                $Garlic[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 6)->count()/$FC_total)*100) != 0)
+            {
+                $Ladys_finger[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 6)->count()/$FC_total)*100);
+            } else 
+            {
+                $Ladys_finger[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 7)->count()/$FC_total)*100) != 0)
+            {
+                $Rice[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 7)->count()/$FC_total)*100);
+            } else 
+            {
+                $Rice[$i] = NULL;
+            }
+            
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 8)->count()/$FC_total)*100) != 0)
+            {
+                $Onion[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 8)->count()/$FC_total)*100);
+            } else 
+            {
+                $Onion[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 9)->count()/$FC_total)*100) != 0)
+            {
+                $Peanut[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 9)->count()/$FC_total)*100);
+            } else 
+            {
+                $Peanut[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 10)->count()/$FC_total)*100) != 0)
+            {
+                $String_bean[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 10)->count()/$FC_total)*100);
+            } else 
+            {
+                $String_bean[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 11)->count()/$FC_total)*100) != 0)
+            {
+                $Tobacco[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 11)->count()/$FC_total)*100);
+            } else 
+            {
+                $Tobacco[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
+            {
+                $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100);
+            } else 
+            {
+                $Tomato[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
+            {
+                $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100);
+            } else 
+            {
+                $Tomato[$i] = NULL;
+            }
+            
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 13)->count()/$FC_total)*100) != 0)
+            {
+                $Water_melon[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 13)->count()/$FC_total)*100);
+            } else 
+            {
+                $Water_melon[$i] = NULL;
+            }
+            
+            $i++;
+            }
         }
+
+        $i = 0;
+        foreach($Farmer as $key => $f)
+        {
+            $chk = Farming_data::where('farmer_id', $f->id)->where('status', 0)->count(); 
+            if($chk != 0)
+            {
+                $N_crop[$i] = Farming_data::where('farmer_id', $f->id)->where('status', 0)->count(); 
+                $i++;
+            } 
+            
+        }
+
+        $brgy = Barangay::where("id", $request->barangay)->value('name'); 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
         return view('user/cropMonitoring',  array(
             'barangays' => $barangay,
@@ -228,12 +342,15 @@ class CropMonitoringController extends Controller
             'String_beans'   => $String_bean,
             'Tobaccos'   => $Tobacco,
             'Tomatos'   => $Tomato,
-            'Water_melons'   => $Water_melon
+            'Water_melons'   => $Water_melon,
+            'N_crops'    => $N_crop,
+            'FD_hectares'    => $FD_hectare,
+            'brgy'  => $brgy
         ));
     }
 
 
-    public function cropMonitoring2 ()
+    public function cropMonitoringsearch (Request $request)
     {
         $request->validate([
             'year_id'  => 'required',
@@ -241,11 +358,11 @@ class CropMonitoringController extends Controller
         ]);
 
         //get farmer data in the table
-        $Farmer = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->get();
+        $Farmer = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->get();
         //count the farmer
-        $F_count = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->count();
+        $F_count = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->count();
         //get all farmer IDs in the table
-        $F_id = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->pluck('id');
+        $F_id = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->pluck('id');
 
         //Validation if the selected options is empty, it will return back with error notification
         if($F_count == 0)
@@ -311,14 +428,14 @@ class CropMonitoringController extends Controller
             
 
 
-        //$FD_id = Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->value('id')->unique();
+        //$FD_id = Farming_data::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->value('id')->unique();
         
 
         //storing/getting the specific count of a crop in every farming activity(water, persticide, fertilizer) in array
         foreach($F_id as $key1 => $f)
         {
-            $counter = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->count();
-            $FD_id = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('id');
+            $counter = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->count();
+            $FD_id = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('id');
             $FD_counter[$key1] = $counter;
             for($j = 0; $j <= $counter-1; $j++ )
             {
@@ -334,6 +451,7 @@ class CropMonitoringController extends Controller
                     {
                         $FD_count[$key1][$j][$i] = Activity_file::where('farming_data_id', $FD_id[$j])->where('activity', 'pesticide')->where('status', '0')->count();
                     }
+                    $FD_hectare[$key1][$j] = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->value('lot_size');
                 }
             }
         }
@@ -342,7 +460,7 @@ class CropMonitoringController extends Controller
         //storing/getting the specific percent of a crop in every farming activity(water, persticide, fertilizer) in array
         foreach($F_id as $key1 => $f)
         {
-            $FD_id = Farming_data::whereYear('created_at', '=', 2022)->where('yield','!=',NULL)->where('farmer_id', $F_id[$key1])->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('id');
+            $FD_id = Farming_data::whereYear('created_at', '=', $request->year_id)->where('yield','!=',NULL)->where('farmer_id', $F_id[$key1])->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('id');
             
             foreach($FD_id as $key2 => $fd)
             {
@@ -357,12 +475,13 @@ class CropMonitoringController extends Controller
         }
 
 
-        $FD_id = Farming_data::whereYear('created_at', '=', 2022)->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
+        $FD_id = Farming_data::whereYear('created_at', '=', $request->year_id)->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
+        
         $x = 0;
         foreach($F_id as $key1 => $f)
         {
-            $counter = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->count();
-            $FD_crop[$key1] = Farming_data::with('crop')->whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
+            $counter = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->count();
+            $FD_crop[$key1] = Farming_data::with('crop')->whereYear('created_at', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
             
         }
         
@@ -405,23 +524,134 @@ class CropMonitoringController extends Controller
             if($chk != 0)
             {
             $FC_total = Farming_data::where('farmer_id', $f->id)->where('status', 0)->count();
-            $Bitter_gourd[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 1)->count()/$FC_total)*100);
-            $Cabbage[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 2)->count()/$FC_total)*100);
-            $Corn[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 3)->count()/$FC_total)*100);
-            $Eggplant[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 4)->count()/$FC_total)*100);
-            $Garlic[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 5)->count()/$FC_total)*100);
-            $Ladys_finger[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 6)->count()/$FC_total)*100);
-            $Rice[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 7)->count()/$FC_total)*100);
-            $Onion[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 8)->count()/$FC_total)*100);
-            $Peanut[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 9)->count()/$FC_total)*100);
-            $String_bean[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 10)->count()/$FC_total)*100);
-            $Tobacco[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 11)->count()/$FC_total)*100);
-            $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100);
-            $Water_melon[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 13)->count()/$FC_total)*100);
-            $i++;
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 1)->count()/$FC_total)*100) != 0)
+            {
+                $Bitter_gourd[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 1)->count()/$FC_total)*100);
+            } else 
+            {
+                $Bitter_gourd[$i] = NULL;
             }
 
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 2)->count()/$FC_total)*100) != 0)
+            {
+                $Cabbage[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 2)->count()/$FC_total)*100);
+            } else 
+            {
+                $Cabbage[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 3)->count()/$FC_total)*100) != 0)
+            {
+                $Corn[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 3)->count()/$FC_total)*100);
+            } else 
+            {
+                $Corn[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 4)->count()/$FC_total)*100) != 0)
+            {
+                $Eggplant[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 4)->count()/$FC_total)*100);
+            } else 
+            {
+                $Eggplant = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 5)->count()/$FC_total)*100) != 0)
+            {
+                $Garlic[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 5)->count()/$FC_total)*100);
+            } else 
+            {
+                $Garlic[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 6)->count()/$FC_total)*100) != 0)
+            {
+                $Ladys_finger[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 6)->count()/$FC_total)*100);
+            } else 
+            {
+                $Ladys_finger[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 7)->count()/$FC_total)*100) != 0)
+            {
+                $Rice[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 7)->count()/$FC_total)*100);
+            } else 
+            {
+                $Rice[$i] = NULL;
+            }
+            
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 8)->count()/$FC_total)*100) != 0)
+            {
+                $Onion[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 8)->count()/$FC_total)*100);
+            } else 
+            {
+                $Onion[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 9)->count()/$FC_total)*100) != 0)
+            {
+                $Peanut[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 9)->count()/$FC_total)*100);
+            } else 
+            {
+                $Peanut[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 10)->count()/$FC_total)*100) != 0)
+            {
+                $String_bean[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 10)->count()/$FC_total)*100);
+            } else 
+            {
+                $String_bean[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 11)->count()/$FC_total)*100) != 0)
+            {
+                $Tobacco[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 11)->count()/$FC_total)*100);
+            } else 
+            {
+                $Tobacco[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
+            {
+                $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100);
+            } else 
+            {
+                $Tomato[$i] = NULL;
+            }
+
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
+            {
+                $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100);
+            } else 
+            {
+                $Tomato[$i] = NULL;
+            }
+            
+            if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 13)->count()/$FC_total)*100) != 0)
+            {
+                $Water_melon[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 13)->count()/$FC_total)*100);
+            } else 
+            {
+                $Water_melon[$i] = NULL;
+            }
+            
+            $i++;
+            }
         }
+
+        $i = 0;
+        foreach($Farmer as $key => $f)
+        {
+            $chk = Farming_data::where('farmer_id', $f->id)->where('status', 0)->count(); 
+            if($chk != 0)
+            {
+                $N_crop[$i] = Farming_data::where('farmer_id', $f->id)->where('status', 0)->count(); 
+                $i++;
+            } 
+            
+        }
+        $brgy = Barangay::where("id", $request->barangay)->value('name'); 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
         return view('user/cropMonitoring',  array(
             'barangays' => $barangay,
@@ -445,7 +675,10 @@ class CropMonitoringController extends Controller
             'String_beans'   => $String_bean,
             'Tobaccos'   => $Tobacco,
             'Tomatos'   => $Tomato,
-            'Water_melons'   => $Water_melon
+            'Water_melons'   => $Water_melon,
+            'N_crops'   => $N_crop,
+            'FD_hectares'    => $FD_hectare,
+            'brgy'  => $brgy
         ));  
     }
 }
