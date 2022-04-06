@@ -28,7 +28,7 @@ class YieldMonitoringController extends Controller
         $ID_crop = Crop::pluck('id');
         foreach($ID_crop as $key => $ID_crops)
         {
-            $U_crop[$key] = number_format(Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('id', $ID_crops)->where('barangay_id', $request->barangay)->where('cropping_season_id', 1)->pluck('unit')->sum()/1000, 2);
+            $U_crop[$key] = number_format(Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $ID_crops)->where('barangay_id', $request->barangay)->where('cropping_season_id', 1)->pluck('unit')->sum()/1000, 2);
         }  
 
         ////Farmer Unit Stacked Bar Chart
@@ -38,6 +38,7 @@ class YieldMonitoringController extends Controller
         {
             return back()->with('cropmonitorfailed', 'Failed');
         }
+
         $F_id = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->pluck('id');
         
         //Getting all information of farming data into an array
@@ -47,7 +48,6 @@ class YieldMonitoringController extends Controller
             $FD_crop[$key1] = Farming_data::with('crop')->whereYear('created_at', '=', 2022)->where('cropping_season_id', 1)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
             
         }
-
 
         
         // Getting the Farmer name
@@ -144,12 +144,17 @@ class YieldMonitoringController extends Controller
         foreach($ID_crop as $key => $ID_crops)
         {
             $U_crop[$key] = number_format(Farming_data::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('id', $ID_crops)->where('barangay_id', $request->barangay)->where('cropping_season_id', $request->cropping_season)->pluck('unit')->sum()/1000, 2);
-        }  
+        } 
+        
+        $FD_chk = Farming_data::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('cropping_season_id', $request->cropping_season)->pluck('id');
 
         ////Farmer Unit Stacked Bar Chart
         // Getting all farmer informttion in an array
         $Farmer = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->get();
-        if($Farmer->isEmpty())
+        if($Farmer->isEmpty() )
+        {
+            return back()->with('cropmonitorfailed', 'Failed');
+        } else if ($FD_chk->isEmpty())
         {
             return back()->with('cropmonitorfailed', 'Failed');
         }

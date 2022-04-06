@@ -189,7 +189,7 @@
                                               <tr class="p-0">
                                                 <td class="p-0 font-weight-bold" style="color: #248139; background-color: #C1E1C1;">
 
-                                                  <a type="button" id="try_{{$loop->iteration}}" > {{$crop->name}}</a>
+                                                  <a type="button" class="p-0" id="try_{{$loop->iteration}}" > {{$crop->name}}</a>
 
                                                   <script>
                                                     $(document).ready(function(){

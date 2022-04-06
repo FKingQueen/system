@@ -88,12 +88,13 @@
 
 
   <!-- Main content -->
-  <section class="content">
+  <section class="content mb-4">
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
+            <h5 class="text-center mt-3">The total yield on different types of crops</h5>
             <canvas id="cropsChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>
@@ -114,6 +115,7 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
+            <h5 class="text-center mt-3">The total yield of every farmer on different crops</h5>
             <canvas id="farmerChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>
@@ -135,13 +137,14 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <!-- Crops Chart -->
 <script>
+  
 const ctx1 = document.getElementById('cropsChart').getContext('2d');
 const cropsChart = new Chart(ctx1, {
     type: 'bar',
     data: {
         labels: @json($N_crops),
         datasets: [{
-            label: 'tons per crop',
+            label: ['tons per crop'],
             data: @json($U_crops),
             backgroundColor: [
                 'rgba(255, 99, 132, 0.7)',
@@ -214,10 +217,6 @@ const cropsChart = new Chart(ctx1, {
               return '';
             }
           }
-        },
-        title: {
-            display: true,
-            text: 'The total number of crops sown in barangay '
         }
       }
     },
@@ -230,6 +229,7 @@ const cropsChart = new Chart(ctx1, {
 <!-- Farmer Chart -->
 <script>
 var ctx2 = document.getElementById('farmerChart').getContext('2d');
+const i = 0;
 var farmerChart = new Chart(ctx2, {
     type: 'bar',
     data: {
@@ -239,7 +239,6 @@ var farmerChart = new Chart(ctx2, {
             label: 'Bitter Gourd',
             data: @json($Bitter_gourds), 
             barThickness: 25,
-            datalabel: 'naruto',  
             
             backgroundColor:'rgba(255, 99, 132, 0.7)',
             borderColor:'rgba(255, 99, 132, .8)',
@@ -320,7 +319,6 @@ var farmerChart = new Chart(ctx2, {
             label: 'Tobacco',
             data: @json($Tobaccos), 
             barThickness: 25,
-            
             backgroundColor:'rgba(153, 102, 255, 0.7)',
             borderColor:'rgba(153, 102, 255, 0.8)',
             borderWidth: .1
@@ -379,14 +377,20 @@ var farmerChart = new Chart(ctx2, {
             }
           }
         },
-        title: {
-            display: true,
-            text: 'The total number of crops sown in barangay '
-        }
       }
     },
     plugins: [ChartDataLabels]
 });
+
+
+// var sample = @json($Corns);
+//   if(sample.every( e  => e == 0.00) == true) {
+//     farmerChart.options.plugins.legend = false;
+//   }
+
+
+
+
 </script>
 <!-- /Farmer Chart -->
 @endsection
