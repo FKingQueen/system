@@ -20,6 +20,7 @@
   </div>
   <!-- /.content-header -->
 
+  <!-- card-body -->
   <div class="card-body">
                 
     <form action="{{ route('cropMonitoringsearch') }}" method="GET">
@@ -42,7 +43,7 @@
                   @enderror          
               </div>
               <div class="ml-3">
-                  <label for="year_id" class="input-group">Year</label>
+                  <label for="year_id" class="input-group">Year:</label>
                   <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
                           <option disabled selected>--- Select  Year ---</option>
                       @php 
@@ -261,7 +262,7 @@ var myChart = new Chart(ctx, {
             data: @json($Bitter_gourds), 
             barThickness: 25,
     
-            backgroundColor:'rgba(255, 99, 132, 0.2)',
+            backgroundColor:'rgba(255, 99, 132, 0.7)',
             borderColor:'rgba(255, 99, 132, .8)',
             borderWidth: .1
           },{
@@ -269,7 +270,7 @@ var myChart = new Chart(ctx, {
             data: @json($Cabbages), 
             barThickness: 25,
             
-            backgroundColor:'rgba(54, 162, 235, 0.2)',
+            backgroundColor:'rgba(54, 162, 235, 0.7)',
             borderColor:'rgba(54, 162, 235, .8)',
             borderWidth: .1
           },{
@@ -277,7 +278,7 @@ var myChart = new Chart(ctx, {
             data: @json($Corns), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 206, 86, 0.2)',
+            backgroundColor:'rgba(255, 206, 86, 0.7)',
             borderColor:'rgba(255, 206, 86, .8)',
             borderWidth: .1
           },{
@@ -285,7 +286,7 @@ var myChart = new Chart(ctx, {
             data: @json($Eggplants), 
             barThickness: 25,
             
-            backgroundColor:'rgba(75, 192, 192, 0.2)',
+            backgroundColor:'rgba(75, 192, 192, 0.7)',
             borderColor:'rgba(75, 192, 192, .8)',
             borderWidth: .1
           },{
@@ -293,7 +294,7 @@ var myChart = new Chart(ctx, {
             data: @json($Garlics), 
             barThickness: 25,
             
-            backgroundColor:'rgba(153, 102, 255, 0.2)',
+            backgroundColor:'rgba(153, 102, 255, 0.7)',
             borderColor:'rgba(153, 102, 255, .8)',
             borderWidth: .1
           },{
@@ -301,7 +302,7 @@ var myChart = new Chart(ctx, {
             data: @json($Ladys_fingers), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 159, 64, 0.2)',
+            backgroundColor:'rgba(255, 159, 64, 0.7)',
             borderColor:'rgba(255, 159, 64, .8)',
             borderWidth: .1
           },{
@@ -309,7 +310,7 @@ var myChart = new Chart(ctx, {
             data: @json($Rices), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 99, 132, 0.2)',
+            backgroundColor:'rgba(255, 99, 132, 0.7)',
             borderColor:'rgba(255, 99, 132, .8)',
             borderWidth: .1
           },{
@@ -317,7 +318,7 @@ var myChart = new Chart(ctx, {
             data: @json($Onions), 
             barThickness: 25,
             
-            backgroundColor:'rgba(54, 162, 235, 0.2)',
+            backgroundColor:'rgba(54, 162, 235, 0.7)',
             borderColor:'rgba(54, 162, 235, .8)',
             borderWidth: .1
           },{
@@ -325,7 +326,7 @@ var myChart = new Chart(ctx, {
             data: @json($Peanuts), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 206, 86, 0.2)',
+            backgroundColor:'rgba(255, 206, 86, 0.7)',
             borderColor:'rgba(255, 206, 86, .8)',
             borderWidth: .1
           },{
@@ -333,7 +334,7 @@ var myChart = new Chart(ctx, {
             data: @json($String_beans), 
             barThickness: 25,
             
-            backgroundColor:'rgba(75, 192, 192, 0.2)',
+            backgroundColor:'rgba(75, 192, 192, 0.7)',
             borderColor:'rgba(75, 192, 192, .8)',
             borderWidth: .1
           },{
@@ -341,7 +342,7 @@ var myChart = new Chart(ctx, {
             data: @json($Tobaccos), 
             barThickness: 25,
             
-            backgroundColor:'rgba(153, 102, 255, 0.2)',
+            backgroundColor:'rgba(153, 102, 255, 0.7)',
             borderColor:'rgba(153, 102, 255, .8)',
             borderWidth: .1
           },{
@@ -349,7 +350,7 @@ var myChart = new Chart(ctx, {
             data: @json($Tomatos), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 159, 64, 0.2)',
+            backgroundColor:'rgba(255, 159, 64, 0.7)',
             borderColor:'rgba(255, 159, 64, .8)',
             borderWidth: .1
           },{
@@ -357,8 +358,8 @@ var myChart = new Chart(ctx, {
             data: @json($Water_melons), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 159, 64, 0.2)',
-            borderColor:'rgba(255, 159, 64, .8)',
+            backgroundColor:'rgba(255, 99, 132, 0.7)',
+            borderColor:'rgba(255, 99, 132, .8)',
             borderWidth: .1
           }
         ]
@@ -396,9 +397,6 @@ var myChart = new Chart(ctx, {
               return `${value}%`;
             }
           }
-        },
-        legend: {
-            display: false
         },
         title: {
             display: true,

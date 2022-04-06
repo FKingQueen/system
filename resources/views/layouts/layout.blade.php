@@ -359,7 +359,7 @@
         <!-- Yield Monitoring Modal -->
         </div>
             <div class="modal fade rounded" id="yieldMonitoring" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-dialog modal-dialog-centered modal-sm">
                     <div class="modal-content rounded">
                         <div class="modal-header p-1 d-flex justify-content-center">
                         <h4 class="modal-title ml-2 ">Select</h4>
@@ -368,7 +368,7 @@
                         <form action="{{ route('yieldMonitoring') }}" method="GET">
                             @csrf
                             <div class="modal-body rounded bg-white p-1">
-                                <!-- <div class="d-flex justify-content-center input-group mb-3">
+                                <div class="d-flex justify-content-center mb-3">
                                     <div>
                                         <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
                                         <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
@@ -384,71 +384,10 @@
                                         @enderror          
                                     </div>
 
-                                    <div class="ml-3">
-                                        <label for="year_id" class="input-group">Year</label>
-                                        <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
-                                                <option value="" disabled selected>--- Select  Year ---</option>
-                                            @php 
-                                                $year = now()->year-4;
-                                            @endphp
-
-                                            @for($i = 0; $i <= 4; $i++)
-                                                <option value="{{$year}}">{{$year}}</option>
-                                                @php $year = $year+1 @endphp
-                                            @endfor
-                                        </select>
-                                            @error('year_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror          
-                                    </div>     
-                                </div>
-                                <div class="d-flex justify-content-center input-group mb-3">
-                                    <div class="ml-3">
-                                        <label for="crop_name" class="input-group">Crop</label>
-                                        <select id="crop_id" type="text" name="crop_id" class="form-control form-control-sm @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
-                                            <option value="" disabled selected>--- Select  Crop ---</option>
-                                            <option value="1">Bitter Gourd (Ampalaya)</option>
-                                            <option value="2">Cabbage</option>
-                                            <option value="3">Corn</option>
-                                            <option value="4">Eggplant</option>
-                                            <option value="5">Garlic</option>
-                                            <option value="6">Ladys Finger (Okra)</option>
-                                            <option value="7">Rice</option>
-                                            <option value="8">Onion</option>
-                                            <option value="9">Peanut</option>
-                                            <option value="10">String Beans (Sitaw)</option>
-                                            <option value="11">Tobacco</option>
-                                            <option value="12">Tomato</option>
-                                            <option value="13">Water Melon</option>
-                                        </select>
-                                            @error('crop_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror          
-                                    </div>
-
-                                    <div class="ml-3">
-                                        <label for="cropping_season" class="input-group">Cropping Season</label>
-                                        <select id="cropping_season" type="text" name="cropping_season" class="form-control form-control-sm @error('cropping_season') is-invalid @enderror" name="cropping_season" required autocomplete="cropping_season" autofocus>
-                                            <option value="" disabled selected>--- Select  Cropping Season ---</option>
-                                            <option value="1">Dry Season</option>
-                                            <option value="2">Wet Season</option>
-                                        </select>
-                                            @error('cropping_season')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror          
-                                    </div>
-                                </div> -->
-                                <div class="d-flex justify-content-center input-group mb-3">
                                     <div class="ml-3 d-flex align-items-end">
                                         <button type="submit" class="btn btn-sm  btn-block btn-primary input-group"> Search </button>
                                     </div>
-                                </div>                          
+                                </div>
                             </div>
                         </form>
                     </div>

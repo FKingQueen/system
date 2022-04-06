@@ -65,6 +65,7 @@ Route::group(['middleware' => 'isUser'], function() {
     Route::get('/cropMonitoringsearch', [App\Http\Controllers\User\CropMonitoringController::class, 'cropMonitoringsearch'])->name('cropMonitoringsearch');
     //Yield Monitoring
     Route::get('/yieldMonitoring', [App\Http\Controllers\User\YieldMonitoringController::class, 'yieldMonitoring'])->name('yieldMonitoring');
+    Route::get('/yieldMonitoringsearch', [App\Http\Controllers\User\YieldMonitoringController::class, 'yieldMonitoringsearch'])->name('yieldMonitoringsearch');
     //Generate Report
     Route::get('/generatePDF/{id}', [App\Http\Controllers\PDFController::class, 'generatePDF'])->name('generatePDF');
 });

@@ -192,7 +192,7 @@ class CropMonitoringController extends Controller
             $FC_total = Farming_data::where('farmer_id', $f->id)->where('status', 0)->count();
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 1)->count()/$FC_total)*100) != 0)
             {
-                $Bitter_gourd[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 1)->count()/$FC_total)*100);
+                $Bitter_gourd[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 1)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Bitter_gourd[$i] = NULL;
@@ -200,7 +200,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 2)->count()/$FC_total)*100) != 0)
             {
-                $Cabbage[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 2)->count()/$FC_total)*100);
+                $Cabbage[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 2)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Cabbage[$i] = NULL;
@@ -208,7 +208,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 3)->count()/$FC_total)*100) != 0)
             {
-                $Corn[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 3)->count()/$FC_total)*100);
+                $Corn[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 3)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Corn[$i] = NULL;
@@ -216,7 +216,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 4)->count()/$FC_total)*100) != 0)
             {
-                $Eggplant[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 4)->count()/$FC_total)*100);
+                $Eggplant[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 4)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Eggplant = NULL;
@@ -224,7 +224,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 5)->count()/$FC_total)*100) != 0)
             {
-                $Garlic[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 5)->count()/$FC_total)*100);
+                $Garlic[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 5)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Garlic[$i] = NULL;
@@ -232,7 +232,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 6)->count()/$FC_total)*100) != 0)
             {
-                $Ladys_finger[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 6)->count()/$FC_total)*100);
+                $Ladys_finger[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 6)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Ladys_finger[$i] = NULL;
@@ -240,7 +240,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 7)->count()/$FC_total)*100) != 0)
             {
-                $Rice[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 7)->count()/$FC_total)*100);
+                $Rice[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 7)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Rice[$i] = NULL;
@@ -248,7 +248,7 @@ class CropMonitoringController extends Controller
             
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 8)->count()/$FC_total)*100) != 0)
             {
-                $Onion[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 8)->count()/$FC_total)*100);
+                $Onion[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 8)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Onion[$i] = NULL;
@@ -256,7 +256,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 9)->count()/$FC_total)*100) != 0)
             {
-                $Peanut[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 9)->count()/$FC_total)*100);
+                $Peanut[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 9)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Peanut[$i] = NULL;
@@ -264,7 +264,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 10)->count()/$FC_total)*100) != 0)
             {
-                $String_bean[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 10)->count()/$FC_total)*100);
+                $String_bean[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 10)->count()/$FC_total)*100, 2);
             } else 
             {
                 $String_bean[$i] = NULL;
@@ -272,7 +272,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 11)->count()/$FC_total)*100) != 0)
             {
-                $Tobacco[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 11)->count()/$FC_total)*100);
+                $Tobacco[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 11)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Tobacco[$i] = NULL;
@@ -280,7 +280,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
             {
-                $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100);
+                $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Tomato[$i] = NULL;
@@ -288,7 +288,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
             {
-                $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100);
+                $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Tomato[$i] = NULL;
@@ -296,7 +296,7 @@ class CropMonitoringController extends Controller
             
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 13)->count()/$FC_total)*100) != 0)
             {
-                $Water_melon[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 13)->count()/$FC_total)*100);
+                $Water_melon[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 13)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Water_melon[$i] = NULL;
@@ -526,7 +526,7 @@ class CropMonitoringController extends Controller
             $FC_total = Farming_data::where('farmer_id', $f->id)->where('status', 0)->count();
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 1)->count()/$FC_total)*100) != 0)
             {
-                $Bitter_gourd[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 1)->count()/$FC_total)*100);
+                $Bitter_gourd[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 1)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Bitter_gourd[$i] = NULL;
@@ -534,7 +534,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 2)->count()/$FC_total)*100) != 0)
             {
-                $Cabbage[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 2)->count()/$FC_total)*100);
+                $Cabbage[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 2)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Cabbage[$i] = NULL;
@@ -542,7 +542,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 3)->count()/$FC_total)*100) != 0)
             {
-                $Corn[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 3)->count()/$FC_total)*100);
+                $Corn[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 3)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Corn[$i] = NULL;
@@ -550,7 +550,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 4)->count()/$FC_total)*100) != 0)
             {
-                $Eggplant[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 4)->count()/$FC_total)*100);
+                $Eggplant[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 4)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Eggplant = NULL;
@@ -558,7 +558,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 5)->count()/$FC_total)*100) != 0)
             {
-                $Garlic[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 5)->count()/$FC_total)*100);
+                $Garlic[$i]  = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 5)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Garlic[$i] = NULL;
@@ -566,7 +566,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 6)->count()/$FC_total)*100) != 0)
             {
-                $Ladys_finger[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 6)->count()/$FC_total)*100);
+                $Ladys_finger[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 6)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Ladys_finger[$i] = NULL;
@@ -574,7 +574,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 7)->count()/$FC_total)*100) != 0)
             {
-                $Rice[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 7)->count()/$FC_total)*100);
+                $Rice[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 7)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Rice[$i] = NULL;
@@ -582,7 +582,7 @@ class CropMonitoringController extends Controller
             
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 8)->count()/$FC_total)*100) != 0)
             {
-                $Onion[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 8)->count()/$FC_total)*100);
+                $Onion[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 8)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Onion[$i] = NULL;
@@ -590,7 +590,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 9)->count()/$FC_total)*100) != 0)
             {
-                $Peanut[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 9)->count()/$FC_total)*100);
+                $Peanut[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 9)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Peanut[$i] = NULL;
@@ -598,7 +598,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 10)->count()/$FC_total)*100) != 0)
             {
-                $String_bean[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 10)->count()/$FC_total)*100);
+                $String_bean[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 10)->count()/$FC_total)*100, 2);
             } else 
             {
                 $String_bean[$i] = NULL;
@@ -606,7 +606,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 11)->count()/$FC_total)*100) != 0)
             {
-                $Tobacco[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 11)->count()/$FC_total)*100);
+                $Tobacco[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 11)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Tobacco[$i] = NULL;
@@ -614,7 +614,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
             {
-                $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100);
+                $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Tomato[$i] = NULL;
@@ -622,7 +622,7 @@ class CropMonitoringController extends Controller
 
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
             {
-                $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100);
+                $Tomato[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 12)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Tomato[$i] = NULL;
@@ -630,7 +630,7 @@ class CropMonitoringController extends Controller
             
             if(number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 13)->count()/$FC_total)*100) != 0)
             {
-                $Water_melon[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 13)->count()/$FC_total)*100);
+                $Water_melon[$i] = number_format((Farming_data::where('farmer_id', $f->id)->where('status', 0)->where('crop_id', 13)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Water_melon[$i] = NULL;

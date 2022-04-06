@@ -19,108 +19,72 @@
   </div>
   <!-- /.content-header -->
 
-  
+  <!-- card-body -->
+  <div class="card-body">
+                
+    <form action="{{ route('yieldMonitoringsearch') }}" method="GET">
+      @csrf
+      <div class="modal-body rounded bg-white">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-left mb-3">
+              <div>
+                  <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
+                  <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
+                  <option value="" disabled selected>--- Select Barangay ---</option>
+                  @foreach($barangays as $barangay)
+                      <option value="{{$barangay->id}}">{{$barangay->name}}</option>
+                  @endforeach
+                  </select>
+                  @error('barangay')
+                      <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror          
+              </div>
+              <div class="ml-3">
+                  <label for="year_id" class="input-group">Year:</label>
+                  <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
+                          <option disabled selected>--- Select  Year ---</option>
+                      @php 
+                          $year = now()->year-4;
+                      @endphp
 
-  <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <!-- /.card-header -->
-            <div class="card-body">
-              <form action="{{ route('yieldMonitoring') }}" method="GET">
-                @csrf
-                <div class="rounded bg-white p-0">
-                    <div class="d-flex justify-content-left input-group mb-3 ">
-                        <div>
-                            <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
-                            <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
-                            <option value="" disabled selected>--- Select Barangay ---</option>
-                            @foreach($barangays as $barangay)
-                                <option value="{{$barangay->id}}">{{$barangay->name}}</option>
-                            @endforeach
-                            </select>
-                            @error('barangay')
-                                <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror          
-                        </div>
-                        <div class="ml-3">
-                            <label for="year_id" class="input-group">Year</label>
-                            <select id="year_id" type="text" name="year_id" class="@error('year_id') is-invalid @enderror form-control form-control-sm" name="year_id" required autocomplete="year_id" autofocus>
-                                    <option disabled selected>--- Select  Year ---</option>
-                                @php 
-                                    $year = now()->year-4;
-                                @endphp
+                      @for($i = 0; $i <= 4; $i++)
+                          <option value="{{$year}}">{{$year}}</option>
+                          @php $year = $year+1 @endphp
+                      @endfor
+                  </select>
+                      @error('year_id')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror          
+              </div>
+              <div class="ml-3">
+                  <label for="cropping_season" class="input-group">Cropping Season:</label>
+                  <select id="cropping_season" type="text" name="cropping_season" class="form-control form-control-sm @error('cropping_season') is-invalid @enderror" name="cropping_season" required autocomplete="cropping_season" autofocus>
+                    <option disabled selected>--- Select  Cropping Season ---</option>
+                    <option value="1">Dry Season</option>
+                    <option value="2">Wet Season</option>
+                  </select>
+                      @error('cropping_season')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror          
+              </div>     
+              <div class="ml-3 d-flex align-items-end">
+                  <button type="submit" class="btn btn-sm btn-block btn-primary input-group"> Search </button>
+              </div>
 
-                                @for($i = 0; $i <= 4; $i++)
-                                    <option value="{{$year}}">{{$year}}</option>
-                                    @php $year = $year+1 @endphp
-                                @endfor
-                            </select>
-                                @error('year_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror          
-                        </div>     
-                        <div class="ml-3">
-                            <label for="crop_name" class="input-group">Crop</label>
-                            <select id="crop_id" type="text" name="crop_id" class="form-control form-control-sm @error('crop_id') is-invalid @enderror" name="crop_id" required autocomplete="crop_id" autofocus>
-                              <option disabled selected>--- Select  Crop ---</option>
-                              <option value="1">Bitter Gourd (Ampalaya)</option>
-                              <option value="2">Cabbage</option>
-                              <option value="3">Corn</option>
-                              <option value="4">Eggplant</option>
-                              <option value="5">Garlic</option>
-                              <option value="6">Ladys Finger (Okra)</option>
-                              <option value="7">Rice</option>
-                              <option value="8">Onion</option>
-                              <option value="9">Peanut</option>
-                              <option value="10">String Beans (Sitaw)</option>
-                              <option value="11">Tobacco</option>
-                              <option value="12">Tomato</option>
-                              <option value="13">Water Melon</option>
-                            </select>
-                                @error('crop_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror          
-                        </div>
-
-                        <div class="ml-3">
-                            <label for="cropping_season" class="input-group">Cropping Season</label>
-                            <select id="cropping_season" type="text" name="cropping_season" class="form-control form-control-sm @error('cropping_season') is-invalid @enderror" name="cropping_season" required autocomplete="cropping_season" autofocus>
-                              <option disabled selected>--- Select  Cropping Season ---</option>
-                              <option value="1">Dry Season</option>
-                              <option value="2">Wet Season</option>
-                            </select>
-                                @error('cropping_season')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror          
-                        </div>
-                        <div class="ml-3 d-flex align-items-end">
-                            <button type="submit" class="btn btn-sm  btn-block btn-primary input-group"> Search </button>
-                        </div>
-                    </div>                        
-                </div>
-              </form>
-            </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
+
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-  </section>
+    </form>
+  </div>
+  <!-- /.card-body -->
+
 
 
   <!-- Main content -->
@@ -177,24 +141,24 @@ const cropsChart = new Chart(ctx1, {
     data: {
         labels: @json($N_crops),
         datasets: [{
-            label: '# of Votes',
+            label: 'tons per crop',
             data: @json($U_crops),
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)'
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -213,20 +177,31 @@ const cropsChart = new Chart(ctx1, {
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)'
             ],
-            borderWidth: 1
+            borderWidth: 1,
+            barThickness: 40
         }]
     },
     options: {
       responsive: true,
       scales: {
           y: {
-              beginAtZero: true
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'tons(t)'
+              },
+              ticks: {
+                // Include a dollar sign in the ticks
+                callback: function(value, index, ticks) {
+                    return value + '(t)';
+                }
+            }
           },
           x: {
             title: {
               display: true,
               text: 'List of Crops'
-            }
+            },
           }
       },
       plugins: {
@@ -234,14 +209,11 @@ const cropsChart = new Chart(ctx1, {
           formatter: (value, context) => {
             if(value != 0)
             {
-              return `${value}%`;
+              return value + '(t)';
             } else {
               return '';
             }
           }
-        },
-        legend: {
-            display: false
         },
         title: {
             display: true,
@@ -269,7 +241,7 @@ var farmerChart = new Chart(ctx2, {
             barThickness: 25,
             datalabel: 'naruto',  
             
-            backgroundColor:'rgba(255, 99, 132, 0.2)',
+            backgroundColor:'rgba(255, 99, 132, 0.7)',
             borderColor:'rgba(255, 99, 132, .8)',
             borderWidth: .1
           },{
@@ -277,7 +249,7 @@ var farmerChart = new Chart(ctx2, {
             data: @json($Cabbages), 
             barThickness: 25,
             
-            backgroundColor:'rgba(54, 162, 235, 0.2)',
+            backgroundColor:'rgba(54, 162, 235, 0.7)',
             borderColor:'rgba(54, 162, 235, 0.8)',
             borderWidth: .1
           },{
@@ -285,7 +257,7 @@ var farmerChart = new Chart(ctx2, {
             data: @json($Corns), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 206, 86, 0.2)',
+            backgroundColor:'rgba(255, 206, 86, 0.7)',
             borderColor:'rgba(255, 206, 86, 0.8)',
             borderWidth: .1
           },{
@@ -293,7 +265,7 @@ var farmerChart = new Chart(ctx2, {
             data: @json($Eggplants), 
             barThickness: 25,
             
-            backgroundColor:'rgba(75, 192, 192, 0.2)',
+            backgroundColor:'rgba(75, 192, 192, 0.7)',
             borderColor:'rgba(75, 192, 192, 0.8)',
             borderWidth: .1
           },{
@@ -301,7 +273,7 @@ var farmerChart = new Chart(ctx2, {
             data: @json($Garlics), 
             barThickness: 25,
             
-            backgroundColor:'rgba(153, 102, 255, 0.2)',
+            backgroundColor:'rgba(153, 102, 255, 0.7)',
             borderColor:'rgba(153, 102, 255, 0.8)',
             borderWidth: .1
           },{
@@ -309,7 +281,7 @@ var farmerChart = new Chart(ctx2, {
             data: @json($Ladys_fingers), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 159, 64, 0.2)',
+            backgroundColor:'rgba(255, 159, 64, 0.7)',
             borderColor:'rgba(255, 159, 64, 0.8)',
             borderWidth: .1
           },{
@@ -317,7 +289,7 @@ var farmerChart = new Chart(ctx2, {
             data: @json($Rices), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 99, 132, 0.2)',
+            backgroundColor:'rgba(255, 99, 132, 0.7)',
             borderColor:'rgba(255, 99, 132, 0.8)',
             borderWidth: .1
           },{
@@ -325,7 +297,7 @@ var farmerChart = new Chart(ctx2, {
             data: @json($Onions), 
             barThickness: 25,
             
-            backgroundColor:'rgba(54, 162, 235, 0.2)',
+            backgroundColor:'rgba(54, 162, 235, 0.7)',
             borderColor:'rgba(54, 162, 235, 0.8)',
             borderWidth: .1
           },{
@@ -333,7 +305,7 @@ var farmerChart = new Chart(ctx2, {
             data: @json($Peanuts), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 206, 86, 0.2)',
+            backgroundColor:'rgba(255, 206, 86, 0.7)',
             borderColor:'rgba(255, 206, 86, 0.8)',
             borderWidth: .1
           },{
@@ -341,7 +313,7 @@ var farmerChart = new Chart(ctx2, {
             data: @json($String_beans), 
             barThickness: 25,
             
-            backgroundColor:'rgba(75, 192, 192, 0.2)',
+            backgroundColor:'rgba(75, 192, 192, 0.7)',
             borderColor:'rgba(75, 192, 192, 0.8)',
             borderWidth: .1
           },{
@@ -349,7 +321,7 @@ var farmerChart = new Chart(ctx2, {
             data: @json($Tobaccos), 
             barThickness: 25,
             
-            backgroundColor:'rgba(153, 102, 255, 0.2)',
+            backgroundColor:'rgba(153, 102, 255, 0.7)',
             borderColor:'rgba(153, 102, 255, 0.8)',
             borderWidth: .1
           },{
@@ -357,7 +329,7 @@ var farmerChart = new Chart(ctx2, {
             data: @json($Tomatos), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 159, 64, 0.2)',
+            backgroundColor:'rgba(255, 159, 64, 0.7)',
             borderColor:'rgba(255, 159, 64, 0.8)',
             borderWidth: .1
           },{
@@ -365,8 +337,8 @@ var farmerChart = new Chart(ctx2, {
             data: @json($Water_melons), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 159, 64, 0.2)',
-            borderColor:'rgba(255, 159, 64, 0.8)',
+            backgroundColor:'rgba(255, 99, 132, 0.7)',
+            borderColor:'rgba(255, 99, 132, .8)',
             borderWidth: .1
           }
         ]
@@ -380,12 +352,12 @@ var farmerChart = new Chart(ctx2, {
           ticks: {
               // Include a dollar sign in the ticks
               callback: function(value, index, ticks) {
-                  return value + '%';
+                  return value + '(t)';
               }
           },
           title: {
             display: true,
-            text: 'Percentage %'
+            text: 'tons(t)'
           }
         },
         y: {
@@ -399,14 +371,13 @@ var farmerChart = new Chart(ctx2, {
       plugins: {
         datalabels: {
           formatter: (value, context) => {
-            if(value != null)
+            if(value != 0)
             {
-              return `${value}%`;
+              return value + '(t)';
+            } else {
+              return '';
             }
           }
-        },
-        legend: {
-            display: false
         },
         title: {
             display: true,
