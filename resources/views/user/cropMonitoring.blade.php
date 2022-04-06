@@ -260,81 +260,106 @@ var myChart = new Chart(ctx, {
             label: 'Bitter Gourd',
             data: @json($Bitter_gourds), 
             barThickness: 25,
-            datalabel: 'naruto',  
-            
+    
             backgroundColor:'rgba(255, 99, 132, 0.2)',
+            borderColor:'rgba(255, 99, 132, .8)',
+            borderWidth: .1
           },{
             label: 'Cabbage',
             data: @json($Cabbages), 
             barThickness: 25,
             
             backgroundColor:'rgba(54, 162, 235, 0.2)',
+            borderColor:'rgba(54, 162, 235, .8)',
+            borderWidth: .1
           },{
             label: 'Corn',
             data: @json($Corns), 
             barThickness: 25,
             
             backgroundColor:'rgba(255, 206, 86, 0.2)',
+            borderColor:'rgba(255, 206, 86, .8)',
+            borderWidth: .1
           },{
             label: 'Eggplant',
             data: @json($Eggplants), 
             barThickness: 25,
             
             backgroundColor:'rgba(75, 192, 192, 0.2)',
+            borderColor:'rgba(75, 192, 192, .8)',
+            borderWidth: .1
           },{
             label: 'Garlic',
             data: @json($Garlics), 
             barThickness: 25,
             
             backgroundColor:'rgba(153, 102, 255, 0.2)',
+            borderColor:'rgba(153, 102, 255, .8)',
+            borderWidth: .1
           },{
             label: 'Ladys Finger',
             data: @json($Ladys_fingers), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 159, 64, 0.2)'
+            backgroundColor:'rgba(255, 159, 64, 0.2)',
+            borderColor:'rgba(255, 159, 64, .8)',
+            borderWidth: .1
           },{
             label: 'Rice',
             data: @json($Rices), 
             barThickness: 25,
             
             backgroundColor:'rgba(255, 99, 132, 0.2)',
+            borderColor:'rgba(255, 99, 132, .8)',
+            borderWidth: .1
           },{
             label: 'Onion',
             data: @json($Onions), 
             barThickness: 25,
             
             backgroundColor:'rgba(54, 162, 235, 0.2)',
+            borderColor:'rgba(54, 162, 235, .8)',
+            borderWidth: .1
           },{
             label: 'Peanut',
             data: @json($Peanuts), 
             barThickness: 25,
             
             backgroundColor:'rgba(255, 206, 86, 0.2)',
+            borderColor:'rgba(255, 206, 86, .8)',
+            borderWidth: .1
           },{
             label: 'String Beans',
             data: @json($String_beans), 
             barThickness: 25,
             
             backgroundColor:'rgba(75, 192, 192, 0.2)',
+            borderColor:'rgba(75, 192, 192, .8)',
+            borderWidth: .1
           },{
             label: 'Tobacco',
             data: @json($Tobaccos), 
             barThickness: 25,
             
             backgroundColor:'rgba(153, 102, 255, 0.2)',
+            borderColor:'rgba(153, 102, 255, .8)',
+            borderWidth: .1
           },{
             label: 'Tomato',
             data: @json($Tomatos), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 159, 64, 0.2)'
+            backgroundColor:'rgba(255, 159, 64, 0.2)',
+            borderColor:'rgba(255, 159, 64, .8)',
+            borderWidth: .1
           },{
             label: 'Water Melon',
             data: @json($Water_melons), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 159, 64, 0.2)'
+            backgroundColor:'rgba(255, 159, 64, 0.2)',
+            borderColor:'rgba(255, 159, 64, .8)',
+            borderWidth: .1
           }
         ]
     },

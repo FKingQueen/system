@@ -323,7 +323,6 @@
                                           <div class="w-50">
                                             <label for="updateField_unit" >Field Size Unit:</label>
                                             <select id="updateField_unit" type="text" name="field_unit" class="custom-select form-control-border  @error('field_unit') is-invalid @enderror" name="field_unit" required autocomplete="field_unit" autofocus>
-                                                <option value="" disabled selected>--- Select Field Size Unit ---</option>
                                                 <option value="1">Hectare</option>
                                                 <option value="2">Square Meter</option>
                                             </select>

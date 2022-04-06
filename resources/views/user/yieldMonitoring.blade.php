@@ -130,7 +130,27 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <canvas id="myChart" width="400" height="150"></canvas>
+            <canvas id="cropsChart" width="400" height="150"></canvas>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- Main /.content -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <canvas id="farmerChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
@@ -149,9 +169,96 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<!-- Crops Chart -->
 <script>
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
+const ctx1 = document.getElementById('cropsChart').getContext('2d');
+const cropsChart = new Chart(ctx1, {
+    type: 'bar',
+    data: {
+        labels: @json($N_crops),
+        datasets: [{
+            label: '# of Votes',
+            data: @json($U_crops),
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+          y: {
+              beginAtZero: true
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'List of Crops'
+            }
+          }
+      },
+      plugins: {
+        datalabels: {
+          formatter: (value, context) => {
+            if(value != 0)
+            {
+              return `${value}%`;
+            } else {
+              return '';
+            }
+          }
+        },
+        legend: {
+            display: false
+        },
+        title: {
+            display: true,
+            text: 'The total number of crops sown in barangay '
+        }
+      }
+    },
+    plugins: [ChartDataLabels]
+});
+</script>
+<!-- /Crops Chart -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<!-- Farmer Chart -->
+<script>
+var ctx2 = document.getElementById('farmerChart').getContext('2d');
+var farmerChart = new Chart(ctx2, {
     type: 'bar',
     data: {
       labels: @json($n_farmers),
@@ -163,78 +270,104 @@ var myChart = new Chart(ctx, {
             datalabel: 'naruto',  
             
             backgroundColor:'rgba(255, 99, 132, 0.2)',
+            borderColor:'rgba(255, 99, 132, .8)',
+            borderWidth: .1
           },{
             label: 'Cabbage',
             data: @json($Cabbages), 
             barThickness: 25,
             
             backgroundColor:'rgba(54, 162, 235, 0.2)',
+            borderColor:'rgba(54, 162, 235, 0.8)',
+            borderWidth: .1
           },{
             label: 'Corn',
             data: @json($Corns), 
             barThickness: 25,
             
             backgroundColor:'rgba(255, 206, 86, 0.2)',
+            borderColor:'rgba(255, 206, 86, 0.8)',
+            borderWidth: .1
           },{
             label: 'Eggplant',
             data: @json($Eggplants), 
             barThickness: 25,
             
             backgroundColor:'rgba(75, 192, 192, 0.2)',
+            borderColor:'rgba(75, 192, 192, 0.8)',
+            borderWidth: .1
           },{
             label: 'Garlic',
             data: @json($Garlics), 
             barThickness: 25,
             
             backgroundColor:'rgba(153, 102, 255, 0.2)',
+            borderColor:'rgba(153, 102, 255, 0.8)',
+            borderWidth: .1
           },{
             label: 'Ladys Finger',
             data: @json($Ladys_fingers), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 159, 64, 0.2)'
+            backgroundColor:'rgba(255, 159, 64, 0.2)',
+            borderColor:'rgba(255, 159, 64, 0.8)',
+            borderWidth: .1
           },{
             label: 'Rice',
             data: @json($Rices), 
             barThickness: 25,
             
             backgroundColor:'rgba(255, 99, 132, 0.2)',
+            borderColor:'rgba(255, 99, 132, 0.8)',
+            borderWidth: .1
           },{
             label: 'Onion',
             data: @json($Onions), 
             barThickness: 25,
             
             backgroundColor:'rgba(54, 162, 235, 0.2)',
+            borderColor:'rgba(54, 162, 235, 0.8)',
+            borderWidth: .1
           },{
             label: 'Peanut',
             data: @json($Peanuts), 
             barThickness: 25,
             
             backgroundColor:'rgba(255, 206, 86, 0.2)',
+            borderColor:'rgba(255, 206, 86, 0.8)',
+            borderWidth: .1
           },{
             label: 'String Beans',
             data: @json($String_beans), 
             barThickness: 25,
             
             backgroundColor:'rgba(75, 192, 192, 0.2)',
+            borderColor:'rgba(75, 192, 192, 0.8)',
+            borderWidth: .1
           },{
             label: 'Tobacco',
             data: @json($Tobaccos), 
             barThickness: 25,
             
             backgroundColor:'rgba(153, 102, 255, 0.2)',
+            borderColor:'rgba(153, 102, 255, 0.8)',
+            borderWidth: .1
           },{
             label: 'Tomato',
             data: @json($Tomatos), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 159, 64, 0.2)'
+            backgroundColor:'rgba(255, 159, 64, 0.2)',
+            borderColor:'rgba(255, 159, 64, 0.8)',
+            borderWidth: .1
           },{
             label: 'Water Melon',
             data: @json($Water_melons), 
             barThickness: 25,
             
-            backgroundColor:'rgba(255, 159, 64, 0.2)'
+            backgroundColor:'rgba(255, 159, 64, 0.2)',
+            borderColor:'rgba(255, 159, 64, 0.8)',
+            borderWidth: .1
           }
         ]
     },
@@ -284,4 +417,5 @@ var myChart = new Chart(ctx, {
     plugins: [ChartDataLabels]
 });
 </script>
+<!-- /Farmer Chart -->
 @endsection

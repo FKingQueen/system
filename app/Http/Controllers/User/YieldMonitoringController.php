@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Municipality;
 use App\Models\Farmer;
+use App\Models\Crop;
 use App\Models\Barangay;
 use App\Models\Farming_data;
 use App\Models\Activity_file;
@@ -18,9 +19,20 @@ class YieldMonitoringController extends Controller
 {
     public function yieldMonitoring(Request $request)
     {   
+        ////Crops Unit Stacked Bar Chart
+        $N_crop = Crop::pluck('name');
+        $ID_crop = Crop::pluck('id');
+        foreach($ID_crop as $key => $ID_crops)
+        {
+            $U_crop[$key] = Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('id', $ID_crops)->where('barangay_id', 52)->pluck('unit')->sum();
+        }  
+
+        ////Farmer Unit Stacked Bar Chart
+        // Getting all farmer informttion in an array
         $Farmer = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', 52)->get();
         $F_id = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', 52)->pluck('id');
         
+        //Getting all information of farming data into an array
         foreach($F_id as $key1 => $f)
         {
             $counter = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', 52)->count();
@@ -28,6 +40,7 @@ class YieldMonitoringController extends Controller
             
         }
         
+        // Getting the Farmer name
         $i = 0;
         foreach($Farmer as $key1 => $fars)
         {
@@ -42,7 +55,7 @@ class YieldMonitoringController extends Controller
             }
         }
 
-        
+        // Getting all crop count , one by one
         $i = 0;
         $total_unit = 0;
         foreach($Farmer as $key => $f)
@@ -100,7 +113,9 @@ class YieldMonitoringController extends Controller
             'Tobaccos'   => $Tobacco,
             'Tomatos'   => $Tomato,
             'Water_melons'   => $Water_melon,
-            'n_farmers'   => $n_farmer
+            'n_farmers'   => $n_farmer,
+            'N_crops'   => $N_crop,
+            'U_crops'   =>$U_crop
         ));
     }
 }
