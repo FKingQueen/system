@@ -10,9 +10,10 @@
   <div class="content-header">
       <div class="container-fluid">
       <div class="row">
-          <div class="col-sm-6">
+          <div  class="col-sm-6" id="target">
               <h1 class="m-0 farm_title">Yield Monitoring</h1>
           </div>
+          <button onclick= "downloadPDF()">pdf</button>
           <!-- /.col -->
       </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -88,7 +89,7 @@
 
 
   <!-- Main content -->
-  <section class="content mb-4">
+  <section class="content mb-4" id="target">
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
@@ -116,7 +117,7 @@
           <div class="card">
             <!-- /.card-header -->
             <h5 class="text-center mt-3">The total yield of every farmer on different crops</h5>
-            <canvas id="farmerChart" width="400" height="150"></canvas>
+            <canvas  id="farmerChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
@@ -135,13 +136,11 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 <!-- Crops Chart -->
 <script>
-  
-const ctx1 = document.getElementById('cropsChart').getContext('2d');
-const cropsChart = new Chart(ctx1, {
-    type: 'bar',
-    data: {
+
+  const data = {
         labels: @json($N_crops),
         datasets: [{
             label: ['tons per crop'],
@@ -183,49 +182,83 @@ const cropsChart = new Chart(ctx1, {
             borderWidth: 1,
             barThickness: 40
         }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-          y: {
-              beginAtZero: true,
+    };
+
+    const bgColor = {
+      id : 'bgColor',
+      beforeDraw: (chart, options) => {
+      const  {ctx, width, height} = chart;
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0,0, width, height)
+        ctx.restore();
+      }
+    }
+
+    const config = {
+      type: 'bar',
+      data, 
+      options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'tons(t)'
+                },
+                ticks: {
+                  // Include a dollar sign in the ticks
+                  callback: function(value, index, ticks) {
+                      return value + '(t)';
+                  }
+              }
+            },
+            x: {
               title: {
                 display: true,
-                text: 'tons(t)'
+                text: 'List of Crops'
               },
-              ticks: {
-                // Include a dollar sign in the ticks
-                callback: function(value, index, ticks) {
-                    return value + '(t)';
-                }
             }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'List of Crops'
-            },
-          }
-      },
-      plugins: {
-        datalabels: {
-          formatter: (value, context) => {
-            if(value != 0)
-            {
-              return value + '(t)';
-            } else {
-              return '';
+        },
+        plugins: {
+          datalabels: {
+            formatter: (value, context) => {
+              if(value != 0)
+              {
+                return value + '(t)';
+              } else {
+                return '';
+              }
             }
           }
         }
-      }
-    },
-    plugins: [ChartDataLabels]
-});
+      },
+      plugins: [ChartDataLabels, bgColor]
+    };
+
+
+    const cropsChart = new Chart(
+      document.getElementById('cropsChart'),
+      config
+    );
+
+    function downloadPDF()
+    {
+      const canvas = document.getElementById('cropsChart');
+
+      const canvasImage = canvas.toDataURL('image/jpeg', 1.0);
+      console.log(canvasImage);
+
+      let pdf = new jsPDF();
+      pdf.setFontSize(10);
+      pdf.text('The total yield of every farmer on different crops', 70, 25)
+      pdf.addImage(canvasImage, 'JPEG', 15, 27, 180, 100);
+      pdf.save('sample.pdf');
+    }
+
 </script>
 <!-- /Crops Chart -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+
 <!-- Farmer Chart -->
 <script>
 var ctx2 = document.getElementById('farmerChart').getContext('2d');
@@ -393,4 +426,24 @@ var farmerChart = new Chart(ctx2, {
 
 </script>
 <!-- /Farmer Chart -->
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var specialElementHandlers = {
+      "#edit":function(element, renderer) {
+        return true;
+      }
+    };
+    $("#cmd").click(function(){
+      var newCanvas = document.querySelector('#farmerChart');
+      var newCanvasImg = newCanvas.toDataURL("image/jpeg", 1.0);
+      var doc = new jsPDF();
+      doc.addImage(newCanvasImg, 'JPEG', 10, 10, 190, 150 );
+      doc.save("sample_file");
+    });
+  });
+</script>
+
+
 @endsection

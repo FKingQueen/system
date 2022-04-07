@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Farming_data;
 use App\Models\Farmer;
+use App\Models\User;
 use App\Models\Barangay;
 use App\Models\Activity_files;
 use App\Models\Municipality;
@@ -18,7 +19,6 @@ class FarmerListController extends Controller
 
     public function farmerList()
     {
-
         $municipality = DB::table("municipalities")->pluck("name","id");
         $farming_data = Farming_data::all(); 
         $farmer = Farmer::with('barangays')->get()->where("user_id", Auth::user()->id);

@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'muni_address'=>'4',
             'role_id'=>'1',
             'email'=>'p@gmail.com',
+            'acc_status' => '1',
             'password'=>Hash::make('12345')
         ]); 
 
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
             'muni_address'=>'3',
             'role_id'=>'2',
             'email'=>'h@gmail.com',
+            'acc_status' => '1',
             'password'=>Hash::make('12345')
         ]); 
 
@@ -36,6 +38,7 @@ class UserSeeder extends Seeder
             'muni_address'=>'1',
             'role_id'=>'2',
             'email'=>'jm@gmail.com',
+            'acc_status' => '1',
             'password'=>Hash::make('12345')
         ]); 
 

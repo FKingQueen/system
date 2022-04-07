@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
-
+@endsection
 @section('content')
 @if(Auth::user())
 
@@ -38,10 +38,10 @@
               <table id="approval"  class="table table-bordered">
                 <thead>
                 <tr>
-                  <th class="text-center" style="width: 55%;">Name</th>
-                  <th class="text-center" style="width: 15%;">Role</th>
-                  <th class="text-center" style="width: 15%;">ID Confirmation</th>
-                  <th class="text-center" style="width: 0%;"></th>
+                  <th class="text-center" style="width: 35%;">Name</th>
+                  <th class="text-center" style="width: 25%;">Role</th>
+                  <th class="text-center" style="width: 25%;">ID Confirmation</th>
+                  <th class="text-center" style="width: 10%;">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -50,9 +50,9 @@
                     <form method="POST" action="{{ route('approved',$approval->id) }}" >
                     @csrf
                     <td>{{$approval->name}}</td>
-                    <td>
-                      <select id="role_id" type="number" class="form-control @error('role_id') is-invalid @enderror" name="role_id" required autocomplete="role_id" autofocus>
-                        <option disabled selected>Registrant Role</option>
+                    <td> 
+                      <select id="role_id" type="number" class="form-control form-control-sm @error('role_id') is-invalid @enderror" name="role_id" required autocomplete="role_id" autofocus>
+                        <option disabled selected>---Select Registrant Role---</option>
                         <option value="1" >Admin</option>
                         <option value="2" >User</option>
                       </select>
@@ -63,12 +63,12 @@
                       @enderror
                     </td>
                     <td class="text-center">
-                      <button type="button" class="btn btn-close" data-toggle="modal" data-target="#modal-default_{{$approval->id}}">
+                      <button type="button" class="p-0 btn btn-block btn-close btn-xm" data-toggle="modal" data-target="#modal-default_{{$approval->id}}">
                         view
                       </button>
                     </td>
                     <td>
-                      <button type="submit" class="btn btn-success">
+                      <button type="submit" class="p-0 btn btn-block btn-close btn-xm">
                         Approve
                       </button>
                     </td>
@@ -77,7 +77,7 @@
                
                 <!-- ID Confirmation Modal -->
                 <div class="modal fade" id="modal-default_{{$approval->id}}">
-                  <div class="modal-dialog">
+                  <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
 
                       <div class="modal-body">
@@ -87,7 +87,7 @@
                       </div>
 
                       <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Done</button>
+                        <button type="button" class="btn btn-close" data-dismiss="modal">Done</button>
                       </div>
 
                     </div>

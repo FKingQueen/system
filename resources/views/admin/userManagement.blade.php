@@ -39,10 +39,11 @@
               <table id="user"  class="table table-bordered">
                 <thead>
                 <tr>
-                  <th class="">Role</th>
-                  <th class="w-100">Name</th>
-                  <th class="">Municipality</th>
-                  <th class="">Action</th>
+                  <th class="text-center">Role</th>
+                  <th class="text-center w-100">Name</th>
+                  <th class="text-center">Municipality</th>
+                  <th class="text-center">Status</th>
+                  <th class="text-center">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -55,13 +56,34 @@
                     <td>
                       {{$user->name}}
                     </td>
+                    <td class="text-center">
+                      {{$user->municipality->name}}
+                    </td>
                     <td>
-                      {{$user->muni_address}}
+                      <input type="checkbox" class="toggle-class_{{$user->id}}" data-id="{{$user->id}}" data-size="sm" data-width="95"   data-onstyle="success" data-offstyle="secondary" data-toggle="toggle" data-on="Activated" data-off="Deactivated" {{ $user->acc_status ? 'checked' : '' }}>
+                    
+                        <script>
+                          $(function() {
+                            $('.toggle-class_{{$user->id}}').change(function() {
+                                var status = $(this).prop('checked') == true ? 1 : 0; 
+                                var yield = ('');
+                                var id = $(this).data('id'); 
+                                
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/changeaccStatus',
+                                    dataType: 'json',
+                                    data: {'status': status, 'id': id},
+                                    //success: function(data){console.log(data.success)}
+                                });
+                            });
+                          });
+                        </script>
                     </td>
                     <td>
                       
-                      <button type="Button" class="btn btn-close" data-toggle="modal" data-target="#update_{{$user->id}}">
-                        View
+                      <button type="Button" class="p-0 btn btn-block btn-close btn-xm" data-toggle="modal" data-target="#update_{{$user->id}}">
+                        Update
                       </button>
                     </td>
                   </tr>
@@ -116,18 +138,18 @@
                             <div class="input-group mb-3">
                                 <label for="muni_address" class="input-group">Municipality Address:</label>
                                 <select id="muni_address" type="number" class="form-control @error('muni_address') is-invalid @enderror" name="muni_address" required autocomplete="muni_address" autofocus>
-                                    <option value="{{$user->muni_address}}" selected>{{$user->muni_address}}</option>
-                                    <option value="Badoc" >Badoc</option>
-                                    <option value="Banna" >Banna</option>
-                                    <option value="Batac City" >Batac City</option>
-                                    <option value="Currimao" >Currimao</option>
-                                    <option value="Dingras" >Dingras</option>
-                                    <option value="Marcos" >Marcos</option>
-                                    <option value="Nueva Era" >Nueva Era</option>
-                                    <option value="Paoay" >Paoay</option>
-                                    <option value="Pinili" >Pinili</option>
-                                    <option value="San Nicolas" >San Nicolas</option>
-                                    <option value="Solsona" >Solsona</option>
+                                    <option value="{{$user->muni_address}}" selected>{{$user->municipality->name}}</option>
+                                    <option value="1" >Badoc</option>
+                                    <option value="2" >Banna</option>
+                                    <option value="3" >Batac City</option>
+                                    <option value="4" >Currimao</option>
+                                    <option value="5" >Dingras</option>
+                                    <option value="6" >Marcos</option>
+                                    <option value="7" >Nueva Era</option>
+                                    <option value="8" >Paoay</option>
+                                    <option value="9" >Pinili</option>
+                                    <option value="10" >San Nicolas</option>
+                                    <option value="11" >Solsona</option>
                                 </select>
                                 @error('muni_address')
                                 <span class="invalid-feedback" role="alert">
@@ -145,7 +167,7 @@
                             <!-- Change Password -->
                             <div class="input-group mb-3">
                               <label for="password" class="input-group">Password:</label>
-                              <button type="Button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#changepass_{{$user->id}}">
+                              <button type="Button" class="btn btn-close" data-dismiss="modal" data-toggle="modal" data-target="#changepass_{{$user->id}}">
                                 Change Password
                               </button>
                               <div class="input-group-append">
@@ -245,6 +267,12 @@
 @endsection
 
 @section('js')
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+  <script src="{{ asset('js/app.js') }}"></script>
+  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+  
 
 <!-- DataTables  & Plugins -->
 <script src="https://adminlte.io/themes/v3/plugins/datatables/jquery.dataTables.min.js"></script>

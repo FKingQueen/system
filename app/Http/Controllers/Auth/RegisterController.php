@@ -64,6 +64,7 @@ class RegisterController extends Controller
         $user->name = $data->name;
         $user->muni_address = $data->muni_address;
         $user->email = $data->email;
+        $user->acc_status = 1;
         $user->password = $data->password;
         $user->save();
 

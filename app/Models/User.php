@@ -23,6 +23,7 @@ class User extends Authenticatable
         'role_id',
         'muni_address',
         'prof_image',
+        'acc_status',
     ];
 
     /**
@@ -52,5 +53,10 @@ class User extends Authenticatable
     public function farmer()
     {
         return $this->hasMany(Farmer::class);
+    }
+
+    public function municipality()
+    {
+        return $this->hasOne(Municipality::class, 'id', 'muni_address');
     }
 }

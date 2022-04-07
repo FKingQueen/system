@@ -80,3 +80,28 @@
   </div>
 </div>
 @endsection
+
+@section('js')
+    <!-- SweetAlert2 -->
+    <script src="https://adminlte.io/themes/v3/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/toastr/toastr.min.js"></script>
+
+    <script>
+        $(function() {
+            var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: true,
+            timer: 3000
+            });
+
+            //FarmerList Notifications
+
+            @if(Session::has('loginfailed'))
+                $(function() {
+                    toastr.error('Your account has been deactivated')
+                });
+            @endif
+        });
+    </script>
+@endsection

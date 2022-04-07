@@ -9,6 +9,7 @@ use App\Models\Approval;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Role;
+use App\Models\Barangay;
 use Session;
 use Auth;
 
@@ -18,8 +19,8 @@ class RegistrationApprovalController extends Controller
     public function registrationApproval()
     {
         $approval = Approval::all();
-        $municipality = DB::table("municipalities")->pluck("name","id");
-        return view('admin.registrationApproval', array('approvals' => $approval, "municipalities" => $municipality));
+        $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
+        return view('admin.registrationApproval', array('approvals' => $approval, "barangays" => $barangay));
     }
 
     public function registration(Request $request)
@@ -29,7 +30,7 @@ class RegistrationApprovalController extends Controller
             'name'  => 'required',
             'muni_address' => 'required',
             'email' => 'required|email|unique:approvals|unique:users',
-            'password' => 'required|confirmed|min:5|max:12',
+            'password' => 'required|confirmed|min:8|max:12',
         ]);
 
         $approval =  new Approval();
@@ -48,9 +49,9 @@ class RegistrationApprovalController extends Controller
         $res = $approval->save();
 
         if($res){
-            return back();
+            return back()->with('registrationsuccess', 'Success');
         } else{
-            return back();
+            return back()->with('registrationfailed', 'Failed');
         }
     }
 }

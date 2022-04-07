@@ -33,6 +33,11 @@ class LoginController extends Controller
       
       protected function authenticated(Request $request, $user)
     {
+        if ($user->acc_status == 0) {
+            // Send the normal successful login response
+            Auth::logout();
+            return redirect('/login')->with('loginfailed', 'Failed');
+        }
         if(Auth::user()->role_id == 1)
         {
             return redirect()->route('userManagement');

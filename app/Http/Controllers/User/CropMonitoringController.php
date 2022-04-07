@@ -24,17 +24,18 @@ class CropMonitoringController extends Controller
         ]);
 
         //get farmer data in the table
-        $Farmer = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->get();
+        $Farmer = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 1)->get();
         //count the farmer
-        $F_count = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->count();
+        $F_count = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 1)->count();
         //get all farmer IDs in the table
-        $F_id = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->pluck('id');
+        $F_id = Farmer::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 1)->pluck('id');
 
         //Validation if the selected options is empty, it will return back with error notification
         if($F_count == 0)
         {
              return back()->with('cropmonitorfailed', 'Failed');
         }
+        
 
         //storing/getting the count of every farming activity(water, persticide, fertilizer) in array
         for($i = 0; $i <= $F_count-1; $i++)
@@ -85,12 +86,12 @@ class CropMonitoringController extends Controller
                 $chk++;
             }
         }
-
         if($key == $chk-1)
         {
             return back()->with('cropmonitorfailed', 'Failed');
         }
 
+        
             
 
 
@@ -318,6 +319,8 @@ class CropMonitoringController extends Controller
             
         }
 
+
+
         $brgy = Barangay::where("id", $request->barangay)->value('name'); 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
         return view('user/cropMonitoring',  array(
@@ -358,11 +361,11 @@ class CropMonitoringController extends Controller
         ]);
 
         //get farmer data in the table
-        $Farmer = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->get();
+        $Farmer = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 1)->get();
         //count the farmer
-        $F_count = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->count();
+        $F_count = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 1)->count();
         //get all farmer IDs in the table
-        $F_id = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->pluck('id');
+        $F_id = Farmer::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 1)->pluck('id');
 
         //Validation if the selected options is empty, it will return back with error notification
         if($F_count == 0)

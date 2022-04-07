@@ -78,7 +78,7 @@
             </div>
 
             <div class="input-group mb-3">
-              <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
+              <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
                 @error('password')
                   <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -92,7 +92,7 @@
             </div>
 
             <div class="input-group mb-3">
-              <input id="password_confirmation" type="text" class="form-control" name="password_confirmation"  required autocomplete="new-password" placeholder="Confirm">
+              <input id="password_confirmation" type="password" class="form-control" name="password_confirmation"  required autocomplete="new-password" placeholder="Confirm">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-lock"></span>
@@ -139,4 +139,34 @@
     </div>
     <!-- /.register-box -->
   </div>
+@endsection
+
+@section('js')
+    <!-- SweetAlert2 -->
+    <script src="https://adminlte.io/themes/v3/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/toastr/toastr.min.js"></script>
+
+    <script>
+        $(function() {
+            var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: true,
+            timer: 3000
+            });
+
+            //FarmerList Notifications
+
+            @if(Session::has('registrationsuccess'))
+                $(function() {
+                    toastr.success('Your registration is being processed; please wait for the administrations approval.')
+                });
+            @endif
+            @if(Session::has('registrationfailed'))
+                $(function() {
+                    toastr.error('Something is Wrong, Try to Check.')
+                });
+            @endif
+        });
+    </script>
 @endsection

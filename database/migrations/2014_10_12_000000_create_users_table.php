@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->integer('role_id');
             $table->integer('muni_address');
+            $table->boolean('acc_status')->default(0);
             $table->string('name');
             $table->string('prof_image')->nullable();
             $table->string('email')->unique();
