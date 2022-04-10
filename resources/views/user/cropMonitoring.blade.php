@@ -250,13 +250,9 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script>
-var ctx = document.getElementById('myChart').getContext('2d');
-var brgy = @json($brgy);
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: @json($n_farmers),
-        datasets:[
+  const data = {
+        labels: @json($n_farmers),
+        datasets: [
           {
             label: 'Bitter Gourd',
             data: @json($Bitter_gourds), 
@@ -363,49 +359,276 @@ var myChart = new Chart(ctx, {
             borderWidth: .1
           }
         ]
-    },
-    options: {
-      responsive: true,
-      indexAxis: 'y',
-      scales: {
-        x: {
-          stacked: true,
-          ticks: {
-              // Include a dollar sign in the ticks
-              callback: function(value, index, ticks) {
-                  return value + '%';
-              }
+    };
+
+    const bgColor = {
+      id : 'bgColor',
+      beforeDraw: (chart, options) => {
+      const  {ctx, width, height} = chart;
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0,0, width, height)
+        ctx.restore();
+      }
+    }
+
+
+    const config = {
+      type: 'bar',
+      data,
+      options: {
+        responsive: true,
+        indexAxis: 'y',
+        scales: {
+          x: {
+            stacked: true,
+            ticks: {
+                // Include a dollar sign in the ticks
+                callback: function(value, index, ticks) {
+                    return value + '%';
+                }
+            },
+            title: {
+              display: true,
+              text: 'Percentage %'
+            }
           },
-          title: {
-            display: true,
-            text: 'Percentage %'
-          }
-        },
-        y: {
-          stacked: true,
-          title: {
-            display: true,
-            text: 'List of Farmers'
-          }
-        }
-      },
-      plugins: {
-        datalabels: {
-          formatter: (value, context) => {
-            if(value != null)
-            {
-              return `${value}%`;
+          y: {
+            stacked: true,
+            title: {
+              display: true,
+              text: 'List of Farmers'
             }
           }
         },
-        title: {
-            display: true,
-            text: 'The total number of crops sown in barangay ' + @json($brgy)
+        plugins: {
+          legend: {
+            onClick: (evt,   legendItem, legend) => {
+              const datasets = legend.legendItems.map((dataset, index) =>{
+                  return dataset.text
+              });
+
+              const index = datasets.indexOf(legendItem.text);
+
+              if(legend.chart.isDatasetVisible(index) === true)
+              {
+                legend.chart.hide(index);
+              } else {
+                legend.chart.show(index);
+              }
+            },
+            labels: {
+              generateLabels: (chart) => {
+                let visibility1 = [];
+                let fillS = [];
+                let strokeS = [];
+                let text = []
+
+                console.log(chart.data.datasets[2].data.every( e  => e == null));
+                for(let i = 0; i <= 12; i++)
+                {
+                  if(chart.data.datasets[i].data.every( e  => e == null) == true || chart.isDatasetVisible(i) == false)
+                  {
+                    fillS[i] = 'rgb(255,255,255)';
+                    strokeS[i] = 'rgb(255,255,255)';
+                    visibility1.push(true);
+                  }else{
+                    fillS[i] = chart.data.datasets[i].backgroundColor;
+                    strokeS[i] = chart.data.datasets[i].borderColor;
+                    visibility1.push(false);
+                  }
+                }
+
+                return chart.data.datasets.map(
+                  (dataset, index) => ({
+                    text: dataset.label,
+                    fillStyle: fillS[index],
+                    strokeStyle: strokeS[index],
+                    hidden: visibility1[index]
+                  })
+                )
+              }
+            }
+          },
+          datalabels: {
+            formatter: (value, context) => {
+              if(value != null)
+              {
+                return `${value}%`;
+              }
+            }
+          },
+          title: {
+              display: true,
+              text: 'The total number of crops sown in barangay ' + @json($brgy)
+          }
         }
-      }
-    },
-    plugins: [ChartDataLabels]
-});
+      },
+      plugins: [ChartDataLabels,bgColor]
+    };
+
+  const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+
+
+// var ctx = document.getElementById('myChart').getContext('2d');
+// var brgy = @json($brgy);
+// var myChart = new Chart(ctx, {
+//     type: 'bar',
+//     data: {
+//       labels: @json($n_farmers),
+//         datasets:[
+//           {
+//             label: 'Bitter Gourd',
+//             data: @json($Bitter_gourds), 
+//             barThickness: 25,
+    
+//             backgroundColor:'rgba(255, 99, 132, 0.7)',
+//             borderColor:'rgba(255, 99, 132, .8)',
+//             borderWidth: .1
+//           },{
+//             label: 'Cabbage',
+//             data: @json($Cabbages), 
+//             barThickness: 25,
+            
+//             backgroundColor:'rgba(54, 162, 235, 0.7)',
+//             borderColor:'rgba(54, 162, 235, .8)',
+//             borderWidth: .1
+//           },{
+//             label: 'Corn',
+//             data: @json($Corns), 
+//             barThickness: 25,
+            
+//             backgroundColor:'rgba(255, 206, 86, 0.7)',
+//             borderColor:'rgba(255, 206, 86, .8)',
+//             borderWidth: .1
+//           },{
+//             label: 'Eggplant',
+//             data: @json($Eggplants), 
+//             barThickness: 25,
+            
+//             backgroundColor:'rgba(75, 192, 192, 0.7)',
+//             borderColor:'rgba(75, 192, 192, .8)',
+//             borderWidth: .1
+//           },{
+//             label: 'Garlic',
+//             data: @json($Garlics), 
+//             barThickness: 25,
+            
+//             backgroundColor:'rgba(153, 102, 255, 0.7)',
+//             borderColor:'rgba(153, 102, 255, .8)',
+//             borderWidth: .1
+//           },{
+//             label: 'Ladys Finger',
+//             data: @json($Ladys_fingers), 
+//             barThickness: 25,
+            
+//             backgroundColor:'rgba(255, 159, 64, 0.7)',
+//             borderColor:'rgba(255, 159, 64, .8)',
+//             borderWidth: .1
+//           },{
+//             label: 'Rice',
+//             data: @json($Rices), 
+//             barThickness: 25,
+            
+//             backgroundColor:'rgba(255, 99, 132, 0.7)',
+//             borderColor:'rgba(255, 99, 132, .8)',
+//             borderWidth: .1
+//           },{
+//             label: 'Onion',
+//             data: @json($Onions), 
+//             barThickness: 25,
+            
+//             backgroundColor:'rgba(54, 162, 235, 0.7)',
+//             borderColor:'rgba(54, 162, 235, .8)',
+//             borderWidth: .1
+//           },{
+//             label: 'Peanut',
+//             data: @json($Peanuts), 
+//             barThickness: 25,
+            
+//             backgroundColor:'rgba(255, 206, 86, 0.7)',
+//             borderColor:'rgba(255, 206, 86, .8)',
+//             borderWidth: .1
+//           },{
+//             label: 'String Beans',
+//             data: @json($String_beans), 
+//             barThickness: 25,
+            
+//             backgroundColor:'rgba(75, 192, 192, 0.7)',
+//             borderColor:'rgba(75, 192, 192, .8)',
+//             borderWidth: .1
+//           },{
+//             label: 'Tobacco',
+//             data: @json($Tobaccos), 
+//             barThickness: 25,
+            
+//             backgroundColor:'rgba(153, 102, 255, 0.7)',
+//             borderColor:'rgba(153, 102, 255, .8)',
+//             borderWidth: .1
+//           },{
+//             label: 'Tomato',
+//             data: @json($Tomatos), 
+//             barThickness: 25,
+            
+//             backgroundColor:'rgba(255, 159, 64, 0.7)',
+//             borderColor:'rgba(255, 159, 64, .8)',
+//             borderWidth: .1
+//           },{
+//             label: 'Water Melon',
+//             data: @json($Water_melons), 
+//             barThickness: 25,
+            
+//             backgroundColor:'rgba(255, 99, 132, 0.7)',
+//             borderColor:'rgba(255, 99, 132, .8)',
+//             borderWidth: .1
+//           }
+//         ]
+//     },
+//     options: {
+//       responsive: true,
+//       indexAxis: 'y',
+//       scales: {
+//         x: {
+//           stacked: true,
+//           ticks: {
+//               // Include a dollar sign in the ticks
+//               callback: function(value, index, ticks) {
+//                   return value + '%';
+//               }
+//           },
+//           title: {
+//             display: true,
+//             text: 'Percentage %'
+//           }
+//         },
+//         y: {
+//           stacked: true,
+//           title: {
+//             display: true,
+//             text: 'List of Farmers'
+//           }
+//         }
+//       },
+//       plugins: {
+        
+//         datalabels: {
+//           formatter: (value, context) => {
+//             if(value != null)
+//             {
+//               return `${value}%`;
+//             }
+//           }
+//         },
+//         title: {
+//             display: true,
+//             text: 'The total number of crops sown in barangay ' + @json($brgy)
+//         }
+//       }
+//     },
+//     plugins: [ChartDataLabels]
+// });
 </script>
 @endsection
 

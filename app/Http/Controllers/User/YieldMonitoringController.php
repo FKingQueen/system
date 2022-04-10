@@ -111,6 +111,9 @@ class YieldMonitoringController extends Controller
             }
         }
 
+        $jsbrgy = Barangay::where('id', $request->barangay)->value('name');
+        $jsyear = '2022';
+        $jscs   = 'Dry Season';
 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
         return view('user/yieldMonitoring', array(
@@ -130,7 +133,10 @@ class YieldMonitoringController extends Controller
             'Water_melons'   => $Water_melon,
             'n_farmers'   => $n_farmer,
             'N_crops'   => $N_crop,
-            'U_crops'   =>$U_crop
+            'U_crops'   =>$U_crop,
+            'jsbrgy'    => $jsbrgy,
+            'jsyear'    => $jsyear,
+            'jscs'    => $jscs
         ));
     }
 

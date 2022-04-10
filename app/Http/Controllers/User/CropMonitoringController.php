@@ -120,10 +120,11 @@ class CropMonitoringController extends Controller
                     }
                     
                 }
-                $FD_hectare[$key1][$j] = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->value('lot_size');
+                
             }
+            $FD_hectare[$key1] = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('lot_size');
         }
-        
+
 
         //storing/getting the specific percent of a crop in every farming activity(water, persticide, fertilizer) in array
         foreach($F_id as $key1 => $f)
@@ -319,7 +320,7 @@ class CropMonitoringController extends Controller
             
         }
 
-
+        
 
         $brgy = Barangay::where("id", $request->barangay)->value('name'); 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
@@ -454,9 +455,11 @@ class CropMonitoringController extends Controller
                     {
                         $FD_count[$key1][$j][$i] = Activity_file::where('farming_data_id', $FD_id[$j])->where('activity', 'pesticide')->where('status', '0')->count();
                     }
-                    $FD_hectare[$key1][$j] = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->value('lot_size');
+                    
                 }
+                
             }
+            $FD_hectare[$key1] = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('lot_size');
         }
         
 
