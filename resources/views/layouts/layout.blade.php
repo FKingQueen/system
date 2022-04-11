@@ -345,7 +345,7 @@
                                     </div>
 
                                     <div class="ml-3 d-flex align-items-end">
-                                        <button type="submit" class="btn btn-sm  btn-block btn-primary input-group"> Search </button>
+                                        <button type="submit" class="btn btn-sm  btn-block btn-primary input-group"> Filter </button>
                                     </div>
                                 </div>
                             </div>
@@ -385,7 +385,7 @@
                                     </div>
 
                                     <div class="ml-3 d-flex align-items-end">
-                                        <button type="submit" class="btn btn-sm  btn-block btn-primary input-group"> Search </button>
+                                        <button type="submit" class="btn btn-sm  btn-block btn-primary input-group"> Filter </button>
                                     </div>
                                 </div>
                             </div>
