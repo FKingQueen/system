@@ -34,4 +34,9 @@ class Farming_data extends Model
         return $this->hasOne(Status::class, 'id', 'status_id');
     }
 
+    public function activity_file()
+    {
+        return $this->hasMany(Activity_file::class);
+    }
+
 }

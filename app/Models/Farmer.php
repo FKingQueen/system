@@ -12,8 +12,8 @@ class Farmer extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'municipality',
         'municipality_id',
+        'barangay_id',
         'status',
         'barangay',
         'barangay',

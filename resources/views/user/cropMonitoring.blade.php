@@ -114,14 +114,14 @@
                     <thead>
 
                       <tr> 
-                        <th scope="col" style="width: 20%;" >
+                        <th scope="col" style="width: 10%;" >
                         Farmer
                         </th>
                         <th scope="col" style="width: 5%;" >
                         Crops
                         </th>
 
-                        <th style="width: 100%;" >
+                        <th >
                           <div class=" d-flex justify-content-center">
                             <div class="ml-5">
                               Water 
@@ -151,7 +151,7 @@
                             <th style="cursor:pointer; color: #248139;"   data-toggle="modal" data-target="#activity_{{$key1}}">{{$Farmers[$key1]->name}}</th>
                             <td>{{$N_crops[$key1]}}</td>
                             <td>
-                              <div class="input-group w-100 d-flex justify-content-center">
+                              <div style="width: 100%;" class="input-group d-flex justify-content-center">
                                 <div class=" rounded-left" style="width: {{$FA_percents[$key1][0]}}%; background-color: rgba(117, 190, 218, 0.5);">{{$FA_percents[$key1][0]}}% ({{$FA_counts[$key1][0]}})</div>
                                 <div  style="width: {{$FA_percents[$key1][1]}}%; background-color: rgba(75, 192, 192, 0.5);">{{$FA_percents[$key1][1]}}% ({{$FA_counts[$key1][1]}})</div>
                                 <div class="rounded-right" style="width: {{$FA_percents[$key1][2]}}%; background-color: rgba(153, 102, 255, 0.5);">{{$FA_percents[$key1][2]}}% ({{$FA_counts[$key1][2]}})</div>

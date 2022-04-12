@@ -154,7 +154,7 @@ class FarmerListController extends Controller
 
         $path = $request->file('importfarmer')->getRealPath();
         $res = Excel::import(new FarmersImport($user_id), $path);
-        dd( $user_id);
+
         if($res){
             return redirect()->route('farmerList')->with('uploadedfarming', 'Success');
         } else{

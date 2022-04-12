@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Farmer;
+use App\Models\Barangay;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\DB;
@@ -24,12 +25,17 @@ class FarmersImport implements ToModel, WithHeadingRow
 
     public function model(array $row)
     {
-        return new Farmer([
-            "name"  => $row['name'],
-            "municipality_id"   => DB::table("municipalities")->where("id", Auth::user()->muni_address)->value('id'),
-            "barangay_id"   => DB::table("barangays")->where("name", $row['barangay'])->value('id'),
-            "status"    => 2,
-            "user_id"   => $this->user_id,
-        ]);
+        $brgy_id = Barangay::where("name", $row['barangay'])->value('id');
+        if(Farmer::where('name', $row['name'])->where('barangay_id', $brgy_id)->where('municipality_Id', Auth::user()->muni_address)->count() == 0 )
+        {
+            return new Farmer([
+                "name"  => $row['name'],
+                "municipality_id"   => DB::table("municipalities")->where("id", Auth::user()->muni_address)->value('id'),
+                "barangay_id"   => Barangay::where("name", $row['barangay'])->value('id'),
+                "status"    => 2,
+                "user_id"   => $this->user_id,
+            ]);
+        }
+        
     }
 }

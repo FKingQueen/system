@@ -67,7 +67,7 @@ class CropMonitoringController extends Controller
             {
                 if($T_count != 0)
                 {
-                    $FA_percent[$i][$j] = number_format(($FA_count[$i][$j]/$T_count)*100);
+                    $FA_percent[$i][$j] = number_format(($FA_count[$i][$j]/$T_count)*100, 2);
                 } else if($T_count == 0)
                 {
                     $FA_percent[$i] = 0;
@@ -137,7 +137,7 @@ class CropMonitoringController extends Controller
                 $T_count = Activity_file::where('farming_data_id', $fd)->where('status', '0')->count();
                 for($i = 0; $i <= 2; $i++)
                 {
-                    $FD_percent[$key1][$key2][$i] = number_format(($FD_count[$key1][$key2][$i]/$T_count)*100);
+                    $FD_percent[$key1][$key2][$i] = number_format(($FD_count[$key1][$key2][$i]/$T_count)*100, 2);
                 }
             }
             
