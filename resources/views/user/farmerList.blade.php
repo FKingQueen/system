@@ -127,9 +127,22 @@
             <div class="card-body">
               <table id="farmerList"  class="table table-bordered">
                   <div class="d-flex justify-content-end mb-2">
-                    <button type="button" data-toggle="modal" data-target="#addfarmer" class="btn btn-primary">
-                      Add Farmer
-                    </button>
+                      <a class="btn btn-primary" data-toggle="dropdown" href="#">
+                        Add Farmer
+                      </a>
+                      <div id="sample" class="dropdown-menu dropdown-menu-xl dropdown-menu-right ">
+                      
+                        <div class="dropdown-divider"></div>
+                          <a data-dismiss="modal" data-toggle="modal" data-target="#addfarmer" class="btn btn-block btn-default border d-flex justify-content-start" >
+                            Add new farmer
+                          </a>
+
+                        <div class="dropdown-divider"></div>
+                          <a data-dismiss="modal" data-toggle="modal" data-target="#import"  class="btn btn-block btn-default border d-flex justify-content-start">
+                            Import
+                          </a>
+                      </div>
+
                   </div>
                 <thead >
                 <tr class="bg-light" >
@@ -164,14 +177,14 @@
                       
                         <div class="dropdown-divider"></div>
                           <a data-dismiss="modal" data-toggle="modal" data-target="#update_{{$farmer->id}}" class="btn btn-block btn-default border d-flex justify-content-around" >
-                            <b class="ml-1">Edit</b> 
-                            <i class="fas fa-lg fa-edit ml-4" style="color: #42ba96;"></i>
+                            Edit
+                            <i class="fas fa-lg fa-edit ml-2" style="color: #42ba96;"></i>
                           </a>
 
                         <div class="dropdown-divider"></div>
                           <a data-dismiss="modal" data-toggle="modal" data-target="#delete_{{$farmer->id}}"  class="btn btn-block btn-default border d-flex justify-content-around">
-                            <b>Delete</b> 
-                            <i class="fas fa-lg fa-trash" style="color: #d9534f;"></i>
+                            Delete
+                            <i class="fas fa-lg fa-trash mr-2" style="color: #d9534f;"></i>
                           </a>
                       </div>
 
@@ -281,6 +294,48 @@
 
               </table>
 
+              <!-- Import Farmer Modal -->
+              <div class="modal fade" id="import">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content  bg-green">
+
+                  <div class="modal-header p-2">
+                    <h4 class="modal-title">Adding Farmer</h4>
+                  </div>
+
+                      <form method="POST" action="{{ route('importfarmer')}}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body bg-white">
+
+                          <div class="input-group">
+                            <label for="importfarmer">Insert Farmer File (Required):</label>
+                            <div class="input-group mb-3">  
+                                <input id="importfarmer" type="file" class="form-control @error('importfarmer') is-invalid @enderror" name="importfarmer" required autocomplete="importfarmer">
+                                @error('importfarmer')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror 
+                              <div class="input-group-append">
+                                  <div class="input-group-text">
+                                    <i class="fas fa-file-alt"></i>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="modal-footer justify-content-between bg-white p-1">
+                            <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Farmer</button>
+                        </div>
+                      </form>
+                </div>
+                </div>
+              </div>
+              <!-- /Import Farmer Modal -->  
+
               <!-- Add Farmer Modal -->
               <div class="modal fade" id="addfarmer">
                 <div class="modal-dialog modal-dialog-centered">
@@ -343,7 +398,7 @@
                 </div>
                 </div>
               </div>
-              <!-- /Add Farmer Modal -->  
+              <!-- /Add Farmer Modal -->
 
             </div>
             <!-- /.card-body -->

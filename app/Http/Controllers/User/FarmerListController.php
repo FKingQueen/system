@@ -11,6 +11,8 @@ use App\Models\Activity_files;
 use App\Models\Municipality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\FarmersImport;
 use Auth;
 
 
@@ -140,7 +142,24 @@ class FarmerListController extends Controller
         } else{
             return redirect()->route('farmerList')->with('deletefarmerfailed', 'Failed');
         }
+    }
 
-        
+    public function importfarmer(Request $request)
+    {
+        $request->validate([
+            'importfarmer' => 'required|mimes:xlsx, csv, xls'
+        ]);
+
+        $user_id = Auth::user()->id;
+
+        $path = $request->file('importfarmer')->getRealPath();
+        $res = Excel::import(new FarmersImport($user_id), $path);
+        dd( $user_id);
+        if($res){
+            return redirect()->route('farmerList')->with('uploadedfarming', 'Success');
+        } else{
+            return redirect()->route('farmerProfile')->with('uploadfarmingfailed', 'Failed');
+        }
     }
 }
+

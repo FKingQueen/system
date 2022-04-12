@@ -581,7 +581,7 @@
       pdf.setFontSize(10);
       pdf.addImage(logo, 'PNG', 10, 2, 45, 25);
       pdf.text('The total yield of every farmer on different crops', 70, 25);
-      pdf.addImage(canvasImage, 'JPEG', 15, 27, 180, 100);
+      pdf.addImage(canvasImage, 'JPEG', 15, 27, 2000, 100);
       pdf.save('sample.pdf');
     }
 
