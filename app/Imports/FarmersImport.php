@@ -4,9 +4,11 @@ namespace App\Imports;
 
 use App\Models\Farmer;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Facades\DB;
 use auth;
 
-class FarmersImport implements ToModel
+class FarmersImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
@@ -23,11 +25,11 @@ class FarmersImport implements ToModel
     public function model(array $row)
     {
         return new Farmer([
-            'name'  => $row['name'],
-            'municipality_id'   => DB::table("municipalities")->where("id", Auth::user()->muni_address)->value('id'),
-            'barangay_id'   => DB::table("barangays")->where("name", $row['barangay'])->value('id'),
-            'status'    => 2,
-            'user_id'   => $this->user_id,
+            "name"  => $row['name'],
+            "municipality_id"   => DB::table("municipalities")->where("id", Auth::user()->muni_address)->value('id'),
+            "barangay_id"   => DB::table("barangays")->where("name", $row['barangay'])->value('id'),
+            "status"    => 2,
+            "user_id"   => $this->user_id,
         ]);
     }
 }
