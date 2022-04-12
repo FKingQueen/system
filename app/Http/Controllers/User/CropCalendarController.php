@@ -109,9 +109,8 @@ class CropCalendarController extends Controller
 
     public function yearform(Request $request)
     {
-
+        dd($request->all());
         $muni = Municipality::where('id',Auth::user()->muni_address)->get();
-
 
         $crop = Crop::all();
         $date = Carbon::now();

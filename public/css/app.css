@@ -60,6 +60,13 @@
   color: #248139;
 }
 
+.farmer_name
+{
+  font-family: 'Helvetica Neue', sans-serif; 
+  color: #248139;
+  letter-spacing: 1px;
+}
+
 .farmer_link{
   color: #248139;
   font-size: 18px;

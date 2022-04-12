@@ -30,6 +30,16 @@
   <!-- /.content-header -->
 
 
+  <div class="container">
+
+  
+       
+  
+        
+    </div>
+  
+   
+
 
   <!-- Main content -->
   <section class="content">
@@ -45,31 +55,32 @@
             <table >
                 <thead>
                 <tr >
-                <form id="yearform" action="{{ route('yearform') }}" method="post">
-                  @csrf
-                  <div class="container-fluid d-flex justify-content-center" role="group" aria-label="Basic radio toggle button group">
-                    <div style="border-width:3px !important;" class="p-1 w-25  d-flex justify-content-center border-bottom border-success">
-                      <input value="4" type="radio" class="btn-check " name="btnradio" id="btnradio1" autocomplete="off" {{$currentyear == 2018 ? 'checked': ''}}>
-                    </div>
+                
+                  <div style="width: 97%;" class="container-fluid d-flex justify-content-center" role="group" aria-label="Basic radio toggle button group">
+                    <form id="yearform" action="{{ route('yearform') }}" method="post">
+                    @csrf
+                      <div style="border-width:3px !important;" class=" p-1 w-25  d-flex justify-content-center border-bottom border-success">
+                        <input value="{{$currentyear-4}}" type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" >
+                      </div>
 
-                    <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
-                      <input value="3"  type="radio" class="btn-check cursor-pointer" name="btnradio" id="btnradio2" autocomplete="off" {{$currentyear == 2019 ? 'checked': ''}}>
-                    </div>
+                      <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
+                        <input value="{{$currentyear-3}}"  type="radio" class="btn-check " name="btnradio" id="btnradio2" autocomplete="off" >
+                      </div>
 
-                    <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
-                      <input value="2" type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" {{$currentyear == 2020 ? 'checked': ''}}>
-                    </div>
+                      <div style="border-width:3px !important;" class="n w-25  d-flex justify-content-center border-bottom border-success">
+                        <input value="{{$currentyear-2}}" type="radio" class="btn-check " name="btnradio" id="btnradio3" autocomplete="off">
+                      </div>
 
-                    <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
-                    <input value="1"  type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" {{$currentyear == 2021 ? 'checked': ''}}>
-                    </div>
+                      <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
+                      <input value="{{$currentyear-1}}"  type="radio" class="btn-check " name="btnradio" id="btnradio4" autocomplete="off" >
+                      </div>
 
-                    <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
-                    <input value="0"  type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" {{$currentyear == 2022 ? 'checked': ''}} >
-                    </div>
-
+                      <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
+                      <input value="{{$currentyear}}"  type="radio" class="btn-check " name="btnradio" id="btnradio5" autocomplete="off" {{$currentyear == ? 'checked': ''}}>
+                      </div>
+                    </form>
                   </div>
-                </form>
+                
                 
 
                 <script type='text/javascript'>
@@ -81,25 +92,35 @@
                   });
 
                 </script>
-                  <div class="container-fluid d-flex justify-content-center" role="group" aria-label="Basic radio toggle button group">
-                    <div class="w-25 p-1 d-flex justify-content-center">
-                      <label> 2018</label>
+                  <div class="w-100 container-fluid d-flex justify-content-center" role="group" aria-label="Basic radio toggle button group">
+                    <div class="p-0">
+                      <button class="btn p-0" onclick="prev()">
+                        <i class="fas fa-lg fa-angle-double-left" style="color:#b0b0b0"></i>
+                      </button>
+                    </div>
+                    <div class="w-25 p-1 d-flex justify-content-center no-box1">
+                      <span class="year1" >{{$currentyear-4}}</span>
                     </div>
 
-                    <div class="w-25  d-flex justify-content-center">
-                      <label > 2019</label>
+                    <div class="w-25  d-flex justify-content-center no-box2">
+                      <span class="year2" >{{$currentyear-3}}</span>
                     </div>
 
-                    <div class="w-25  d-flex justify-content-center">
-                      <label > 2020</label>
+                    <div class="w-25  d-flex justify-content-center no-box3">
+                      <span class="year3" >{{$currentyear-2}}</span>
                     </div>
 
-                    <div class="w-25  d-flex justify-content-center">
-                      <label > 2021</label>
+                    <div class="w-25  d-flex justify-content-center no-box4">
+                      <span class="year4" >{{$currentyear-1}}</span>
                     </div>
 
-                    <div class="w-25  d-flex justify-content-center">
-                      <label > 2022</label>
+                    <div class="w-25  d-flex justify-content-center no-box5">
+                      <span class="year5" >{{$currentyear}}</span>
+                    </div>
+                    <div class="p-0">
+                      <button class="btn p-0" onclick="next()">
+                        <i class="fas fa-lg fa-angle-double-right" style="color:#b0b0b0"></i>
+                      </button>
                     </div>
                   </div>
 
@@ -123,6 +144,88 @@
     </div>
     <!-- /.container-fluid -->
   </section>
+
+   <script>
+        
+        var currentyear = @json($currentyear);
+        console.log(currentyear);
+        var actualyear = <?php echo date("Y"); ?>;
+        var no_box1 = document.querySelector('.no-box1');
+        var no_box2 = document.querySelector('.no-box2');
+        var no_box3 = document.querySelector('.no-box3');
+        var no_box4 = document.querySelector('.no-box4');
+        var no_box5 = document.querySelector('.no-box5');
+              
+        var year1 = currentyear-4;
+        var year2 = currentyear-3;
+        var year3 = currentyear-2;
+        var year4 = currentyear-1;
+        var year5 = currentyear;
+
+        function prev() {
+  
+            // Start position 
+            if (year1 == 2010 && year2 == 2011 && year3 == 2012 && year4 == 2013 && year5 == 2014) {
+                
+                // Add disabled attribute on
+                // prev button
+                document.getElementsByClassName('prev').disabled = true;
+                // Remove disabled attribute 
+                // from next button 
+                document.getElementsByClassName('next').disabled = false;
+            } else {
+                year1--;
+                document.getElementById("btnradio1").value = year1;
+                year2--;
+                document.getElementById("btnradio2").value = year2;
+                year3--;
+                document.getElementById("btnradio3").value = year3;
+                year4--;
+                document.getElementById("btnradio4").value = year4;
+                year5--;
+                document.getElementById("btnradio5").value = year5;
+                
+                return setNo();
+            }
+        }
+  
+        function next() {
+  
+            // End position
+            if (year1 == actualyear-4 && year2 == actualyear-3 && year3 == actualyear-2  && year4 == actualyear-1 && year5 == actualyear) {
+  
+                // Add disabled attribute on 
+                // next button
+                document.getElementsByClassName('next').disabled = true;
+  
+                // Remove disabled attribute
+                // from prev button
+                document.getElementsByClassName('prev').disabled = false;
+            } else {
+                year1++;
+                document.getElementById("btnradio1").value = year1;
+                year2++;
+                document.getElementById("btnradio2").value = year2;
+                year3++;
+                document.getElementById("btnradio3").value = year3;
+                year4++;
+                document.getElementById("btnradio4").value = year4;
+                year5++;
+                document.getElementById("btnradio5").value = year5;
+                return setNo();
+            }
+        }
+  
+        function setNo() {
+  
+            // Change innerhtml
+            return no_box1.innerHTML = year1,
+                  no_box2.innerHTML = year2,
+                  no_box3.innerHTML = year3,
+                  no_box4.innerHTML = year4,
+                  no_box5.innerHTML = year5;
+        }
+    </script>
 
   <section class="content">
     <div class="container-fluid">
@@ -189,11 +292,11 @@
                                               <tr class="p-0">
                                                 <td class="p-0 font-weight-bold" style="color: #248139; background-color: #C1E1C1;">
 
-                                                  <a type="button" class="p-0" id="try_{{$loop->iteration}}" > {{$crop->name}}</a>
+                                                  <a type="button" class="p-0" id="try_{{$perc[0]}}{{$loop->iteration}}" > {{$crop->name}}</a>
 
                                                   <script>
                                                     $(document).ready(function(){
-                                                      $('#try_{{$loop->iteration}}').tooltip({title: "<h5>{{$crop->name}} <br> {{$perc[0]}}%</h5>",html: true, placement: "top", animation: true,}); 
+                                                      $('#try_{{$perc[0]}}{{$loop->iteration}}').tooltip({title: "<h5>{{$crop->name}} <br> {{$perc[0]}}%</h5>",html: true, placement: "top", animation: true,}); 
                                                     });
                                                   </script>
                                                   

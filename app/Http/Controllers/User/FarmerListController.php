@@ -47,7 +47,7 @@ class FarmerListController extends Controller
 
         }
 
-        $farmer = Farmer::with('barangays', 'municipality')->orderBy('status', 'asc')->get()->where("user_id", Auth::user()->id);
+        $farmer = Farmer::with('barangays', 'municipality')->orderBy('status', 'ASC')->get()->where("user_id", Auth::user()->id);
 
         foreach($farmer as $key=> $f)
         {

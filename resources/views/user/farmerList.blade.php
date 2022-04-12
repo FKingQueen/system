@@ -432,10 +432,10 @@
   <script>
     $(function () {
       $('#farmerList').DataTable({
-        "paging": true,
+        "paging": false,
         "lengthChange": true,
         "searching": true,
-        "ordering": true,
+        "ordering": false,
         "info": true,
         "autoWidth": false,
         "responsive": true,

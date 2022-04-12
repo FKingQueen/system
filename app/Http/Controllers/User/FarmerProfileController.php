@@ -23,12 +23,18 @@ class FarmerProfileController extends Controller
         $farmer = Farmer::all()->where("id", $id);
         $farming_data = Farming_data::with('cropping_season','crop', 'activity_file')->where("farmer_id", $id)->orderBy('status', 'DESC')->get();
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
-
-        foreach($farming_data as $key => $farming_datas)
+        // /dd($farming_data[0]);
+        if($farming_data->isEmpty())
         {
-            $date[$key] = DB::table('activity_files')->select('date')->where('farmer_id', $id)->where('farming_data_id', $farming_datas->id)->groupBy('id')->orderBy('date', 'DESC')->first();
+            $date= null;
+        } else 
+        {
+            foreach($farming_data as $key => $farming_datas)
+            {
+                $date[$key] = DB::table('activity_files')->select('date')->where('farmer_id', $id)->where('farming_data_id', $farming_datas->id)->groupBy('id')->orderBy('date', 'DESC')->first();
+            }
         }
-
+        
         return view('user/farmerProfile', array("date"=> $date,"farmers"=> $farmer, "farming_datas" => $farming_data, "barangays" => $barangay));
     }   
 

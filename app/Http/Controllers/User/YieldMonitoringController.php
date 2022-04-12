@@ -103,8 +103,6 @@ class YieldMonitoringController extends Controller
             $Tobacco[$i] = number_format(Farming_data::where('farmer_id', $f->id)->where('cropping_season_id', 1)->where('status', 0)->where('crop_id', 11)->value('unit')/1000, 2);
 
             $Tomato[$i] = number_format(Farming_data::where('farmer_id', $f->id)->where('cropping_season_id', 1)->where('status', 0)->where('crop_id', 12)->value('unit')/1000, 2);
-
-            $Tomato[$i] = number_format(Farming_data::where('farmer_id', $f->id)->where('cropping_season_id', 1)->where('status', 0)->where('crop_id', 12)->value('unit')/1000, 2);
             
             $Water_melon[$i] = number_format(Farming_data::where('farmer_id', $f->id)->where('cropping_season_id', 1)->where('status', 0)->where('crop_id', 13)->value('unit')/1000, 2);
             $i++;
@@ -236,8 +234,6 @@ class YieldMonitoringController extends Controller
             $String_bean[$i] = number_format(Farming_data::where('farmer_id', $f->id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('crop_id', 10)->value('unit')/1000, 2);
 
             $Tobacco[$i] = number_format(Farming_data::where('farmer_id', $f->id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('crop_id', 11)->value('unit')/1000, 2);
-
-            $Tomato[$i] = number_format(Farming_data::where('farmer_id', $f->id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('crop_id', 12)->value('unit')/1000, 2);
 
             $Tomato[$i] = number_format(Farming_data::where('farmer_id', $f->id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('crop_id', 12)->value('unit')/1000, 2);
             
