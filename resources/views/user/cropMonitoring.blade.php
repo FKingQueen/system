@@ -82,6 +82,7 @@
           <div class="card">
             <!-- /.card-header -->
               <div class="card-body">
+                <h5 class="text-center mt-3">The Total Number of Crops Sown in Barangay {{$brgy}}</h5>
                 <canvas id="myChart" width="400" height="200"></canvas>
               </div>
             <!-- /.card-body -->
@@ -257,106 +258,67 @@
             label: 'Bitter Gourd',
             data: @json($Bitter_gourds), 
             barThickness: 25,
-    
-            backgroundColor:'rgba(255, 99, 132, 0.7)',
-            borderColor:'rgba(255, 99, 132, .8)',
-            borderWidth: .1
+            backgroundColor:'rgba(255, 99, 132, 0.7)'
           },{
             label: 'Cabbage',
             data: @json($Cabbages), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(54, 162, 235, 0.7)',
-            borderColor:'rgba(54, 162, 235, .8)',
-            borderWidth: .1
+            backgroundColor:'rgba(54, 162, 235, 0.7)'
           },{
             label: 'Corn',
             data: @json($Corns), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(255, 206, 86, 0.7)',
-            borderColor:'rgba(255, 206, 86, .8)',
-            borderWidth: .1
+            backgroundColor:'rgba(255, 206, 86, 0.7)'
           },{
             label: 'Eggplant',
             data: @json($Eggplants), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(75, 192, 192, 0.7)',
-            borderColor:'rgba(75, 192, 192, .8)',
-            borderWidth: .1
+            backgroundColor:'rgba(75, 192, 192, 0.7)'
           },{
             label: 'Garlic',
             data: @json($Garlics), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(153, 102, 255, 0.7)',
-            borderColor:'rgba(153, 102, 255, .8)',
-            borderWidth: .1
+            backgroundColor:'rgba(153, 102, 255, 0.7)'
           },{
             label: 'Ladys Finger',
             data: @json($Ladys_fingers), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(255, 159, 64, 0.7)',
-            borderColor:'rgba(255, 159, 64, .8)',
-            borderWidth: .1
+            backgroundColor:'rgba(255, 159, 64, 0.7)'
           },{
             label: 'Rice',
             data: @json($Rices), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(255, 99, 132, 0.7)',
-            borderColor:'rgba(255, 99, 132, .8)',
-            borderWidth: .1
+            backgroundColor:'rgba(255, 99, 132, 0.7)'
           },{
             label: 'Onion',
             data: @json($Onions), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(54, 162, 235, 0.7)',
-            borderColor:'rgba(54, 162, 235, .8)',
-            borderWidth: .1
+            backgroundColor:'rgba(54, 162, 235, 0.7)'
           },{
             label: 'Peanut',
             data: @json($Peanuts), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(255, 206, 86, 0.7)',
-            borderColor:'rgba(255, 206, 86, .8)',
-            borderWidth: .1
+            backgroundColor:'rgba(255, 206, 86, 0.7)'
           },{
             label: 'String Beans',
             data: @json($String_beans), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(75, 192, 192, 0.7)',
-            borderColor:'rgba(75, 192, 192, .8)',
-            borderWidth: .1
+            backgroundColor:'rgba(75, 192, 192, 0.7)'
           },{
             label: 'Tobacco',
             data: @json($Tobaccos), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(153, 102, 255, 0.7)',
-            borderColor:'rgba(153, 102, 255, .8)',
-            borderWidth: .1
+            backgroundColor:'rgba(153, 102, 255, 0.7)'
           },{
             label: 'Tomato',
             data: @json($Tomatos), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(255, 159, 64, 0.7)',
-            borderColor:'rgba(255, 159, 64, .8)',
-            borderWidth: .1
+            backgroundColor:'rgba(255, 159, 64, 0.7)'
           },{
             label: 'Water Melon',
             data: @json($Water_melons), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(255, 99, 132, 0.7)',
-            borderColor:'rgba(255, 99, 132, .8)',
-            borderWidth: .1
+            backgroundColor:'rgba(255, 99, 132, 0.7)'
           }
         ]
     };
@@ -433,7 +395,7 @@
                     visibility1.push(true);
                   }else{
                     fillS[i] = chart.data.datasets[i].backgroundColor;
-                    strokeS[i] = chart.data.datasets[i].borderColor;
+                    strokeS[i] = 'rgb(255,255,255)';
                     visibility1.push(false);
                   }
                 }
@@ -456,10 +418,6 @@
                 return `${value}%`;
               }
             }
-          },
-          title: {
-              display: true,
-              text: 'The total number of crops sown in barangay ' + @json($brgy)
           }
         }
       },

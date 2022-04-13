@@ -128,7 +128,7 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <h5 class="text-center mt-3">The total yield on different types of crops</h5>
+            <h5 class="text-center mt-3">The Total Yield on Different Types of Crops</h5>
             <canvas id="cropsChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>
@@ -149,7 +149,7 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <h5 class="text-center mt-3">The total yield of every farmer on different crops</h5>
+            <h5 class="text-center mt-3">The Total Yield of Every Farmer on Different Crops</h5>
             <canvas  id="farmerChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>
@@ -194,19 +194,19 @@
                 'rgba(255, 99, 132, 0.7)'
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)'
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(255, 99, 132, 0.7)'
             ],
             borderWidth: 1,
             barThickness: 40
@@ -322,7 +322,7 @@
             barThickness: 25,
             
             backgroundColor:'rgba(255, 99, 132, 0.7)',
-            borderColor:'rgba(255, 99, 132, .8)',
+            borderColor:'rgba(255, 99, 132, .7)',
             borderWidth: .1
           },{
             label: 'Cabbage',
@@ -330,7 +330,7 @@
             barThickness: 25,
             
             backgroundColor:'rgba(54, 162, 235, 0.7)',
-            borderColor:'rgba(54, 162, 235, 0.8)',
+            borderColor:'rgba(54, 162, 235, 0.7)',
             borderWidth: .1
           },{
             label: 'Corn',
@@ -338,7 +338,7 @@
             barThickness: 25,
             
             backgroundColor:'rgba(255, 206, 86, 0.7)',
-            borderColor:'rgba(255, 206, 86, 0.8)',
+            borderColor:'rgba(255, 206, 86, 0.7)',
             borderWidth: .1
           },{
             label: 'Eggplant',
@@ -346,7 +346,7 @@
             barThickness: 25,
             
             backgroundColor:'rgba(75, 192, 192, 0.7)',
-            borderColor:'rgba(75, 192, 192, 0.8)',
+            borderColor:'rgba(75, 192, 192, 0.7)',
             borderWidth: .1
           },{
             label: 'Garlic',
@@ -354,7 +354,7 @@
             barThickness: 25,
             
             backgroundColor:'rgba(153, 102, 255, 0.7)',
-            borderColor:'rgba(153, 102, 255, 0.8)',
+            borderColor:'rgba(153, 102, 255, 0.7)',
             borderWidth: .1
           },{
             label: 'Ladys Finger',
@@ -362,7 +362,7 @@
             barThickness: 25,
             
             backgroundColor:'rgba(255, 159, 64, 0.7)',
-            borderColor:'rgba(255, 159, 64, 0.8)',
+            borderColor:'rgba(255, 159, 64, 0.7)',
             borderWidth: .1
           },{
             label: 'Rice',
@@ -370,7 +370,7 @@
             barThickness: 25,
             
             backgroundColor:'rgba(255, 99, 132, 0.7)',
-            borderColor:'rgba(255, 99, 132, 0.8)',
+            borderColor:'rgba(255, 99, 132, 0.7)',
             borderWidth: .1
           },{
             label: 'Onion',
@@ -378,7 +378,7 @@
             barThickness: 25,
             
             backgroundColor:'rgba(54, 162, 235, 0.7)',
-            borderColor:'rgba(54, 162, 235, 0.8)',
+            borderColor:'rgba(54, 162, 235, 0.7)',
             borderWidth: .1
           },{
             label: 'Peanut',
@@ -386,7 +386,7 @@
             barThickness: 25,
             
             backgroundColor:'rgba(255, 206, 86, 0.7)',
-            borderColor:'rgba(255, 206, 86, 0.8)',
+            borderColor:'rgba(255, 206, 86, 0.7)',
             borderWidth: .1
           },{
             label: 'String Beans',
@@ -394,14 +394,14 @@
             barThickness: 25,
             
             backgroundColor:'rgba(75, 192, 192, 0.7)',
-            borderColor:'rgba(75, 192, 192, 0.8)',
+            borderColor:'rgba(75, 192, 192, 0.7)',
             borderWidth: .1
           },{
             label: 'Tobacco',
             data: @json($Tobaccos), 
             barThickness: 25,
             backgroundColor:'rgba(153, 102, 255, 0.7)',
-            borderColor:'rgba(153, 102, 255, 0.8)',
+            borderColor:'rgba(153, 102, 255, 0.7)',
             borderWidth: .1
           },{
             label: 'Tomato',
@@ -409,7 +409,7 @@
             barThickness: 25,
             
             backgroundColor:'rgba(255, 159, 64, 0.7)',
-            borderColor:'rgba(255, 159, 64, 0.8)',
+            borderColor:'rgba(255, 159, 64, 0.7)',
             borderWidth: .1
           },{
             label: 'Water Melon',
@@ -417,7 +417,7 @@
             barThickness: 25,
             
             backgroundColor:'rgba(255, 99, 132, .7)',
-            borderColor:  'rgba(255, 99, 132, .8)',
+            borderColor:  'rgba(255, 99, 132, .7)',
             borderWidth: .1
           }]
     };
