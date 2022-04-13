@@ -29,6 +29,7 @@ class YieldMonitoringController extends Controller
         foreach($ID_crop as $key => $ID_crops)
         {
             $U_crop[$key] = number_format(Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $ID_crops)->where('barangay_id', $request->barangay)->where('cropping_season_id', 1)->pluck('unit')->sum()/1000, 2);
+            $H_crop[$key] = number_format(Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $ID_crops)->where('barangay_id', $request->barangay)->where('cropping_season_id', 1)->pluck('lot_size')->sum());
         }  
 
         ////Farmer Unit Stacked Bar Chart
@@ -118,6 +119,11 @@ class YieldMonitoringController extends Controller
         $jsbrgy = Barangay::where('id', $request->barangay)->value('name');
         $jsyear = '2022';
         $jscs   = 'Dry Season';
+        $array[0][0] = 1;
+        $array[0][1] = 1;
+        $array[0][2] = 2;
+        $array[0][3] = 3;
+
 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
         return view('user/yieldMonitoring', array(
@@ -140,7 +146,9 @@ class YieldMonitoringController extends Controller
             'U_crops'   =>$U_crop,
             'jsbrgy'    => $jsbrgy,
             'jsyear'    => $jsyear,
-            'jscs'    => $jscs
+            'jscs'    => $jscs,
+            'H_crops'    => $H_crop,
+            'array'    => $array
         ));
     }
 
@@ -159,6 +167,7 @@ class YieldMonitoringController extends Controller
         foreach($ID_crop as $key => $ID_crops)
         {
             $U_crop[$key] = number_format(Farming_data::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $ID_crops)->where('barangay_id', $request->barangay)->where('cropping_season_id', $request->cropping_season)->pluck('unit')->sum()/1000, 2);
+            $H_crop[$key] = number_format(Farming_data::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $ID_crops)->where('barangay_id', $request->barangay)->where('cropping_season_id', $request->cropping_season)->pluck('lot_size')->sum());
         }  
 
         ////Farmer Unit Stacked Bar Chart
@@ -271,7 +280,8 @@ class YieldMonitoringController extends Controller
             'U_crops'   =>$U_crop,
             'jsbrgy'    => $jsbrgy,
             'jsyear'    => $jsyear,
-            'jscs'    => $jscs
+            'jscs'    => $jscs,
+            'H_crops'    => $H_crop
         ));
     }
 }

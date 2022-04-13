@@ -119,8 +119,6 @@
   </div>
   <!-- /.card-body -->
 
-
-
   <!-- Main content -->
   <section class="content mb-4" id="target">
     <div class="container-fluid">
@@ -163,6 +161,27 @@
   </section>
   <!-- Main /.content -->
 
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <h5 class="text-center mt-3">The Total Hectare on Different Types of Crops</h5>
+            <canvas  id="hectareChart" width="400" height="150"></canvas>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- Main /.content -->
+
 @endsection
 
 
@@ -172,6 +191,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 <!-- Crops Chart -->
 <script>
+
+
 
   const data = {
         labels: @json($N_crops),
@@ -235,13 +256,7 @@
                 title: {
                   display: true,
                   text: 'tons(t)'
-                },
-                ticks: {
-                  // Include a dollar sign in the ticks
-                  callback: function(value, index, ticks) {
-                      return value + '(t)';
-                  }
-              }
+                }
             },
             x: {
               title: {
@@ -417,7 +432,7 @@
             barThickness: 25,
             
             backgroundColor:'rgba(255, 99, 132, .7)',
-            borderColor:  'rgba(255, 99, 132, .7)',
+            borderColor:  'rgba(255, 99, 132, .7 )',
             borderWidth: .1
           }]
     };
@@ -441,12 +456,6 @@
         scales: {
           x: {
             stacked: true,
-            ticks: {
-                // Include a dollar sign in the ticks
-                callback: function(value, index, ticks) {
-                    return value + '(t)';
-                }
-            },
             title: {
               display: true,
               text: 'tons(t)'
@@ -584,170 +593,143 @@
       pdf.addImage(canvasImage, 'JPEG', 15, 27, 2000, 100);
       pdf.save('sample.pdf');
     }
-
-// var ctx2 = document.getElementById('farmerChart').getContext('2d');
-// const i = 0;
-// var farmerChart = new Chart(ctx2, {
-//     type: 'bar',
-//     data: {
-//       labels: @json($n_farmers),
-//         datasets:[
-//           {
-//             label: 'Bitter Gourd',
-//             data: @json($Bitter_gourds), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(255, 99, 132, 0.7)',
-//             borderColor:'rgba(255, 99, 132, .8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Cabbage',
-//             data: @json($Cabbages), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(54, 162, 235, 0.7)',
-//             borderColor:'rgba(54, 162, 235, 0.8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Corn',
-//             data: @json($Corns), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(255, 206, 86, 0.7)',
-//             borderColor:'rgba(255, 206, 86, 0.8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Eggplant',
-//             data: @json($Eggplants), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(75, 192, 192, 0.7)',
-//             borderColor:'rgba(75, 192, 192, 0.8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Garlic',
-//             data: @json($Garlics), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(153, 102, 255, 0.7)',
-//             borderColor:'rgba(153, 102, 255, 0.8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Ladys Finger',
-//             data: @json($Ladys_fingers), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(255, 159, 64, 0.7)',
-//             borderColor:'rgba(255, 159, 64, 0.8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Rice',
-//             data: @json($Rices), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(255, 99, 132, 0.7)',
-//             borderColor:'rgba(255, 99, 132, 0.8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Onion',
-//             data: @json($Onions), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(54, 162, 235, 0.7)',
-//             borderColor:'rgba(54, 162, 235, 0.8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Peanut',
-//             data: @json($Peanuts), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(255, 206, 86, 0.7)',
-//             borderColor:'rgba(255, 206, 86, 0.8)',
-//             borderWidth: .1
-//           },{
-//             label: 'String Beans',
-//             data: @json($String_beans), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(75, 192, 192, 0.7)',
-//             borderColor:'rgba(75, 192, 192, 0.8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Tobacco',
-//             data: @json($Tobaccos), 
-//             barThickness: 25,
-//             backgroundColor:'rgba(153, 102, 255, 0.7)',
-//             borderColor:'rgba(153, 102, 255, 0.8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Tomato',
-//             data: @json($Tomatos), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(255, 159, 64, 0.7)',
-//             borderColor:'rgba(255, 159, 64, 0.8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Water Melon',
-//             data: @json($Water_melons), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(255, 99, 132, 0.7)',
-//             borderColor:'rgba(255, 99, 132, .8)',
-//             borderWidth: .1
-//           }
-//         ]
-//     },
-//     options: {
-//       responsive: true,
-//       indexAxis: 'y',
-//       scales: {
-//         x: {
-//           stacked: true,
-//           ticks: {
-//               // Include a dollar sign in the ticks
-//               callback: function(value, index, ticks) {
-//                   return value + '(t)';
-//               }
-//           },
-//           title: {
-//             display: true,
-//             text: 'tons(t)'
-//           }
-//         },
-//         y: {
-//           stacked: true,
-//           title: {
-//             display: true,
-//             text: 'List of Farmers'
-//           }
-//         }
-//       },
-//       plugins: {
-//         datalabels: {
-//           formatter: (value, context) => {
-//             if(value != 0)
-//             {
-//               return value + '(t)';
-//             } else {
-//               return '';
-//             }
-//           }
-//         },
-//       }
-//     },
-//     plugins: [ChartDataLabels]
-// });
-
-
-// var sample = @json($Corns);
-//   if(sample.every( e  => e == 0.00) == true) {
-//     farmerChart.options.plugins.legend = false;
-//   }
-
-
-
 </script>
 
+<!-- Hectare Chart -->
+<script>
+
+  const data2 = {
+        labels: @json($N_crops),
+        datasets: [{
+            label: ['tons per crop'],
+            data: @json($H_crops),
+            
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(255, 99, 132, 0.7)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(255, 99, 132, 0.7)'
+            ],
+            borderWidth: 1,
+            barThickness: 40
+        }]
+    };
+
+    const bgColor2 = {
+      id : 'bgColor',
+      beforeDraw: (chart, options) => {
+      const  {ctx, width, height} = chart;
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0,0, width, height)
+        ctx.restore();
+      }
+    }
+
+    const config2 = {
+      type: 'bar',
+      data: data2, 
+      options: {
+
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Hectare(t)'
+                }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'List of Crops'
+              },
+            }
+        },
+        plugins: {
+          legend: {
+            onClick: (evt, legendItem, legend) => {
+              const index = legend.chart.data.labels.indexOf(legendItem.text);
+              legend.chart.toggleDataVisibility(index)
+              legend.chart.update()
+            },
+            labels: {
+              generateLabels: (chart) => {
+                let visibility2 = [];
+                let bColor2 = [];
+                let bkgColor2 = [];
+                for(let i = 0; i < chart.data.labels.length; i++){
+                  if(chart.getDataVisibility(i) === true && chart.data.datasets[0].data[i] != 0) {
+                    bColor2[i] = chart.data.datasets[0].borderColor[i];
+                    bkgColor2[i] = chart.data.datasets[0].backgroundColor[i];
+                    visibility2.push(false);
+                  }else{
+                    bColor2[i] = 'rgb(255,255,255)';
+                    bkgColor2[i] = 'rgb(255,255,255)';
+                    visibility2.push(true);
+                  }
+                }
+                return chart.data.labels.map(
+                  (label, index) => ({
+                    text: label,
+                    strokeStyle: bColor2[index],
+                    fillStyle: bkgColor2[index],
+                    hidden: visibility2[index],
+                    
+                  })
+                  
+                )
+              }
+            }
+          },
+          datalabels: {
+            formatter: (value, context) => {
+              if(value != 0)
+              {
+                return value + '(h)';
+              } else {
+                return '';
+              }
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels, bgColor2]
+    };
+
+
+    const hectareChart = new Chart(
+      document.getElementById('hectareChart'),
+      config2
+    );
+
+    
+
+</script>
+<!-- /Hectare Chart -->
 
 @endsection
