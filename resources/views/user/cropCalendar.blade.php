@@ -29,18 +29,6 @@
   </div>
   <!-- /.content-header -->
 
-
-  <div class="container">
-
-  
-       
-  
-        
-    </div>
-  
-   
-
-
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -76,22 +64,12 @@
                       </div>
 
                       <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
-                      <input value="{{$currentyear}}"  type="radio" class="btn-check " name="btnradio" id="btnradio5" autocomplete="off" {{$currentyear == ? 'checked': ''}}>
+                      <input value="{{$currentyear}}"  type="radio" class="btn-check " name="btnradio" id="btnradio5" autocomplete="off" checked>
                       </div>
                     </form>
                   </div>
                 
-                
-
-                <script type='text/javascript'>
-
-                $(document).ready(function() { 
-                  $('input[name=btnradio]').change(function(){
-                        $('form[id=yearform]').submit();
-                  });
-                  });
-
-                </script>
+  
                   <div class="w-100 container-fluid d-flex justify-content-center" role="group" aria-label="Basic radio toggle button group">
                     <div class="p-0">
                       <button class="btn p-0" onclick="prev()">
@@ -125,11 +103,7 @@
                   </div>
 
                 </tr>
-                <!-- <tr>
-                    @foreach($years as $year)
-                        <td class="p-0 text-center font-weight-bold">{{$year}}</td>
-                    @endforeach
-                </tr> -->
+
               </thead>
             </table>
             
@@ -145,88 +119,6 @@
     <!-- /.container-fluid -->
   </section>
 
-   <script>
-        
-        var currentyear = @json($currentyear);
-        console.log(currentyear);
-        var actualyear = <?php echo date("Y"); ?>;
-        var no_box1 = document.querySelector('.no-box1');
-        var no_box2 = document.querySelector('.no-box2');
-        var no_box3 = document.querySelector('.no-box3');
-        var no_box4 = document.querySelector('.no-box4');
-        var no_box5 = document.querySelector('.no-box5');
-              
-        var year1 = currentyear-4;
-        var year2 = currentyear-3;
-        var year3 = currentyear-2;
-        var year4 = currentyear-1;
-        var year5 = currentyear;
-
-        function prev() {
-  
-            // Start position 
-            if (year1 == 2010 && year2 == 2011 && year3 == 2012 && year4 == 2013 && year5 == 2014) {
-                
-                // Add disabled attribute on
-                // prev button
-                document.getElementsByClassName('prev').disabled = true;
-                // Remove disabled attribute 
-                // from next button 
-                document.getElementsByClassName('next').disabled = false;
-            } else {
-                year1--;
-                document.getElementById("btnradio1").value = year1;
-                year2--;
-                document.getElementById("btnradio2").value = year2;
-                year3--;
-                document.getElementById("btnradio3").value = year3;
-                year4--;
-                document.getElementById("btnradio4").value = year4;
-                year5--;
-                document.getElementById("btnradio5").value = year5;
-                
-                return setNo();
-            }
-        }
-  
-        function next() {
-  
-            // End position
-            if (year1 == actualyear-4 && year2 == actualyear-3 && year3 == actualyear-2  && year4 == actualyear-1 && year5 == actualyear) {
-  
-                // Add disabled attribute on 
-                // next button
-                document.getElementsByClassName('next').disabled = true;
-  
-                // Remove disabled attribute
-                // from prev button
-                document.getElementsByClassName('prev').disabled = false;
-            } else {
-                year1++;
-                document.getElementById("btnradio1").value = year1;
-                year2++;
-                document.getElementById("btnradio2").value = year2;
-                year3++;
-                document.getElementById("btnradio3").value = year3;
-                year4++;
-                document.getElementById("btnradio4").value = year4;
-                year5++;
-                document.getElementById("btnradio5").value = year5;
-                return setNo();
-            }
-        }
-  
-        function setNo() {
-  
-            // Change innerhtml
-            return no_box1.innerHTML = year1,
-                  no_box2.innerHTML = year2,
-                  no_box3.innerHTML = year3,
-                  no_box4.innerHTML = year4,
-                  no_box5.innerHTML = year5;
-        }
-    </script>
-
   <section class="content">
     <div class="container-fluid">
       <div class="row">
@@ -235,17 +127,17 @@
             <!-- /.card-header -->
             <div class="card-body">
 
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-start">
               
                   <div>
                       <div class="input-group">
-                        @foreach($munis as $muni)
-                        <h1>
-                        <u style="color: #248139;" >{{$muni->name}}</u> 
+
+                        <h3 class="farmer_name">
+                        {{$munis[0]->name}}
 
                           <small style="font-size: 20px;">({{$currentyear}})</small>
-                        </h1>
-                        @endforeach
+                        </h3>
+
                       </div>
                   </div>
                 
@@ -273,7 +165,7 @@
                 <tbody>
                     @php $i=0 @endphp
                     @php $mc=11 @endphp
-                    @foreach($brgys as $brgy)
+                    @foreach($brgys as $key =>  $brgy)
                       <tr>
                         <td style="height: 75px;">{{$brgy->name}}</td>
                         
@@ -292,13 +184,7 @@
                                               <tr class="p-0">
                                                 <td class="p-0 font-weight-bold" style="color: #248139; background-color: #C1E1C1;">
 
-                                                  <a type="button" class="p-0" id="try_{{$perc[0]}}{{$loop->iteration}}" > {{$crop->name}}</a>
-
-                                                  <script>
-                                                    $(document).ready(function(){
-                                                      $('#try_{{$perc[0]}}{{$loop->iteration}}').tooltip({title: "<h5>{{$crop->name}} <br> {{$perc[0]}}%</h5>",html: true, placement: "top", animation: true,}); 
-                                                    });
-                                                  </script>
+                                                  <a type="button" class="p-0"> {{$crop->name}}</a>
                                                   
                                                 </td>
                                               </tr>
@@ -335,6 +221,146 @@
 @endsection
 
 @section('js')
+<script type='text/javascript'>
 
+$(document).ready(function() { 
+  $('input[name=btnradio]').change(function(){
+        $('form[id=yearform]').submit();
+  });
+});
+
+</script>
+
+<script>
+var currentyear = @json($currentyear);
+console.log(currentyear);
+var actualyear = <?php echo date("Y"); ?>;
+var no_box1 = document.querySelector('.no-box1');
+var no_box2 = document.querySelector('.no-box2');
+var no_box3 = document.querySelector('.no-box3');
+var no_box4 = document.querySelector('.no-box4');
+var no_box5 = document.querySelector('.no-box5');
+      
+var year1 = currentyear-4;
+var year2 = currentyear-3;
+var year3 = currentyear-2;
+var year4 = currentyear-1;
+var year5 = currentyear;
+
+function prev() {
+
+    // Start position 
+    if (year1 <= 2010 && year2 <= 2011 && year3 <= 2012 && year4 <= 2013 && year5 <= 2014) {
+        
+        // Add disabled attribute on
+        // prev button
+        document.getElementsByClassName('prev').disabled = true;
+        // Remove disabled attribute 
+        // from next button 
+        document.getElementsByClassName('next').disabled = false;
+    } else {
+        year1--;
+        document.getElementById("btnradio1").value = year1;
+        year2--;
+        document.getElementById("btnradio2").value = year2;
+        year3--;
+        document.getElementById("btnradio3").value = year3;
+        year4--;
+        document.getElementById("btnradio4").value = year4;
+        year5--;
+        document.getElementById("btnradio5").value = year5;
+        
+        return setNo();
+    }
+}
+
+function next() {
+
+    // End position
+    if (year1 == actualyear-4 && year2 == actualyear-3 && year3 == actualyear-2  && year4 == actualyear-1 && year5 == actualyear) {
+
+        // Add disabled attribute on 
+        // next button
+        document.getElementsByClassName('next').disabled = true;
+
+        // Remove disabled attribute
+        // from prev button
+        document.getElementsByClassName('prev').disabled = false;
+    } else {
+        year1++;
+        document.getElementById("btnradio1").value = year1;
+        year2++;
+        document.getElementById("btnradio2").value = year2;
+        year3++;
+        document.getElementById("btnradio3").value = year3;
+        year4++;
+        document.getElementById("btnradio4").value = year4;
+        year5++;
+        document.getElementById("btnradio5").value = year5;
+        return setNo();
+    }
+}
+
+function setNo() {
+    // Change innerhtml
+    if(year1 == currentyear)
+    {
+      return no_box1.innerHTML = year1,
+          no_box2.innerHTML = year2,
+          no_box3.innerHTML = year3,
+          no_box4.innerHTML = year4,
+          no_box5.innerHTML = year5,
+          document.getElementById("btnradio1").checked = true;
+    }
+    if(year2 == currentyear)
+    {
+      return no_box1.innerHTML = year1,
+          no_box2.innerHTML = year2,
+          no_box3.innerHTML = year3,
+          no_box4.innerHTML = year4,
+          no_box5.innerHTML = year5,
+          document.getElementById("btnradio2").checked = true;
+    }
+    if(year3 == currentyear)
+    {
+      return no_box1.innerHTML = year1,
+          no_box2.innerHTML = year2,
+          no_box3.innerHTML = year3,
+          no_box4.innerHTML = year4,
+          no_box5.innerHTML = year5,
+          document.getElementById("btnradio3").checked = true;
+    }
+
+    if(year4 == currentyear)
+    {
+      return no_box1.innerHTML = year1,
+          no_box2.innerHTML = year2,
+          no_box3.innerHTML = year3,
+          no_box4.innerHTML = year4,
+          no_box5.innerHTML = year5,
+          document.getElementById("btnradio4").checked = true;
+    }
+    if(year5 == currentyear)
+    {
+      
+      return no_box1.innerHTML = year1,
+          no_box2.innerHTML = year2,
+          no_box3.innerHTML = year3,
+          no_box4.innerHTML = year4,
+          no_box5.innerHTML = year5,
+          document.getElementById("btnradio5").checked = true;
+    }
+    return no_box1.innerHTML = year1,
+          no_box2.innerHTML = year2,
+          no_box3.innerHTML = year3,
+          no_box4.innerHTML = year4,
+          no_box5.innerHTML = year5,
+          document.getElementById("btnradio1").checked = false,
+          document.getElementById("btnradio2").checked = false,
+          document.getElementById("btnradio3").checked = false,
+          document.getElementById("btnradio4").checked = false,
+          document.getElementById("btnradio5").checked = false;
+}
+</script>
 
 @endsection

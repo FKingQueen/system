@@ -143,9 +143,9 @@
                 <div class="d-flex">
                   <div class="ml-2">
                     
-                    <h1 class="p-0 ml-2 m-0 farmer_name">
+                    <h3 class=" ml-2 mb-3 farmer_name">
                     {{$farmer->name}}
-                    </h1>
+                    </h3>
                   </div>
                     <div class="ml-auto">
                         <button type="button" data-toggle="modal" data-target="#compose" class="btn btn-primary">
