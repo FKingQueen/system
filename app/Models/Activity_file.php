@@ -13,6 +13,7 @@ class Activity_file extends Model
         'activity',
         'farming_data_id',
         'farmer_id',
+        'crop_id',
         'status',
         'date',
     ];

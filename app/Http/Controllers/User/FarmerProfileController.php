@@ -77,10 +77,11 @@ class FarmerProfileController extends Controller
         $status = 1;
 
         $farmer_id = $farming_data->farmer_id;
+        $crop_id = $farming_data->crop_id;
 
         $path = $request->file('activity_file')->getRealPath();
 
-        Excel::import(new UsersImport($farmer_id, $farming_data->id, $status), $path);
+        Excel::import(new UsersImport($farmer_id, $farming_data->id, $status, $crop_id), $path);
         
         if($farming_data){
             return redirect()->route('farmerProfile', [$id])->with('createdfarming', 'Success');
@@ -119,7 +120,12 @@ class FarmerProfileController extends Controller
         'yield'  => $yield,
         'unit'  => $unit,
         ]);
-        
+
+        DB::table('activity_files')
+        ->where('farming_data_id', $id)
+        ->update([
+        'crop_id'  => $request->crop_id,
+        ]);
 
         $res = DB::table('farming_datas')
             ->where('id', $id)
@@ -164,11 +170,12 @@ class FarmerProfileController extends Controller
 
         $status_id = $f_data = Farming_data::find($id)->value('status');
         $farmer_id = Farming_data::where('id', $id)->value('farmer_id');
+        $crop_id = Farming_data::where('id', $id)->value('crop_id');
 
         
         $path = $request->file('activity_file')->getRealPath();
 
-        $res = Excel::import(new UsersUpdate($id, $status_id, $farmer_id), $path);
+        $res = Excel::import(new UsersUpdate($id, $status_id, $farmer_id, $crop_id), $path);
 
         if($res){
             return redirect()->route('farmerProfile', [$farmer_id])->with('uploadedfarming', 'Success');

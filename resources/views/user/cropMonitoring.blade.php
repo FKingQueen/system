@@ -148,7 +148,7 @@
                       @foreach($FA_counts as $key1 => $FA_count)
                         @if($FA_counts[$key1] != 0)
                           <tr>
-                            <th style="cursor:pointer; color: #248139;"   data-toggle="modal" data-target="#activity_{{$key1}}">{{$Farmers[$key1]->name}}</th>
+                            <th style="cursor:pointer; color: #248139;"   data-toggle="modal" data-target="#activity_{{$key1}}">{{$Farmers[$key1]}}</th>
                             <td>{{$N_crops[$key1]}}</td>
                             <td>
                               <div style="width: 100%;" class="input-group d-flex justify-content-center">
@@ -163,7 +163,7 @@
                                 <div class="modal-content rounded">
 
                                   <div class="modal-header p-1 d-flex justify-content-center">
-                                    <h4 class="modal-title ml-2 "><u style="color: #248139;" >{{$Farmers[$key1]->name}}</u> </h4>
+                                    <h4 class="modal-title ml-2 "><u style="color: #248139;" >{{$Farmers[$key1]}}</u> </h4>
                                   </div>
 
                                   <div class="modal-body rounded p-1 ">

@@ -163,43 +163,36 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @php $i=0 @endphp
-                    @php $mc=11 @endphp
-                    @foreach($brgys as $key =>  $brgy)
-                      <tr>
-                        <td style="height: 75px;">{{$brgy->name}}</td>
-                        
-                        @while($i <=$mc)
-                          <td class="p-0 text-center" style ="{{ $percs[$i] == null ? 'background-color: green;' : ''}} font-size: 10px;">
-                            <table class=" container-fluid">
-                              <tbody> 
+                    @foreach($brgys as $key1 => $brgy)
+                    <tr>
+                      <td>
+                        {{$brgy}}
+                      </td>
 
-                                @foreach($percs[$i] as $perc[0])
+                      @for($i = 0; $i <= 11; $i++)
 
-                                @php $try=$loop->iteration @endphp
-                                    @if($perc[0] != 0)
-                                      @php $check=1 @endphp
-                                      @foreach($crops as $crop)
-                                        @if($try == $loop->iteration)
-                                              <tr class="p-0">
-                                                <td class="p-0 font-weight-bold" style="color: #248139; background-color: #C1E1C1;">
+                      <td class="p-0" >
+                        <table class="container-fluid table-borderless">
+                          <tbody class="container-fluid">
+                            @foreach($data[$key1][$i] as $key2 => $datas)
+                             <tr class="container-fluid">
+                                @if($datas != 'empty' && $datas != 'null')
+                                  <td style="cursor: pointer;color: #248139; background-color: #C1E1C1; font-size: 10px; " class="p-0 text-center">
+                                      {{$datas}}
+                                  </td>
+                                @elseif($datas == 'null')
+                                  <td style="padding: 8px;">
 
-                                                  <a type="button" class="p-0"> {{$crop->name}}</a>
-                                                  
-                                                </td>
-                                              </tr>
-                                        @endif
-                                      @endforeach
-                                    @endif
-                                @endforeach
-                              </tbody>
-                            </table>
-                          </td>
-                        @php $i++ @endphp
-                        @endwhile
-                      </tr>
-                      @php $i = ($loop->iteration)*12 @endphp
-                      @php $mc = $mc+12 @endphp
+                                  </td>
+                                @endif
+                             </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+
+                      </td>
+                      @endfor
+                    </tr>
                     @endforeach
                 </tbody>
               </table>

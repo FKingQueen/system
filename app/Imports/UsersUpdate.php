@@ -16,11 +16,12 @@ class UsersUpdate implements ToModel, WithHeadingRow
     * @return \Illuminate\Database\Eloquent\Model|null
     */
 
-    public function  __construct($id, $status, $farmer_id)
+    public function  __construct($id, $status, $farmer_id, $crop_id)
     {
         $this->id = $id;
         $this->status = $status;
         $this->farmer_id = $farmer_id;
+        $this->crop_id = $crop_id;
     }
 
     public function model(array $row)
@@ -32,6 +33,7 @@ class UsersUpdate implements ToModel, WithHeadingRow
             "farming_data_id" =>  $this->id,
             "status" =>  $this->status,
             "farmer_id" =>  $this->farmer_id,
+            "crop_id" =>  $this->crop_id,
         ]);
 
         DB::table('activity_files')

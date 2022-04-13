@@ -17,6 +17,7 @@ class CreateActivityFilesTable extends Migration
             $table->id();
             $table->integer('farming_data_id');
             $table->integer('farmer_id');
+            $table->integer('crop_id');
             $table->boolean('status')->default(0);
             $table->string('activity');
             $table->date('date');

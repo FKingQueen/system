@@ -116,7 +116,7 @@
 
                             <!-- Crop Monitoring Button -->          
                             <li class="nav-item">
-                                <a type="button"  data-toggle="{{ route('cropMonitoring') == url()->current() ? '' : 'modal' }}" data-target="#cropMonitoring" class="nav-link {{ route('cropMonitoring') == url()->current() ? 'active' : '' }} ">
+                                <a type="button"  data-toggle="{{ route('cropMonitoring') == url()->current() ? '' : 'modal' }}" data-target="#cropMonitoring" class="nav-link {{ route('cropMonitoring') == url()->current() ||  route('cropMonitoringsearch') == url()->current() ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-leaf"></i>
                                 <p>
                                    Crop Monitoring
@@ -127,7 +127,7 @@
 
                             <!-- Yield Monitoring Button -->          
                             <li class="nav-item">
-                                <a type="button" data-toggle="{{ route('yieldMonitoring') == url()->current() ? '' : 'modal' }}" data-target="#yieldMonitoring" class="nav-link {{ route('yieldMonitoring') == url()->current() ? 'active' : '' }} ">
+                                <a type="button" data-toggle="{{ route('yieldMonitoring') == url()->current() ? '' : 'modal' }}" data-target="#yieldMonitoring" class="nav-link {{ route('yieldMonitoring') == url()->current() || route('yieldMonitoringsearch') == url()->current() ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-chalkboard"></i>
                                 <p>
                                    Yield Monitoring
