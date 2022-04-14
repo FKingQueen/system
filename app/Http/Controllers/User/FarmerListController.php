@@ -28,15 +28,16 @@ class FarmerListController extends Controller
 
         foreach($farmer as $key => $farmers)
         {
-            $chk = Farming_data::where("farmer_id", $farmers->id)->where("status", 0)->count();
-            if($chk == 0 || $chk == null)
+            $chk = Farming_data::where("farmer_id", $farmers->id)->where("status", 1)->get();
+
+            if($chk->isEmpty())
             {
                 DB::table('farmers')
                     ->where('id', $farmers->id)
                     ->update([
                     'status' => 0, 
                 ]);
-            } else if($chk != 0)
+            } else if($chk->isNotEmpty())
             {
                 DB::table('farmers')
                     ->where('id', $farmers->id)
@@ -47,7 +48,7 @@ class FarmerListController extends Controller
 
         }
 
-        $farmer = Farmer::with('barangays', 'municipality')->orderBy('status', 'ASC')->get()->where("user_id", Auth::user()->id);
+        $farmer = Farmer::with('barangays', 'municipality')->orderBy('status', 'DESC')->get()->where("user_id", Auth::user()->id);
 
         foreach($farmer as $key=> $f)
         {

@@ -24,12 +24,12 @@ class YieldMonitoringController extends Controller
         ]);
 
         ////Crops Unit Stacked Bar Chart
-        $ID_crop = Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->distinct('crop_id')->orderBy('crop_id')->pluck('crop_id');
+        $ID_crop = Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 0)->where('yield','!=',NULL)->distinct('crop_id')->orderBy('crop_id')->pluck('crop_id');
         foreach($ID_crop as $key => $ID_crops)
         {
             $N_crop[$key] = Crop::where('id', $ID_crops)->value('name');
-            $U_crop[$key] = number_format(Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $ID_crops)->where('barangay_id', $request->barangay)->where('cropping_season_id', 1)->pluck('unit')->sum()/1000, 2);
-            $H_crop[$key] = number_format(Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $ID_crops)->where('barangay_id', $request->barangay)->where('cropping_season_id', 1)->pluck('lot_size')->sum());
+            $U_crop[$key] = number_format(Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $ID_crops)->where('barangay_id', $request->barangay)->where('cropping_season_id', 1)->where('status', 0)->where('yield','!=',NULL)->pluck('unit')->sum()/1000, 2);
+            $H_crop[$key] = number_format(Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $ID_crops)->where('barangay_id', $request->barangay)->where('cropping_season_id', 1)->where('status', 0)->where('yield','!=',NULL)->pluck('lot_size')->sum());
         }  
         ////Farmer Unit Stacked Bar Chart
         // Getting all farmer informttion in an array
@@ -85,17 +85,6 @@ class YieldMonitoringController extends Controller
             
             if($chk != 0)
             {
-                $x=0;
-                for($j = 0; $j <= 12; $j++)
-                {
-                    if(Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('cropping_season_id', 1)->where('status', 0)->where('crop_id', $j+1)->count() != 0)
-                    {
-                        $N_ton[$x] = Crop::where('id', $j+1)->value('name');
-                        $ton[$i][$x] =  number_format(Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('cropping_season_id', 1)->where('status', 0)->where('crop_id', $j+1)->sum('unit')/1000, 2);
-                        $x++;
-                    }
-                }
- 
             $Bitter_gourd[$i] =  number_format(Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('cropping_season_id', 1)->where('status', 0)->where('crop_id', 1)->sum('unit')/1000, 2);
 
             $Cabbage[$i]  = number_format(Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('cropping_season_id', 1)->where('status', 0)->where('crop_id', 2)->sum('unit')/1000, 2);
@@ -128,6 +117,7 @@ class YieldMonitoringController extends Controller
         $jsbrgy = Barangay::where('id', $request->barangay)->value('name');
         $jsyear = '2022';
         $jscs   = 'Dry Season';
+        $technician = Auth::user()->name;
 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
         return view('user/yieldMonitoring', array(
@@ -152,8 +142,7 @@ class YieldMonitoringController extends Controller
             'jsyear'    => $jsyear,
             'jscs'    => $jscs,
             'H_crops'    => $H_crop,
-            'N_tons'    => $N_ton,
-            'tons'  => $ton
+            'technician'    => $technician
         ));
     }
 
@@ -262,6 +251,7 @@ class YieldMonitoringController extends Controller
         $jsbrgy = Barangay::where('id', $request->barangay)->value('name');
         $jsyear = $request->cropping_season;
         $jscs   = 'Dry Season';
+        $technician = Auth::user()->name;
 
 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
@@ -286,7 +276,8 @@ class YieldMonitoringController extends Controller
             'jsbrgy'    => $jsbrgy,
             'jsyear'    => $jsyear,
             'jscs'    => $jscs,
-            'H_crops'    => $H_crop
+            'H_crops'    => $H_crop,
+            'technician'    => $technician
         ));
     }
 }

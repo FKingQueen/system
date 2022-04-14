@@ -126,7 +126,7 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <h5 class="text-center mt-3">The Total Yield on Different Types of Crops</h5>
+            <h5 class="text-center mt-3">The Total Yield on Different Types of Crops in Tons</h5>
             <canvas id="cropsChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>
@@ -147,7 +147,7 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <h5 class="text-center mt-3">The Total Yield of Every Farmer on Different Crops</h5>
+            <h5 class="text-center mt-3">The Total Yield of Every Farmer in Tons</h5>
             <canvas  id="farmerChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>
@@ -542,66 +542,6 @@
       document.getElementById('farmerChart'),
       config1
     );
-
-
-    var logo = new Image();
-    logo.src = 'images/Logo.png'
-
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-
-    const jsbrgy = @json($jsbrgy);
-    const jsyear = @json($jsyear);
-    const jscs = @json($jscs);
-
-    function downloadPDF()
-    {
-      const canvas1 = document.getElementById('farmerChart');
-      const canvas2 = document.getElementById('cropsChart');
-      
-      const canvasImage1 = canvas1.toDataURL('image/jpeg', 1.0);
-      const canvasImage2 = canvas2.toDataURL('image/jpeg', 1.0);
-
-
-      let pdf = new jsPDF();
-      pdf.setFontSize(10);
-      pdf.addImage(logo, 'PNG', 20, 10, 45, 15);
-      pdf.text('Date Report Generated:', 130, 23);
-      pdf.text(date, 170, 23);
-      pdf.line(00, 25, 250, 25);
-      pdf.setFontSize(15);
-      pdf.setFontType('bold');
-      pdf.setTextColor(75,181,67);
-      pdf.text('YIELD MONITORING REPORT', 70, 44);
-
-      pdf.setFontSize(10);
-      pdf.setFontType('normal');
-      pdf.setTextColor(0,0,0);
-
-      pdf.text('Barangay:', 20, 54);
-      pdf.text(jsbrgy, 38, 54);
-      pdf.text('Year:', 90, 54);
-      pdf.text(jsyear, 100, 54);
-      pdf.text('Cropping Season:', 145, 54);
-      pdf.text(jscs, 175, 54);
-
-      pdf.text('The total yield of every farmer on different crops', 70, 84);
-      pdf.addImage(canvasImage2, 'JPEG', 5, 90, 200, 100);
-      pdf.save('sample.pdf');
-    }
-
-
-
-    function downloadcropsPDF()
-    {
-
-      let pdf = new jsPDF();
-      pdf.setFontSize(10);
-      pdf.addImage(logo, 'PNG', 10, 2, 45, 25);
-      pdf.text('The total yield of every farmer on different crops', 70, 25);
-      pdf.addImage(canvasImage, 'JPEG', 15, 27, 2000, 100);
-      pdf.save('sample.pdf');
-    }
 </script>
 <!-- /Farmer Chart -->
 
@@ -670,7 +610,7 @@
                 beginAtZero: true,
                 title: {
                   display: true,
-                  text: 'Hectare(t)'
+                  text: 'Hectare(h)'
                 }
             },
             x: {
@@ -737,6 +677,77 @@
       config2
     );
 
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+    const jsbrgy = @json($jsbrgy);
+    const jsyear = @json($jsyear);
+    const jscs = @json($jscs);
+    const technician = @json($technician);
+    console.log(technician);
+    function downloadPDF()
+    {
+      const canvas1 = document.getElementById('farmerChart');
+      const canvas2 = document.getElementById('cropsChart');
+      const canvas3 = document.getElementById('hectareChart');
+      
+      const canvasImage1 = canvas1.toDataURL('image/jpeg', 1.0);
+      const canvasImage2 = canvas2.toDataURL('image/jpeg', 1.0);
+      const canvasImage3 = canvas3.toDataURL('image/jpeg', 1.0);
+
+
+      let pdf = new jsPDF();
+      pdf.setFontSize(10);
+      pdf.text('Date Report Generated:', 130, 16);
+      pdf.text(date, 170, 16);
+      pdf.line(00, 18, 250, 18);
+      pdf.setFontSize(12);
+      pdf.setFontType('bold');
+      pdf.text('PROPOSED SYSTEM', 80, 28);
+      pdf.setFontSize(10);
+      pdf.setFontType('normal');
+      pdf.text('Report on Total Yield of every Farmer', 73, 32);
+      pdf.text('in Barangay', 85, 36);
+      pdf.text(jsbrgy, 105, 36);
+      pdf.setTextColor(0,0,0);
+
+      pdf.text('Year:', 15, 48);
+      pdf.text(jsyear, 25, 48);
+      pdf.text('Cropping Season:', 145, 48);
+      pdf.text(jscs, 175, 48);
+
+      pdf.text('The Total Yield on Different Types of Crops in Tons', 61, 60);
+      pdf.addImage(canvasImage2, 'JPEG', 5, 63, 200, 100);
+
+      pdf.text('The Total Yield of Every Farmer in Tons', 71, 173);
+      pdf.addImage(canvasImage1, 'JPEG', 5, 177, 200, 100);
+
+      pdf.setFontSize(8);
+      pdf.setFontType('normal');
+      pdf.text('Page 1', 175, 285);
+
+      pdf.addPage();
+      pdf.setFontSize(10);
+      pdf.setFontType('normal');
+      pdf.text('Date Report Generated:', 130, 16);
+      pdf.text(date, 170, 16);
+      pdf.line(00, 18, 250, 18);
+
+      pdf.text('The Total Hectare on Different Types of Crops', 68, 27);
+      pdf.addImage(canvasImage3, 'JPEG', 5, 31, 200, 100);
+
+      pdf.text('Verified by:', 30, 140);
+      pdf.text(technician, 30, 150);
+
+      pdf.setFontSize(9);
+      pdf.setFontType('normal');
+      pdf.text('Technician', 30, 154);
+
+      pdf.setFontSize(8);
+      pdf.setFontType('normal');
+      pdf.text('Page 2', 175, 285);
+      pdf.save('YieldMonitoringReport.pdf');
+    }
     
 
 </script>
@@ -744,4 +755,4 @@
 
 @endsection
 
-<!-- Farmer Chart -->
+
