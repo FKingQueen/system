@@ -248,7 +248,6 @@
       type: 'bar',
       data, 
       options: {
-
         responsive: true,
         scales: {
             y: {
@@ -437,6 +436,16 @@
           }]
     };
 
+
+    for(var i = 0; i <= data1.datasets.length-1; i++){
+      if(data1.datasets[i].data.every( e  => e == 0.00))
+      {
+        data1.datasets.splice(i, 1);
+        i--;
+      }
+    }
+
+    
     const bgColor1 = {
       id : 'bgColor',
       beforeDraw: (chart, options) => {
@@ -489,7 +498,7 @@
                 let strokeS = [];
                 let text = []
 
-                for(let i = 0; i <= 12; i++)
+                for(let i = 0; i <= data1.datasets.length-1; i++)
                 {
                   if(chart.data.datasets[i].data.every( e  => e == 0.00) == true || chart.isDatasetVisible(i) == false)
                   {
@@ -594,6 +603,7 @@
       pdf.save('sample.pdf');
     }
 </script>
+<!-- /Farmer Chart -->
 
 <!-- Hectare Chart -->
 <script>
@@ -733,3 +743,5 @@
 <!-- /Hectare Chart -->
 
 @endsection
+
+<!-- Farmer Chart -->

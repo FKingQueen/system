@@ -165,7 +165,7 @@
                 <tbody>
                     @foreach($brgys as $key1 => $brgy)
                     <tr>
-                      <td>
+                      <td style="height: 90px;">
                         {{$brgy}}
                       </td>
 
@@ -181,8 +181,8 @@
                                       {{$datas}}
                                   </td>
                                 @elseif($datas == 'null')
-                                  <td style="padding: 8px;">
-
+                                  <td class="p-0 text-center" style="background-color: #fff; color: #fff; font-size: 10px; ">
+                                    {{$datas}}
                                   </td>
                                 @endif
                              </tr>

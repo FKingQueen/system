@@ -323,6 +323,14 @@
         ]
     };
 
+    for(var i = 0; i <= data.datasets.length-1; i++){
+      if(data.datasets[i].data.every( e  => e == null))
+      {
+        data.datasets.splice(i, 1);
+        i--;
+      }
+    }
+
     const bgColor = {
       id : 'bgColor',
       beforeDraw: (chart, options) => {
@@ -336,7 +344,7 @@
 
     const config = {
       type: 'bar',
-      data,
+      data ,
       options: {
         responsive: true,
         indexAxis: 'y',
@@ -385,8 +393,8 @@
                 let strokeS = [];
                 let text = []
 
-                console.log(chart.data.datasets[2].data.every( e  => e == null));
-                for(let i = 0; i <= 12; i++)
+                
+                for(let i = 0; i <= data.datasets.length-1; i++)
                 {
                   if(chart.data.datasets[i].data.every( e  => e == null) == true || chart.isDatasetVisible(i) == false)
                   {
