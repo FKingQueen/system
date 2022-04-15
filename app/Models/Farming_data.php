@@ -17,6 +17,7 @@ class Farming_data extends Model
         'sacks',
         'kg',
         'unit',
+        'date',
     ];
 
     public function crop()

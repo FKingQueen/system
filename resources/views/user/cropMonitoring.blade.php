@@ -2,7 +2,29 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+<style>
+  .float{
+	position:fixed;
+	width:80px;
+	height:40px;
+	bottom:20px;
+	right:40px;
+  background-color: #28a745;
+  color: #FFF;
+	border-radius:50px;
+	text-align: center;
+	box-shadow: 2px 4px 4px #999;
+  z-index: 1;
+}
 
+.float:hover {
+  background-color: #51d870;
+}
+
+.my-float{
+	margin-top:13px;
+}
+</style>
 @endsection
 
 @section('content')
@@ -19,6 +41,16 @@
       </div><!-- /.container-fluid -->
   </div>
   <!-- /.content-header -->
+
+  <a id="download" type="button" onclick= "downloadPDF()" class="float">
+    <i style='color:#ffffff' class="fas fa-file-export fa-lg my-float"></i>
+  </a>
+
+  <script>
+    $(document).ready(function(){
+      $('#download').tooltip({title: "Export to pdf",html: true, placement: "top", animation: true,}); 
+    });
+  </script>
 
   <!-- card-body -->
   <div class="card-body">
@@ -250,6 +282,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 <script>
   const data = {
         labels: @json($n_farmers),
@@ -258,67 +291,67 @@
             label: 'Bitter Gourd',
             data: @json($Bitter_gourds), 
             barThickness: 25,
-            backgroundColor:'rgba(255, 99, 132, 0.7)'
+            backgroundColor:'rgba(182, 207, 182)'
           },{
             label: 'Cabbage',
             data: @json($Cabbages), 
             barThickness: 25,
-            backgroundColor:'rgba(54, 162, 235, 0.7)'
+            backgroundColor:'rgba(171, 222, 230)'
           },{
             label: 'Corn',
             data: @json($Corns), 
             barThickness: 25,
-            backgroundColor:'rgba(255, 206, 86, 0.7)'
+            backgroundColor:'rgba(255, 229, 180)'
           },{
             label: 'Eggplant',
             data: @json($Eggplants), 
             barThickness: 25,
-            backgroundColor:'rgba(75, 192, 192, 0.7)'
+            backgroundColor:'rgba(224, 187, 228)'
           },{
             label: 'Garlic',
             data: @json($Garlics), 
             barThickness: 25,
-            backgroundColor:'rgba(153, 102, 255, 0.7)'
+            backgroundColor:'rgba(236, 234, 228)'
           },{
             label: 'Ladys Finger',
             data: @json($Ladys_fingers), 
             barThickness: 25,
-            backgroundColor:'rgba(255, 159, 64, 0.7)'
+            backgroundColor:'rgba(212, 240, 240)'
           },{
             label: 'Rice',
             data: @json($Rices), 
             barThickness: 25,
-            backgroundColor:'rgba(255, 99, 132, 0.7)'
+            backgroundColor:'rgba(199, 206, 234)'
           },{
             label: 'Onion',
             data: @json($Onions), 
             barThickness: 25,
-            backgroundColor:'rgba(54, 162, 235, 0.7)'
+            backgroundColor:'rgba(236, 213, 227)'
           },{
             label: 'Peanut',
             data: @json($Peanuts), 
             barThickness: 25,
-            backgroundColor:'rgba(255, 206, 86, 0.7)'
+            backgroundColor:'rgba(246, 234, 194)'
           },{
             label: 'String Beans',
             data: @json($String_beans), 
             barThickness: 25,
-            backgroundColor:'rgba(75, 192, 192, 0.7)'
+            backgroundColor:'rgba(186,255,201)'
           },{
             label: 'Tobacco',
             data: @json($Tobaccos), 
             barThickness: 25,
-            backgroundColor:'rgba(153, 102, 255, 0.7)'
+            backgroundColor:'rgba(202, 255,191)'
           },{
             label: 'Tomato',
             data: @json($Tomatos), 
             barThickness: 25,
-            backgroundColor:'rgba(255, 159, 64, 0.7)'
+            backgroundColor:'rgba(255, 200, 162)'
           },{
             label: 'Water Melon',
             data: @json($Water_melons), 
             barThickness: 25,
-            backgroundColor:'rgba(255, 99, 132, 0.7)'
+            backgroundColor:'rgba(255, 255, 186)'
           }
         ]
     };
@@ -437,164 +470,56 @@
       config
     );
 
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
-// var ctx = document.getElementById('myChart').getContext('2d');
-// var brgy = @json($brgy);
-// var myChart = new Chart(ctx, {
-//     type: 'bar',
-//     data: {
-//       labels: @json($n_farmers),
-//         datasets:[
-//           {
-//             label: 'Bitter Gourd',
-//             data: @json($Bitter_gourds), 
-//             barThickness: 25,
+  const jsbrgy = @json($jsbrgy);
+  const jsyear = @json($jsyear);
+  const technician = @json($technician);
+
+  function downloadPDF()
+  {
+    const canvas = document.getElementById('myChart');
     
-//             backgroundColor:'rgba(255, 99, 132, 0.7)',
-//             borderColor:'rgba(255, 99, 132, .8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Cabbage',
-//             data: @json($Cabbages), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(54, 162, 235, 0.7)',
-//             borderColor:'rgba(54, 162, 235, .8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Corn',
-//             data: @json($Corns), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(255, 206, 86, 0.7)',
-//             borderColor:'rgba(255, 206, 86, .8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Eggplant',
-//             data: @json($Eggplants), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(75, 192, 192, 0.7)',
-//             borderColor:'rgba(75, 192, 192, .8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Garlic',
-//             data: @json($Garlics), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(153, 102, 255, 0.7)',
-//             borderColor:'rgba(153, 102, 255, .8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Ladys Finger',
-//             data: @json($Ladys_fingers), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(255, 159, 64, 0.7)',
-//             borderColor:'rgba(255, 159, 64, .8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Rice',
-//             data: @json($Rices), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(255, 99, 132, 0.7)',
-//             borderColor:'rgba(255, 99, 132, .8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Onion',
-//             data: @json($Onions), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(54, 162, 235, 0.7)',
-//             borderColor:'rgba(54, 162, 235, .8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Peanut',
-//             data: @json($Peanuts), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(255, 206, 86, 0.7)',
-//             borderColor:'rgba(255, 206, 86, .8)',
-//             borderWidth: .1
-//           },{
-//             label: 'String Beans',
-//             data: @json($String_beans), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(75, 192, 192, 0.7)',
-//             borderColor:'rgba(75, 192, 192, .8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Tobacco',
-//             data: @json($Tobaccos), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(153, 102, 255, 0.7)',
-//             borderColor:'rgba(153, 102, 255, .8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Tomato',
-//             data: @json($Tomatos), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(255, 159, 64, 0.7)',
-//             borderColor:'rgba(255, 159, 64, .8)',
-//             borderWidth: .1
-//           },{
-//             label: 'Water Melon',
-//             data: @json($Water_melons), 
-//             barThickness: 25,
-            
-//             backgroundColor:'rgba(255, 99, 132, 0.7)',
-//             borderColor:'rgba(255, 99, 132, .8)',
-//             borderWidth: .1
-//           }
-//         ]
-//     },
-//     options: {
-//       responsive: true,
-//       indexAxis: 'y',
-//       scales: {
-//         x: {
-//           stacked: true,
-//           ticks: {
-//               // Include a dollar sign in the ticks
-//               callback: function(value, index, ticks) {
-//                   return value + '%';
-//               }
-//           },
-//           title: {
-//             display: true,
-//             text: 'Percentage %'
-//           }
-//         },
-//         y: {
-//           stacked: true,
-//           title: {
-//             display: true,
-//             text: 'List of Farmers'
-//           }
-//         }
-//       },
-//       plugins: {
-        
-//         datalabels: {
-//           formatter: (value, context) => {
-//             if(value != null)
-//             {
-//               return `${value}%`;
-//             }
-//           }
-//         },
-//         title: {
-//             display: true,
-//             text: 'The total number of crops sown in barangay ' + @json($brgy)
-//         }
-//       }
-//     },
-//     plugins: [ChartDataLabels]
-// });
+    const canvasImage = canvas.toDataURL('image/jpeg', 1.0);
+
+
+    let pdf = new jsPDF();
+    pdf.setFontSize(10);
+    pdf.text('Date Report Generated:', 130, 16);
+    pdf.text(date, 170, 16);
+    pdf.line(00, 18, 250, 18);
+    pdf.setFontSize(12);
+    pdf.setFontType('bold');
+    pdf.text('PROPOSED SYSTEM', 80, 28);
+    pdf.setFontSize(10);
+    pdf.setFontType('normal');
+    pdf.text('Report on Total Yield of every Farmer', 73, 32);
+    pdf.text('in Barangay', 85, 36);
+    pdf.text(jsbrgy, 105, 36);
+    pdf.setTextColor(0,0,0);
+
+    pdf.text('Year:', 15, 48);
+    pdf.text(jsyear, 25, 48);
+
+    pdf.text('The Total Number of Crops Sown in Barangay Quiling Sur', 58, 60);
+    pdf.addImage(canvasImage, 'JPEG', 5, 63, 200, 100);
+
+    pdf.setFontSize(10);
+    pdf.setFontType('normal');
+    pdf.text('Page 1', 175, 285);
+
+    pdf.text('Verified by:', 30, 180);
+    pdf.text(technician, 30, 190);
+
+    pdf.setFontSize(9);
+    pdf.setFontType('normal');
+    pdf.text('Technician', 30, 194);
+    
+    pdf.save('CropMonitoringChartReport.pdf');
+  }
+
+
 </script>
 @endsection
 

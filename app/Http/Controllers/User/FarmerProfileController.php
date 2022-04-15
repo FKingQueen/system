@@ -83,6 +83,14 @@ class FarmerProfileController extends Controller
 
         Excel::import(new UsersImport($farmer_id, $farming_data->id, $status, $crop_id), $path);
         
+        $act_date = Activity_file::select('date')->where('farmer_id', $farmer_id)->where('farming_data_id', $farming_data->id)->orderBy('date', 'DESC')->first();
+
+        DB::table('farming_datas')
+        ->where('id', $farming_data->id)
+        ->update([
+        'date'  => $act_date->date,
+        ]);
+
         if($farming_data){
             return redirect()->route('farmerProfile', [$id])->with('createdfarming', 'Success');
         } else{

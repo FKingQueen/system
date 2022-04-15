@@ -23,8 +23,6 @@
 .my-float{
 	margin-top:13px;
 }
-
-
 </style>
 @endsection
 
@@ -200,40 +198,51 @@
             label: ['tons per crop'],
             data: @json($U_crops),
             backgroundColor: [
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)',
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)',
-                'rgba(255, 99, 132, 0.7)'
+              'rgba(182, 207, 182)',
+              'rgba(171, 222, 230)',
+              'rgba(255, 229, 180)',
+              'rgba(224, 187, 228)',
+              'rgba(236, 234, 228)',
+              'rgba(212, 240, 240)',
+              'rgba(199, 206, 234)',
+              'rgba(236, 213, 227)',
+              'rgba(246, 234, 194)',
+              'rgba(186, 255, 201)',
+              'rgba(202, 255,191)',
+              'rgba(255, 200, 162)',
+              'rgba(255, 255, 186)'
             ],
             borderColor: [
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)',
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)',
-                'rgba(255, 99, 132, 0.7)'
+              'rgba(182, 207, 182)',
+              'rgba(171, 222, 230)',
+              'rgba(255, 229, 180)',
+              'rgba(224, 187, 228)',
+              'rgba(236, 234, 228)',
+              'rgba(212, 240, 240)',
+              'rgba(199, 206, 234)',
+              'rgba(236, 213, 227)',
+              'rgba(246, 234, 194)',
+              'rgba(186, 255, 201)',
+              'rgba(202, 255, 191)',
+              'rgba(255, 200, 162)',
+              'rgba(255, 255, 186)'
             ],
             borderWidth: 1,
             barThickness: 40
         }]
     };
-    
+
+    for(var i = 0; i <= data.labels.length-1; i++){
+      if(data.datasets[0].data[i] == 0)
+      {
+        data.labels.splice(i, 1);
+        data.datasets[0].data.splice(i, 1);
+        data.datasets[0].backgroundColor.splice(i, 1);
+        data.datasets[0].borderColor.splice(i, 1);
+        i--;
+      }
+    }
+
     const bgColor = {
       id : 'bgColor',
       beforeDraw: (chart, options) => {
@@ -335,105 +344,67 @@
             label: 'Bitter Gourd',
             data: @json($Bitter_gourds), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(255, 99, 132, 0.7)',
-            borderColor:'rgba(255, 99, 132, .7)',
-            borderWidth: .1
+            backgroundColor:'rgba(182, 207, 182)'
           },{
             label: 'Cabbage',
             data: @json($Cabbages), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(54, 162, 235, 0.7)',
-            borderColor:'rgba(54, 162, 235, 0.7)',
-            borderWidth: .1
+            backgroundColor:'rgba(171, 222, 230)'
           },{
             label: 'Corn',
             data: @json($Corns), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(255, 206, 86, 0.7)',
-            borderColor:'rgba(255, 206, 86, 0.7)',
-            borderWidth: .1
+            backgroundColor:'rgba(255, 229, 180)'
           },{
             label: 'Eggplant',
             data: @json($Eggplants), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(75, 192, 192, 0.7)',
-            borderColor:'rgba(75, 192, 192, 0.7)',
-            borderWidth: .1
+            backgroundColor:'rgba(224, 187, 228)'
           },{
             label: 'Garlic',
             data: @json($Garlics), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(153, 102, 255, 0.7)',
-            borderColor:'rgba(153, 102, 255, 0.7)',
-            borderWidth: .1
+            backgroundColor:'rgba(236, 234, 228)'
           },{
             label: 'Ladys Finger',
             data: @json($Ladys_fingers), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(255, 159, 64, 0.7)',
-            borderColor:'rgba(255, 159, 64, 0.7)',
-            borderWidth: .1
+            backgroundColor:'rgba(212, 240, 240)'
           },{
             label: 'Rice',
             data: @json($Rices), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(255, 99, 132, 0.7)',
-            borderColor:'rgba(255, 99, 132, 0.7)',
-            borderWidth: .1
+            backgroundColor:'rgba(199, 206, 234)'
           },{
             label: 'Onion',
             data: @json($Onions), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(54, 162, 235, 0.7)',
-            borderColor:'rgba(54, 162, 235, 0.7)',
-            borderWidth: .1
+            backgroundColor:'rgba(236, 213, 227)'
           },{
             label: 'Peanut',
             data: @json($Peanuts), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(255, 206, 86, 0.7)',
-            borderColor:'rgba(255, 206, 86, 0.7)',
-            borderWidth: .1
+            backgroundColor:'rgba(246, 234, 194)'
           },{
             label: 'String Beans',
             data: @json($String_beans), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(75, 192, 192, 0.7)',
-            borderColor:'rgba(75, 192, 192, 0.7)',
-            borderWidth: .1
+            backgroundColor:'rgba(186,255,201)'
           },{
             label: 'Tobacco',
             data: @json($Tobaccos), 
             barThickness: 25,
-            backgroundColor:'rgba(153, 102, 255, 0.7)',
-            borderColor:'rgba(153, 102, 255, 0.7)',
-            borderWidth: .1
+            backgroundColor:'rgba(202, 255,191)'
           },{
             label: 'Tomato',
             data: @json($Tomatos), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(255, 159, 64, 0.7)',
-            borderColor:'rgba(255, 159, 64, 0.7)',
-            borderWidth: .1
+            backgroundColor:'rgba(255, 200, 162)'
           },{
             label: 'Water Melon',
             data: @json($Water_melons), 
             barThickness: 25,
-            
-            backgroundColor:'rgba(255, 99, 132, .7)',
-            borderColor:  'rgba(255, 99, 132, .7 )',
-            borderWidth: .1
+            backgroundColor:'rgba(255, 255, 186)'
           }
         ]
     };
@@ -445,15 +416,6 @@
         i--;
       }
     }
-
-    for(var i = 0; i <= data.datasets.length-1; i++){
-      if(data.datasets[i].data.every( e  => e == null))
-      {
-        data.datasets.splice(i, 1);
-        i--;
-      }
-    }
-
     
     const bgColor1 = {
       id : 'bgColor',
@@ -516,7 +478,7 @@
                     visibility1.push(true);
                   }else{
                       fillS[i] = chart.data.datasets[i].backgroundColor;
-                    strokeS[i] = chart.data.datasets[i].borderColor;
+                    strokeS[i] = 'rgb(255,255,255)';
                     visibility1.push(false);
                   }
                 }
@@ -562,41 +524,51 @@
         datasets: [{
             label: ['tons per crop'],
             data: @json($H_crops),
-            
             backgroundColor: [
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)',
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)',
-                'rgba(255, 99, 132, 0.7)'
+              'rgba(182, 207, 182)',
+              'rgba(171, 222, 230)',
+              'rgba(255, 229, 180)',
+              'rgba(224, 187, 228)',
+              'rgba(236, 234, 228)',
+              'rgba(212, 240, 240)',
+              'rgba(199, 206, 234)',
+              'rgba(236, 213, 227)',
+              'rgba(246, 234, 194)',
+              'rgba(186, 255, 201)',
+              'rgba(202, 255,191)',
+              'rgba(255, 200, 162)',
+              'rgba(255, 255, 186)'
             ],
             borderColor: [
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)',
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)',
-                'rgba(255, 99, 132, 0.7)'
+              'rgba(182, 207, 182)',
+              'rgba(171, 222, 230)',
+              'rgba(255, 229, 180)',
+              'rgba(224, 187, 228)',
+              'rgba(236, 234, 228)',
+              'rgba(212, 240, 240)',
+              'rgba(199, 206, 234)',
+              'rgba(236, 213, 227)',
+              'rgba(246, 234, 194)',
+              'rgba(186, 255, 201)',
+              'rgba(202, 255, 191)',
+              'rgba(255, 200, 162)',
+              'rgba(255, 255, 186)'
             ],
             borderWidth: 1,
             barThickness: 40
         }]
     };
+
+    for(var i = 0; i <= data2.labels.length-1; i++){
+      if(data2.datasets[0].data[i] == 0)
+      {
+        data2.labels.splice(i, 1);
+        data2.datasets[0].data.splice(i, 1);
+        data2.datasets[0].backgroundColor.splice(i, 1);
+        data2.datasets[0].borderColor.splice(i, 1);
+        i--;
+      }
+    }
 
     const bgColor2 = {
       id : 'bgColor',
@@ -693,7 +665,7 @@
     const jsyear = @json($jsyear);
     const jscs = @json($jscs);
     const technician = @json($technician);
-    console.log(technician);
+
     function downloadPDF()
     {
       const canvas1 = document.getElementById('farmerChart');

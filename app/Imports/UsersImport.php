@@ -36,7 +36,5 @@ class UsersImport implements ToModel, WithHeadingRow
             "status" =>  $this->status,
         ]);
 
-        
-
     }
 }

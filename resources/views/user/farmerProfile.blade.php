@@ -186,7 +186,7 @@
                           @endif
                         </td>
                         <td>
-                          {{$date[$key]->date}}
+                          {{$farming_data->date}}
                         </td>
                         <td class="text-center pt-2">
                           <input type="checkbox" class="toggle-class_{{$farming_data->id}}" data-id="{{$farming_data->id}}" data-size="sm" data-width="90"   data-onstyle="success" data-offstyle="secondary" data-toggle="toggle" data-on="In progress" data-off="Completed" {{ $farming_data->status ? 'checked' : '' }}>

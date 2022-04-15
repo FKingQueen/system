@@ -27,10 +27,10 @@ class CropMonitoringController extends Controller
        
         //count the farmer
         // $F_count = Farmer::where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 1)->count();
-        $F_count =  Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 0)->where('yield','!=',NULL)->distinct('farmer_id')->count();
+        $F_count =  Farming_data::whereYear('date', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 0)->where('yield','!=',NULL)->distinct('farmer_id')->count();
         //get all farmer IDs in the table
         // $F_id = Farmer::where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 1)->pluck('id');
-        $F_id = Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 0)->where('yield', '!=', NULL)->distinct('farmer_id')->pluck('farmer_id');
+        $F_id = Farming_data::whereYear('date', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 0)->where('yield', '!=', NULL)->distinct('farmer_id')->pluck('farmer_id');
 
         if($F_id->isEmpty())
         {
@@ -106,14 +106,14 @@ class CropMonitoringController extends Controller
             
 
 
-        //$FD_id = Farming_data::whereYear('created_at', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->value('id')->unique();
+        //$FD_id = Farming_data::whereYear('date', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->value('id')->unique();
         
 
         //storing/getting the specific count of a crop in every farming activity(water, persticide, fertilizer) in array
         foreach($F_id as $key1 => $f)
         {
-            $counter = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->count();
-            $FD_id = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('id');
+            $counter = Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->count();
+            $FD_id = Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('id');
             $FD_counter[$key1] = $counter;
             for($j = 0; $j <= $counter-1; $j++ )
             {
@@ -133,13 +133,13 @@ class CropMonitoringController extends Controller
                 }
                 
             }
-            $FD_hectare[$key1] = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('lot_size');
+            $FD_hectare[$key1] = Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('lot_size');
         }
 
         //storing/getting the specific percent of a crop in every farming activity(water, persticide, fertilizer) in array
         foreach($F_id as $key1 => $f)
         {
-            $FD_id = Farming_data::whereYear('created_at', '=', 2022)->where('yield','!=',NULL)->where('farmer_id', $F_id[$key1])->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('id');
+            $FD_id = Farming_data::whereYear('date', '=', 2022)->where('yield','!=',NULL)->where('farmer_id', $F_id[$key1])->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('id');
             
             foreach($FD_id as $key2 => $fd)
             {
@@ -154,12 +154,12 @@ class CropMonitoringController extends Controller
         }
 
 
-        $FD_id = Farming_data::whereYear('created_at', '=', 2022)->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
+        $FD_id = Farming_data::whereYear('date', '=', 2022)->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
 
         foreach($F_id as $key1 => $f)
         {
-            $counter = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->count();
-            $FD_crop[$key1] = Farming_data::with('crop')->whereYear('created_at', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
+            $counter = Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->count();
+            $FD_crop[$key1] = Farming_data::with('crop')->whereYear('date', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
             
         }
         
@@ -194,120 +194,120 @@ class CropMonitoringController extends Controller
         $i = 0;
         foreach($F_id as $key => $f)
         {
-            $chk = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count();  
+            $chk = Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count();  
             
             if($chk != 0)
             {
-                $FC_total = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count();
+                $FC_total = Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count();
 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 1)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 1)->count()/$FC_total)*100) != 0)
                 {
-                    $Bitter_gourd[$i] = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 1)->count()/$FC_total)*100, 2);
+                    $Bitter_gourd[$i] = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 1)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $Bitter_gourd[$i] = NULL;
                 }
 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 2)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 2)->count()/$FC_total)*100) != 0)
                 {
-                    $Cabbage[$i]  = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 2)->count()/$FC_total)*100, 2);
+                    $Cabbage[$i]  = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 2)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $Cabbage[$i] = NULL;
                 }
 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 3)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 3)->count()/$FC_total)*100) != 0)
                 {
-                    $Corn[$i]  = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 3)->count()/$FC_total)*100, 2);
+                    $Corn[$i]  = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 3)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $Corn[$i] = NULL;
                 }
 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 4)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 4)->count()/$FC_total)*100) != 0)
                 {
-                    $Eggplant[$i]  = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 4)->count()/$FC_total)*100, 2);
+                    $Eggplant[$i]  = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 4)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $Eggplant[$i] = NULL;
                 }
                 
 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 5)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 5)->count()/$FC_total)*100) != 0)
                 {
-                    $Garlic[$i]  = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 5)->count()/$FC_total)*100, 2);
+                    $Garlic[$i]  = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 5)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $Garlic[$i] = NULL;
                 }
 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 6)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 6)->count()/$FC_total)*100) != 0)
                 {
-                    $Ladys_finger[$i] = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 6)->count()/$FC_total)*100, 2);
+                    $Ladys_finger[$i] = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 6)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $Ladys_finger[$i] = NULL;
                 }
 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 7)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 7)->count()/$FC_total)*100) != 0)
                 {
-                    $Rice[$i] = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 7)->count()/$FC_total)*100, 2);
+                    $Rice[$i] = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 7)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $Rice[$i] = NULL;
                 }
                 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 8)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 8)->count()/$FC_total)*100) != 0)
                 {
-                    $Onion[$i] = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 8)->count()/$FC_total)*100, 2);
+                    $Onion[$i] = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 8)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $Onion[$i] = NULL;
                 }
 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 9)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 9)->count()/$FC_total)*100) != 0)
                 {
-                    $Peanut[$i] = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 9)->count()/$FC_total)*100, 2);
+                    $Peanut[$i] = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 9)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $Peanut[$i] = NULL;
                 }
 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 10)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 10)->count()/$FC_total)*100) != 0)
                 {
-                    $String_bean[$i] = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 10)->count()/$FC_total)*100, 2);
+                    $String_bean[$i] = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 10)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $String_bean[$i] = NULL;
                 }
 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 11)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 11)->count()/$FC_total)*100) != 0)
                 {
-                    $Tobacco[$i] = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 11)->count()/$FC_total)*100, 2);
+                    $Tobacco[$i] = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 11)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $Tobacco[$i] = NULL;
                 }
 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
                 {
-                    $Tomato[$i] = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100, 2);
+                    $Tomato[$i] = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $Tomato[$i] = NULL;
                 }
 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
                 {
-                    $Tomato[$i] = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100, 2);
+                    $Tomato[$i] = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $Tomato[$i] = NULL;
                 }
                 
-                if(number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 13)->count()/$FC_total)*100) != 0)
+                if(number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 13)->count()/$FC_total)*100) != 0)
                 {
-                    $Water_melon[$i] = number_format((Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 13)->count()/$FC_total)*100, 2);
+                    $Water_melon[$i] = number_format((Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 13)->count()/$FC_total)*100, 2);
                 } else 
                 {
                     $Water_melon[$i] = NULL;
@@ -323,11 +323,15 @@ class CropMonitoringController extends Controller
             $chk = Farming_data::where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count(); 
             if($chk != 0)
             {
-                $N_crop[$i] = Farming_data::whereYear('created_at', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count(); 
+                $N_crop[$i] = Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count(); 
                 $i++;
             } 
             
         }
+
+        $jsbrgy = Barangay::where('id', $request->barangay)->value('name');
+        $jsyear = '2022';
+        $technician = Auth::user()->name;
 
         $brgy = Barangay::where("id", $request->barangay)->value('name'); 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
@@ -356,7 +360,10 @@ class CropMonitoringController extends Controller
             'Water_melons'   => $Water_melon,
             'N_crops'    => $N_crop,
             'FD_hectares'    => $FD_hectare,
-            'brgy'  => $brgy
+            'brgy'  => $brgy,
+            'jsbrgy'    => $jsbrgy,
+            'jsyear'    => $jsyear,
+            'technician'    => $technician
         ));
     }
 
@@ -370,9 +377,9 @@ class CropMonitoringController extends Controller
 
         
         //count the farmer
-        $F_count =  Farming_data::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 0)->where('yield','!=',NULL)->distinct('farmer_id')->count();
+        $F_count =  Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 0)->where('yield','!=',NULL)->distinct('farmer_id')->count();
         //get all farmer IDs in the table
-        $F_id =  Farming_data::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 0)->where('yield','!=',NULL)->distinct('farmer_id')->pluck('farmer_id');
+        $F_id =  Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 0)->where('yield','!=',NULL)->distinct('farmer_id')->pluck('farmer_id');
 
         //get farmer name in the table
         foreach($F_id as $key1 => $f)
@@ -438,14 +445,14 @@ class CropMonitoringController extends Controller
             
 
 
-        //$FD_id = Farming_data::whereYear('created_at', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->value('id')->unique();
+        //$FD_id = Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->value('id')->unique();
         
 
         //storing/getting the specific count of a crop in every farming activity(water, persticide, fertilizer) in array
         foreach($F_id as $key1 => $f)
         {
-            $counter = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->count();
-            $FD_id = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('id');
+            $counter = Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->count();
+            $FD_id = Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('id');
             $FD_counter[$key1] = $counter;
             for($j = 0; $j <= $counter-1; $j++ )
             {
@@ -465,14 +472,14 @@ class CropMonitoringController extends Controller
                 }
                 
             }
-            $FD_hectare[$key1] = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('lot_size');
+            $FD_hectare[$key1] = Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('lot_size');
         }
         
 
         //storing/getting the specific percent of a crop in every farming activity(water, persticide, fertilizer) in array
         foreach($F_id as $key1 => $f)
         {
-            $FD_id = Farming_data::whereYear('created_at', '=', $request->year_id)->where('yield','!=',NULL)->where('farmer_id', $F_id[$key1])->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('id');
+            $FD_id = Farming_data::whereYear('date', '=', $request->year_id)->where('yield','!=',NULL)->where('farmer_id', $F_id[$key1])->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('id');
             
             foreach($FD_id as $key2 => $fd)
             {
@@ -487,13 +494,13 @@ class CropMonitoringController extends Controller
         }
 
 
-        $FD_id = Farming_data::whereYear('created_at', '=', $request->year_id)->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
+        $FD_id = Farming_data::whereYear('date', '=', $request->year_id)->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
         
         $x = 0;
         foreach($F_id as $key1 => $f)
         {
-            $counter = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->count();
-            $FD_crop[$key1] = Farming_data::with('crop')->whereYear('created_at', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
+            $counter = Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->count();
+            $FD_crop[$key1] = Farming_data::with('crop')->whereYear('date', '=', $request->year_id)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->get();
             
         }
         
@@ -530,118 +537,118 @@ class CropMonitoringController extends Controller
         $i = 0;
         foreach($F_id as $key => $f)
         {
-            $chk = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count();  
+            $chk = Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count();  
             
             if($chk != 0)
             {
-            $FC_total = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count();
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 1)->count()/$FC_total)*100) != 0)
+            $FC_total = Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count();
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 1)->count()/$FC_total)*100) != 0)
             {
-                $Bitter_gourd[$i] = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 1)->count()/$FC_total)*100, 2);
+                $Bitter_gourd[$i] = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 1)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Bitter_gourd[$i] = NULL;
             }
 
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 2)->count()/$FC_total)*100) != 0)
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 2)->count()/$FC_total)*100) != 0)
             {
-                $Cabbage[$i]  = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 2)->count()/$FC_total)*100, 2);
+                $Cabbage[$i]  = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 2)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Cabbage[$i] = NULL;
             }
 
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 3)->count()/$FC_total)*100) != 0)
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 3)->count()/$FC_total)*100) != 0)
             {
-                $Corn[$i]  = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 3)->count()/$FC_total)*100, 2);
+                $Corn[$i]  = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 3)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Corn[$i] = NULL;
             }
 
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 4)->count()/$FC_total)*100) != 0)
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 4)->count()/$FC_total)*100) != 0)
             {
-                $Eggplant[$i]  = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 4)->count()/$FC_total)*100, 2);
+                $Eggplant[$i]  = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 4)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Eggplant[$i] = NULL;
             }
 
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 5)->count()/$FC_total)*100) != 0)
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 5)->count()/$FC_total)*100) != 0)
             {
-                $Garlic[$i]  = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 5)->count()/$FC_total)*100, 2);
+                $Garlic[$i]  = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 5)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Garlic[$i] = NULL;
             }
 
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 6)->count()/$FC_total)*100) != 0)
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 6)->count()/$FC_total)*100) != 0)
             {
-                $Ladys_finger[$i] = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 6)->count()/$FC_total)*100, 2);
+                $Ladys_finger[$i] = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 6)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Ladys_finger[$i] = NULL;
             }
 
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 7)->count()/$FC_total)*100) != 0)
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 7)->count()/$FC_total)*100) != 0)
             {
-                $Rice[$i] = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 7)->count()/$FC_total)*100, 2);
+                $Rice[$i] = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 7)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Rice[$i] = NULL;
             }
             
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 8)->count()/$FC_total)*100) != 0)
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 8)->count()/$FC_total)*100) != 0)
             {
-                $Onion[$i] = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 8)->count()/$FC_total)*100, 2);
+                $Onion[$i] = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 8)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Onion[$i] = NULL;
             }
 
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 9)->count()/$FC_total)*100) != 0)
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 9)->count()/$FC_total)*100) != 0)
             {
-                $Peanut[$i] = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 9)->count()/$FC_total)*100, 2);
+                $Peanut[$i] = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 9)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Peanut[$i] = NULL;
             }
 
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 10)->count()/$FC_total)*100) != 0)
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 10)->count()/$FC_total)*100) != 0)
             {
-                $String_bean[$i] = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 10)->count()/$FC_total)*100, 2);
+                $String_bean[$i] = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 10)->count()/$FC_total)*100, 2);
             } else 
             {
                 $String_bean[$i] = NULL;
             }
 
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 11)->count()/$FC_total)*100) != 0)
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 11)->count()/$FC_total)*100) != 0)
             {
-                $Tobacco[$i] = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 11)->count()/$FC_total)*100, 2);
+                $Tobacco[$i] = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 11)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Tobacco[$i] = NULL;
             }
 
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
             {
-                $Tomato[$i] = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100, 2);
+                $Tomato[$i] = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Tomato[$i] = NULL;
             }
 
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100) != 0)
             {
-                $Tomato[$i] = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100, 2);
+                $Tomato[$i] = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Tomato[$i] = NULL;
             }
             
-            if(number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 13)->count()/$FC_total)*100) != 0)
+            if(number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 13)->count()/$FC_total)*100) != 0)
             {
-                $Water_melon[$i] = number_format((Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 13)->count()/$FC_total)*100, 2);
+                $Water_melon[$i] = number_format((Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 13)->count()/$FC_total)*100, 2);
             } else 
             {
                 $Water_melon[$i] = NULL;
@@ -659,11 +666,17 @@ class CropMonitoringController extends Controller
             $chk = Farming_data::where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count(); 
             if($chk != 0)
             {
-                $N_crop[$i] = Farming_data::whereYear('created_at', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count(); 
+                $N_crop[$i] = Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('status', 0)->where('yield','!=',NULL)->count(); 
                 $i++;
             } 
             
         }
+
+        $jsbrgy = Barangay::where('id', $request->barangay)->value('name');
+        $jsyear = $request->year_id;
+
+        $technician = Auth::user()->name;
+
         $brgy = Barangay::where("id", $request->barangay)->value('name'); 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
         return view('user/cropMonitoring',  array(
@@ -691,7 +704,10 @@ class CropMonitoringController extends Controller
             'Water_melons'   => $Water_melon,
             'N_crops'   => $N_crop,
             'FD_hectares'    => $FD_hectare,
-            'brgy'  => $brgy
+            'brgy'  => $brgy,
+            'jsbrgy'    => $jsbrgy,
+            'jsyear'    => $jsyear,
+            'technician'    => $technician
         ));  
     }
 }
