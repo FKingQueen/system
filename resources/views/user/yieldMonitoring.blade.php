@@ -330,7 +330,8 @@
 <script>
   const data1 = {
         labels: @json($n_farmers),
-        datasets: [{
+        datasets: [
+          {
             label: 'Bitter Gourd',
             data: @json($Bitter_gourds), 
             barThickness: 25,
@@ -433,14 +434,22 @@
             backgroundColor:'rgba(255, 99, 132, .7)',
             borderColor:  'rgba(255, 99, 132, .7 )',
             borderWidth: .1
-          }]
+          }
+        ]
     };
-
-
+    
     for(var i = 0; i <= data1.datasets.length-1; i++){
       if(data1.datasets[i].data.every( e  => e == 0.00))
       {
         data1.datasets.splice(i, 1);
+        i--;
+      }
+    }
+
+    for(var i = 0; i <= data.datasets.length-1; i++){
+      if(data.datasets[i].data.every( e  => e == null))
+      {
+        data.datasets.splice(i, 1);
         i--;
       }
     }

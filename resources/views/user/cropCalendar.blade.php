@@ -181,7 +181,7 @@
                                       {{$datas}}
                                   </td>
                                 @elseif($datas == 'null')
-                                  <td class="p-0 text-center" style="background-color: #fff; color: #fff; font-size: 10px; ">
+                                  <td class="p-0 text-center" style="user-select:none;background-color: #fff; color: #fff; font-size: 10px; ">
                                     {{$datas}}
                                   </td>
                                 @endif
