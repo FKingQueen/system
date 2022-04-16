@@ -102,6 +102,32 @@
       margin: 100px auto;
     }
 
+    /* floating Button */
+    .float{
+    position:fixed;
+    width:150px;
+    height:45px;
+    bottom:20px;
+    right:40px;
+    background-color: #248139;
+    border-color: #248139;
+    color: #FFF;
+    border-radius:50px;
+    text-align: center;
+    box-shadow: 2px 4px 4px #999;
+    z-index: 1;
+    }
+
+    .float:hover {
+      color: #fff;
+      background-color: #4FB250;
+      border-color: #4FB250;
+    }
+
+    .my-float{
+      margin-top:15px;
+    }
+    /* floating Button */
     
   </style>
 @endsection
@@ -121,7 +147,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('farmerList') }}">FarmerList</a></li>
-              <li class="breadcrumb-item active">FarmerProfile</li>
+              <li class="breadcrumb-item active">FarmerProfile.{{$farmer->name}}</li>
             </ol>
           </div>
           <!-- /.col -->
@@ -130,6 +156,11 @@
   </div>
   <!-- /.content-header -->
   
+  <a type="button" class="float" data-toggle="modal" data-target="#compose">
+    <i style='color:#ffffff' class="fas fa-file-export fa-lg my-float"></i>
+    <span style='color:#ffffff'>Create Farming</span>
+  </a>
+
 
   <!-- Main content -->
   <section class="content">
@@ -139,23 +170,11 @@
           <div class="card">
             <div class="card-body">
 
-              <table id="farmerList"  class="table table-bordered">
-                <div class="d-flex">
-                  <div class="ml-2">
-                    
-                    <h3 class=" ml-2 mb-3 farmer_name">
-                    {{$farmer->name}}
-                    </h3>
-                  </div>
-                    <div class="ml-auto">
-                        <button type="button" data-toggle="modal" data-target="#compose" class="btn btn-primary">
-                        Create Farming
-                        </button>
-                    </div>
-                  </div>
-                  
-                </div>
-                <thead >
+              <table id="farmerList"  class="table table-bordered">  
+                <h3 class=" ml-2 mt-1 mb-3 farmer_name">
+                  {{$farmer->name}}
+                </h3>
+                <thead class>
                     <tr class="bg-light" >
                         <th  style="width: 15%;"><i class="fas fa-seedling" style="color:#b0b0b0"> </i>Crop Name</th>
                         <th style="width: 20%;"><i class="fas fa-wind" style="color:#b0b0b0"></i> Cropping Season</th>
@@ -611,7 +630,7 @@
   <script>
     $(function () {
       $('#farmerList').DataTable({
-        "paging": false,
+        "paging": true,
         "lengthChange": true,
         "searching": true,
         "ordering": false,

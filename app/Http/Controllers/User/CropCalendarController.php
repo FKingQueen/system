@@ -32,7 +32,8 @@ class CropCalendarController extends Controller
             for($i = 0; $i <= 12; $i++)
             {
                 $chk = Farming_data::where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $brgycount->id)->where('crop_id', $i+1)->count();
-                if($chk != 0)
+                $chk1 = Activity_file::whereYear('date', '=' ,$currentyear)->where('crop_id', $i+1)->count();
+                if($chk != 0 && $chk1 != 0)
                 {
                     for($j = 0; $j <= 11; $j++)
                     {

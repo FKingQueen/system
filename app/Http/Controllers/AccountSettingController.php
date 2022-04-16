@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
 use App\Models\Barangay;
+use Illuminate\Validation\Rule;
 use Hash;
 use Auth;
 
@@ -22,30 +23,31 @@ class AccountSettingController extends Controller
     {
         $request->validate([
             'name'  => 'required',
-            'muni_address' => 'required',
-            'email' => 'required|email|unique:users,email,' .$id,
+            'email' => 'required|unique:users,email,'. $id,
         ]);
-
-        $res = DB::table('users')->where('id', $id)->update(['name' => $request->name, 'email' => $request->email, 'muni_address' => $request->muni_address,]);
+        
+        $res = DB::table('users')->where('id', $id)->update(['name' => $request->name, 'email' => $request->email]);
         
         if($res){
-            return redirect()->route('userManagement')->with('success', 'Update Sucessfully');
+            return back()->with('accountUpdated', 'Update Sucessfully');
         } else{
-            return redirect()->route('userManagement')->with('success', 'Update Sucessfully');
+            return back()->with('accountUpdatedfailed', 'Update Failed');
         }
     }
 
     public function updatePassword(Request $request, $id)
     {
         $request->validate([
-            'password' => 'required|confirmed|min:5|max:12',
+            'password' => 'required|confirmed|min:8|max:12',
         ]);
 
-        $res = DB::table('users')->where('id', $id)->update(['name' => $request->name, 'password' => Hash::make($request->password)]);
+        $res = DB::table('users')->where('id', $id)->update(['password' => Hash::make($request->password)]);
         
         if($res){
-            return back()->with('success', 'Update Sucessfully');
-        } 
+            return back()->with('passwordUpdated', 'Update Sucessfully');
+        } else{
+            return back()->with('accountUpdatedfailed', 'Update Failed');
+        }
     }
 
     public function changeProfile(Request $request, $id)

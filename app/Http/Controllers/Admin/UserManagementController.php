@@ -24,17 +24,16 @@ class UserManagementController extends Controller
     {
         $request->validate([
             'name'  => 'required',
-            'muni_address' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:users,email,'. $id,
         ]);
 
         
-        $res = DB::table('users')->where('id', $id)->update(['name' => $request->name, 'email' => $request->email, 'muni_address' => $request->muni_address,]);
+        $res = DB::table('users')->where('id', $id)->update(['name' => $request->name, 'email' => $request->email]);
         
         if($res){
-            return back()->with('success', 'Update Sucessfully');
+            return back()->with('accountUpdated', 'Update Sucessfully');
         } else{
-            return back()->with('fail', 'Nothing Change');
+            return back()->with('accountUpdatedfailed', 'Update Failed');
         }
     }
 
@@ -47,10 +46,8 @@ class UserManagementController extends Controller
         $res = DB::table('users')->where('id', $id)->update(['password' => Hash::make($request->password)]);
         
         if($res){
-            return back()->with('success', 'Update Sucessfully');
-        } else{
-            return back()->with('fail', 'Nothing Change');
-        }
+            return back()->with('passwordUpdated', 'Update Sucessfully');
+        } 
     }
 
     public function changeaccStatus(Request $request)

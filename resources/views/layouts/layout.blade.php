@@ -141,7 +141,7 @@
 
                             <!-- Account Setting Button -->          
                             <li class="nav-item ">
-                                <a type="button" href="{{ route('accountSetting') }}" class="nav-link {{ route('accountSetting') == url()->current() ? 'active' : '' }}">
+                                <a type="button" data-toggle="modal" data-target="#accountSetting" class="nav-link">
                                 <i class="fas fa-lg fa-cog"></i>
                                     <p>
                                         Account Setting
@@ -329,14 +329,140 @@
         </div>
         <!-- /Yield Monitoring Modal -->
 
+        <!-- Accout Setting modal -->
+        <div class="modal fade" id="accountSetting">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Account Setting</h4>
+                    </div>
+
+                    <form method="POST" action="{{ route('updateAccount',Auth::user()->id) }}">
+                        @csrf
+                        <div class="modal-body">
+                            
+                        <!-- Update Name -->
+                        <div class="input-group mb-3">
+                            <label for="name" class="input-group">Name:</label>
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" value="{{Auth::user()->name}}">
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror 
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Update Name -->
+
+                        <!-- Update Email -->
+                        <div class="input-group mb-3">
+                            <label for="email" class="input-group">Email:</label>
+                            <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" value="{{Auth::user()->email}}">
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror 
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Update Email -->
+
+                        <!-- Change Password -->
+                        <div class="input-group mb-3">
+                            <label for="password" class="input-group">Password:</label>
+                            <button type="Button" class="btn btn-close" data-dismiss="modal" data-toggle="modal" data-target="#changepass_user">
+                            Change Password
+                            </button>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Change Password -->
+
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <a  class="btn btn-close"  data-dismiss="modal">Close</a>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- / Account Setting modal -->
+
+        <!-- Change Password Modal -->
+        <div class="modal fade" id="changepass_user">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h4 class="modal-title">Changing Password</h4>
+                    </div>
+
+                    <form method="POST" action="{{ route('updatePassword',Auth::user()->id) }}">
+                    @csrf
+                    <div class="modal-body">
+
+
+                        <!-- Update Password -->
+                        <div class="input-group mb-3">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="New Password">
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror 
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Update Password -->
+                        <!-- Update Retype Password -->
+                        <div class="input-group mb-3">
+                            <input id="password_confirmation" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation"  required autocomplete="new-password" placeholder="Retype New Password">
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror 
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Update Retype Password -->
+                    </div>
+
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-close" data-dismiss="modal" data-toggle="modal" data-target="#accountSetting">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /Change Password Modal -->
+
     </div>
 @else
-
     <div class="d-flex justify-content-center content">
             @yield('content')
     </div>
-
-    
 @endif
 
 
@@ -454,13 +580,40 @@
             @endif
             // yield Monitoring Notifications
 
+            // Account Setting Notifications
+            @if(Session::has('accountUpdated'))
+                $(function() {
+                    toastr.success('Account Setting is Succesfully Updated')
+                });
+            @endif
+            @if(Session::has('accountUpdatedfailed'))
+                $(function() {
+                    toastr.error('Nothing Change')
+                });
+            @endif
 
+            @if(Session::has('passwordUpdated'))
+                $(function() {
+                    toastr.success('Password is Succesully Changed')
+                });
+            @endif
+
+            // Account Setting Notifications
         });
+
     </script>
 
-    
+    @error('password') 
+        <script>
+            $(function() {
+                $('#changepass_user').modal('show');
+            });
+        </script>
+    @enderror
+
 
     <script type="text/javascript">
+
       $(document).ready(function() {
           $('select[name="municipality"]').on('change', function() {
               var municipalityID = $(this).val();
@@ -490,8 +643,6 @@
 
     
     <!-- jQuery -->
-    
-    
     @yield('js')
     
 </body>

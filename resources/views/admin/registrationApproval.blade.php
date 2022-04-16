@@ -40,7 +40,7 @@
                 <tr>
                   <th class="text-center" style="width: 35%;">Name</th>
                   <th class="text-center" style="width: 25%;">Role</th>
-                  <th class="text-center" style="width: 25%;">ID Confirmation</th>
+                  <th class="text-center" style="width: 20%;">ID Confirmation</th>
                   <th class="text-center" style="width: 10%;">Action</th>
                 </tr>
                 </thead>

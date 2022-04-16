@@ -150,9 +150,13 @@
 
 
 @section('js')
+
+
     <script>
         $(window).on('load', function() {
             $('#modal-accountSetting').modal('show');
         });
     </script>
+    
+
 @endsection

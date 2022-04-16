@@ -98,8 +98,34 @@
       display: inline-block;
       margin: 100px auto;
     }
-  </style>
 
+    /* floating Button */
+    .float{
+    position:fixed;
+    width:130px;
+    height:45px;
+    bottom:20px;
+    right:40px;
+    background-color: #248139;
+    border-color: #248139;
+    color: #FFF;
+    border-radius:50px;
+    text-align: center;
+    box-shadow: 2px 4px 4px #999;
+    z-index: 1;
+    }
+
+    .float:hover {
+      color: #fff;
+      background-color: #4FB250;
+      border-color: #4FB250;
+    }
+
+    .my-float{
+      margin-top:15px;
+    }
+    /* floating Button */
+  </style>
 @endsection
 
 @section('content')
@@ -116,6 +142,25 @@
   </div>
   <!-- /.content-header -->
 
+  <a data-toggle="dropdown" type="button" class="float">
+    <i style='color:#ffffff' class="fas fa-file-export fa-lg my-float"></i>
+    <span style='color:#ffffff'>Add Farmer</span>
+  </a>
+
+      <div id="sample" class="dropdown-menu dropdown-menu-xl dropdown-menu-right ">
+      
+        <div class="dropdown-divider"></div>
+          <a data-dismiss="modal" data-toggle="modal" data-target="#addfarmer" class="btn btn-block btn-default border d-flex justify-content-start" >
+            Add new farmer
+          </a>
+
+        <div class="dropdown-divider"></div>
+          <a data-dismiss="modal" data-toggle="modal" data-target="#import"  class="btn btn-block btn-default border d-flex justify-content-start">
+            Import
+          </a>
+      </div>
+
+
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -125,29 +170,11 @@
             <!-- /.card-header -->
             <div class="card-body">
               <table id="farmerList"  class="table table-bordered">
-                  <div class="d-flex justify-content-end mb-2">
-                      <a class="btn btn-primary" data-toggle="dropdown" href="#">
-                        Add Farmer
-                      </a>
-                      <div id="sample" class="dropdown-menu dropdown-menu-xl dropdown-menu-right ">
-                      
-                        <div class="dropdown-divider"></div>
-                          <a data-dismiss="modal" data-toggle="modal" data-target="#addfarmer" class="btn btn-block btn-default border d-flex justify-content-start" >
-                            Add new farmer
-                          </a>
-
-                        <div class="dropdown-divider"></div>
-                          <a data-dismiss="modal" data-toggle="modal" data-target="#import"  class="btn btn-block btn-default border d-flex justify-content-start">
-                            Import
-                          </a>
-                      </div>
-
-                  </div>
                 <thead >
                 <tr class="bg-light" >
-                  <th ><i class="fas fa-male"></i> Farmers Name:</th>
-                  <th class="text-center" style="width: 30%;"><i class="fas fa-city"></i> Address</th>
-                  <th class="text-center" style="width: 10%;"><i class="fas fa-edit"></i></th>
+                  <th ><i class="fas fa-male" style="color:#b0b0b0"></i> Farmers Name:</th>
+                  <th class="text-center" style="width: 30%;"><i class="fas fa-city" style="color:#b0b0b0"></i> Address</th>
+                  <th class="text-center" style="width: 10%;"><i class="fas fa-edit" style="color:#b0b0b0"></i></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -432,7 +459,7 @@
   <script>
     $(function () {
       $('#farmerList').DataTable({
-        "paging": false,
+        "paging": true,
         "lengthChange": true,
         "searching": true,
         "ordering": false,
@@ -442,5 +469,13 @@
       });
     });
   </script>
+
+  @error('name') 
+    <script>
+      $(function() {
+          $('#addfarmer').modal('show');
+      });
+    </script>
+  @enderror
 
 @endsection

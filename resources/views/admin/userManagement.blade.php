@@ -134,36 +134,6 @@
                             </div>
                             <!-- /Update Email -->
 
-                            <!-- Update Municipality Address -->
-                            <div class="input-group mb-3">
-                                <label for="muni_address" class="input-group">Municipality Address:</label>
-                                <select id="muni_address" type="number" class="form-control @error('muni_address') is-invalid @enderror" name="muni_address" required autocomplete="muni_address" autofocus>
-                                    <option value="{{$user->muni_address}}" selected>{{$user->municipality->name}}</option>
-                                    <option value="1" >Badoc</option>
-                                    <option value="2" >Banna</option>
-                                    <option value="3" >Batac City</option>
-                                    <option value="4" >Currimao</option>
-                                    <option value="5" >Dingras</option>
-                                    <option value="6" >Marcos</option>
-                                    <option value="7" >Nueva Era</option>
-                                    <option value="8" >Paoay</option>
-                                    <option value="9" >Pinili</option>
-                                    <option value="10" >San Nicolas</option>
-                                    <option value="11" >Solsona</option>
-                                </select>
-                                @error('muni_address')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror 
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                      <span class="fas fa-building"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Update Municipality Address -->
-
                             <!-- Change Password -->
                             <div class="input-group mb-3">
                               <label for="password" class="input-group">Password:</label>
@@ -205,7 +175,7 @@
 
                             <!-- Update Password -->
                             <div class="input-group mb-3">
-                                <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="New Password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="New Password">
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -220,7 +190,7 @@
                             <!-- /Update Password -->
                             <!-- Update Retype Password -->
                             <div class="input-group mb-3">
-                                <input id="password_confirmation" type="text" class="form-control @error('password') is-invalid @enderror" name="password_confirmation"  required autocomplete="new-password" placeholder="Retype New Password">
+                                <input id="password_confirmation" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation"  required autocomplete="new-password" placeholder="Retype New Password">
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -236,7 +206,7 @@
                           </div>
 
                           <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#update_{{$user->id}}">Close</button>
+                            <button type="button" class="btn btn-close" data-dismiss="modal" data-toggle="modal" data-target="#update_{{$user->id}}">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                           </div>
                         </form>
@@ -244,7 +214,15 @@
                       </div>
                     </div>
                     <!-- /Change Password Modal -->
-                  
+
+                    <script>
+                      @if(Session::has('accountUpdatedfailed'))
+                        $(function() {
+                            $('#update_{{$user->id}}').modal('show');
+                        });
+                      @endif
+                    </script>
+                    
                 @endforeach
                 </tbody>
               </table>
@@ -301,7 +279,6 @@
     });
   });
 </script>
-
 
 @endsection
 
