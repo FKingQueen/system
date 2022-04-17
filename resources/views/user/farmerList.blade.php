@@ -112,7 +112,7 @@
     border-radius:50px;
     text-align: center;
     box-shadow: 2px 4px 4px #999;
-    z-index: 1;
+    z-index: 4;
     }
 
     .float:hover {
@@ -147,15 +147,15 @@
     <span style='color:#ffffff'>Add Farmer</span>
   </a>
 
-      <div id="sample" class="dropdown-menu dropdown-menu-xl dropdown-menu-right ">
+      <div id="sample" class="dropdown-menu dropdown-menu-lg dropdown-menu-left ">
       
         <div class="dropdown-divider"></div>
-          <a data-dismiss="modal" data-toggle="modal" data-target="#addfarmer" class="btn btn-block btn-default border d-flex justify-content-start" >
+          <a data-dismiss="modal" data-toggle="modal" data-target="#addfarmer" class="btn btn-default d-flex justify-content-start" >
             Add new farmer
           </a>
 
         <div class="dropdown-divider"></div>
-          <a data-dismiss="modal" data-toggle="modal" data-target="#import"  class="btn btn-block btn-default border d-flex justify-content-start">
+          <a data-dismiss="modal" data-toggle="modal" data-target="#import"  class="btn btn-default d-flex border-bottom justify-content-start">
             Import
           </a>
       </div>
@@ -199,16 +199,16 @@
                       <a class="p-0 btn btn-block btn-primary btn-xm" data-toggle="dropdown" href="#">
                         Option
                       </a>
-                      <div id="sample" class="dropdown-menu dropdown-menu-xl dropdown-menu-right ">
+                      <div id="sample" class="dropdown-menu dropdown-menu-lg dropdown-menu-right ">
                       
                         <div class="dropdown-divider"></div>
-                          <a data-dismiss="modal" data-toggle="modal" data-target="#update_{{$farmer->id}}" class="btn btn-block btn-default border d-flex justify-content-around" >
+                          <a data-dismiss="modal" data-toggle="modal" data-target="#update_{{$farmer->id}}" class="btn btn-default d-flex justify-content-around" >
                             Edit
                             <i class="fas fa-lg fa-edit ml-2" style="color: #42ba96;"></i>
                           </a>
 
                         <div class="dropdown-divider"></div>
-                          <a data-dismiss="modal" data-toggle="modal" data-target="#delete_{{$farmer->id}}"  class="btn btn-block btn-default border d-flex justify-content-around">
+                          <a data-dismiss="modal" data-toggle="modal" data-target="#delete_{{$farmer->id}}"  class="btn btn-default d-flex border-bottom justify-content-around">
                             Delete
                             <i class="fas fa-lg fa-trash mr-2" style="color: #d9534f;"></i>
                           </a>
@@ -326,7 +326,7 @@
                 <div class="modal-content  bg-green">
 
                   <div class="modal-header p-2">
-                    <h4 class="modal-title">Adding Farmer</h4>
+                    <h4 class="modal-title">Importing</h4>
                   </div>
 
                       <form method="POST" action="{{ route('importfarmer')}}" enctype="multipart/form-data">

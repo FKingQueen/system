@@ -330,6 +330,7 @@ class CropMonitoringController extends Controller
         }
 
         $jsbrgy = Barangay::where('id', $request->barangay)->value('name');
+        $pdfbrgy = Barangay::where('id', $request->barangay)->value('id');
         $jsyear = '2022';
         $technician = Auth::user()->name;
 
@@ -363,7 +364,8 @@ class CropMonitoringController extends Controller
             'brgy'  => $brgy,
             'jsbrgy'    => $jsbrgy,
             'jsyear'    => $jsyear,
-            'technician'    => $technician
+            'technician'    => $technician,
+            'pdfbrgy'  => $pdfbrgy
         ));
     }
 
@@ -673,6 +675,7 @@ class CropMonitoringController extends Controller
         }
 
         $jsbrgy = Barangay::where('id', $request->barangay)->value('name');
+        $pdfbrgy = Barangay::where('id', $request->barangay)->value('id');
         $jsyear = $request->year_id;
 
         $technician = Auth::user()->name;
@@ -707,7 +710,8 @@ class CropMonitoringController extends Controller
             'brgy'  => $brgy,
             'jsbrgy'    => $jsbrgy,
             'jsyear'    => $jsyear,
-            'technician'    => $technician
+            'technician'    => $technician,
+            'pdfbrgy'  => $pdfbrgy
         ));  
     }
 }

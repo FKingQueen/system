@@ -177,14 +177,13 @@
                     </thead>
                     <tbody>
 
-                      @php $j = 0 @endphp
                       @foreach($FA_counts as $key1 => $FA_count)
                         @if($FA_counts[$key1] != 0)
                           <tr>
                             <th style="cursor:pointer; color: #248139;"   data-toggle="modal" data-target="#activity_{{$key1}}">{{$Farmers[$key1]}}</th>
                             <td>{{$N_crops[$key1]}}</td>
                             <td>
-                              <div style="width: 100%;" class="input-group d-flex justify-content-center">
+                              <div style="width: 100%;" class=" d-flex ">
                                 <div class=" rounded-left" style="width: {{$FA_percents[$key1][0]}}%; background-color: rgba(117, 190, 218, 0.5);">{{$FA_percents[$key1][0]}}% ({{$FA_counts[$key1][0]}})</div>
                                 <div  style="width: {{$FA_percents[$key1][1]}}%; background-color: rgba(75, 192, 192, 0.5);">{{$FA_percents[$key1][1]}}% ({{$FA_counts[$key1][1]}})</div>
                                 <div class="rounded-right" style="width: {{$FA_percents[$key1][2]}}%; background-color: rgba(153, 102, 255, 0.5);">{{$FA_percents[$key1][2]}}% ({{$FA_counts[$key1][2]}})</div>
@@ -242,7 +241,6 @@
                                             </div>
                                           </td>
                                         </tr>
-                                      @php $j++ @endphp
                                       @endfor      
                                       </tbody>
                                     </table>
@@ -261,6 +259,12 @@
                     </tbody>
                   </table>
                 </div>
+    
+                <form id="cropmonitoringPDF" action="{{ route('generatePDF') }}" method="get">
+                  @csrf
+                  <input type="hidden" name="barangay" value="{{$pdfbrgy}}">
+                  <input type="hidden" name="year_id" value="{{$jsyear}}">
+                </form>
 
               </div>
             <!-- /.card-body -->
@@ -483,7 +487,6 @@
     
     const canvasImage = canvas.toDataURL('image/jpeg', 1.0);
 
-
     let pdf = new jsPDF();
     pdf.setFontSize(10);
     pdf.text('Date Report Generated:', 130, 16);
@@ -494,29 +497,31 @@
     pdf.text('PROPOSED SYSTEM', 80, 28);
     pdf.setFontSize(10);
     pdf.setFontType('normal');
-    pdf.text('Report on Total Yield of every Farmer', 73, 32);
-    pdf.text('in Barangay', 85, 36);
-    pdf.text(jsbrgy, 105, 36);
+    pdf.text('Report on Total Yield of Every Farmer', 73, 32);
+    pdf.text('in Barangay', 70, 36);
+    pdf.text(jsbrgy, 90, 36);
+    pdf.text('in Year ', 114, 36);
+    pdf.text(jsyear, 127, 36);
     pdf.setTextColor(0,0,0);
 
-    pdf.text('Year:', 15, 48);
-    pdf.text(jsyear, 25, 48);
-
-    pdf.text('The Total Number of Crops Sown in Barangay Quiling Sur', 58, 60);
-    pdf.addImage(canvasImage, 'JPEG', 5, 63, 200, 100);
+    pdf.text('The Total Number of Crops Sown in Barangay Quiling Sur', 58, 48);
+    pdf.addImage(canvasImage, 'JPEG', 5, 53, 200, 100);
 
     pdf.setFontSize(10);
-    pdf.setFontType('normal');
-    pdf.text('Page 1', 175, 285);
-
-    pdf.text('Verified by:', 30, 180);
-    pdf.text(technician, 30, 190);
+    pdf.text('Verified by:', 30, 170);
+    pdf.text(technician, 30, 180);
 
     pdf.setFontSize(9);
     pdf.setFontType('normal');
-    pdf.text('Technician', 30, 194);
+    pdf.text('Technician', 30, 184);
+
+    pdf.setFontType('normal');
+    pdf.text('Page 1', 175, 285);
     
-    pdf.save('CropMonitoringChartReport.pdf');
+    //pdf.save('CropMonitoringChartReport.pdf');
+
+    $('form[id=cropmonitoringPDF]').submit();
+
   }
 
 

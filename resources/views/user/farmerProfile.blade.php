@@ -115,7 +115,7 @@
     border-radius:50px;
     text-align: center;
     box-shadow: 2px 4px 4px #999;
-    z-index: 1;
+    z-index: 4;
     }
 
     .float:hover {
@@ -245,23 +245,23 @@
                             <a class="p-0 btn btn-block btn-primary btn-xm" data-toggle="dropdown" href="#">
                               Option
                             </a>
-                            <div id="sample" class="dropdown-menu dropdown-menu-xl dropdown-menu-right ">
+                            <div id="sample" class="dropdown-menu dropdown-menu-lg dropdown-menu-right ">
                               
                               <div class="dropdown-divider"></div>
-                                <a id="updatedisabled_{{$farming_data->id}}" data-dismiss="modal"  data-toggle="modal" data-target="#uploadActivity_{{$farming_data->id}}" class="btn btn-block btn-default border d-flex justify-content-around">
-                                  <b>Upload</b> 
+                                <a id="updatedisabled_{{$farming_data->id}}" data-dismiss="modal"  data-toggle="modal" data-target="#uploadActivity_{{$farming_data->id}}" class="btn btn-default d-flex justify-content-around mr-1">
+                                  Upload
                                   <i class="fas fa-lg fa-upload" style="color: #0275d8;"></i>
                                 </a>
           
                               <div class="dropdown-divider"></div>
-                                <a data-dismiss="modal" data-toggle="modal" data-target="#updateCrop_{{$farming_data->id}}" class="btn btn-block btn-default border d-flex justify-content-around" >
-                                  <b class="ml-1">Edit</b> 
+                                <a data-dismiss="modal" data-toggle="modal" data-target="#updateCrop_{{$farming_data->id}}" class="btn btn-default d-flex justify-content-around" >
+                                  Edit
                                   <i class="fas fa-lg fa-edit ml-4" style="color: #42ba96;"></i>
                                 </a>
 
                               <div class="dropdown-divider"></div>
-                                <a data-dismiss="modal" data-toggle="modal" data-target="#delete_{{$farming_data->id}}"  class="btn btn-block btn-default border d-flex justify-content-around">
-                                  <b>Delete</b> 
+                                <a data-dismiss="modal" data-toggle="modal" data-target="#delete_{{$farming_data->id}}"  class="btn btn-default border-bottom d-flex justify-content-around">
+                                  Delete
                                   <i class="fas fa-lg fa-trash" style="color: #d9534f;"></i>
                                 </a>
                             </div>
