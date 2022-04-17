@@ -4,56 +4,64 @@
 <div class="container-fluid p-0">
 <nav class="navbar navbar-expand-md navbar-light container-fluid" style="background-color: #1d800e; height: 10%;">
 </nav>
-<br><br>
+<br><br><br>
+<br>
 
-  <div class="d-flex justify-content-center mt-0">
-    <div class="login-box" style="width: 30rem;">
-          <!-- /.login-logo -->
-          <div class="register-logo">
-            <img src="{{ asset('images/logo.png')}}" width="60%" height="60%" alt="Image" >
-          </div>
+  <div class="d-flex justify-content-around mt-5 border">
+    <div class="login-box border" style="width: 25rem;">
 
-      <div class="card">
+      <div class="card " >
+        <div class="card-body login-card-body"  style="background-color: #E5E4D7;">
+          <p class="login-box-msg">Logo of the System</p>
+          <p class="login-box-msg">Brief the Description about the System</p>
+
+        </div>
+        <!-- /.login-card-body -->
+      </div>
+    </div>
+
+    <!-- /.login-box -->
+    <div class="login-box " style="width: 25rem;">
+      <div class="card" >
         <div class="card-body login-card-body"  style="background-color: #E5E4D7;">
           <p class="login-box-msg">Sign in to start your session </p>
 
           <form method="POST" action="{{ route('login') }}">
             @csrf
-            <br>
             <div class="input-group mb-3">
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
-                @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-envelope"></span>
                     </div>
                 </div>
-            </div>
-            <div class="input-group mb-3">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password"> 
-                @error('password')
+                @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+            </div>
+            <div class="input-group mb-3">
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password"> 
                 <div class="input-group-append">
                     <div class="input-group-text">
                     <span class="fas fa-lock"></span>
                     </div>
                 </div>
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <br>
             <div class="row">
                 
-              <div class="col-8">
+              <!-- <div class="col-8">
                 <div class="icheck-primary mt-2">
                   <a href="{{ route('register') }}" class="text-center ml-3">Register Now</a>
                 </div>
-              </div>
+              </div> -->
 
               <!-- /.col -->
               <div class="col-4">

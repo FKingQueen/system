@@ -309,38 +309,23 @@
                                           <td class="">{{$FD_hectares[$key1][$i]}}</td>
                                           <td class="w-100 ">
                                             <div class="d-flex justify-content-center">
-                                              <div id="{{$key1}}{{$i}}{{ $FD_percents[$key1][$i][0] > 10 ? $FD_counts[$key1][$i][0]  : $FD_counts[$key1][$i][0]}}" title="Water: {{$FD_percents[$key1][$i][0]}}% ({{$FD_counts[$key1][$i][0]}})" class="show0 rounded-left" style="width: {{$FD_percents[$key1][$i][0]}}%; background-color: rgba(117, 190, 218, 0.5); font-size: 13px;">
-                                                @if($FD_percents[$key1][$i][0] < 11)
+                                              <div id="water{{$key1}}{{$i}}" title="Water: {{$FD_percents[$key1][$i][0]}}% ({{$FD_counts[$key1][$i][0]}})" class="show0 rounded-left" style="cursor: pointer; width: {{$FD_percents[$key1][$i][0]}}%; background-color: rgba(117, 190, 218, 0.5); font-size: 13px;">
                                                   &nbsp;
-                                                @else 
-                                                  <!-- {{$FD_percents[$key1][$i][0]}}% ({{$FD_counts[$key1][$i][0]}}) -->
-                                                  &nbsp;
-                                                @endif
                                               </div>
-                                              <div id="{{$key1}}{{$i}}{{ $FD_percents[$key1][$i][1] > 10 ? $FD_counts[$key1][$i][1]  : $FD_counts[$key1][$i][1]}}" title="Fertilizer: {{$FD_percents[$key1][$i][1]}}% ({{$FD_counts[$key1][$i][1]}})" class="show1" style="width: {{$FD_percents[$key1][$i][1]}}%; background-color: rgba(75, 192, 192); font-size: 13px;">
-                                                @if($FD_percents[$key1][$i][1] < 11)
+                                              <div id="fertilizer{{$key1}}{{$i}}" title="Fertilizer: {{$FD_percents[$key1][$i][1]}}% ({{$FD_counts[$key1][$i][1]}})" class="show1" style="cursor: pointer; width: {{$FD_percents[$key1][$i][1]}}%; background-color: rgba(75, 192, 192); font-size: 13px;">
                                                   &nbsp;
-                                                @else 
-                                                  <!-- {{$FD_percents[$key1][$i][1]}}% ({{$FD_counts[$key1][$i][1]}}) -->
-                                                  &nbsp;
-                                                @endif
                                               </div>
-                                              <div id="{{$key1}}{{$i}}{{ $FD_percents[$key1][$i][2] > 10 ? $FD_counts[$key1][$i][2]  : $FD_counts[$key1][$i][2]}}" title="Pesticide: {{$FD_percents[$key1][$i][2]}}% ({{$FD_counts[$key1][$i][2]}})" class=" rounded-right show2" style="width: {{$FD_percents[$key1][$i][2]}}%; background-color: rgba(153, 102, 255); font-size: 13px;">
-                                                @if($FD_percents[$key1][$i][2] < 11)
+                                              <div id="pesticide{{$key1}}{{$i}}" title="Pesticide: {{$FD_percents[$key1][$i][2]}}% ({{$FD_counts[$key1][$i][2]}})" class=" rounded-right show2" style="cursor: pointer; width: {{$FD_percents[$key1][$i][2]}}%; background-color: rgba(153, 102, 255); font-size: 13px;">
                                                   &nbsp;
-                                                @else 
-                                                  <!-- {{$FD_percents[$key1][$i][2]}}% ({{$FD_counts[$key1][$i][2]}}) -->
-                                                  &nbsp;
-                                                @endif
                                               </div>
                                             </div>
                                           </td>
                                           <script>
-                                                $('#{{$key1}}{{$i}}{{$FD_counts[$key1][$i][0]}}').tooltip();
+                                                $('#water{{$key1}}{{$i}}').tooltip();
                                             
-                                                $('#{{$key1}}{{$i}}{{$FD_counts[$key1][$i][1]}}').tooltip();
+                                                $('#fertilizer{{$key1}}{{$i}}').tooltip();
 
-                                                $('#{{$key1}}{{$i}}{{$FD_counts[$key1][$i][2]}}').tooltip();
+                                                $('#pesticide{{$key1}}{{$i}}').tooltip();
                                           </script>
                                         </tr>
 

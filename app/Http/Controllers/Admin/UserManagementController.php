@@ -20,6 +20,32 @@ class UserManagementController extends Controller
         return view('admin.userManagement', array('users' => $user, "barangays" => $barangay));
     }
 
+    public function createUser(Request $request)
+    {
+        $request->validate([
+            'role_id'  => 'required',
+            'name'  => 'required',
+            'muni_address' => 'required',
+            'email' => 'required|email|unique:approvals|unique:users',
+            'password' => 'required|confirmed|min:8|max:12',
+        ]);
+
+        $user =  new User();
+        $user->role_id = $request->role_id;
+        $user->name = $request->name;
+        $user->muni_address = $request->muni_address;
+        $user->email = $request->email;
+        $user->acc_status = 1;
+        $user->password = Hash::make($request->password);
+        $res = $user->save();
+
+        if($res){
+            return back()->with('accountCreated', 'Created Sucessfully');
+        } else{
+            return back()->with('accountCreateFailed', 'Failed');
+        }
+    }
+
     public function userUpdate(Request $request, $id)
     {
         $request->validate([

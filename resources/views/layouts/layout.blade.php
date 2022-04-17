@@ -41,9 +41,7 @@
             <aside class="main-sidebar sidebar-light-success elevation-4">
                 <!-- Brand Logo -->
                     <div class="ml-1 p-1 image">
-                        <a href="{{ route('farmerList') }}">
-                            <img src="{{ asset('images/logo.png')}}" width="100%" height="100%" alt="Image" >  
-                        </a>
+                        <img src="{{ asset('images/logo.png')}}" width="100%" height="100%" alt="Image" >  
                     </div>
                 <!-- Sidebar -->
                 <div class="sidebar">
@@ -81,14 +79,14 @@
                             <!-- /Registration Approval Button -->    
 
                             <!-- Registration Approval Button -->          
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="{{ route('registrationApproval') }}" class="nav-link {{ route('registrationApproval') == url()->current() ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-user-check"></i>
                                 <p>
                                     Registration Approval
                                 </p>
                                 </a>
-                            </li>
+                            </li> -->
                             <!-- /Registration Approval Button -->
                             @endif
 
@@ -612,6 +610,19 @@
             @endif
 
             // Account Setting Notifications
+
+            // Admin Create Account Notifications
+            @if(Session::has('accountCreated'))
+                $(function() {
+                    toastr.success('New User is Successfully Created')
+                });
+            @endif
+            @if(Session::has('accountCreateFailed'))
+                $(function() {
+                    toastr.error('Something is Wrong, Try to Check')
+                });
+            @endif
+            //
         });
 
     </script>
