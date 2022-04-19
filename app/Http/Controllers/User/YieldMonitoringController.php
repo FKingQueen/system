@@ -30,7 +30,7 @@ class YieldMonitoringController extends Controller
             if($chk != NULL || $chk != 0 )
             {
                 $U_crop[$i] = number_format(Farming_data::whereYear('date', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $i+1)->where('barangay_id', $request->barangay)->where('cropping_season_id', 1)->where('status', 0)->where('yield','!=',NULL)->pluck('unit')->sum()/1000, 2);
-                $H_crop[$i] = number_format(Farming_data::whereYear('date', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $i+1)->where('barangay_id', $request->barangay)->where('cropping_season_id', 1)->where('status', 0)->where('yield','!=',NULL)->pluck('lot_size')->sum());
+                $H_crop[$i] = number_format(Farming_data::whereYear('date', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $i+1)->where('barangay_id', $request->barangay)->where('cropping_season_id', 1)->where('status', 0)->where('yield','!=',NULL)->pluck('lot_size')->sum(), 2);
             } else
             {
                 $U_crop[$i] = 0;
@@ -38,6 +38,7 @@ class YieldMonitoringController extends Controller
             }
             
         }
+
         ////Farmer Unit Stacked Bar Chart
         // Getting all farmer informttion in an array
         $F_id = Farming_data::whereYear('date', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('cropping_season_id', 1)->where('status', 0)->where('yield','!=',NULL)->distinct('farmer_id')->pluck('farmer_id');
@@ -171,7 +172,7 @@ class YieldMonitoringController extends Controller
             if($chk != NULL || $chk != 0 )
             {
                 $U_crop[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $i+1)->where('barangay_id', $request->barangay)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->pluck('unit')->sum()/1000, 2);
-                $H_crop[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $i+1)->where('barangay_id', $request->barangay)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->pluck('lot_size')->sum());
+                $H_crop[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $i+1)->where('barangay_id', $request->barangay)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->pluck('lot_size')->sum(), 2);
             } else
             {
                 $U_crop[$i] = 0;
