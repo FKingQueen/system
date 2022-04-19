@@ -182,7 +182,7 @@
             <strong>Copyright &copy; 2021-2022 <a class="text-info">Ilocos Norte Crop Manager</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.1.0
+                <b>Version</b> 1.0
             </div>
             </footer>
 
@@ -219,7 +219,7 @@
         <!-- UplaodPicture Modal -->
         <div class="modal fade" id="upload">
             <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content p-0">
                 <form method="POST" action="{{ route('changeProfile',Auth::user()->id) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body ">
@@ -239,7 +239,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-between ">
+                    <div class="modal-footer justify-content-between bg-white p-0">
                         <button type="button" class="btn btn-close" data-dismiss="modal" data-toggle="modal" data-target="#profile">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
@@ -248,7 +248,7 @@
             </div>
         </div>
         <!-- /UplaodPicture Modal -->   
-
+        <div class="arrow-up"></div>
         <!-- Crop Monitoring Modal -->
         </div>
             <div class="modal fade rounded" id="cropMonitoring" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
@@ -457,7 +457,7 @@
             </div>
         </div>
         <!-- /Change Password Modal -->
-
+        
     </div>
 @else
     <div class="d-flex justify-content-center content">
@@ -479,7 +479,23 @@
     </script>
     @endif
 
+    <script>
+        var btn = $('#button');
+        $(window).scroll(function() {
+        if ($(window).scrollTop() > 300) {
+            btn.addClass('show');
+        } else {
+            btn.removeClass('show');
+        }
+        });
 
+        btn.on('click', function(e) {
+        e.preventDefault();
+        $('html, body').animate({scrollTop:0}, '300');
+        });
+
+
+    </script>
 
     <script>
         $(function() {

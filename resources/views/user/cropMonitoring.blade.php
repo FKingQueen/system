@@ -24,6 +24,32 @@
 .my-float{
 	margin-top:13px;
 }
+.tooltip-inner::before {
+  background-color: #fff;
+  box-shadow: -2px -2px 2px 0 rgba( 178, 178, 178, .4);
+  display: block;
+  width: 8px;
+  height: 8px;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  transform: rotate( 45deg);
+  -moz-transform: rotate( 45deg);
+  -ms-transform: rotate( 45deg);
+  -o-transform: rotate( 45deg);
+  -webkit-transform: rotate( 45deg);
+  margin-top: 2px;
+}
+
+.tooltip-inner {
+  background-color: #fff !important;
+  color: #000 !important;
+  box-shadow: 0px 0px 6px #B2B2B2;
+  border: solid 1pt;
+  border-color: #248139;
+}
 </style>
 @endsection
 
@@ -53,59 +79,72 @@
     });
   </script>
 
-  <!-- card-body -->
-  <div class="card-body">
-                
-    <form action="{{ route('cropMonitoringsearch') }}" method="GET">
-      @csrf
-      <div class="modal-body rounded bg-white">
-        <div class="d-flex justify-content-between">
-          <div class="d-flex justify-content-left mb-3">
-              <div>
-                  <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
-                  <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
-                  <option value="" disabled selected>--- Select Barangay ---</option>
-                  @foreach($barangays as $barangay)
-                      <option value="{{$barangay->id}}">{{$barangay->name}}</option>
-                  @endforeach
-                  </select>
-                  @error('barangay')
-                      <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror          
-              </div>
-              <div class="ml-3">
-                  <label for="year_id" class="input-group">Year:</label>
-                  <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
-                          <option disabled selected>--- Select  Year ---</option>
-                      @php 
-                          $year = now()->year-4;
-                      @endphp
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+              <form action="{{ route('cropMonitoringsearch') }}" method="GET">
+                @csrf
+                <div class="modal-body rounded bg-white">
+                  <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-left mb-3">
+                        <div>
+                            <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
+                            <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
+                            <option value="" disabled selected>--- Select Barangay ---</option>
+                            @foreach($barangays as $barangay)
+                                <option value="{{$barangay->id}}">{{$barangay->name}}</option>
+                            @endforeach
+                            </select>
+                            @error('barangay')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror          
+                        </div>
+                        <div class="ml-3">
+                            <label for="year_id" class="input-group">Year:</label>
+                            <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
+                                    <option disabled selected>--- Select  Year ---</option>
+                                @php 
+                                    $year = now()->year-4;
+                                @endphp
 
-                      @for($i = 0; $i <= 4; $i++)
-                          <option value="{{$year}}">{{$year}}</option>
-                          @php $year = $year+1 @endphp
-                      @endfor
-                  </select>
-                      @error('year_id')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                      @enderror          
-              </div>     
-              <div class="ml-3 d-flex align-items-end">
-                  <button type="submit" class="btn btn-sm btn-block btn-primary input-group"> Filter </button>
-              </div>
+                                @for($i = 0; $i <= 4; $i++)
+                                    <option value="{{$year}}">{{$year}}</option>
+                                    @php $year = $year+1 @endphp
+                                @endfor
+                            </select>
+                                @error('year_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror          
+                        </div>     
+                        <div class="ml-3 d-flex align-items-end">
+                            <button type="submit" class="btn btn-sm btn-block btn-primary input-group"> Filter </button>
+                        </div>
 
+                    </div>
+
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- /.card-body -->
           </div>
-
+          <!-- /.card -->
         </div>
+        <!-- /.col -->
       </div>
-    </form>
-
-  </div>
-  <!-- /.card-body -->
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
 
   <!-- Main content -->
   <section class="content">

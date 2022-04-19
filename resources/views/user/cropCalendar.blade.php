@@ -21,7 +21,7 @@
       <div class="container-fluid">
       <div class="row">
           <div class="col-sm-6">
-              <h1 class="m-0 farm_title">Crop Calendar</h1>
+              <h1 class="m-0 farm_title">Crop Calendar </h1>
           </div>
           <!-- /.col -->
       </div><!-- /.row -->
@@ -209,7 +209,7 @@
   </section>
   <!-- /.content -->
 
-
+  <a id="button"><i class="fas fa-lg fa-arrow-up mt-3" style="color: white;"></i></a>
 
 @endsection
 
