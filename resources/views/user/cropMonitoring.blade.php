@@ -41,6 +41,7 @@
       </div><!-- /.container-fluid -->
   </div>
   <!-- /.content-header -->
+  <!-- HTML to write -->
 
   <a id="download" type="button" onclick= "downloadPDF()" class="float">
     <i style='color:#ffffff' class="fas fa-file-export fa-lg my-float"></i>
@@ -164,12 +165,12 @@
                             <div >
                               Fertilizer 
                             </div>
-                            <div style="width: 5%;  background-color: rgba(75, 192, 192, 0.5);" class="mr-5"></div>
+                            <div style="width: 5%;  background-color: rgba(75, 192, 192);" class="mr-5"></div>
 
                             <div class="d-flex">
                               Pesticide 
                             </div>
-                            <div style="width: 5%; background-color: rgba(153, 102, 255, 0.5);" class="mr-5y"></div>
+                            <div style="width: 5%; background-color: rgba(153, 102, 255);" class="mr-5y"></div>
                           </div>
                         </th>
                       </tr>
@@ -180,14 +181,49 @@
                       @foreach($FA_counts as $key1 => $FA_count)
                         @if($FA_counts[$key1] != 0)
                           <tr>
-                            <th style="cursor:pointer; color: #248139;"   data-toggle="modal" data-target="#activity_{{$key1}}">{{$Farmers[$key1]}}</th>
+                            <th id="Ttip{{$key1}}" style="cursor:pointer; color: #248139;"   data-toggle="modal" data-target="#activity_{{$key1}}">{{$Farmers[$key1]}}</th>
                             <td>{{$N_crops[$key1]}}</td>
                             <td>
                               <div style="width: 100%;" class=" d-flex ">
-                                <div class=" rounded-left" style="width: {{$FA_percents[$key1][0]}}%; background-color: rgba(117, 190, 218, 0.5);">{{$FA_percents[$key1][0]}}% ({{$FA_counts[$key1][0]}})</div>
-                                <div  style="width: {{$FA_percents[$key1][1]}}%; background-color: rgba(75, 192, 192, 0.5);">{{$FA_percents[$key1][1]}}% ({{$FA_counts[$key1][1]}})</div>
-                                <div class="rounded-right" style="width: {{$FA_percents[$key1][2]}}%; background-color: rgba(153, 102, 255, 0.5);">{{$FA_percents[$key1][2]}}% ({{$FA_counts[$key1][2]}})</div>
+                                <div id="{{$key1}}{{ $FA_percents[$key1][0] < 5 ? $FA_counts[$key1][0]  : '' }}" title="{{$FA_percents[$key1][0]}}%" class="p-1 rounded-left" style="width: {{$FA_percents[$key1][0]}}%; background-color: rgba(117, 190, 218, 0.5); font-size: 13px;">
+                                  @if($FA_percents[$key1][0] < 5)
+                                    &nbsp;
+                                  @else 
+                                    {{$FA_percents[$key1][0]}}%
+                                  @endif
+                                </div>
+                                <div id="{{$key1}}{{ $FA_percents[$key1][1] < 5 ? $FA_counts[$key1][1]  : ''}}" title="{{$FA_percents[$key1][1]}}%" class="p-1" style="width: {{$FA_percents[$key1][1]}}%; background-color: rgba(75, 192, 192); font-size: 13px;">
+                                  @if($FA_percents[$key1][1] < 5)
+                                    &nbsp;
+                                  @else 
+                                    {{$FA_percents[$key1][1]}}%
+                                  @endif
+                                </div>
+                                <div id="{{$key1}}{{ $FA_percents[$key1][2] < 5 ? $FA_counts[$key1][2]  : ''}}" title="{{$FA_percents[$key1][2]}}%" class="rounded-right p-1"  style="width: {{$FA_percents[$key1][2]}}%; background-color: rgba(153, 102, 255); font-size: 13px;">
+
+                                  @if($FA_percents[$key1][2] < 5)
+                                    &nbsp;
+                                  @else 
+                                    {{$FA_percents[$key1][2]}}%
+                                  @endif
+                                </div>
+
                               </div>
+                              <script>
+                                $(function () {
+                                  $('#{{$key1}}{{$FA_counts[$key1][0]}}').tooltip({placement: "left"})
+                                  $('#{{$key1}}{{$FA_counts[$key1][0]}}').tooltip("show")
+                                })
+                                $(function () {
+                                  $('#{{$key1}}{{$FA_counts[$key1][1]}}').tooltip({placement: "left"})
+                                  $('#{{$key1}}{{$FA_counts[$key1][1]}}').tooltip("show")
+                                })
+                                $(function () {
+                                  $('#{{$key1}}{{$FA_counts[$key1][2]}}').tooltip({placement: "top"})
+                                  $('#{{$key1}}{{$FA_counts[$key1][2]}}').tooltip("show")
+                                })
+                              </script>
+
 
                               <!-- Farming Activities Modal -->
                               <div class="modal fade rounded" id="activity_{{$key1}}" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
@@ -214,12 +250,12 @@
                                             <div>
                                               Fertilizer - 
                                             </div>
-                                            <div style="width: 5%; background-color: rgba(75, 192, 192, 0.5);" class="mr-5 "></div>
+                                            <div style="width: 5%; background-color: rgba(75, 192, 192);" class="mr-5 "></div>
   
                                             <div class="d-flex">
                                               Pesticide -   
                                             </div>
-                                            <div style="width: 5%; background-color: rgba(153, 102, 255, 0.5);" class="mr-5 "></div>
+                                            <div style="width: 5%; background-color: rgba(153, 102, 255);" class="mr-5 "></div>
                                             
                                           </th>
                                         </tr>
@@ -227,7 +263,6 @@
                                       <tbody>
 
                                       @for($i = 0; $i <= $FD_counters[$key1]-1; $i++)
-                                        
                                         <tr >
                                           <th class="">
                                               {{$FD_crops[$key1][$i]->crop->name}}
@@ -235,16 +270,44 @@
                                           <td class="">{{$FD_hectares[$key1][$i]}}</td>
                                           <td class="w-100 ">
                                             <div class="d-flex justify-content-center">
-                                              <div class=" rounded-left" style="width: {{$FD_percents[$key1][$i][0]}}%; background-color: rgba(117, 190, 218, 0.5);">{{$FD_percents[$key1][$i][0]}}% ({{$FD_counts[$key1][$i][0]}})</div>
-                                              <div style="width: {{$FD_percents[$key1][$i][1]}}%; background-color: rgba(75, 192, 192, 0.5);">{{$FD_percents[$key1][$i][1]}}% ({{$FD_counts[$key1][$i][1]}})</div>
-                                              <div class=" rounded-right" style="width: {{$FD_percents[$key1][$i][2]}}%; background-color: rgba(153, 102, 255, 0.5);">{{$FD_percents[$key1][$i][2]}}% ({{$FD_counts[$key1][$i][2]}})</div>
+                                              <div id="{{$key1}}{{$i}}{{ $FD_percents[$key1][$i][0] > 10 ? $FD_counts[$key1][$i][0]  : $FD_counts[$key1][$i][0]}}" title="Water: {{$FD_percents[$key1][$i][0]}}% ({{$FD_counts[$key1][$i][0]}})" class="show0 rounded-left" style="width: {{$FD_percents[$key1][$i][0]}}%; background-color: rgba(117, 190, 218, 0.5); font-size: 13px;">
+                                                @if($FD_percents[$key1][$i][0] < 11)
+                                                  &nbsp;
+                                                @else 
+                                                  <!-- {{$FD_percents[$key1][$i][0]}}% ({{$FD_counts[$key1][$i][0]}}) -->
+                                                  &nbsp;
+                                                @endif
+                                              </div>
+                                              <div id="{{$key1}}{{$i}}{{ $FD_percents[$key1][$i][1] > 10 ? $FD_counts[$key1][$i][1]  : $FD_counts[$key1][$i][1]}}" title="Fertilizer: {{$FD_percents[$key1][$i][1]}}% ({{$FD_counts[$key1][$i][1]}})" class="show1" style="width: {{$FD_percents[$key1][$i][1]}}%; background-color: rgba(75, 192, 192); font-size: 13px;">
+                                                @if($FD_percents[$key1][$i][1] < 11)
+                                                  &nbsp;
+                                                @else 
+                                                  <!-- {{$FD_percents[$key1][$i][1]}}% ({{$FD_counts[$key1][$i][1]}}) -->
+                                                  &nbsp;
+                                                @endif
+                                              </div>
+                                              <div id="{{$key1}}{{$i}}{{ $FD_percents[$key1][$i][2] > 10 ? $FD_counts[$key1][$i][2]  : $FD_counts[$key1][$i][2]}}" title="Pesticide: {{$FD_percents[$key1][$i][2]}}% ({{$FD_counts[$key1][$i][2]}})" class=" rounded-right show2" style="width: {{$FD_percents[$key1][$i][2]}}%; background-color: rgba(153, 102, 255); font-size: 13px;">
+                                                @if($FD_percents[$key1][$i][2] < 11)
+                                                  &nbsp;
+                                                @else 
+                                                  <!-- {{$FD_percents[$key1][$i][2]}}% ({{$FD_counts[$key1][$i][2]}}) -->
+                                                  &nbsp;
+                                                @endif
+                                              </div>
                                             </div>
                                           </td>
+                                          <script>
+                                                $('#{{$key1}}{{$i}}{{$FD_counts[$key1][$i][0]}}').tooltip();
+                                            
+                                                $('#{{$key1}}{{$i}}{{$FD_counts[$key1][$i][1]}}').tooltip();
+
+                                                $('#{{$key1}}{{$i}}{{$FD_counts[$key1][$i][2]}}').tooltip();
+                                          </script>
                                         </tr>
+
                                       @endfor      
                                       </tbody>
                                     </table>
-
                                 </div>
                                 </div>
                               </div>
@@ -252,7 +315,6 @@
 
                             </td>
                           </tr>
-                          @php $i++ @endphp
                         @endif
                       @endforeach
                       
@@ -518,7 +580,7 @@
     pdf.setFontType('normal');
     pdf.text('Page 1', 175, 285);
     
-    //pdf.save('CropMonitoringChartReport.pdf');
+    pdf.save('CropMonitoringChartReport.pdf');
 
     $('form[id=cropmonitoringPDF]').submit();
 

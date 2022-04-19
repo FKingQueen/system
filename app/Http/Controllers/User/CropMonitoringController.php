@@ -136,6 +136,7 @@ class CropMonitoringController extends Controller
             $FD_hectare[$key1] = Farming_data::whereYear('date', '=', 2022)->where('farmer_id', $F_id[$key1])->where('yield','!=',NULL)->where('municipality_id', Auth::user()->muni_address)->where('status', '0')->where('barangay_id', $request->barangay)->pluck('lot_size');
         }
 
+
         //storing/getting the specific percent of a crop in every farming activity(water, persticide, fertilizer) in array
         foreach($F_id as $key1 => $f)
         {

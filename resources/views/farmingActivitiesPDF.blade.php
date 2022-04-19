@@ -6,7 +6,7 @@
         body {
             margin: 0;
             font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            font-size: 1rem;
+            font-size: 10pt;
             font-weight: 440;
             line-height: 1.5;
             color: #212529;
@@ -59,8 +59,8 @@
                 <td style="width: 77.6505%; border: 1px inset rgb(0, 0, 0);">
                     <div data-empty="true" style="text-align: center;">
                         <span style="font-size: 14px; ">Water</span> - <span style="width: 5%; background-color: rgba(117, 190, 218, 0.5); color: rgba(117, 190, 218); user-select:none;">___</span>
-                        <span style="font-size: 14px; ">Fertilizer</span> - <span style="width: 5%; background-color:rgba(75, 192, 192, 0.5); color: rgba(75, 192, 192); user-select:none;">___</span>
-                        <span style="font-size: 14px; ">Pesticide</span> - <span style="width: 5%; background-color: rgba(153, 102, 255, 0.5); color: rgba(153, 102, 255); user-select:none;">___</span>
+                        <span style="font-size: 14px; ">Fertilizer</span> - <span style="width: 5%; background-color:rgba(75, 192, 192); color: rgba(75, 192, 192); user-select:none;">___</span>
+                        <span style="font-size: 14px; ">Pesticide</span> - <span style="width: 5%; background-color: rgba(153, 102, 255); color: rgba(153, 102, 255); user-select:none;">___</span>
                     </div>
                 </td>
             </tr>
@@ -77,9 +77,9 @@
                         <table style="width: 100%;">
                             <tbody>
                                 <tr style="width: 100%; text-align: center;">
-                                    <td style="width: {{$FA_percents[$key1][0]}}%; background-color: rgba(117, 190, 218, 0.5);">{{$FA_percents[$key1][0]}}% ({{$FA_counts[$key1][0]}})</td>
-                                    <td style="width: {{$FA_percents[$key1][1]}}%; background-color: rgba(75, 192, 192, 0.5);">{{$FA_percents[$key1][1]}}% ({{$FA_counts[$key1][1]}})</td>
-                                    <td style="width: {{$FA_percents[$key1][2]}}%; background-color: rgba(153, 102, 255, 0.5);">{{$FA_percents[$key1][2]}}% ({{$FA_counts[$key1][2]}})</td>
+                                    <td style="font-size: 10px; width: {{$FA_percents[$key1][0]}}%; background-color: rgba(117, 190, 218, 0.5); height: 30px;">{{$FA_percents[$key1][0]}}% ({{$FA_counts[$key1][0]}})</td>
+                                    <td style="font-size: 10px; width: {{$FA_percents[$key1][1]}}%; background-color: rgba(75, 192, 192); height: 30px;">{{$FA_percents[$key1][1]}}% ({{$FA_counts[$key1][1]}})</td>
+                                    <td style="font-size: 10px; width: {{$FA_percents[$key1][2]}}%; background-color: rgba(153, 102, 255); height: 30px;">{{$FA_percents[$key1][2]}}% ({{$FA_counts[$key1][2]}})</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -95,7 +95,7 @@
     <table style="width: 100%; border-collapse: collapse; border: 1px inset rgb(0, 0, 0); ">
         <thead>
             <tr>
-                <td style="width: 13.7782%; border: 1px inset rgb(0, 0, 0);">
+                <td style="width: 13.7782%; border: 1px inset rgb(0, 0, 0); ">
                     <div style="text-align: center;"><span style="font-size: 14px;">Farmer</span></div>
                 </td>
                 <td style="width: 13.6781%; border: 1px inset rgb(0, 0, 0);">
@@ -113,8 +113,8 @@
                 @if($FA_counts[$key1] != 0)
                     @for($i = 0; $i <= $FD_counters[$key1]-1; $i++)
                         <tr>
-                            <td style="width: 13.7782%; border: 1px inset rgb(0, 0, 0);">
-                                <div data-empty="true" style="text-align: center;">
+                            <td style="width: 13.7782%; border: 1px inset rgb(0, 0, 0); ">
+                                <div data-empty="true" style="text-align: center; ">
                                     <span style="font-size: 14px;">
                                         @if($i == 0)
                                             {{$Farmers[$key1]}}
@@ -129,9 +129,9 @@
                             <table style="width: 100%;">
                                 <tbody>
                                     <tr style="width: 100%; text-align: center;">
-                                        <td style="width: {{$FD_percents[$key1][$i][0]}}%; background-color: rgba(117, 190, 218, 0.5);">{{$FD_percents[$key1][$i][0]}}% ({{$FD_counts[$key1][$i][0]}})</td>
-                                        <td style="width: {{$FD_percents[$key1][$i][1]}}%; background-color: rgba(75, 192, 192, 0.5);">{{$FD_percents[$key1][$i][1]}}% ({{$FD_counts[$key1][$i][1]}})</td>
-                                        <td style="width: {{$FD_percents[$key1][$i][2]}}%; background-color: rgba(153, 102, 255, 0.5);">{{$FD_percents[$key1][$i][2]}}% ({{$FD_counts[$key1][$i][2]}})</td>
+                                        <td style="font-size: 10px; width: {{$FD_percents[$key1][$i][0]}}%; background-color: rgba(117, 190, 218, 0.5); height: 30px;">{{$FD_percents[$key1][$i][0]}}% ({{$FD_counts[$key1][$i][0]}})</td>
+                                        <td style="font-size: 10px; width: {{$FD_percents[$key1][$i][1]}}%; background-color: rgba(75, 192, 192); height: 30px;">{{$FD_percents[$key1][$i][1]}}% ({{$FD_counts[$key1][$i][1]}})</td>
+                                        <td style="font-size: 10px; width: {{$FD_percents[$key1][$i][2]}}%; background-color: rgba(153, 102, 255); height: 30px;">{{$FD_percents[$key1][$i][2]}}% ({{$FD_counts[$key1][$i][2]}})</td>
                                     </tr>
                                 </tbody>
                             </table>

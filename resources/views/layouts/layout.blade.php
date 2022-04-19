@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>ScriptFarm</title>
+    <title>I-Crop</title>
     
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @yield('css')

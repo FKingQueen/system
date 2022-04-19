@@ -548,7 +548,7 @@
 
                             <div class="text-center w-50 col-auto" >
                                 <label id="unit_name" name="unit_name" class="font-weight-light"></label>
-                                <input id="lot_size" type="number"  class="text-center form-control @error('lot_size') is-invalid @enderror mt-2"  name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
+                                <input id="lot_size" type="number"  class="text-center form-control @error('lot_size') is-invalid @enderror mt-2" max="10" name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
                                 @error('lot_size')
                                   <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -648,7 +648,7 @@
 
       $('select[id="field_unit"]').on('change', function() {
         var field_unit = $(this).val();
-        
+        console.log(field_unit);
           if(field_unit == 1){
             $('[id="unit_name"]').show();
             $('[id="lot_size"]').show();
@@ -657,7 +657,6 @@
             $('[id="lot_size"]').attr("min", ".1");
             $('[id="lot_size"]').attr("step", ".1");
           }
-
           else if(field_unit == 2){
             $('[id="unit_name"]').show();
             $('[id="lot_size"]').show();
@@ -692,7 +691,7 @@
     $(function(){
       $('select[id="updateField_unit"]').on('change', function() {
         var field_unit = $(this).val();
-        console.log(field_unit);
+        
           if(field_unit == 1){
             $('[id="updateLot_size"]').attr("placeholder", "ha");
             $('[id="updateLot_size"]').attr("max", "10");

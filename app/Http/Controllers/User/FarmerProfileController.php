@@ -158,6 +158,13 @@ class FarmerProfileController extends Controller
         ->where('id', $id)
         ->delete();
 
+        if($res)
+        {
+            DB::table('activity_files')
+            ->where('farming_data_id', $id)
+            ->delete();
+        }
+
         if($res){
             return redirect()->route('farmerProfile', [$farmer_id])->with('deletedfarming', 'Success');
         } else{
