@@ -2,20 +2,20 @@
 
 @section('content')
 <div class="container-fluid p-0">
-<nav class="navbar navbar-expand-md navbar-light container-fluid" style="background-color: #1d800e; height: 10%;">
+  <nav class="navbar navbar-expand-md navbar-light container-fluid" style="background-color: #1d800e; height: 15%;">
 </nav>
 <br><br><br>
 <br>
 
   <div class="border h-100 row ">
-      <div class="col-6 col-md-8 align-self-start border ">
+      <div class="col-6 col-md-7 align-self-start border ">
         <div class="d-flex justify-content-center ">
           <img src="{{ asset('images/logo.png')}}" width="50%" height="50%" alt="Image" >  
         </div>
       </div>
 
     <!-- /.login-box -->
-    <div class="col-6 col-md-3 mr-5 align-self-center" style="width: 25rem;">
+    <div class="col-6 col-md-4 mr-5  align-self-center border">
       <div class="card">
         <div class="card-body login-card-body"  style="background-color: #E5E4D7;">
           <p class="login-box-msg">Sign in to start your session </p>
