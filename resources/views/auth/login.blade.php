@@ -7,15 +7,30 @@
 <br><br><br>
 <br>
 
-  <div class="border h-100 row ">
-      <div class="col-6 col-md-7 align-self-start border ">
+  <div class="h-100 row">
+
+      <div class="col-6 col-md-7 mt-5 align-self-star ml-5">
         <div class="d-flex justify-content-center ">
           <img src="{{ asset('images/logo.png')}}" width="50%" height="50%" alt="Image" >  
+        </div>
+        <div class="text-center mt-4">
+          <p>
+            <b>Rice Crop Manager Buddy</b> is a technology that enables technicians to cooperate with 
+          </p>
+          <p>
+            the Rice Crop Manage application and monitor farmers' agricultural operations in your areas.
+          </p>
+          <p>
+            In addition, the RCM Buddy gives information on agricultural methods that may be shared with 
+          </p>
+          <p>
+            other farmers in your community. Let us join forces to support our local farmers.
+          </p>
         </div>
       </div>
 
     <!-- /.login-box -->
-    <div class="col-6 col-md-4 mr-5  align-self-center border">
+    <div class="col-6 col-md-4 mr-5  align-self-center">
       <div class="card">
         <div class="card-body login-card-body"  style="background-color: #E5E4D7;">
           <p class="login-box-msg">Sign in to start your session </p>

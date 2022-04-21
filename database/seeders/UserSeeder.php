@@ -23,6 +23,14 @@ class UserSeeder extends Seeder
             'acc_status' => '1',
             'password'=>Hash::make('12345')
         ]); 
+        User::create([
+            'name'=>'Hisiah Nidoy',
+            'muni_address'=>'4',
+            'role_id'=>'2',
+            'email'=>'h@gmail.com',
+            'acc_status' => '1',
+            'password'=>Hash::make('12345')
+        ]); 
 
     }
 }
