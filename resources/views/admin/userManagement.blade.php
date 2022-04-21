@@ -10,6 +10,33 @@
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
+  <style>
+  /* floating Button */
+  .float{
+  position:fixed;
+  width:155px;
+  height:45px;
+  bottom:20px;
+  right:40px;
+  background-color: #248139;
+  border-color: #248139;
+  color: #FFF;
+  border-radius:50px;
+  text-align: center;
+  box-shadow: 2px 4px 4px #999;
+  z-index: 4;
+  }
+
+  .float:hover {
+    color: #fff;
+    background-color: #4FB250;
+    border-color: #4FB250;
+  }
+
+  .my-float{
+    margin-top:15px;
+  }
+  </style>
 @endsection
 
 @section('content')
@@ -27,6 +54,115 @@
       </div><!-- /.container-fluid -->
   </div>
   <!-- /.content-header -->
+
+  <a type="button" class="float" data-toggle="modal" data-target="#createUser">
+    <i style="color:#ffffff" class="fas fa-solid fa-plus my-float"></i>
+    <span style="color:#ffffff; font-size: 12pt;">Create New User</span>
+  </a>
+  
+<!-- Create Farming Modal -->
+<div class="modal fade" id="createUser">
+  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+
+    <div class="modal-header bg-green p-2">
+      <h4 class="modal-title">Creating new User</h4>
+    </div>
+
+        <formmethod="POST" action="{{ route('registration') }}" enctype="multipart/form-data">
+          @csrf
+          <div class="modal-body bg-white mt-1 mb-1">
+
+            <div class="input-group mb-3">
+              <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full Name">
+                @error('name')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror          
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user"></span>
+                </div>
+              </div>
+            </div>
+            
+            
+            <div class="input-group mb-3">
+                  <select id="muni_address" type="number" class="form-control @error('muni_address') is-invalid @enderror" name="muni_address" required autocomplete="muni_address" autofocus>
+                      <option disabled selected>Municipal Department Office</option>
+                      <option value="1" >Badoc</option>
+                      <option value="2" >Banna</option>
+                      <option value="3" >Batac City</option>
+                      <option value="4" >Currimao</option>
+                      <option value="5" >Dingras</option>
+                      <option value="6" >Marcos</option>
+                      <option value="7" >Nueva Era</option>
+                      <option value="8" >Paoay</option>
+                      <option value="9" >Pinili</option>
+                      <option value="10" >San Nicolas</option>
+                      <option value="11" >Solsona</option>
+                  </select>
+
+                  @error('unit_id')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-building"></span>
+                    </div>
+                  </div>
+            </div>  
+
+            <div class="input-group mb-3">
+              <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
+                @error('email')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror 
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
+              <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
+                @error('password')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror 
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <input id="password_confirmation" type="password" class="form-control" name="password_confirmation"  required autocomplete="new-password" placeholder="Confirm">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer justify-content-between bg-white p-0">
+              <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Create User</button>
+          </div>
+        </form>
+  </div>
+  </div>
+</div>
+<!-- /Create Farming Modal -->
 
   <!-- Main content -->
   <section class="content">
