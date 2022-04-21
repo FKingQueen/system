@@ -2,10 +2,9 @@
 
 @section('content')
 <div class="container-fluid p-0">
-  <nav class="navbar navbar-expand-md navbar-light container-fluid" style="background-color: #1d800e; height: 15%;">
+  <nav class="navbar navbar-expand-md navbar-light container-fluid" style="background-color: #1d800e; height: 13%;">
 </nav>
 <br><br><br>
-<br>
 
   <div class="h-100 row">
 

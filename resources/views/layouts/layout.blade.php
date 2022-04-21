@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>I-Crop</title>
+    <title>RCM Buddy</title>
     
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @yield('css')
@@ -38,15 +38,15 @@
             <!-- /.navbar -->
 
             <!-- Main Sidebar Container -->
-            <aside class="main-sidebar sidebar-light-success elevation-4">
+            <aside class="main-sidebar sidebar-light-success elevation-10">
                 <!-- Brand Logo -->
-                    <div class="ml-1 p-1 image">
+                    <div class="ml-1 p-1 image" style="cursor: pointer;">
                         <img src="{{ asset('images/logo.png')}}" width="100%" height="100%" alt="Image" >  
                     </div>
                 <!-- Sidebar -->
                 <div class="sidebar">
                     <!-- Sidebar user panel (optional) -->
-                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="user-panel mt-2 pb-3 mb-3 d-flex">
                         <div class="image">
                             <img src="{{ asset('uploads/user/'.(Auth::user()->prof_image))}}" class="img-circle elevation-2" alt="User Image">
                             
@@ -77,17 +77,6 @@
                                 </a>
                             </li>
                             <!-- /Registration Approval Button -->    
-
-                            <!-- Registration Approval Button -->          
-                            <!-- <li class="nav-item">
-                                <a href="{{ route('registrationApproval') }}" class="nav-link {{ route('registrationApproval') == url()->current() ? 'active' : '' }} ">
-                                <i class="fas fa-lg fa-user-check"></i>
-                                <p>
-                                    Registration Approval
-                                </p>
-                                </a>
-                            </li> -->
-                            <!-- /Registration Approval Button -->
                             @endif
 
                             @if(Auth::user()->role_id == 2)
@@ -96,7 +85,7 @@
                                 <a href="{{ route('farmerList') }}" class="nav-link {{ route('farmerList') == url()->current() || 'farmerProfile' ==  Route::currentRouteName() ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-user-check"></i>
                                 <p>
-                                    Farmer History
+                                    Farmer Records
                                 </p>
                                 </a>
                             </li>
@@ -177,7 +166,7 @@
             </div>
             <!-- /.content-wrapper -->
             <footer class="main-footer">
-            <strong>Copyright &copy; 2021-2022 <a class="text-info">Ilocos Norte Crop Manager</a>.</strong>
+            <strong>Copyright &copy; 2021-2022 <a class="text-info" style="cursor: pointer;">RCM Buddy</a>.</strong>
             All rights reserved.
             </footer>
 

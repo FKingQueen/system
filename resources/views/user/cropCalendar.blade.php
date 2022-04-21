@@ -146,7 +146,7 @@
 
               <table class="table table-bordered">
                 <thead>
-                  <tr class="text-center ">
+                  <tr class="text-center " style="position: sticky; top: 0; background-color: #F5FEFD;">
                     <th scope="col" style="width: 0%;">Barangay</th>
                     <th scope="col" style="width: 8%;">Jan</th>
                     <th scope="col" style="width: 8%;">Feb</th>

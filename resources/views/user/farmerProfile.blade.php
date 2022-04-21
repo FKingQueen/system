@@ -146,7 +146,7 @@
 
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('farmerList') }}">FarmerList</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('farmerList') }}">FarmerRecords</a></li>
               <li class="breadcrumb-item active">FarmerProfile.{{$farmer->name}}</li>
             </ol>
           </div>

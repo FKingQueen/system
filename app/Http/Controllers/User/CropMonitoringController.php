@@ -24,7 +24,7 @@ class CropMonitoringController extends Controller
         ]);
 
         
-       
+        $muni = Municipality::where('id',Auth::user()->muni_address)->value('name');
         //count the farmer
         // $F_count = Farmer::where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 1)->count();
         $F_count =  Farming_data::whereYear('date', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 0)->where('yield','!=',NULL)->distinct('farmer_id')->count();
@@ -366,7 +366,8 @@ class CropMonitoringController extends Controller
             'jsbrgy'    => $jsbrgy,
             'jsyear'    => $jsyear,
             'technician'    => $technician,
-            'pdfbrgy'  => $pdfbrgy
+            'pdfbrgy'  => $pdfbrgy,
+            'muni'  => $muni
         ));
     }
 
@@ -378,7 +379,7 @@ class CropMonitoringController extends Controller
             'barangay'  => 'required',
         ]);
 
-        
+        $muni = Municipality::where('id',Auth::user()->muni_address)->value('name');
         //count the farmer
         $F_count =  Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 0)->where('yield','!=',NULL)->distinct('farmer_id')->count();
         //get all farmer IDs in the table
@@ -712,7 +713,8 @@ class CropMonitoringController extends Controller
             'jsbrgy'    => $jsbrgy,
             'jsyear'    => $jsyear,
             'technician'    => $technician,
-            'pdfbrgy'  => $pdfbrgy
+            'pdfbrgy'  => $pdfbrgy,
+            'muni'  => $muni
         ));  
     }
 }
