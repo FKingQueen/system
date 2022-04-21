@@ -7,22 +7,16 @@
 <br><br><br>
 <br>
 
-  <div class="d-flex justify-content-around mt-5 border">
-    <div class="login-box border" style="width: 25rem;">
-
-      <div class="card " >
-        <div class="card-body login-card-body"  style="background-color: #E5E4D7;">
-          <p class="login-box-msg">Logo of the System</p>
-          <p class="login-box-msg">Brief the Description about the System</p>
-
+  <div class="border h-100 row ">
+      <div class="col-6 col-md-8 align-self-start border ">
+        <div class="d-flex justify-content-center ">
+          <img src="{{ asset('images/logo.png')}}" width="50%" height="50%" alt="Image" >  
         </div>
-        <!-- /.login-card-body -->
       </div>
-    </div>
 
     <!-- /.login-box -->
-    <div class="login-box " style="width: 25rem;">
-      <div class="card" >
+    <div class="col-6 col-md-3 mr-5 align-self-center" style="width: 25rem;">
+      <div class="card">
         <div class="card-body login-card-body"  style="background-color: #E5E4D7;">
           <p class="login-box-msg">Sign in to start your session </p>
 
