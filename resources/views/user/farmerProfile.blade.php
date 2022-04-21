@@ -143,7 +143,6 @@
               <h1 class="m-0 farm_title">Farmer Profile</h1>
           </div>
           
-
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('farmerList') }}">FarmerRecords</a></li>
@@ -578,9 +577,23 @@
 
                         <div class="modal-footer justify-content-between bg-white p-0">
                             <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Compose</button>
+                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#loading">Create Farming</button>
                         </div>
                       </form>
+                </div>
+                </div>
+              </div>
+              <!-- /Create Farming Modal -->
+
+              <!-- Create Farming Modal -->
+              <div class="modal fade" id="loading">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-body d-flex justify-content-center ">
+                    <div class="spinner-border d-flex justify-content" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
                 </div>
                 </div>
               </div>
