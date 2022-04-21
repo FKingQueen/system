@@ -67,7 +67,7 @@ class FarmerProfileController extends Controller
         if ($request->field_unit == 1){
             $farming_data->lot_size = $request->lot_size;
         } else if ($request->field_unit == 2){
-            $farming_data->lot_size = $request->lot_size/1000;
+            $farming_data->lot_size = $request->lot_size/10000;
         }
         
 

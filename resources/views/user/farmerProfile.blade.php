@@ -195,13 +195,13 @@
                           {{$farming_data->cropping_season->name}}
                         </td>
                         <td>
-                          {{$farming_data->lot_size}} 
+                          {{$farming_data->lot_size}} (h)
                         </td>
                         <td>
                           @if(is_null($farming_data->yield))
                             In progress
                           @else
-                            {{$farming_data->yield}}
+                            {{$farming_data->yield}}-{{$farming_data->unit/1000}}(t)
                           @endif
                         </td>
                         <td>
