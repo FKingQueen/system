@@ -247,7 +247,7 @@
                             <div id="sample" class="dropdown-menu dropdown-menu-lg dropdown-menu-right ">
                               
                               <div class="dropdown-divider"></div>
-                                <a id="updatedisabled_{{$farming_data->id}}" data-dismiss="modal"  data-toggle="modal" data-target="#uploadActivity_{{$farming_data->id}}" class="btn btn-default d-flex justify-content-around mr-1">
+                                <a id="updatedisabled_{{$farming_data->id}}" data-dismiss="modal"  data-toggle="modal" data-target="#uploadActivity_{{$farming_data->id}}" class="btn btn-default d-flex justify-content-around mr-1 {{ $farming_data->status == 0 ? 'disabled' : '' }}">
                                   Upload
                                   <i class="fas fa-lg fa-upload" style="color: #0275d8;"></i>
                                 </a>
@@ -371,7 +371,7 @@
                               </div>
 
                             </div>
-                            <div class="modal-footer justify-content-between bg-white">
+                            <div class="modal-footer justify-content-between p-1 bg-white">
                                 <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
@@ -387,7 +387,7 @@
                   <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                       <div class="modal-header bg-green p-2">
-                        <h4 class="modal-title">Update Yield</h4>
+                        <h4 class="modal-title">Insert Yield</h4>
                       </div>
 
                       <form method="POST" action="{{ route('updateYield', $farming_data->id)}}" enctype="multipart/form-data">
@@ -397,7 +397,7 @@
                             <div class="d-flex justify-content-center">
                                 <div>
                                   <br>
-                                  <label class="mt-2 font-weight-light">Yield (t/ha): </label>
+                                  <label class="mt-2 font-weight-light">Yield: </label>
                                 </div>
                                 
                                 <div class="col-5 input-group-sm">
@@ -413,9 +413,9 @@
 
                         </div>
 
-                        <div class="modal-footer justify-content-around bg-white p-0">
+                        <div class="modal-footer justify-content-around bg-white p-1">
                             <button type="button" class="btn btn-close" data-dismiss="modal">Cancel</button>
-                            <button  type="submit" class="btn btn-primary">Update</button>
+                            <button  type="submit" class="btn btn-primary">Save</button>
                         </div>
                       </form>
                     </div>
@@ -426,9 +426,9 @@
                 <!-- Upload Activity Modal -->
                 <div class="modal fade" id="uploadActivity_{{$farming_data->id}}">
                   <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
+                    <div class="modal-content bg-green">
 
-                      <div class="modal-header bg-green p-2">
+                      <div class="modal-header  p-2">
                         <h4 class="modal-title">Uploading Farming Activity</h4>
                       </div>
 
@@ -471,27 +471,40 @@
                                     </div>
                                 </div>
                               </div>
-
                             </div>
                           </div>
 
-                          <div class="modal-footer justify-content-between bg-white p-0">
+                          <div class="modal-footer justify-content-between bg-white p-1">
                               <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-                              <button type="submit" class="btn btn-primary">Save changes</button>
+                              <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#uploadLoading_{{$farming_data->id}}">Save changes</button>
                           </div>
                         </form>
                     </div>
                   </div>
                 </div>
                 <!-- /Upload Activity Modal -->
+
+                <!-- Upload loading Farming Modal -->
+                <div class="modal fade" id="uploadLoading_{{$farming_data->id}}">
+                  <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body d-flex justify-content-center ">
+                      <div class="spinner-border d-flex justify-content" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                <!-- /Upload loading Farming Modal -->
               @endforeach
 
               <!-- Create Farming Modal -->
               <div class="modal fade" id="compose">
                 <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
+                <div class="modal-content bg-green">
 
-                  <div class="modal-header bg-green p-2">
+                  <div class="modal-header  p-2">
                     <h4 class="modal-title">Creating Farming Activity</h4>
                   </div>
 
@@ -529,7 +542,7 @@
                             </div>
                           </div>
 
-                          <div class="p-0 input-group mb-3">
+                          <div class="input-group mb-3">
 
                             <div class="w-50">
                               <label for="field_unit">Field Size Unit:</label>
@@ -546,38 +559,37 @@
                             </div>
 
                             <div class="text-center w-50 col-auto" >
-                                <label id="unit_name" name="unit_name" class="font-weight-light"></label>
-                                <input id="lot_size" type="number"  class="text-center form-control @error('lot_size') is-invalid @enderror mt-2" max="10" name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
-                                @error('lot_size')
-                                  <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                  </span>
-                                @enderror          
-                              </div>   
+                              <label id="unit_name" name="unit_name" class="font-weight-light"></label>
+                              <input id="lot_size" type="number"  class="text-center form-control @error('lot_size') is-invalid @enderror mt-2" max="10" name="lot_size" required autocomplete="lot_size" autofocus placeholder="ha">
+                              @error('lot_size')
+                                <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror          
+                            </div>   
 
                           </div>
 
-                          <div class="input-group">
+
                             <label for="activity_file">Insert Activity File (Required):</label>
-                            <div class="input-group mb-3">  
+                            <div class="input-group mb-2">  
                                 <input id="activity_file" type="file" class="form-control @error('activity_file') is-invalid @enderror" name="activity_file" required autocomplete="activity_file">
                                 @error('activity_file')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror 
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                  <i class="fas fa-file-alt"></i>
-                                </div>
+                              <div class="input-group-append">
+                                  <div class="input-group-text">
+                                    <i class="fas fa-file-alt"></i>
+                                  </div>
+                              </div>
                             </div>
-                          </div>
 
                         </div>
-
-                        <div class="modal-footer justify-content-between bg-white p-0">
-                            <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#loading">Create Farming</button>
+                        <div class="modal-footer justify-content-between bg-white  p-1">
+                          <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#loading">Create Farming</button>
                         </div>
                       </form>
                 </div>

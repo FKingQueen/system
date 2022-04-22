@@ -261,9 +261,9 @@ class FarmerProfileController extends Controller
         $farmer_id = Farming_data::find($id);
 
         if($res){
-            return redirect()->route('farmerProfile', [$farmer_id->farmer_id])->with('uploadedfarming', 'Success');
+            return redirect()->route('farmerProfile', [$farmer_id->farmer_id])->with('yieldupdated', 'Success');
         } else{
-            return redirect()->route('farmerProfile', [$farmer_id->farmer_id])->with('uploadfarmingfailed', 'Failed');
+            return redirect()->route('farmerProfile', [$farmer_id->farmer_id])->with('yieldupdatedfailed', 'Failed');
         }
     }
 

@@ -174,7 +174,7 @@
             </div>
           </div>
 
-          <div class="modal-footer justify-content-between bg-white p-0">
+          <div class="modal-footer justify-content-between bg-white p-1">
               <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-primary">Create User</button>
           </div>
@@ -249,7 +249,7 @@
                   <div class="modal fade" id="update_{{$user->id}}">
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header p-2">
                             <h4 class="modal-title">User Account Setting</h4>
                         </div>
 
@@ -306,7 +306,7 @@
 
                           </div>
 
-                          <div class="modal-footer justify-content-between">
+                          <div class="modal-footer justify-content-between bg-white p-1">
                             <button type="button" class="btn btn-close" data-dismiss="modal" >Close</button> 
                             <button type="submit" class="btn btn-primary">Save changes</button>
                           </div>
@@ -320,7 +320,7 @@
                     <div class="modal fade" id="changepass_{{$user->id}}">
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header p-2">
                           <h4 class="modal-title">Changing Password</h4>
                         </div>
 
@@ -361,7 +361,7 @@
                             <!-- /Update Retype Password -->
                           </div>
 
-                          <div class="modal-footer justify-content-between">
+                          <div class="modal-footer justify-content-between  bg-white p-1 ">
                             <button type="button" class="btn btn-close" data-dismiss="modal" data-toggle="modal" data-target="#update_{{$user->id}}">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                           </div>

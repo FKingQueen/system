@@ -416,7 +416,7 @@
 
                         </div>
 
-                        <div class="modal-footer justify-content-between bg-white p-1">
+                        <div class="modal-footer justify-content-between  bg-white p-1">
                             <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Add Farmer</button>
                         </div>

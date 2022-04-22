@@ -100,7 +100,7 @@
                                 </a>
                             </li>
                             <!-- /Crop Calendar Button -->
-
+                            
                             <!-- Crop Monitoring Button -->          
                             <li class="nav-item">
                                 <a type="button"  data-toggle="{{ route('cropMonitoring') == url()->current() ? '' : 'modal' }}" data-target="#cropMonitoring" class="nav-link {{ route('cropMonitoring') == url()->current() ||  route('cropMonitoringsearch') == url()->current() ? 'active' : '' }} ">
@@ -561,6 +561,28 @@
                     toastr.warning('Something is Wrong, Try to Check')
                 });
             @endif
+                
+            @if(Session::has('uploadedfarming'))
+                $(function() {
+                    toastr.success('Activity File is Successfully Uploaded')
+                });
+            @endif
+            @if(Session::has('uploadfarmingfailed'))
+                $(function() {
+                    toastr.warning('Something is Wrong, Try to Check')
+                });
+            @endif
+
+            @if(Session::has('yieldupdated'))
+                $(function() {
+                    toastr.success('Yield is Successfully Updated')
+                });
+            @endif
+            @if(Session::has('yieldupdatedfailed'))
+                $(function() {
+                    toastr.warning('Something is Wrong, Try to Check')
+                });
+            @endif
 
             // FarmerProfile Notifications
             
@@ -611,7 +633,7 @@
                     toastr.error('Something is Wrong, Try to Check')
                 });
             @endif
-            //
+            // Admin Create Account Notifications
         });
 
     </script>
