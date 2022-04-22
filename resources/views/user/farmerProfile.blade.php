@@ -200,7 +200,7 @@
                           @if(is_null($farming_data->yield))
                             In progress
                           @else
-                            {{$farming_data->yield}}-{{$farming_data->unit/1000}}(t)
+                            {{$farming_data->unit/1000}}(t)
                           @endif
                         </td>
                         <td>
