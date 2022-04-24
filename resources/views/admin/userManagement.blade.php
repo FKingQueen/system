@@ -70,7 +70,7 @@
   <div class="modal-content">
 
     <div class="modal-header bg-green p-2">
-      <h4 class="modal-title">Creating new User</h4>
+      <h4 class="modal-title">Creating New User</h4>
     </div>
 
         <form method="POST" action="{{ route('createUser') }}" >

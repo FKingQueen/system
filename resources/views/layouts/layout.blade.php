@@ -189,7 +189,7 @@
                     </div>
                     <br>
                     <div class="text-center">
-                        <a href="#" class="text-success text-decoration-none" data-dismiss="modal" data-toggle="modal" data-target="#upload" >Change Profile Picture</a>
+                        <a href="#" style="color: #248139;" class="text-decoration-none" data-dismiss="modal" data-toggle="modal" data-target="#upload" >Change Profile Picture</a>
                     </div>
                 </div>
 
@@ -317,13 +317,13 @@
         <div class="modal fade" id="accountSetting">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header p-2">
                         <h4 class="modal-title">Account Setting</h4>
                     </div>
 
                     <form method="POST" action="{{ route('updateAccount',Auth::user()->id) }}">
                         @csrf
-                        <div class="modal-body">
+                        <div class="modal-body ">
                             
                         <!-- Update Name -->
                         <div class="input-group mb-3">
@@ -374,7 +374,7 @@
                         <!-- /Change Password -->
 
                         </div>
-                        <div class="modal-footer justify-content-between">
+                        <div class="modal-footer justify-content-between p-1">
                             <a  class="btn btn-close"  data-dismiss="modal">Close</a>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
@@ -391,8 +391,8 @@
         <div class="modal fade" id="changepass_user">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
-                    <h4 class="modal-title">Changing Password</h4>
+                    <div class="modal-header p-2">
+                        <h4 class="modal-title">Changing Password</h4>
                     </div>
 
                     <form method="POST" action="{{ route('updatePassword',Auth::user()->id) }}">
@@ -432,7 +432,7 @@
                         <!-- /Update Retype Password -->
                     </div>
 
-                    <div class="modal-footer justify-content-between">
+                    <div class="modal-footer justify-content-between p-1">
                         <button type="button" class="btn btn-close" data-dismiss="modal" data-toggle="modal" data-target="#accountSetting">Cancel</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>

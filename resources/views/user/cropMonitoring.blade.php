@@ -91,7 +91,7 @@
                 @csrf
                 <div class="modal-body rounded bg-white">
                   <div class="d-flex justify-content-between">
-                    <div class="d-flex justify-content-left mb-3">
+                    <div class="d-flex justify-content-left">
                         <div>
                             <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
                             <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
@@ -134,6 +134,32 @@
                   </div>
                 </div>
               </form>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  </section>
+    <!-- Main content -->
+    <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body mt-2 p-1 d-flex justify-content-center">
+              <h1 class="p-0 farmer_name">
+                {{$muni}} 
+                <i style="font-size: 14pt;">{{$jsyear}}</i>
+              </h1>
+              
             </div>
             <!-- /.card-body -->
           </div>
@@ -564,6 +590,7 @@
   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
   const jsbrgy = @json($jsbrgy);
+  
   const jsyear = @json($jsyear);
   const technician = @json($technician);
 
@@ -586,8 +613,9 @@
     pdf.text('Report on Total Yield of Every Farmer', 73, 32);
     pdf.text('in Barangay', 70, 36);
     pdf.text(jsbrgy, 90, 36);
-    pdf.text('in Year ', 114, 36);
-    pdf.text(jsyear, 127, 36);
+    console.log(pdf.text(jsbrgy, 90, 36));
+    pdf.text('in Year ', 90+jsbrgy.length, 36);
+    pdf.text(jsyear, 109+jsbrgy.length, 36);
     pdf.setTextColor(0,0,0);
 
     pdf.text('The Total Number of Crops Sown in Barangay Quiling Sur', 58, 48);

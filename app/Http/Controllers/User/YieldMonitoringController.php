@@ -126,6 +126,7 @@ class YieldMonitoringController extends Controller
         $jsyear = '2022';
         $jscs   = 'Dry Season';
         $technician = Auth::user()->name;
+        $muni = Municipality::where('id', Auth::user()->muni_address)->value('name');
 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
         return view('user/yieldMonitoring', array(
@@ -150,7 +151,8 @@ class YieldMonitoringController extends Controller
             'jsyear'    => $jsyear,
             'jscs'    => $jscs,
             'H_crops'    => $H_crop,
-            'technician'    => $technician
+            'technician'    => $technician,
+            'muni'    => $muni
         ));
     }
 
@@ -273,6 +275,7 @@ class YieldMonitoringController extends Controller
             $jscs   = 'Wet Season';
         }
         $technician = Auth::user()->name;
+        $muni = Municipality::where('id', Auth::user()->muni_address)->value('name');
 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
         return view('user/yieldMonitoring', array(
@@ -297,7 +300,8 @@ class YieldMonitoringController extends Controller
             'jsyear'    => $jsyear,
             'jscs'    => $jscs,
             'H_crops'    => $H_crop,
-            'technician'    => $technician
+            'technician'    => $technician,
+            'muni'    => $muni
         ));
     }
 }

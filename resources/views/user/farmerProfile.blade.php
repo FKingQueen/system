@@ -175,11 +175,11 @@
                 </h3>
                 <thead class>
                     <tr class="bg-light" >
-                        <th  style="width: 15%;"><i class="fas fa-seedling" style="color:#b0b0b0"> </i>Crop Name</th>
-                        <th style="width: 20%;"><i class="fas fa-wind" style="color:#b0b0b0"></i> Cropping Season</th>
-                        <th style="width: 15%;"><i class="fas fa-drafting-compass" style="color:#b0b0b0"></i> Lot Size</th>
-                        <th style="width: 15%;"><i class="fas fa-hand-holding-usd" style="color:#b0b0b0"></i> Yield</th>
-                        <th><i class="fas fa-hand-holding-usd" style="color:#b0b0b0"></i> Date</th>
+                        <th style="width: 16%;"><i class="fas fa-seedling" style="color:#b0b0b0"> </i>Crop Name</th>
+                        <th style="width: 16%;"><i class="fas fa-wind" style="color:#b0b0b0"></i> Cropping Season</th>
+                        <th style="width: 16%;"><i class="fas fa-drafting-compass" style="color:#b0b0b0"></i> Lot Size</th>
+                        <th style="width: 16%;"><i class="fas fa-hand-holding-usd" style="color:#b0b0b0"></i> Yield</th>
+                        <th style="width: 16%;"><i class="fas fa-hand-holding-usd" style="color:#b0b0b0"></i> Date</th>
                         <th style="width: 10%;"><i class="fas fa-solid fa-code" style="color:#b0b0b0"></i> Status</th>
                         <th class="text-center" style="width: 10%;"><i class="fas fa-edit" style="color:#b0b0b0"></i></th>
                     </tr>
@@ -204,7 +204,9 @@
                           @endif
                         </td>
                         <td>
-                          {{$farming_data->date}}
+                          <i>
+                            {{$farming_data->date}}
+                          </i>
                         </td>
                         <td class="text-center pt-2">
                           <input type="checkbox" class="toggle-class_{{$farming_data->id}}" data-id="{{$farming_data->id}}" data-size="sm" data-width="90"   data-onstyle="success" data-offstyle="secondary" data-toggle="toggle" data-on="In progress" data-off="Completed" {{ $farming_data->status ? 'checked' : '' }}>

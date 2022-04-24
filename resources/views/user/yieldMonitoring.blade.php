@@ -42,7 +42,7 @@
   <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content ">
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
@@ -53,7 +53,7 @@
                 @csrf
                 <div class="modal-body rounded bg-white">
                   <div class="d-flex justify-content-between">
-                    <div class="d-flex justify-content-left mb-3">
+                    <div class="d-flex justify-content-left">
                         <div>
                             <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
                             <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
@@ -109,6 +109,31 @@
                   </div>
                 </div>
               </form>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+
+  </section>
+    <!-- Main content -->
+    <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body mt-2 p-1 d-flex justify-content-center">
+              <h1 class="p-0 farmer_name">
+                {{$muni}} 
+                <i style="font-size: 14pt;">{{$jsyear}}</i>
+              </h1>
+              
             </div>
             <!-- /.card-body -->
           </div>
@@ -706,7 +731,6 @@
       pdf.text('in Barangay', 85, 36);
       pdf.text(jsbrgy, 105, 36);
       pdf.setTextColor(0,0,0);
-
       pdf.text('Year:', 15, 48);
       pdf.text(jsyear, 25, 48);
       pdf.text('Cropping Season:', 145, 48);
