@@ -6,7 +6,7 @@
 </nav>
 <br><br><br>
 
-  <div class="h-100 row">
+  <div class="h-100 d-flex justify-content-center">
 
       <div class="col-6 col-md-7 mt-5 align-self-star ml-5">
         <div class="d-flex justify-content-center ">
