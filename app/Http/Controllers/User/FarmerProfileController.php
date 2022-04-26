@@ -23,7 +23,7 @@ class FarmerProfileController extends Controller
         $farmer = Farmer::all()->where("id", $id);
         $farming_data = Farming_data::with('cropping_season','crop', 'activity_file')->where("farmer_id", $id)->orderBy('status', 'DESC')->get();
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get();
-        // /dd($farming_data[0]);
+        
         if($farming_data->isEmpty())
         {
             $date= null;
@@ -34,8 +34,57 @@ class FarmerProfileController extends Controller
                 $date[$key] = DB::table('activity_files')->select('date')->where('farmer_id', $id)->where('farming_data_id', $farming_datas->id)->groupBy('id')->orderBy('date', 'DESC')->first();
             }
         }
-        
-        return view('user/farmerProfile', array("date"=> $date,"farmers"=> $farmer, "farming_datas" => $farming_data, "barangays" => $barangay));
+
+        $FD = Farming_data::with('cropping_season','crop', 'activity_file')->where("farmer_id", $id)->orderBy('created_at', 'ASC')->get();
+        $counter = Farming_data::where('farmer_id', $id)->count();
+        $FD_id = Farming_data::where('farmer_id', $id)->orderBy('created_at', 'ASC')->pluck('id');
+        $FD_counter = $counter;
+        for($j = 0; $j <= $counter-1; $j++ )
+        {
+            for($i = 0; $i <= 2; $i++)
+            {
+                if($i==0)
+                {
+                    $FD_count[$j][$i] = Activity_file::where('farming_data_id', $FD_id[$j])->where('activity', 'water')->count();
+                } else if($i==1)
+                {
+                    $FD_count[$j][$i] = Activity_file::where('farming_data_id', $FD_id[$j])->where('activity', 'fertilizer')->count();
+                } else if($i==2)
+                {
+                    $FD_count[$j][$i] = Activity_file::where('farming_data_id', $FD_id[$j])->where('activity', 'pesticide')->count();
+                }
+                
+            }
+            
+        }
+
+
+            
+        foreach($FD_id as $key => $fd)
+        {
+
+            $T_count = Activity_file::where('farming_data_id', $fd)->count();
+            for($i = 0; $i <= 2; $i++)
+            {
+                $FD_percent[$key][$i] = number_format(($FD_count[$key][$i]/$T_count)*100);
+            }
+        }
+
+        if($counter == 0 || $counter == null){
+            $FD_count = null;
+            $FD_percent = null;
+        }
+
+        return view('user/farmerProfile', array(
+            "date"=> $date,
+            "farmers"=> $farmer, 
+            "farming_datas" => $farming_data, 
+            "barangays" => $barangay,
+            "FDs" => $FD,
+            "FD_counts" => $FD_count,
+            "FD_percents" => $FD_percent,
+            "FD_counter" => $FD_counter,
+        ));
     }   
 
     public function compose(Request $request, $id){

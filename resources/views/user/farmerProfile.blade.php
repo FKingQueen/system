@@ -128,7 +128,32 @@
       margin-top:15px;
     }
     /* floating Button */
-    
+    .tooltip-inner::before {
+      background-color: #fff;
+      box-shadow: -2px -2px 2px 0 rgba( 178, 178, 178, .4);
+      display: block;
+      width: 8px;
+      height: 8px;
+      margin: auto;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -1px;
+      transform: rotate( 45deg);
+      -moz-transform: rotate( 45deg);
+      -ms-transform: rotate( 45deg);
+      -o-transform: rotate( 45deg);
+      -webkit-transform: rotate( 45deg);
+      margin-top: 2px;
+    }
+
+    .tooltip-inner {
+      background-color: #fff !important;
+      color: #000 !important;
+      box-shadow: 0px 0px 6px #B2B2B2;
+      border: solid 1pt;
+      border-color: #248139;
+    }
   </style>
 @endsection
 
@@ -509,32 +534,66 @@
               <div class="modal fade" id="timeLine">
                 <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                  <div class="modal-header  p-2">
-                            Timeline
+                  <div class="modal-header d-flex justify-content-between p-2">
+                            <div>Timeline</div> 
+                            <div class=" d-flex justify-content-center" style="width: 100%;">
+                              <div class="">
+                                Water&nbsp;- &nbsp;
+                              </div>
+                              <div style="width: 5%; background-color: rgba(117, 190, 218, 0.5);" class="mr-5">&nbsp;</div>
+                              <div >
+                                Fertilizer&nbsp;-&nbsp; 
+                              </div>
+                              <div style="width: 5%;  background-color: rgba(75, 192, 192);" class="mr-5">&nbsp;</div>
+
+                              <div class="d-flex">
+                                Pesticide&nbsp;-&nbsp;
+                              </div>
+                              <div style="width: 5%; background-color: rgba(153, 102, 255);" class="mr-5">&nbsp;</div>
+                          </div>
                   </div>
                   <div class="modal-body bg-white">
 
                     <div class="timeline">
-                      @for($i = 0; $i < 3; $i++)
+                      @foreach($FDs as $key => $FD)
                         <div class="time-label">
-                        <span class="bg-red">10 Feb. 2014</span>
+                        <span style="background-color: #248139; color: white;">{{$FD->created_at->format('m-d-Y')}}</span>
+                        {{$FD->cropping_season->name}}
                         </div>
                         <div>
-                        <i class="fas fa-circle bg-blue"></i>
+                        <i class="fas fa-circle" style="background-color: #acc4aa; color: white;"></i>
                         <div class="timeline-item">
-                          <h3 class="timeline-header">Crop Name</h3>
+                          <h3 class="timeline-header">{{$FD->crop->name}}</h3>
                           <div class="timeline-body">
-                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                            quora plaxo ideeli hulu weebly balihoo...
+                            <div class="d-flex justify-content-center ">
+                              <div id="water{{$key}}" title="Water: {{$FD_percents[$key][0]}}% ({{$FD_counts[$key][0]}})" class=" rounded-left" style="cursor: pointer; width: {{$FD_percents[$key][0]}}%; background-color: rgba(117, 190, 218, 0.5); font-size: 13px; ">
+                                  &nbsp;
+                              </div>
+                              <div id="fertilizer{{$key}}" title="Fertilizer: {{$FD_percents[$key][1]}}% ({{$FD_counts[$key][1]}})" class="" style="cursor: pointer; width: {{$FD_percents[$key][1]}}%; background-color: rgba(75, 192, 192); font-size: 13px;">
+                                  &nbsp;
+                              </div>
+                              <div id="pesticide{{$key}}" title="Pesticide: {{$FD_percents[$key][2]}}% ({{$FD_counts[$key][2]}})" class=" rounded-right" style="cursor: pointer; width: {{$FD_percents[$key][2]}}%; background-color: rgba(153, 102, 255); font-size: 13px;">
+                                  &nbsp;
+                              </div>
+                            </div>
+                            <script>
+                              $('#water{{$key}}').tooltip();
+                          
+                              $('#fertilizer{{$key}}').tooltip();
+
+                              $('#pesticide{{$key}}').tooltip();
+                            </script>
                           </div>
                         </div>
                       </div>
-                      @endfor
+                      @endforeach
                     </div>
-
                   </div>
+
+                  <div class="modal-footer justify-content-between bg-white  p-1">
+                    <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                  </div>
+
                 </div>
                 </div>
               </div>

@@ -40,7 +40,7 @@
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-light-success elevation-10">
                 <!-- Brand Logo -->
-                    <div class="ml-1 p-1 image" style="cursor: pointer;">
+                    <div class="ml-1 p-1 mt-2 image" style="cursor: pointer;">
                         <img src="{{ asset('images/logo.png')}}" width="100%" height="100%" alt="Image" >  
                     </div>
                 <!-- Sidebar -->
