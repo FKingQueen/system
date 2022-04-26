@@ -170,9 +170,12 @@
             <div class="card-body">
 
               <table id="farmerList"  class="table table-bordered">  
-                <h3 class=" ml-2 mt-1 mb-3 farmer_name">
-                  {{$farmer->name}}
-                </h3>
+                <div class="p-0 d-flex justify-content-between">
+                  <h3 class="p-0 ml-2 mt-1 mb-3 farmer_name">
+                    {{$farmer->name}}
+                  </h3>
+                  <a class="h5 mt-2" href="" data-toggle="modal" data-target="#timeLine">Timeline</a>
+                </div>
                 <thead class>
                     <tr class="bg-light" >
                         <th style="width: 16%;"><i class="fas fa-seedling" style="color:#b0b0b0"> </i>Crop Name</th>
@@ -500,6 +503,57 @@
                 </div>
                 <!-- /Upload loading Farming Modal -->
               @endforeach
+
+
+              <!-- Create Farming Modal -->
+              <div class="modal fade" id="timeLine">
+                <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header  p-2">
+                            Timeline
+                  </div>
+                  <div class="modal-body bg-white">
+
+                    <div class="timeline">
+                      @for($i = 0; $i < 3; $i++)
+                        <div class="time-label">
+                        <span class="bg-red">10 Feb. 2014</span>
+                        </div>
+                        <div>
+                        <i class="fas fa-circle bg-blue"></i>
+                        <div class="timeline-item">
+                          <h3 class="timeline-header">Crop Name</h3>
+                          <div class="timeline-body">
+                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                            quora plaxo ideeli hulu weebly balihoo...
+                          </div>
+                        </div>
+                      </div>
+                      @endfor
+                    </div>
+
+                  </div>
+                </div>
+                </div>
+              </div>
+              <!-- /Create Farming Modal -->
+
+              <!-- Create Farming Modal -->
+              <div class="modal fade" id="loading">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-body d-flex justify-content-center ">
+                    <div class="spinner-border d-flex justify-content" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+              <!-- /Create Farming Modal -->
+
 
               <!-- Create Farming Modal -->
               <div class="modal fade" id="compose">
