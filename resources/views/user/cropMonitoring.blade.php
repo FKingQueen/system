@@ -295,8 +295,8 @@
                                 <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content rounded">
 
-                                  <div class="modal-header p-1 d-flex justify-content-center">
-                                    <h4 class="modal-title ml-2 "><u style="color: #248139;" >{{$Farmers[$key1]}}</u> </h4>
+                                  <div class="modal-header p-1 d-flex justify-content-left">
+                                    <h4 class="modal-title ml-2 " style="color: #248139;">{{$Farmers[$key1]}}</h4>
                                   </div>
 
                                   <div class="modal-body rounded p-1 ">
