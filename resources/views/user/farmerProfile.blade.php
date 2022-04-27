@@ -526,10 +526,10 @@
 
                 <!-- Timeline Modal -->
                 <div class="modal fade" id="timeLine_{{$farming_data->id}}">
-                  <div class="modal-dialog">
+                  <div class="modal-dialog modal-lg">
                   <div class="modal-content" >
                     <div class="modal-header d-flex justify-content-between p-2" style="position: sticky; background-color: inherit; top: 0; z-index: 1055;">
-                      <div style="color: #248139;">Timeline</div> 
+                      <div style="color: #248139;">Timeline({{$farming_data->crop->name}})</div> 
                       <div class=" d-flex justify-content-center" style="width: 100%; ">
                         <div class="ml-5">
                           Water&nbsp;- &nbsp;
@@ -558,7 +558,10 @@
                           <div>
                             <i class="fas fa-circle" style="background-color: #acc4aa; color: white;"></i>
                             <div class="timeline-item">
-                              <h3 class="timeline-header">{{$farming_data->crop->name}}</h3>
+                              <div class="timeline-header d-flex justify-content-around">
+                                <span>Lot Size: {{$farming_data->lot_size}}</span>
+                                <span>Yield: {{$farming_data->unit/1000}}(t)</span>
+                              </div>
                               <div class="timeline-body">
                                 <div class="d-flex justify-content-center ">
                                   <div id="water{{$key}}{{$j}}" title="Water: {{$FD_percents[$key][$j][0]}}% ({{$FD_counts[$key][$j][0]}})" class=" rounded-left" style="cursor: pointer; width: {{$FD_percents[$key][$j][0]}}%; background-color: rgba(117, 190, 218, 0.5); font-size: 9px; ">
