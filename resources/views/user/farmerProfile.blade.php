@@ -526,46 +526,48 @@
 
                 <!-- Timeline Modal -->
                 <div class="modal fade" id="timeLine_{{$farming_data->id}}">
-                  <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-                    <div class="modal-header d-flex justify-content-between p-2">
-                              <div>Timeline</div> 
-                              <div class=" d-flex justify-content-center" style="width: 100%;">
-                                <div class="">
-                                  Water&nbsp;- &nbsp;
-                                </div>
-                                <div style="width: 5%; background-color: rgba(117, 190, 218, 0.5);" class="mr-5">&nbsp;</div>
-                                <div >
-                                  Fertilizer&nbsp;-&nbsp; 
-                                </div>
-                                <div style="width: 5%;  background-color: rgba(75, 192, 192);" class="mr-5">&nbsp;</div>
+                  <div class="modal-dialog">
+                  <div class="modal-content" >
+                    <div class="modal-header d-flex justify-content-between p-2" style="position: sticky; background-color: inherit; top: 0; z-index: 1055;">
+                      <div style="color: #248139;">Timeline</div> 
+                      <div class=" d-flex justify-content-center" style="width: 100%; ">
+                        <div class="ml-5">
+                          Water&nbsp;- &nbsp;
+                        </div>
+                        <div style="width: 5%; background-color: rgba(117, 190, 218, 0.5);" class="">&nbsp;</div>
+                        <div class="ml-5">
+                          Fertilizer&nbsp;-&nbsp; 
+                        </div>
+                        <div style="width: 5%;  background-color: rgba(75, 192, 192);" class="">&nbsp;</div>
 
-                                <div class="d-flex">
-                                  Pesticide&nbsp;-&nbsp;
-                                </div>
-                                <div style="width: 5%; background-color: rgba(153, 102, 255);" class="mr-5">&nbsp;</div>
-                            </div>
+                        <div class="ml-5">
+                          Pesticide&nbsp;-&nbsp;
+                        </div>
+                        <div style="width: 5%; background-color: rgba(153, 102, 255);" class="">&nbsp;</div>
+                      </div>
                     </div>
+
                     <div class="modal-body bg-white">
 
                       <div class="timeline">
                         @for($j = 0; $j <= $FD_counters[$key]-1; $j++)
-                          <div class="time-label">
+                          <div class="time-label" >
                             <span style="background-color: #248139; color: white;">{{$dt_counters[$key][$j]}}</span>
-
+                            <span>{{$farming_data->cropping_season->name}}</span>
                           </div>
                           <div>
                             <i class="fas fa-circle" style="background-color: #acc4aa; color: white;"></i>
                             <div class="timeline-item">
+                              <h3 class="timeline-header">{{$farming_data->crop->name}}</h3>
                               <div class="timeline-body">
                                 <div class="d-flex justify-content-center ">
-                                  <div id="water{{$key}}{{$j}}" title="Water: {{$FD_percents[$key][$j][0]}}% ({{$FD_counts[$key][$j][0]}})" class=" rounded-left" style="cursor: pointer; width: {{$FD_percents[$key][$j][0]}}%; background-color: rgba(117, 190, 218, 0.5); font-size: 8px; ">
+                                  <div id="water{{$key}}{{$j}}" title="Water: {{$FD_percents[$key][$j][0]}}% ({{$FD_counts[$key][$j][0]}})" class=" rounded-left" style="cursor: pointer; width: {{$FD_percents[$key][$j][0]}}%; background-color: rgba(117, 190, 218, 0.5); font-size: 9px; ">
                                       &nbsp;
                                   </div>
-                                  <div id="fertilizer{{$key}}{{$j}}" title="Fertilizer: {{$FD_percents[$key][$j][1]}}% ({{$FD_counts[$key][$j][1]}})" class="" style="cursor: pointer; width: {{$FD_percents[$key][$j][1]}}%; background-color: rgba(75, 192, 192); font-size: 8px;">
+                                  <div id="fertilizer{{$key}}{{$j}}" title="Fertilizer: {{$FD_percents[$key][$j][1]}}% ({{$FD_counts[$key][$j][1]}})" class="" style="cursor: pointer; width: {{$FD_percents[$key][$j][1]}}%; background-color: rgba(75, 192, 192); font-size: 9px;">
                                       &nbsp;
                                   </div>
-                                  <div id="pesticide{{$key}}{{$j}}" title="Pesticide: {{$FD_percents[$key][$j][2]}}% ({{$FD_counts[$key][$j][2]}})" class=" rounded-right" style="cursor: pointer; width: {{$FD_percents[$key][$j][2]}}%; background-color: rgba(153, 102, 255); font-size: 8px;">
+                                  <div id="pesticide{{$key}}{{$j}}" title="Pesticide: {{$FD_percents[$key][$j][2]}}% ({{$FD_counts[$key][$j][2]}})" class=" rounded-right" style="cursor: pointer; width: {{$FD_percents[$key][$j][2]}}%; background-color: rgba(153, 102, 255); font-size: 9px;">
                                       &nbsp;
                                   </div>
                                 </div>
