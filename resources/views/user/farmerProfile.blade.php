@@ -570,6 +570,11 @@
                           <div>
                             <i class="fas fa-circle" style="background-color: #acc4aa; color: white;"></i>
                             <div class="timeline-item">
+                              <div class="timeline-header d-flex justify-content-around">
+                                <div>Water: {{$FD_percents[$key][$j][0]}}% ({{$FD_counts[$key][$j][0]}})</div>
+                                <div>Fertilizer: {{$FD_percents[$key][$j][1]}}% ({{$FD_counts[$key][$j][1]}})</div>
+                                <div>Pesticide: {{$FD_percents[$key][$j][2]}}% ({{$FD_counts[$key][$j][2]}})</div>
+                              </div>
                               <div class="timeline-body">
                                 <div class="d-flex justify-content-center ">
                                   <div id="water{{$key}}{{$j}}" title="Water: {{$FD_percents[$key][$j][0]}}% ({{$FD_counts[$key][$j][0]}})" class=" rounded-left" style="cursor: pointer; width: {{$FD_percents[$key][$j][0]}}%; background-color: rgba(117, 190, 218, 0.5); font-size: 9px; ">
