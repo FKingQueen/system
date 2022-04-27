@@ -13,9 +13,6 @@
 
   <script src="{{ asset('js/app.js') }}"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
- 
-  
   
   <style>
     .modal-confirm {		
@@ -155,6 +152,7 @@
       border-color: #248139;
     }
   </style>
+  
 @endsection
 
 @section('content')
@@ -199,10 +197,11 @@
                   <h3 class="p-0 ml-2 mt-1 mb-3 farmer_name">
                     {{$farmer->name}}
                   </h3>
-                  <a class="h5 mt-2" href="" data-toggle="modal" data-target="#timeLine">Timeline</a>
+                  
                 </div>
                 <thead class>
                     <tr class="bg-light" >
+                        <th style="width: 5%;">Timeline</th>
                         <th style="width: 16%;"><i class="fas fa-seedling" style="color:#b0b0b0"> </i>Crop Name</th>
                         <th style="width: 16%;"><i class="fas fa-wind" style="color:#b0b0b0"></i> Cropping Season</th>
                         <th style="width: 16%;"><i class="fas fa-drafting-compass" style="color:#b0b0b0"></i> Lot Size</th>
@@ -214,6 +213,9 @@
                 <tbody>
                   @foreach($farming_datas as $key => $farming_data)
                     <tr>
+                        <td class="d-flex justify-content-center">
+                        <a class="" href="" data-toggle="modal" data-target="#timeLine_{{$farming_data->id}}"><i class="fa-lg fas fa-solid fa-eye"></i></a>
+                        </td>
                         <td>
                           {{$farming_data->crop->name}}
                         </td>
@@ -521,77 +523,79 @@
                   </div>
                 </div>
                 <!-- /Upload loading Farming Modal -->
+
+                <!-- Timeline Modal -->
+                <div class="modal fade" id="timeLine_{{$farming_data->id}}">
+                  <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header d-flex justify-content-between p-2">
+                              <div>Timeline</div> 
+                              <div class=" d-flex justify-content-center" style="width: 100%;">
+                                <div class="">
+                                  Water&nbsp;- &nbsp;
+                                </div>
+                                <div style="width: 5%; background-color: rgba(117, 190, 218, 0.5);" class="mr-5">&nbsp;</div>
+                                <div >
+                                  Fertilizer&nbsp;-&nbsp; 
+                                </div>
+                                <div style="width: 5%;  background-color: rgba(75, 192, 192);" class="mr-5">&nbsp;</div>
+
+                                <div class="d-flex">
+                                  Pesticide&nbsp;-&nbsp;
+                                </div>
+                                <div style="width: 5%; background-color: rgba(153, 102, 255);" class="mr-5">&nbsp;</div>
+                            </div>
+                    </div>
+                    <div class="modal-body bg-white">
+
+                      <div class="timeline">
+                        @for($j = 0; $j <= $FD_counters[$key]-1; $j++)
+                          <div class="time-label">
+                            <span style="background-color: #248139; color: white;">{{$dt_counters[$key][$j]}}</span>
+
+                          </div>
+                          <div>
+                            <i class="fas fa-circle" style="background-color: #acc4aa; color: white;"></i>
+                            <div class="timeline-item">
+                              <div class="timeline-body">
+                                <div class="d-flex justify-content-center ">
+                                  <div id="water{{$key}}{{$j}}" title="Water: {{$FD_percents[$key][$j][0]}}% ({{$FD_counts[$key][$j][0]}})" class=" rounded-left" style="cursor: pointer; width: {{$FD_percents[$key][$j][0]}}%; background-color: rgba(117, 190, 218, 0.5); font-size: 8px; ">
+                                      &nbsp;
+                                  </div>
+                                  <div id="fertilizer{{$key}}{{$j}}" title="Fertilizer: {{$FD_percents[$key][$j][1]}}% ({{$FD_counts[$key][$j][1]}})" class="" style="cursor: pointer; width: {{$FD_percents[$key][$j][1]}}%; background-color: rgba(75, 192, 192); font-size: 8px;">
+                                      &nbsp;
+                                  </div>
+                                  <div id="pesticide{{$key}}{{$j}}" title="Pesticide: {{$FD_percents[$key][$j][2]}}% ({{$FD_counts[$key][$j][2]}})" class=" rounded-right" style="cursor: pointer; width: {{$FD_percents[$key][$j][2]}}%; background-color: rgba(153, 102, 255); font-size: 8px;">
+                                      &nbsp;
+                                  </div>
+                                </div>
+                                <script>
+                                  $('#water{{$key}}{{$j}}').tooltip();
+                              
+                                  $('#fertilizer{{$key}}{{$j}}').tooltip();
+
+                                  $('#pesticide{{$key}}{{$j}}').tooltip();
+                                </script>
+                              </div>
+                            </div>
+                          </div>
+                        @endfor
+                      </div>
+
+                    </div>
+
+                    <div class="modal-footer justify-content-between bg-white  p-1">
+                    </div>
+
+                  </div>
+                  </div>
+                </div>
+                <!-- /Timeline Modal -->
+                
               @endforeach
 
 
-              <!-- Create Farming Modal -->
-              <div class="modal fade" id="timeLine">
-                <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header d-flex justify-content-between p-2">
-                            <div>Timeline</div> 
-                            <div class=" d-flex justify-content-center" style="width: 100%;">
-                              <div class="">
-                                Water&nbsp;- &nbsp;
-                              </div>
-                              <div style="width: 5%; background-color: rgba(117, 190, 218, 0.5);" class="mr-5">&nbsp;</div>
-                              <div >
-                                Fertilizer&nbsp;-&nbsp; 
-                              </div>
-                              <div style="width: 5%;  background-color: rgba(75, 192, 192);" class="mr-5">&nbsp;</div>
-
-                              <div class="d-flex">
-                                Pesticide&nbsp;-&nbsp;
-                              </div>
-                              <div style="width: 5%; background-color: rgba(153, 102, 255);" class="mr-5">&nbsp;</div>
-                          </div>
-                  </div>
-                  <div class="modal-body bg-white">
-
-                    <div class="timeline">
-                      @foreach($FDs as $key => $FD)
-                        <div class="time-label">
-                        <span style="background-color: #248139; color: white;">{{$FD->created_at->format('m-d-Y')}}</span>
-                        {{$FD->cropping_season->name}}
-                        </div>
-                        <div>
-                        <i class="fas fa-circle" style="background-color: #acc4aa; color: white;"></i>
-                        <div class="timeline-item">
-                          <h3 class="timeline-header">{{$FD->crop->name}}</h3>
-                          <div class="timeline-body">
-                            <div class="d-flex justify-content-center ">
-                              <div id="water{{$key}}" title="Water: {{$FD_percents[$key][0]}}% ({{$FD_counts[$key][0]}})" class=" rounded-left" style="cursor: pointer; width: {{$FD_percents[$key][0]}}%; background-color: rgba(117, 190, 218, 0.5); font-size: 13px; ">
-                                  &nbsp;
-                              </div>
-                              <div id="fertilizer{{$key}}" title="Fertilizer: {{$FD_percents[$key][1]}}% ({{$FD_counts[$key][1]}})" class="" style="cursor: pointer; width: {{$FD_percents[$key][1]}}%; background-color: rgba(75, 192, 192); font-size: 13px;">
-                                  &nbsp;
-                              </div>
-                              <div id="pesticide{{$key}}" title="Pesticide: {{$FD_percents[$key][2]}}% ({{$FD_counts[$key][2]}})" class=" rounded-right" style="cursor: pointer; width: {{$FD_percents[$key][2]}}%; background-color: rgba(153, 102, 255); font-size: 13px;">
-                                  &nbsp;
-                              </div>
-                            </div>
-                            <script>
-                              $('#water{{$key}}').tooltip();
-                          
-                              $('#fertilizer{{$key}}').tooltip();
-
-                              $('#pesticide{{$key}}').tooltip();
-                            </script>
-                          </div>
-                        </div>
-                      </div>
-                      @endforeach
-                    </div>
-                  </div>
-
-                  <div class="modal-footer justify-content-between bg-white  p-1">
-                    <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-                  </div>
-
-                </div>
-                </div>
-              </div>
-              <!-- /Create Farming Modal -->
+              
 
               <!-- Create Farming Modal -->
               <div class="modal fade" id="loading">

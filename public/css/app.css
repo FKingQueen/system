@@ -47,7 +47,7 @@
 *::after {
   box-sizing: border-box;
 }
-
+timeline
 #button {
   display: inline-block;
   background-color: #acc4aa;
@@ -19205,8 +19205,8 @@ html.maximized-card {
 .timeline > div > .timeline-item > .time {
   color: #999;
   float: right;
-  font-size: 12px;
-  padding: 10px;
+  font-size: 2px;
+  padding: 2px;
 }
 
 .timeline > div > .timeline-item > .timeline-header {
@@ -19224,7 +19224,7 @@ html.maximized-card {
 
 .timeline > div > .timeline-item > .timeline-body,
 .timeline > div > .timeline-item > .timeline-footer {
-  padding: 10px;
+  padding: 5px;
 }
 
 .timeline > div > .timeline-item > .timeline-body > img {
@@ -19247,13 +19247,13 @@ html.maximized-card {
 .timeline > div > .ion {
   background: #adb5bd;
   border-radius: 50%;
-  font-size: 15px;
+  font-size: 10px;
   height: 30px;
   left: 18px;
   line-height: 30px;
   position: absolute;
   text-align: center;
-  top: 0;
+  margin-top: -3px;
   width: 30px;
 }
 
@@ -19261,8 +19261,8 @@ html.maximized-card {
   border-radius: 4px;
   background-color: #ffffff;
   display: inline-block;
-  font-weight: 600;
-  padding: 5px;
+  font-weight: 40;
+  padding: 3px;
 }
 
 .timeline-inverse > div > .timeline-item {

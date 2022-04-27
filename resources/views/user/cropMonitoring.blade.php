@@ -223,17 +223,17 @@
                         <th >
                           <div class=" d-flex justify-content-center">
                             <div class="ml-5">
-                              Water 
+                              Water &nbsp; - &nbsp;
                             </div>
                             <div style="width: 5%; background-color: rgba(117, 190, 218, 0.5);" class="mr-5 "></div>
 
                             <div >
-                              Fertilizer 
+                              Fertilizer &nbsp; - &nbsp;
                             </div>
                             <div style="width: 5%;  background-color: rgba(75, 192, 192);" class="mr-5"></div>
 
                             <div class="d-flex">
-                              Pesticide 
+                              Pesticide &nbsp; - &nbsp;
                             </div>
                             <div style="width: 5%; background-color: rgba(153, 102, 255);" class="mr-5y"></div>
                           </div>
