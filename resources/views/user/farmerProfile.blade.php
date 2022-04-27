@@ -214,7 +214,7 @@
                   @foreach($farming_datas as $key => $farming_data)
                     <tr>
                         <td class="d-flex justify-content-center">
-                        <a class="" href="" data-toggle="modal" data-target="#timeLine_{{$farming_data->id}}"><i class="fa-lg fas fa-solid fa-eye"></i></a>
+                        <a href="" data-toggle="modal" data-target="#timeLine_{{$farming_data->id}}"><i class="fa-lg fas fa-solid fa-eye"></i></a>
                         </td>
                         <td>
                           {{$farming_data->crop->name}}
@@ -223,7 +223,7 @@
                           {{$farming_data->cropping_season->name}}
                         </td>
                         <td>
-                          {{$farming_data->lot_size}} (h)
+                          {{$farming_data->lot_size}}(h)
                         </td>
                         <td>
                           @if(is_null($farming_data->yield))
@@ -559,8 +559,14 @@
                             <i class="fas fa-circle" style="background-color: #acc4aa; color: white;"></i>
                             <div class="timeline-item">
                               <div class="timeline-header d-flex justify-content-around">
-                                <span>Lot Size: {{$farming_data->lot_size}}</span>
-                                <span>Yield: {{$farming_data->unit/1000}}(t)</span>
+                                <span>Lot Size: {{$farming_data->lot_size}}(h)</span>
+                                <span>Yield: 
+                                  @if(is_null($farming_data->yield))
+                                    In progress
+                                  @else
+                                    {{$farming_data->unit/1000}}(t)
+                                  @endif
+                              </span>
                               </div>
                               <div class="timeline-body">
                                 <div class="d-flex justify-content-center ">
@@ -591,7 +597,7 @@
 
                     <div class="modal-footer justify-content-between bg-white  p-1">
                     </div>
-
+                    
                   </div>
                   </div>
                 </div>

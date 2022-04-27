@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name'=>'Patrick Borja',
-            'muni_address'=>'6',
+            'muni_address'=>'4',
             'role_id'=>'1',
             'email'=>'p@gmail.com',
             'acc_status' => '1',
@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
         ]); 
         User::create([
             'name'=>'Hisiah Nidoy',
-            'muni_address'=>'6',
+            'muni_address'=>'4',
             'role_id'=>'2',
             'email'=>'h@gmail.com',
             'acc_status' => '1',
