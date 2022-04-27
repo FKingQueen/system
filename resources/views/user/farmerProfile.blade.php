@@ -529,7 +529,7 @@
                   <div class="modal-dialog modal-lg">
                   <div class="modal-content" >
                     <div class="modal-header d-flex justify-content-between p-2" style="position: sticky; background-color: inherit; top: 0; z-index: 1055;">
-                      <div style="color: #248139;">Timeline({{$farming_data->crop->name}})</div> 
+                      <div style="color: #248139;">Timeline</div> 
                       <div class=" d-flex justify-content-center" style="width: 100%; ">
                         <div class="ml-5">
                           Water&nbsp;- &nbsp;
@@ -547,27 +547,29 @@
                       </div>
                     </div>
 
+                    <div class="modal-header d-flex justify-content-between p-2" style="position: sticky; background-color: inherit; top: 5.3%; z-index: 1055;">
+                      <div style="color: #248139;">Crop: {{$farming_data->crop->name}}</div> 
+                      <div style="color: #248139;">Cropping Season: {{$farming_data->cropping_season->name}}</div> 
+                      <div style="color: #248139;">Lot Size: {{$farming_data->lot_size}}</div> 
+                      <div style="color: #248139;">Yield: 
+                        @if(is_null($farming_data->yield))
+                          In progress
+                        @else
+                          {{$farming_data->unit/1000}}(t)
+                        @endif
+                      </div> 
+                    </div>
+
                     <div class="modal-body bg-white">
 
                       <div class="timeline">
                         @for($j = 0; $j <= $FD_counters[$key]-1; $j++)
                           <div class="time-label" >
                             <span style="background-color: #248139; color: white;">{{$dt_counters[$key][$j]}}</span>
-                            <span>{{$farming_data->cropping_season->name}}</span>
                           </div>
                           <div>
                             <i class="fas fa-circle" style="background-color: #acc4aa; color: white;"></i>
                             <div class="timeline-item">
-                              <div class="timeline-header d-flex justify-content-around">
-                                <span>Lot Size: {{$farming_data->lot_size}}(h)</span>
-                                <span>Yield: 
-                                  @if(is_null($farming_data->yield))
-                                    In progress
-                                  @else
-                                    {{$farming_data->unit/1000}}(t)
-                                  @endif
-                              </span>
-                              </div>
                               <div class="timeline-body">
                                 <div class="d-flex justify-content-center ">
                                   <div id="water{{$key}}{{$j}}" title="Water: {{$FD_percents[$key][$j][0]}}% ({{$FD_counts[$key][$j][0]}})" class=" rounded-left" style="cursor: pointer; width: {{$FD_percents[$key][$j][0]}}%; background-color: rgba(117, 190, 218, 0.5); font-size: 9px; ">
@@ -595,7 +597,7 @@
 
                     </div>
 
-                    <div class="modal-footer justify-content-between bg-white  p-1">
+                    <div class="modal-footer justify-content-between bg-white  p-1" style="position: sticky; background-color: inherit; bottom: 0; z-index: 1055;">
                     </div>
                     
                   </div>
