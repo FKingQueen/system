@@ -28,6 +28,8 @@ class FarmerProfileController extends Controller
         if($counter == 0 || $counter == null){
             $FD_count = null;
             $FD_percent = null;
+            $FD_counter = null;
+            $dt_counter = null;
         }
 
         if($farming_data->isEmpty())

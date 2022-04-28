@@ -529,7 +529,7 @@
                   <div class="modal-dialog modal-lg">
                   <div class="modal-content" >
                     <div class="modal-header d-flex justify-content-between p-2" style="position: sticky; background-color: inherit; top: 0; z-index: 1055;">
-                      <div style="color: #248139;">Timeline</div> 
+                      <div class="ml-5" style="color: #248139;">Timeline</div> 
                       <div class=" d-flex justify-content-center" style="width: 100%; ">
                         <div class="ml-5">
                           Water&nbsp;- &nbsp;
@@ -547,7 +547,7 @@
                       </div>
                     </div>
 
-                    <div class="modal-header d-flex justify-content-between p-2" style="position: sticky; background-color: inherit; top: 5.3%; z-index: 1055;">
+                    <div class="modal-header d-flex justify-content-around p-2" style="position: sticky; background-color: inherit; top: 5.3%; z-index: 1055;">
                       <div style="color: #248139;">Crop: {{$farming_data->crop->name}}</div> 
                       <div style="color: #248139;">Cropping Season: {{$farming_data->cropping_season->name}}</div> 
                       <div style="color: #248139;">Lot Size: {{$farming_data->lot_size}}</div> 
