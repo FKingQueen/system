@@ -92,51 +92,6 @@
             </div>
 
             <div class="input-group mb-3">
-              <select id="role_id" type="number" class="form-control @error('role_id') is-invalid @enderror" name="role_id" required autocomplete="role_id" autofocus>
-                <option disabled selected>Select Registrant Role</option>
-                <option value="1" >Admin</option>
-                <option value="2" >Technician</option>
-              </select>
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-user"></span>
-                </div>
-              </div>
-              @error('role_id')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-              @enderror  
-            </div>
-
-            <div class="input-group mb-3">
-                  <select id="muni_address" type="number" class="form-control @error('muni_address') is-invalid @enderror" name="muni_address" required autocomplete="muni_address" autofocus>
-                      <option disabled selected>Municipal Department Office</option>
-                      <option value="1" >Badoc</option>
-                      <option value="2" >Banna</option>
-                      <option value="3" >Batac City</option>
-                      <option value="4" >Currimao</option>
-                      <option value="5" >Dingras</option>
-                      <option value="6" >Marcos</option>
-                      <option value="7" >Nueva Era</option>
-                      <option value="8" >Paoay</option>
-                      <option value="9" >Pinili</option>
-                      <option value="10" >San Nicolas</option>
-                      <option value="11" >Solsona</option>
-                  </select>
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <span class="fas fa-building"></span>
-                    </div>
-                  </div>
-                  @error('unit_id')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-            </div>  
-
-            <div class="input-group mb-3">
               <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
               <div class="input-group-append">
                 <div class="input-group-text">

@@ -15,7 +15,7 @@ class UserManagementController extends Controller
 {
     public function userManagement()
     {
-        $user = User::with('role','municipality')->get();
+        $user = User::with('role','municipality')->where('role_Id', 2)->get();
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
         return view('admin.userManagement', array('users' => $user, "barangays" => $barangay));
     }
@@ -23,17 +23,15 @@ class UserManagementController extends Controller
     public function createUser(Request $request)
     {
         $request->validate([
-            'role_id'  => 'required',
             'name'  => 'required',
-            'muni_address' => 'required',
             'email' => 'required|email|unique:approvals|unique:users',
             'password' => 'required|confirmed|min:8|max:12',
         ]);
 
         $user =  new User();
-        $user->role_id = $request->role_id;
+        $user->role_id = 2;
         $user->name = $request->name;
-        $user->muni_address = $request->muni_address;
+        $user->muni_address = Auth::user()->muni_address;
         $user->email = $request->email;
         $user->acc_status = 1;
         $user->password = Hash::make($request->password);
