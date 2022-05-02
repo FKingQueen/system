@@ -120,6 +120,7 @@
     </div>
     <!-- /.container-fluid -->
 
+    
   </section>
     <!-- Main content -->
     <section class="content">
@@ -145,6 +146,27 @@
     </div>
     <!-- /.container-fluid -->
   </section>
+
+  <!-- Main content -->
+  <section class="content mb-4" id="target">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <h5 class="text-center mt-3">Total Yield in Tons of Different Crops in Barangay {{$jsbrgy}} </h5>
+            <canvas id="brgyCompareChart" width="400" height="150"></canvas>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- Main /.content -->
 
   <a id="download" type="button" onclick= "downloadPDF()" class="float">
     <i style='color:#ffffff' class="fas fa-file-export fa-lg my-float"></i>
@@ -227,6 +249,188 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
+<!-- Brgy Compare Chart -->
+<script>
+  const data4 = {
+        labels: @json($n_brgys),
+        datasets: [
+          {
+            label: 'Bitter Gourd',
+            data: @json($Bitter_gourds_com), 
+            barThickness: 25,
+            backgroundColor:'rgba(182, 207, 182)'
+          },{
+            label: 'Cabbage',
+            data: @json($Cabbages_com), 
+            barThickness: 25,
+            backgroundColor:'rgba(171, 222, 230)'
+          },{
+            label: 'Corn',
+            data: @json($Corns_com), 
+            barThickness: 25,
+            backgroundColor:'rgba(255, 229, 180)'
+          },{
+            label: 'Eggplant',
+            data: @json($Eggplants_com), 
+            barThickness: 25,
+            backgroundColor:'rgba(224, 187, 228)'
+          },{
+            label: 'Garlic',
+            data: @json($Garlics_com), 
+            barThickness: 25,
+            backgroundColor:'rgba(236, 234, 228)'
+          },{
+            label: 'Ladys Finger',
+            data: @json($Ladys_fingers_com), 
+            barThickness: 25,
+            backgroundColor:'rgba(212, 240, 240)'
+          },{
+            label: 'Rice',
+            data: @json($Rices_com), 
+            barThickness: 25,
+            backgroundColor:'rgba(199, 206, 234)'
+          },{
+            label: 'Onion',
+            data: @json($Onions_com), 
+            barThickness: 25,
+            backgroundColor:'rgba(236, 213, 227)'
+          },{
+            label: 'Peanut',
+            data: @json($Peanuts_com), 
+            barThickness: 25,
+            backgroundColor:'rgba(246, 234, 194)'
+          },{
+            label: 'String Beans',
+            data: @json($String_beans_com), 
+            barThickness: 25,
+            backgroundColor:'rgba(186,255,201)'
+          },{
+            label: 'Tobacco',
+            data: @json($Tobaccos_com), 
+            barThickness: 25,
+            backgroundColor:'rgba(202, 255,191)'
+          },{
+            label: 'Tomato',
+            data: @json($Tomatos_com), 
+            barThickness: 25,
+            backgroundColor:'rgba(255, 200, 162)'
+          },{
+            label: 'Water Melon',
+            data: @json($Water_melons_com), 
+            barThickness: 25,
+            backgroundColor:'rgba(255, 255, 186)'
+          }
+        ]
+    };
+    
+    for(var i = 0; i <= data4.datasets.length-1; i++){
+      if(data4.datasets[i].data.every( e  => e == 0.00))
+      {
+        data4.datasets.splice(i, 1);
+        i--;
+      }
+    }
+    
+    const bgColor4 = {
+      id : 'bgColor',
+      beforeDraw: (chart, options) => {
+      const  {ctx, width, height} = chart;
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0,0, width, height)
+        ctx.restore();
+      }
+    }
+
+    const config4 = {
+      type: 'bar',
+      data : data4, 
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            stacked: true,
+            title: {
+              display: true,
+              text: 'tons(t)'
+            }
+          },
+          y: {
+            stacked: true,
+            title: {
+              display: true,
+              text: 'List of Farmers'
+            }
+          }
+        },
+        plugins: {          
+          legend: {
+            onClick: (evt, legendItem, legend) => {
+              const datasets = legend.legendItems.map((dataset, index) => {
+                  return dataset.text
+              });
+              const index = datasets.indexOf(legendItem.text);
+              if(legend.chart.isDatasetVisible(index) === true){
+                legend.chart.hide(index);
+              } else{
+                legend.chart.show(index);
+              }
+            },
+            labels: {
+              generateLabels: (chart) => {
+                let visibility1 = [];
+                let fillS = [];
+                let strokeS = [];
+                let text = []
+
+                for(let i = 0; i <= data4.datasets.length-1; i++)
+                {
+                  if(chart.data.datasets[i].data.every( e  => e == 0.00) == true || chart.isDatasetVisible(i) == false)
+                  {
+                    fillS[i] = 'rgb(255,255,255)';
+                    strokeS[i] = 'rgb(255,255,255)';
+                    visibility1.push(true);
+                  }else{
+                      fillS[i] = chart.data.datasets[i].backgroundColor;
+                    strokeS[i] = 'rgb(255,255,255)';
+                    visibility1.push(false);
+                  }
+                }
+                return chart.data.datasets.map(
+                  (dataset, index) => ({
+                    text: dataset.label,
+                    fillStyle: fillS[index],
+                    strokeStyle: strokeS[index],
+                    hidden: visibility1[index]
+                  })
+                )
+              }
+            }
+          },
+          datalabels: {
+            formatter: (value, context) => {
+              if(value != 0)
+              {
+                return value + '(t)';
+              } else {
+                return '';
+              }
+            }
+          },
+
+        }
+      },
+    plugins: [ChartDataLabels, bgColor4]
+    };
+          
+    const brgyCompareChart = new Chart(
+      document.getElementById('brgyCompareChart'),
+      config4
+    );
+</script>
+<!-- /Brgy Compare Chart -->
+
+
 <!-- Crops Chart -->
 <script>
 

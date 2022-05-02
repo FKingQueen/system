@@ -229,7 +229,7 @@
                           @if(is_null($farming_data->yield))
                             In progress
                           @else
-                            {{$farming_data->unit/1000}}(t)
+                            {{$farming_data->yield/1000}}(t)
                           @endif
                         </td>
                         <td class="text-center pt-2">
@@ -410,7 +410,7 @@
 
                 <!-- Yield Farming Modal -->
                 <div class="modal fade" id="yield{{$farming_data->id}}">
-                  <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-dialog modal-dialog-centered modal-sm">
                     <div class="modal-content">
                       <div class="modal-header bg-green p-2">
                         <h4 class="modal-title">Insert Yield</h4>
@@ -421,19 +421,12 @@
                         <div class="modal-body bg-white">
 
                             <div class="d-flex justify-content-center">
-                                <div>
-                                  <br>
-                                  <label class="mt-2 font-weight-light">Yield: </label>
+                                <div class="mt-1 mr-2">
+                                  <label class="font-weight-light">Yield (kg):   </label>
                                 </div>
                                 
-                                <div class="col-5 input-group-sm">
-                                  <label for="kg" class="input-group  font-weight-light" >Number of sacks: </label>
-                                  <input id="sacks" name="sacks" type="number" class="form-control" placeholder="sacks" min="0" autocomplete="kg" autofocus value="{{$farming_data->sacks}}">
-                                </div>
-                                
-                                <div class="col-4 input-group-sm">
-                                  <label for="kg" class="input-group font-weight-light">Weight of sack: </label>
-                                  <input id="kg" name="kg" type="number" class="form-control" min="25" max="85"  placeholder="kg" autocomplete="kg" autofocus value="{{$farming_data->kg}}">
+                                <div class=" input-group-sm" style="width: 100px;">
+                                  <input id="kg" name="kg" type="number" class="form-control" placeholder="kg" autocomplete="kg" autofocus value="{{$farming_data->kg}}">
                                 </div>
                             </div>
 
@@ -611,24 +604,6 @@
                 <!-- /Timeline Modal -->
                 
               @endforeach
-
-
-              
-
-              <!-- Create Farming Modal -->
-              <div class="modal fade" id="loading">
-                <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-body d-flex justify-content-center ">
-                    <div class="spinner-border d-flex justify-content" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  </div>
-                </div>
-                </div>
-              </div>
-              <!-- /Create Farming Modal -->
-
 
               <!-- Create Farming Modal -->
               <div class="modal fade" id="compose">

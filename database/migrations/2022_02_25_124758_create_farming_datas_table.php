@@ -25,9 +25,6 @@ class CreateFarmingDatasTable extends Migration
             $table->decimal('lot_size', 5, 3);
             $table->date('date')->nullable();
             $table->decimal('yield', 8, 2)->nullable();
-            $table->decimal('sacks', 8, 2)->nullable();
-            $table->decimal('kg', 8, 2)->nullable();
-            $table->decimal('unit', 8, 2)->nullable();
             $table->timestamps();
         });
     }

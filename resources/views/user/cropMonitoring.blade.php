@@ -145,6 +145,7 @@
     </div>
     <!-- /.container-fluid -->
   </section>
+  
 
   </section>
     <!-- Main content -->
@@ -180,7 +181,7 @@
           <div class="card">
             <!-- /.card-header -->
               <div class="card-body">
-                <h5 class="text-center mt-3">The Total Number of Crops Sown in Barangay {{$brgy}}</h5>
+                <h6 class="text-center mt-3">The Farmers' Total Number of Crops Harvested in Barangay {{$brgy}}</h6>
                 <canvas id="myChart" width="400" height="200"></canvas>
               </div>
             <!-- /.card-body -->
@@ -205,7 +206,7 @@
               <div class="card-body">
 
                 <div class="input-group  d-flex justify-content-center">
-                  <h3 class="text-center ">FARMING ACTIVITY</h3>
+                  <h4 class="text-center ">FARMING ACTIVITY</h4>
                 </div>
 
                 <div class="input-group" >
@@ -503,12 +504,12 @@
             ticks: {
                 // Include a dollar sign in the ticks
                 callback: function(value, index, ticks) {
-                    return value + '%';
+                    return value;
                 }
             },
             title: {
               display: true,
-              text: 'Percentage %'
+              text: 'Crops'
             }
           },
           y: {
@@ -572,7 +573,7 @@
             formatter: (value, context) => {
               if(value != null)
               {
-                return `${value}%`;
+                return `${value}`;
               }
             }
           }

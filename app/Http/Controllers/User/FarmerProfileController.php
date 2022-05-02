@@ -176,19 +176,6 @@ class FarmerProfileController extends Controller
             $lot_size = $request->lot_size/1000;
         }
 
-        $f_data = Farming_data::find($id);
-        
-        $total = ($f_data->sacks*$f_data->kg)/$lot_size;
-        $yield = $total * (10 ** -3);
-        $unit = $f_data->sacks*$f_data->kg;
-
-        DB::table('farming_datas')
-        ->where('id', $id)
-        ->update([
-        'yield'  => $yield,
-        'unit'  => $unit,
-        ]);
-
         DB::table('activity_files')
         ->where('farming_data_id', $id)
         ->update([
@@ -301,21 +288,13 @@ class FarmerProfileController extends Controller
     public function updateYield(Request $request, $id)
     {
         $request->validate([
-            'sacks'    => 'required',
             'kg' => 'required',
         ]);
 
-        $f_data = Farming_data::find($id);
-        
-        $total = ($request->sacks*$request->kg)/$f_data->lot_size;
-        $yield = $total * (10 ** -3);
-        $unit = $request->sacks*$request->kg;
+        $yield = $request->kg;
 
         $res = Farming_data::find($id)->update([
             'yield' => $yield,
-            'sacks'  => $request->sacks,
-            'kg'    => $request->kg,
-            'unit'    => $unit,
         ]);
 
         $farmer_id = Farming_data::find($id);
