@@ -26,9 +26,12 @@ class CropCalendarController extends Controller
         $brgycount = Barangay::where('municipality_id', Auth::user()->muni_address)->get();
         $brgyfirst = Barangay::where('municipality_id', Auth::user()->muni_address)->value('id');
         $currentyear = $date->year;
+        $colorpalette = ['rgba(182, 207, 182)', 'rgba(171, 222, 230)', 'rgba(255, 229, 180)', 'rgba(224, 187, 228)', 'rgba(236, 234, 228)', 'rgba(212, 240, 240)', 'rgba(199, 206, 234)', 'rgba(236, 213, 227)', 'rgba(246, 234, 194)', 'rgba(186, 255, 201)', 'rgba(202, 255, 191)', 'rgba(255, 200, 162)', 'rgba(255, 255, 186)'];
 
+        $x = 0;
         foreach($brgycount as $key1 => $brgycount)
         {
+    
             for($i = 0; $i <= 12; $i++)
             {
                 $chk = Farming_data::where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $brgycount->id)->where('crop_id', $i+1)->count();
@@ -40,11 +43,23 @@ class CropCalendarController extends Controller
                         if(Activity_file::whereYear('date', '=', $date->year)->whereMonth('date', '=' , $j+1)->where('crop_id', $i+1)->count() != 0)
                         {
                             $data[$key1][$j][$i] = Crop::where('id', $i+1)->value('name');
+                            $farmer[$key1][$j][$i] = Farming_data::where('barangay_id', $brgycount->id)->where('crop_id', $i+1)->distinct('crop_id')->pluck('farmer_id');
+
+                            foreach($farmer[$key1][$j][$i] as $key2 => $sample)
+                            {
+                                $farmer[$key1][$j][$i][$key2] = Farmer::where('id', $sample)->value('name');
+                            }
+
+                            $color1[$x] = $colorpalette[$i];
+                            $color2[$x] = $i;
+                            
+                            
                         } else 
                         {
                             $data[$key1][$j][$i] = 'null';
                         }
                     }
+                    $x++;
                 } else
                 {
                     for($j = 0; $j <= 11; $j++)
@@ -52,8 +67,11 @@ class CropCalendarController extends Controller
                         $data[$key1][$j][$i] = 'empty';
                     }
                 }
+                
             }
         }
+        $color1 = array_unique($color1);
+
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
         
         return view('user/cropCalendar', array(
@@ -62,7 +80,12 @@ class CropCalendarController extends Controller
             "crops" => $crop, 
             "brgys" => $brgy, 
             "data" => $data,
-            "barangays" => $barangay
+            "barangays" => $barangay,
+            "farmers"    => $farmer,
+            "colorpalettes" => $colorpalette,
+            "color1s" => $color1,
+            "color2s" => $color2,
+
         ));
     }
 

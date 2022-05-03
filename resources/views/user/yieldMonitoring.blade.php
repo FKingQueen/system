@@ -154,7 +154,7 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <h5 class="text-center mt-3">Total Yield in Tons of Different Crops in Barangay {{$jsbrgy}} </h5>
+            <h6 class="text-center mt-3">Annual Number of Crops Harvested in Muncipality of {{$muni}}</h6>
             <canvas id="brgyCompareChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>
@@ -177,16 +177,36 @@
         $('#download').tooltip({title: "Export to pdf",html: true, placement: "top", animation: true,}); 
       });
     </script>
-  
 
   <!-- Main content -->
-  <section class="content mb-4" id="target">
+  <section class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <h5 class="text-center mt-3">Total Yield in Tons of Different Crops in Barangay {{$jsbrgy}} </h5>
+            <h6 class="text-center mt-3">Total Yield in Tons of Every Farmer in Barangay {{$jsbrgy}}</h6>
+            <canvas  id="farmerChart" width="400" height="150"></canvas>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- Main /.content -->
+
+    <!-- Main content -->
+    <section class="content mb-4" id="target">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <h6 class="text-center mt-3">Total Yield in Tons of Different Crops in Barangay {{$jsbrgy}} </h6>
             <canvas id="cropsChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>
@@ -207,28 +227,7 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <h5 class="text-center mt-3">Total Yield in Tons of Every Farmer in Barangay {{$jsbrgy}}</h5>
-            <canvas  id="farmerChart" width="400" height="150"></canvas>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-  </section>
-  <!-- Main /.content -->
-
-  <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <!-- /.card-header -->
-            <h5 class="text-center mt-3">The Total Hectare on Different Types of Crops in Barangay {{$jsbrgy}}</h5>
+            <h6 class="text-center mt-3">The Total Hectare on Different Types of Crops in Barangay {{$jsbrgy}}</h6>
             <canvas  id="hectareChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>

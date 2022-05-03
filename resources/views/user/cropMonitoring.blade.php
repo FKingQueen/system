@@ -181,7 +181,30 @@
           <div class="card">
             <!-- /.card-header -->
               <div class="card-body">
-                <h6 class="text-center mt-3">The Farmers' Total Number of Crops Harvested in Barangay {{$brgy}}</h6>
+                <h6 class="text-center mt-3">Annual Number of Crops Harvested in Muncipality of {{$muni}}</h6>
+                <canvas id="brgyChart" width="400" height="200"></canvas>
+              </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- Main /.content -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+              <div class="card-body">
+                <h6 class="text-center mt-3">Farmer's Annual Number of Crops Harvested in Barangay {{$brgy}}</h6>
                 <canvas id="myChart" width="400" height="200"></canvas>
               </div>
             <!-- /.card-body -->
@@ -400,6 +423,196 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
+<script>
+  const data1 = {
+        labels: @json($n_brgys),
+        datasets: [
+          {
+            label: 'Bitter Gourd',
+            data: @json($Bitter_gourd_coms), 
+            barThickness: 25,
+            backgroundColor:'rgba(182, 207, 182)'
+          },{
+            label: 'Cabbage',
+            data: @json($Cabbage_coms), 
+            barThickness: 25,
+            backgroundColor:'rgba(171, 222, 230)'
+          },{
+            label: 'Corn',
+            data: @json($Corn_coms), 
+            barThickness: 25,
+            backgroundColor:'rgba(255, 229, 180)'
+          },{
+            label: 'Eggplant',
+            data: @json($Eggplant_coms), 
+            barThickness: 25,
+            backgroundColor:'rgba(224, 187, 228)'
+          },{
+            label: 'Garlic',
+            data: @json($Garlic_coms), 
+            barThickness: 25,
+            backgroundColor:'rgba(236, 234, 228)'
+          },{
+            label: 'Ladys Finger',
+            data: @json($Ladys_finger_coms), 
+            barThickness: 25,
+            backgroundColor:'rgba(212, 240, 240)'
+          },{
+            label: 'Rice',
+            data: @json($Rice_coms), 
+            barThickness: 25,
+            backgroundColor:'rgba(199, 206, 234)'
+          },{
+            label: 'Onion',
+            data: @json($Onion_coms), 
+            barThickness: 25,
+            backgroundColor:'rgba(236, 213, 227)'
+          },{
+            label: 'Peanut',
+            data: @json($Peanut_coms), 
+            barThickness: 25,
+            backgroundColor:'rgba(246, 234, 194)'
+          },{
+            label: 'String Beans',
+            data: @json($String_bean_coms), 
+            barThickness: 25,
+            backgroundColor:'rgba(186,255,201)'
+          },{
+            label: 'Tobacco',
+            data: @json($Tobacco_coms), 
+            barThickness: 25,
+            backgroundColor:'rgba(202, 255,191)'
+          },{
+            label: 'Tomato',
+            data: @json($Tomato_coms), 
+            barThickness: 25,
+            backgroundColor:'rgba(255, 200, 162)'
+          },{
+            label: 'Water Melon',
+            data: @json($Water_melon_coms), 
+            barThickness: 25,
+            backgroundColor:'rgba(255, 255, 186)'
+          }
+        ]
+    };
+
+    for(var i = 0; i <= data1.datasets.length-1; i++){
+      if(data1.datasets[i].data.every( e  => e == null))
+      {
+        data1.datasets.splice(i, 1);
+        i--;
+      }
+    }
+
+    const bgColor1 = {
+      id : 'bgColor',
+      beforeDraw: (chart, options) => {
+      const  {ctx, width, height} = chart;
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0,0, width, height)
+        ctx.restore();
+      }
+    }
+
+
+    const config1 = {
+      type: 'bar',
+      data: data1 ,
+      options: {
+        responsive: true,
+        indexAxis: 'y',
+        scales: {
+          x: {
+            stacked: true,
+            ticks: {
+                // Include a dollar sign in the ticks
+                callback: function(value, index, ticks) {
+                    return value;
+                }
+            },
+            title: {
+              display: true,
+              text: 'Number of Crops'
+            }
+          },
+          y: {
+            stacked: true,
+            title: {
+              display: true,
+              text: 'List of Barangays'
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            onClick: (evt,   legendItem, legend) => {
+              const datasets = legend.legendItems.map((dataset, index) =>{
+                  return dataset.text
+              });
+
+              const index = datasets.indexOf(legendItem.text);
+
+              if(legend.chart.isDatasetVisible(index) === true)
+              {
+                legend.chart.hide(index);
+              } else {
+                legend.chart.show(index);
+              }
+            },
+            labels: {
+              generateLabels: (chart) => {
+                let visibility1 = [];
+                let fillS = [];
+                let strokeS = [];
+                let text = []
+
+                
+                for(let i = 0; i <= data1.datasets.length-1; i++)
+                {
+                  if(chart.data.datasets[i].data.every( e  => e == null) == true || chart.isDatasetVisible(i) == false)
+                  {
+                    fillS[i] = 'rgb(255,255,255)';
+                    strokeS[i] = 'rgb(255,255,255)';
+                    visibility1.push(true);
+                  }else{
+                    fillS[i] = chart.data.datasets[i].backgroundColor;
+                    strokeS[i] = 'rgb(255,255,255)';
+                    visibility1.push(false);
+                  }
+                }
+
+                return chart.data.datasets.map(
+                  (dataset, index) => ({
+                    text: dataset.label,
+                    fillStyle: fillS[index],
+                    strokeStyle: strokeS[index],
+                    hidden: visibility1[index]
+                  })
+                )
+              }
+            }
+          },
+          datalabels: {
+            formatter: (value, context) => {
+              if(value != null)
+              {
+                return `${value}`;
+              }
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels,bgColor1]
+    };
+
+  const brgyChart = new Chart(
+      document.getElementById('brgyChart'),
+      config1
+    );
+</script>
+
+
 <script>
   const data = {
         labels: @json($n_farmers),
@@ -509,7 +722,7 @@
             },
             title: {
               display: true,
-              text: 'Crops'
+              text: 'Number of Crops'
             }
           },
           y: {

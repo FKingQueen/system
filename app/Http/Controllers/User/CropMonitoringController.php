@@ -318,6 +318,134 @@ class CropMonitoringController extends Controller
             }
         }
 
+        $n_brgy = Barangay::where('municipality_id', Auth::user()->muni_address)->get();
+        $i = 0;
+        foreach($n_brgy as $key => $n_b)
+        {
+            $chk = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('barangay_id', $n_b->id)->count();  
+            
+            if($chk != 0)
+            {
+                $FC_total = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('barangay_id', $n_b->id)->count();
+
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 1)->where('barangay_id', $n_b->id)->count())
+                {
+                    $Bitter_gourd_com[$i] = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 1)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $Bitter_gourd_com[$i] = NULL;
+                }
+
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 2)->where('barangay_id', $n_b->id)->count())
+                {
+                    $Cabbage_com[$i]  = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 2)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $Cabbage_com[$i] = NULL;
+                }
+
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 3)->where('barangay_id', $n_b->id)->count())
+                {
+                    $Corn_com[$i]  = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 3)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $Corn_com[$i] = NULL;
+                }
+
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 4)->where('barangay_id', $n_b->id)->count())
+                {
+                    $Eggplant_com[$i]  = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 4)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $Eggplant_com[$i] = NULL;
+                }
+                
+
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 5)->where('barangay_id', $n_b->id)->count())
+                {
+                    $Garlic_com[$i]  = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 5)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $Garlic_com[$i] = NULL;
+                }
+
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 6)->where('barangay_id', $n_b->id)->count())
+                {
+                    $Ladys_finger_com[$i] = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 6)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $Ladys_finger_com[$i] = NULL;
+                }
+
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 7)->where('barangay_id', $n_b->id)->count())
+                {
+                    $Rice_com[$i] = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 7)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $Rice_com[$i] = NULL;
+                }
+                
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 8)->where('barangay_id', $n_b->id)->count())
+                {
+                    $Onion_com[$i] = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 8)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $Onion_com[$i] = NULL;
+                }
+
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 9)->where('barangay_id', $n_b->id)->count())
+                {
+                    $Peanut_com[$i] = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 9)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $Peanut_com[$i] = NULL;
+                }
+
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 10)->where('barangay_id', $n_b->id)->count())
+                {
+                    $String_bean_com[$i] = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 10)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $String_bean_com[$i] = NULL;
+                }
+
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 11)->where('barangay_id', $n_b->id)->count())
+                {
+                    $Tobacco_com[$i] = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 11)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $Tobacco_com[$i] = NULL;
+                }
+
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->where('barangay_id', $n_b->id)->count())
+                {
+                    $Tomato_com[$i] = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $Tomato_com[$i] = NULL;
+                }
+
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->where('barangay_id', $n_b->id)->count())
+                {
+                    $Tomato_com[$i] = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $Tomato_com[$i] = NULL;
+                }
+                
+                if(Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 13)->where('barangay_id', $n_b->id)->count())
+                {
+                    $Water_melon_com[$i] = Farming_data::whereYear('date', '=', 2022)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 13)->where('barangay_id', $n_b->id)->count();
+                } else 
+                {
+                    $Water_melon_com[$i] = NULL;
+                }
+            $name_brgy[$i] = Barangay::where('id', $n_b->id)->value('name');
+            $i++;
+            }
+        }
+
+
         $i = 0;
         foreach($F_id as $key => $f)
         {
@@ -367,7 +495,22 @@ class CropMonitoringController extends Controller
             'jsyear'    => $jsyear,
             'technician'    => $technician,
             'pdfbrgy'  => $pdfbrgy,
-            'muni'  => $muni
+            'muni'  => $muni,
+
+            'Bitter_gourd_coms'   => $Bitter_gourd_com,
+            'Cabbage_coms'   => $Cabbage_com,
+            'Corn_coms'   => $Corn_com,
+            'Eggplant_coms'   => $Eggplant_com,
+            'Garlic_coms'   => $Garlic_com,
+            'Ladys_finger_coms'   => $Ladys_finger_com,
+            'Rice_coms'   => $Rice_com,
+            'Onion_coms'   => $Onion_com,
+            'Peanut_coms'   => $Peanut_com,
+            'String_bean_coms'   => $String_bean_com,
+            'Tobacco_coms'   => $Tobacco_com,
+            'Tomato_coms'   => $Tomato_com,
+            'Water_melon_coms'   => $Water_melon_com,
+            'n_brgys'   => $name_brgy
         ));
     }
 

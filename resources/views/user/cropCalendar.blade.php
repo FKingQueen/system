@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 
 @section('css')
+
 <style>
   /* Tooltip */
 .tooltip > .tooltip-inner {
@@ -10,6 +11,25 @@
     color:  #248139; 
     border: solid 1px;
     border-color: #248139;
+  }
+
+  .tippy-box[data-theme~='white'] {
+  background-color: white;
+  color: #248139;
+  border: solid;
+  border-width: 1px;
+  }
+  .tippy-box[data-theme~='white'][data-placement^='right'] > .tippy-arrow::before {
+    border-right-color: white;
+  }
+  .infosvg {
+    width: 20px;  
+  }
+
+  .tooltippy {
+    position: relative;
+    top: 150px;
+    left: 300px;
   }
   </style>
 @endsection
@@ -22,6 +42,7 @@
       <div class="row">
           <div class="col-sm-6">
               <h1 class="m-0 farm_title">Crop Calendar </h1>
+              
           </div>
           <!-- /.col -->
       </div><!-- /.row -->
@@ -143,7 +164,21 @@
                 
                 </div>
 
-
+              <div class="p-0 d-flex justify-content-center mb-1">
+                @foreach($crops as $key1 => $crop)
+                  @foreach($color1s as $key2 => $color1)
+                    @if($key1 == $color2s[$key2])
+                    <div class="mt-1" style="background-color: {{$color1}}; font-size: 8px; width: 3%; height: 13px;">
+                      &nbsp;
+                    </div>
+                    <div>
+                      &nbsp; {{$crops[$key1]->name}} &nbsp;
+                    </div>
+                    @endif
+                  @endforeach
+                @endforeach
+              
+              </div>
               <table class="table table-bordered">
                 <thead>
                   <tr class="text-center " style="position: sticky; top: 0; background-color: #F5FEFD;">
@@ -177,11 +212,36 @@
                             @foreach($data[$key1][$i] as $key2 => $datas)
                              <tr class="container-fluid">
                                 @if($datas != 'empty' && $datas != 'null')
-                                  <td style="cursor: pointer;color: #248139; background-color: #C1E1C1; font-size: 10px; " class="p-0 text-center">
-                                      {{$datas}}
-                                  </td>
+                                  @foreach($color1s as $key3 => $color1)
+                                    @if($key2 == $color2s[$key3])
+                                    <td id="myButton{{$key1}}{{$i}}{{$key2}}" style="cursor: pointer;color: #248139; background-color: {{$color1}}; font-size: 10px; " class="p-0 text-center">
+                                        {{$datas}}
+                                    </td>
+                                    @endif
+                                  @endforeach
+                                      <div id="template{{$key1}}{{$i}}{{$key2}}" class="">
+                                        @foreach($farmers[$key1][$i][$key2] as $f)
+                                        <div class="d-flex justify-content-center">
+                                          {{$f}}
+                                        </div>
+                                        @endforeach
+                                      </div>
+                                      <script src="https://unpkg.com/@popperjs/core@2"></script>
+                                      <script src="https://unpkg.com/tippy.js@6"></script>
+                                      <script>
+                                        // With the above scripts loaded, you can call `tippy()` with a CSS
+                                        // selector and a `content` prop:
+                                        var template = document.getElementById('template{{$key1}}{{$i}}{{$key2}}');
+                                        template.style.display = 'block';
+                                        tippy('#myButton{{$key1}}{{$i}}{{$key2}}', {
+                                          maxWidth: 'none',
+                                          content: template,
+                                          theme: 'white',
+                                          animation: 'fade',
+                                        });
+                                      </script>
                                 @elseif($datas == 'null')
-                                  <td class="p-0 text-center" style="user-select:none;background-color: #fff; color: #fff; font-size: 10px; ">
+                                  <td class="p-0 text-center" style="user-select:none;background-color: #fff; color: #fff ; font-size: 10px; ">
                                     {{$datas}}
                                   </td>
                                 @endif
@@ -214,7 +274,9 @@
 @endsection
 
 @section('js')
-<script type='text/javascript'>
+
+
+  <script type='text/javascript'>
 
 $(document).ready(function() { 
   $('input[name=btnradio]').change(function(){
