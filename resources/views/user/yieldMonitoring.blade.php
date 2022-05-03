@@ -351,14 +351,14 @@
             stacked: true,
             title: {
               display: true,
-              text: 'tons(t)'
+              text: 'List of Barangay'
             }
           },
           y: {
             stacked: true,
             title: {
               display: true,
-              text: 'List of Farmers'
+              text: 'Yield per Crop'
             }
           }
         },
