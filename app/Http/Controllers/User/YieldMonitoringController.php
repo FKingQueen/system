@@ -22,6 +22,7 @@ class YieldMonitoringController extends Controller
         $request->validate([
             'barangay'  => 'required',
         ]);
+
         $N_crop = Crop::pluck('name');
         ////Crops Unit Stacked Bar Chart
         for($i = 0; $i <= 12; $i++)
@@ -225,15 +226,15 @@ class YieldMonitoringController extends Controller
         ]);
 
         
+         $N_crop = Crop::pluck('name');
         ////Crops Unit Stacked Bar Chart
-        $N_crop = Crop::pluck('name');
         for($i = 0; $i <= 12; $i++)
         {
             $chk = Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $i+1)->where('barangay_id', $request->barangay)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->count();
             if($chk != NULL || $chk != 0 )
             {
-                $U_crop[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $i+1)->where('barangay_id', $request->barangay)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->pluck('unit')->sum()/1000, 3);
-                $H_crop[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $i+1)->where('barangay_id', $request->barangay)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->pluck('lot_size')->sum(), 3);
+                $U_crop[$i] = Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $i+1)->where('barangay_id', $request->barangay)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->pluck('yield')->sum();
+                $H_crop[$i] = Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('crop_id', $i+1)->where('barangay_id', $request->barangay)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->pluck('lot_size')->sum();
             } else
             {
                 $U_crop[$i] = 0;
@@ -241,11 +242,12 @@ class YieldMonitoringController extends Controller
             }
             
         }
+        
         ////Farmer Unit Stacked Bar Chart
         // Getting all farmer informttion in an array
         $F_id = Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->distinct('farmer_id')->pluck('farmer_id');
-        //$Farmer = Farmer::whereYear('date', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->get();
-        
+        //$Farmer = Farmer::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->get();
+
         foreach($F_id as $key1 => $f)
         {
             $Farmer[$key1] = Farmer::where('id', $f)->value('name');
@@ -295,44 +297,81 @@ class YieldMonitoringController extends Controller
             
             if($chk != 0)
             {
-            $Bitter_gourd[$i] =  number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 1)->sum('unit')/1000, 2);
+            $Bitter_gourd[$i] =  number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 1)->sum('yield')/1000, 2);
 
-            $Cabbage[$i]  = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 2)->sum('unit')/1000, 2);
+            $Cabbage[$i]  = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 2)->sum('yield')/1000, 2);
 
-            $Corn[$i]  = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 3)->sum('unit')/1000, 2);
+            $Corn[$i]  = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 3)->sum('yield')/1000, 2);
 
-            $Eggplant[$i]  = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 4)->sum('unit')/1000, 2);
+            $Eggplant[$i]  = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 4)->sum('yield')/1000, 2);
 
-            $Garlic[$i]  = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 5)->sum('unit')/1000, 2);
+            $Garlic[$i]  = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 5)->sum('yield')/1000, 2);
 
-            $Ladys_finger[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 6)->sum('unit')/1000, 2);
+            $Ladys_finger[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 6)->sum('yield')/1000, 2);
 
-            $Rice[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 7)->sum('unit')/1000, 2);
+            $Rice[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 7)->sum('yield')/1000, 2);
 
-            $Onion[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 8)->sum('unit')/1000, 2);
+            $Onion[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 8)->sum('yield')/1000, 2);
 
-            $Peanut[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 9)->sum('unit')/1000, 2);
+            $Peanut[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 9)->sum('yield')/1000, 2);
 
-            $String_bean[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 10)->sum('unit')/1000, 2);
+            $String_bean[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 10)->sum('yield')/1000, 2);
 
-            $Tobacco[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 11)->sum('unit')/1000, 2);
+            $Tobacco[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 11)->sum('yield')/1000, 2);
 
-            $Tomato[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->sum('unit')/1000, 2);
+            $Tomato[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->sum('yield')/1000, 2);
             
-            $Water_melon[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 13)->sum('unit')/1000, 2);
+            $Water_melon[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('farmer_id', $f)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 13)->sum('yield')/1000, 2);
             $i++;
             }
         }
+    
+
+        $n_brgy = Barangay::where('municipality_id', Auth::user()->muni_address)->get();
         
+        // Getting all crop count , one by one
+        $i = 0;
+        $total_unit = 0;
+        foreach($n_brgy as $key => $n_b)
+        {
+            $chk = Farming_data::whereYear('date', '=', $request->year_id)->where('status', 0)->where('yield','!=',NULL)->where('cropping_season_id', $request->cropping_season)->where('barangay_id', $n_b->id)->count();  
+            
+            if($chk != 0)
+            {
+            $Bitter_gourd_com[$i] =  number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 1)->where('barangay_id', $n_b->id)->sum('yield')/1000, 2);
+
+            $Cabbage_com[$i]  = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 2)->where('barangay_id', $n_b->id)->sum('yield')/1000, 2);
+
+            $Corn_com[$i]  = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 3)->where('barangay_id', $n_b->id)->sum('yield')/1000, 2);
+
+            $Eggplant_com[$i]  = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 4)->where('barangay_id', $n_b->id)->sum('yield')/1000, 2);
+
+            $Garlic_com[$i]  = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 5)->where('barangay_id', $n_b->id)->sum('yield')/1000, 2);
+
+            $Ladys_finger_com[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 6)->where('barangay_id', $n_b->id)->sum('yield')/1000, 2);
+
+            $Rice_com[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 7)->where('barangay_id', $n_b->id)->sum('yield')/1000, 2);
+
+            $Onion_com[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 8)->where('barangay_id', $n_b->id)->sum('yield')/1000, 2);
+
+            $Peanut_com[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 9)->where('barangay_id', $n_b->id)->sum('yield')/1000, 2);
+
+            $String_bean_com[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 10)->where('barangay_id', $n_b->id)->sum('yield')/1000, 2);
+
+            $Tobacco_com[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 11)->where('barangay_id', $n_b->id)->sum('yield')/1000, 2);
+
+            $Tomato_com[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 12)->where('barangay_id', $n_b->id)->sum('yield')/1000, 2);
+            
+            $Water_melon_com[$i] = number_format(Farming_data::whereYear('date', '=', $request->year_id)->where('cropping_season_id', $request->cropping_season)->where('status', 0)->where('yield','!=',NULL)->where('crop_id', 13)->where('barangay_id', $n_b->id)->sum('yield')/1000, 2);
+            
+            $name_brgy[$i] = Barangay::where('id', $n_b->id)->value('name');
+            $i++;
+            }
+        }
+
         $jsbrgy = Barangay::where('id', $request->barangay)->value('name');
         $jsyear = $request->year_id;
-        if($request->cropping_season == 1)
-        {
-            $jscs   = 'Dry Season';
-        } else if($request->cropping_season == 2)
-        {
-            $jscs   = 'Wet Season';
-        }
+        $jscs   = 'Dry Season';
         $technician = Auth::user()->name;
         $muni = Municipality::where('id', Auth::user()->muni_address)->value('name');
 
@@ -360,7 +399,23 @@ class YieldMonitoringController extends Controller
             'jscs'    => $jscs,
             'H_crops'    => $H_crop,
             'technician'    => $technician,
-            'muni'    => $muni
+            'muni'    => $muni,
+
+            'Bitter_gourds_com'   => $Bitter_gourd_com,
+            'Cabbages_com'   => $Cabbage_com,
+            'Corns_com'   => $Corn_com,
+            'Eggplants_com'   => $Eggplant_com,
+            'Garlics_com'   => $Garlic_com,
+            'Ladys_fingers_com'   => $Ladys_finger_com,
+            'Rices_com'   => $Rice_com,
+            'Onions_com'   => $Onion_com,
+            'Peanuts_com'   => $Peanut_com,
+            'String_beans_com'   => $String_bean_com,
+            'Tobaccos_com'   => $Tobacco_com,
+            'Tomatos_com'   => $Tomato_com,
+            'Water_melons_com'   => $Water_melon_com,
+            'n_brgys'   => $name_brgy
+
         ));
     }
 }

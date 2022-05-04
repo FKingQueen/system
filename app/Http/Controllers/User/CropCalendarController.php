@@ -76,6 +76,8 @@ class CropCalendarController extends Controller
             return back()->with('cropmonitorfailed', 'Failed');
         }
 
+        $color1 = array_unique($color1);
+
   
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
         
@@ -153,6 +155,8 @@ class CropCalendarController extends Controller
         {
             return back()->with('cropmonitorfailed', 'Failed');
         }
+
+        $color1 = array_unique($color1);
 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
         

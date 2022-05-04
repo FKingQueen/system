@@ -160,7 +160,6 @@
                 {{$muni}} 
                 <i style="font-size: 14pt;">{{$jsyear}}</i>
               </h1>
-              
             </div>
             <!-- /.card-body -->
           </div>

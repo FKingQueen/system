@@ -376,6 +376,13 @@
 <script src="https://adminlte.io/themes/v3/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 
+@error('email') 
+    <script>
+        $(function() {
+            $('#createUser').modal('show');
+        });
+    </script>
+@enderror
 
 <script>
   $(function () {
