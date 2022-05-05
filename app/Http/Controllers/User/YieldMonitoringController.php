@@ -10,6 +10,7 @@ use App\Models\Crop;
 use App\Models\Barangay;
 use App\Models\Farming_data;
 use App\Models\Activity_file;
+use App\Models\Cropping_season;
 use DateTime;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -168,7 +169,7 @@ class YieldMonitoringController extends Controller
 
         $jsbrgy = Barangay::where('id', $request->barangay)->value('name');
         $jsyear = '2022';
-        $jscs   = 'Dry Season';
+        $jscs   = 'Wet Season';
         $technician = Auth::user()->name;
         $muni = Municipality::where('id', Auth::user()->muni_address)->value('name');
 
@@ -371,7 +372,7 @@ class YieldMonitoringController extends Controller
 
         $jsbrgy = Barangay::where('id', $request->barangay)->value('name');
         $jsyear = $request->year_id;
-        $jscs   = 'Dry Season';
+        $jscs   = Cropping_season::where('id', $request->cropping_season)->value('name');
         $technician = Auth::user()->name;
         $muni = Municipality::where('id', Auth::user()->muni_address)->value('name');
 

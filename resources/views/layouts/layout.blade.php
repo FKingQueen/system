@@ -245,8 +245,8 @@
                         <form action="{{ route('cropMonitoring') }}" method="GET">
                             @csrf
                             <div class="modal-body rounded bg-white p-1">
-                                <div class="d-flex justify-content-center mb-3">
-                                    <div>
+                                <div class="justify-content-center mb-2">
+                                    <div class="mb-2">
                                         <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
                                         <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
                                         <option value="" disabled selected>--- Select Barangay ---</option>
@@ -260,9 +260,21 @@
                                             </span>
                                         @enderror          
                                     </div>
+                                    <div>
+                                        <label for="UpdateFarmer_Barangay" class="input-group">Crop Status:</label>
+                                        <select id="status" type="text" name="status" class="form-control form-control-sm @error('status') is-invalid @enderror" name="status" required autocomplete="status" autofocus>
+                                            <option value="0"selected>Completed</option>
+                                            <option value="1">Ongoing</option>
+                                        </select>
+                                        @error('status')
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror          
+                                    </div>
 
-                                    <div class="ml-3 d-flex align-items-end">
-                                        <button type="submit" class="btn btn-sm  btn-block btn-primary input-group"> Filter </button>
+                                    <div class="d-flex justify-content-center mt-3 ">
+                                        <button type="submit" class="btn btn-sm w-25 btn-block btn-primary"> Filter </button>
                                     </div>
                                 </div>
                             </div>

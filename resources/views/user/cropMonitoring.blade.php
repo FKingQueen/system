@@ -1,7 +1,6 @@
 @extends('layouts.layout')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 <style>
   .float{
 	position:fixed;
@@ -50,6 +49,45 @@
   border: solid 1pt;
   border-color: #248139;
 }
+
+  h1 {
+      color: green;
+  }
+
+  .multipleSelection {
+      width: 300px;
+      background-color: #BCC2C1;
+  }
+
+  .selectBox {
+      position: relative;
+  }
+
+  .selectBox select {
+      width: 100%;
+      font-weight: bold;
+  }
+
+  .overSelect {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+  }
+
+  #checkBoxes {
+      display: none;
+      border: 1px #8DF5E4 solid;
+  }
+
+  #checkBoxes label {
+      display: block;
+  }
+
+  #checkBoxes label:hover {
+      background-color: #4F615E;
+  }
 </style>
 @endsection
 
@@ -68,6 +106,23 @@
   </div>
   <!-- /.content-header -->
   <!-- HTML to write -->
+
+  <script>
+        var show = true;
+  
+        function showCheckboxes() {
+            var checkboxes = 
+                document.getElementById("checkBoxes");
+  
+            if (show) {
+                checkboxes.style.display = "block";
+                show = false;
+            } else {
+                checkboxes.style.display = "none";
+                show = true;
+            }
+        }
+    </script>
 
   <a id="download" type="button" onclick= "downloadPDF()" class="float">
     <i style='color:#ffffff' class="fas fa-file-export fa-lg my-float"></i>
@@ -90,8 +145,8 @@
               <form action="{{ route('cropMonitoringsearch') }}" method="GET">
                 @csrf
                 <div class="modal-body rounded bg-white">
-                  <div class="d-flex justify-content-between">
-                    <div class="d-flex justify-content-left">
+                  <div class="d-flex justify-content-between ">
+                    <div class="d-flex justify-content-left ">
                         <div>
                             <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
                             <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
@@ -106,6 +161,20 @@
                                 </span>
                             @enderror          
                         </div>
+
+                        <div class="ml-3">
+                            <label for="UpdateFarmer_Barangay" class="input-group">Crop Status:</label>
+                            <select id="status" type="text" name="status" class="form-control form-control-sm @error('status') is-invalid @enderror" name="status" required autocomplete="status" autofocus>
+                                <option value="0"selected>Completed</option>
+                                <option value="1">Ongoing</option>
+                            </select>
+                            @error('status')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror          
+                        </div>
+
                         <div class="ml-3">
                             <label for="year_id" class="input-group">Year:</label>
                             <select id="year_id" type="text" name="year_id" class="form-control form-control-sm @error('year_id') is-invalid @enderror" name="year_id" required autocomplete="year_id" autofocus>
@@ -124,13 +193,12 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror          
-                        </div>     
+                        </div>
+
                         <div class="ml-3 d-flex align-items-end">
                             <button type="submit" class="btn btn-sm btn-block btn-primary input-group"> Filter </button>
                         </div>
-
                     </div>
-
                   </div>
                 </div>
               </form>
@@ -155,11 +223,24 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <div class="card-body mt-2 p-1 d-flex justify-content-center">
-              <h1 class="p-0 farmer_name">
-                {{$muni}} 
-                <i style="font-size: 14pt;">{{$jsyear}}</i>
-              </h1>
+            <div class="card-body mt-2 p-1">
+              <div class="d-flex justify-content-center">
+                <h1 class="p-0 farmer_name">
+                  {{$muni}} 
+                  <i style="font-size: 14pt;">{{$jsyear}}</i>
+                </h1>
+              </div>
+              <div class="d-flex justify-content-center ">
+                <div class="d-flex">
+                  <a href="" data-toggle="modal" data-target="#comparison">Barangay Comparison</a>
+                  &nbsp;
+                  <p>(@if($status == 0)
+                      Completed Crops
+                    @elseif($status == 1)
+                      Ongoing Crops
+                    @endif)</p>
+                </div>
+              </div>
             </div>
             <!-- /.card-body -->
           </div>
@@ -172,28 +253,25 @@
     <!-- /.container-fluid -->
   </section>
 
-  <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <!-- /.card-header -->
-              <div class="card-body">
-                <h6 class="text-center mt-3">Annual Number of Crops Harvested in Muncipality of {{$muni}}</h6>
-                <canvas id="brgyChart" width="400" height="200"></canvas>
-              </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
+    <!-- Comparison Modal -->
+    <div class="modal fade" id="comparison">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+          <h6 class="text-center mt-3">Annual Number of Crops 
+              @if($status == 0)
+                Harvested
+              @elseif($status == 1)
+                Sown
+              @endif
+             in Muncipality of {{$muni}}</h6>
+          <canvas id="brgyChart" width="400" height="200"></canvas>
       </div>
-      <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
-  </section>
-  <!-- Main /.content -->
+    </div>
+  </div>
+  <!-- /Comparison Farming Modal -->
+
 
   <!-- Main content -->
   <section class="content">
@@ -203,7 +281,13 @@
           <div class="card">
             <!-- /.card-header -->
               <div class="card-body">
-                <h6 class="text-center mt-3">Farmer's Annual Number of Crops Harvested in Barangay {{$brgy}}</h6>
+                <h6 class="text-center mt-3">Farmer's Annual Number of Crops
+                  @if($status == 0)
+                    Harvested
+                  @elseif($status == 1)
+                    Sown
+                  @endif
+                  in Barangay {{$brgy}}</h6>
                 <canvas id="myChart" width="400" height="200"></canvas>
               </div>
             <!-- /.card-body -->
@@ -419,11 +503,15 @@
 
 @section('js')
 
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 
 <script>
+  var sampledata = @json($n_brgys);
+  console.log(sampledata);
   const data1 = {
         labels: @json($n_brgys),
         datasets: [
@@ -613,6 +701,7 @@
 
 
 <script>
+  
   const data = {
         labels: @json($n_farmers),
         datasets: [
@@ -684,6 +773,8 @@
           }
         ]
     };
+
+    
 
     for(var i = 0; i <= data.datasets.length-1; i++){
       if(data.datasets[i].data.every( e  => e == null))

@@ -129,12 +129,20 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <div class="card-body mt-2 p-1 d-flex justify-content-center">
-              <h1 class="p-0 farmer_name">
-                {{$muni}} 
-                <i style="font-size: 14pt;">{{$jsyear}}</i>
-              </h1>
-              
+            <div class="card-body mt-2 p-1">
+              <div class="d-flex justify-content-center">
+                <h1 class="p-0 farmer_name">
+                  {{$muni}} 
+                  <i style="font-size: 14pt;">{{$jsyear}}</i>
+                </h1>
+              </div>
+              <div class="d-flex justify-content-center ">
+                <div class="d-flex">
+                  <a href="" data-toggle="modal" data-target="#comparison">Barangay Comparison</a>
+                  &nbsp;
+                  <p>( {{$jscs}} )</p>
+                </div>
+              </div>
             </div>
             <!-- /.card-body -->
           </div>
@@ -147,26 +155,18 @@
     <!-- /.container-fluid -->
   </section>
 
-  <!-- Main content -->
-  <section class="content mb-4" id="target">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <!-- /.card-header -->
-            <h6 class="text-center mt-3">Annual Number of Crops Harvested in Muncipality of {{$muni}}</h6>
-            <canvas id="brgyCompareChart" width="400" height="150"></canvas>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
+  <!-- Comparison Modal -->
+  <div class="modal fade" id="comparison">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+          <h6 class="text-center mt-3">Annual Yield of Crops Harvested in Muncipality of {{$muni}}</h6>
+          <canvas id="brgyCompareChart" width="400" height="150"></canvas>
       </div>
-      <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
-  </section>
-  <!-- Main /.content -->
+    </div>
+  </div>
+  <!-- /Comparison Farming Modal -->
 
   <a id="download" type="button" onclick= "downloadPDF()" class="float">
     <i style='color:#ffffff' class="fas fa-file-export fa-lg my-float"></i>
