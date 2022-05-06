@@ -510,24 +510,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 
 <script>
-  var n_brgys = @json($n_brgys);
-  var Bitter_gourd_coms = @json($Bitter_gourd_coms);
-  var Cabbage_coms = @json($Cabbage_coms);
-  var Corn_coms = @json($Corn_coms);
-  var Eggplant_coms = @json($Eggplant_coms);
-  var Garlic_coms = @json($Garlic_coms);
-  var Ladys_finger_coms = @json($Ladys_finger_coms);
-  var Rice_coms = @json($Rice_coms);
-  var Onion_coms = @json($Onion_coms);
-  var Peanut_coms = @json($Peanut_coms);
-  var String_bean_coms = @json($String_bean_coms);
-  var Tobacco_coms = @json($Tobacco_coms);
-  var Tomato_coms = @json($Tomato_coms);
-  var Water_melon_coms = @json($Water_melon_coms);   
-
-
+  var sampledata = @json($n_brgys);
+  console.log(sampledata);
   const data1 = {
-        labels: n_brgys,
+        labels: @json($n_brgys),
         datasets: [
           {
             label: 'Bitter Gourd',
@@ -605,8 +591,6 @@
         i--;
       }
     }
-    
-    
 
     const bgColor1 = {
       id : 'bgColor',

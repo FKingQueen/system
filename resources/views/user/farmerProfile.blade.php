@@ -678,19 +678,17 @@
 
 
                             <label for="activity_file">Insert Activity File (Required):</label>
-                            <div class="input-group mb-2">  
-                                <input id="activity_file" type="file" class="form-control @error('activity_file') is-invalid @enderror" name="activity_file" required autocomplete="activity_file">
+                            <div class="custom-file mb-2">  
+                                <label class="custom-file-label" for="activity_file">Choose file</label>
+                                <input id="activity_file" type="file" class="custom-file-input @error('activity_file') is-invalid @enderror" name="activity_file" required autocomplete="activity_file">
                                 @error('activity_file')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror 
-                              <div class="input-group-append">
-                                  <div class="input-group-text">
-                                    <i class="fas fa-file-alt"></i>
-                                  </div>
-                              </div>
                             </div>
+
+
 
                         </div>
                         <div class="modal-footer justify-content-between bg-white  p-1">

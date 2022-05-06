@@ -18,7 +18,7 @@ class CropMonitoringController extends Controller
 {
     public function cropMonitoring (Request $request)
     {
-
+        
         $request->validate([
             'barangay'  => 'required',
             'status'  => 'required',
@@ -521,6 +521,7 @@ class CropMonitoringController extends Controller
 
     public function cropMonitoringsearch (Request $request)
     {
+        dd($request->all());
         $request->validate([
             'year_id'  => 'required',
             'barangay'  => 'required',
