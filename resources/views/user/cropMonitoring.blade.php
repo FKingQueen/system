@@ -280,13 +280,13 @@
         <button onclick="btn_filter()" class="btn btn-sm btn-primary" style="width: 8%;"> Filter </button>
         </div>
 
-          <h6 class="text-center mt-3">Annual Number of Crops 
+          <h5 class="text-center mt-3">Annual Number of Crops 
               @if($status == 0)
                 Harvested
               @elseif($status == 1)
                 Sown
               @endif
-             in Muncipality of {{$muni}}</h6>
+             in Muncipality of {{$muni}}</h5>
           <canvas id="brgyChart" width="400" height="200"></canvas>
       </div>
     </div>
@@ -303,13 +303,13 @@
           <div class="card">
             <!-- /.card-header -->
               <div class="card-body">
-                <h6 class="text-center mt-3">Farmer's Annual Number of Crops
+                <h5 class="text-center mt-3">Farmer's Annual Number of Crops
                   @if($status == 0)
                     Harvested
                   @elseif($status == 1)
                     Sown
                   @endif
-                  in Barangay {{$brgy}}</h6>
+                  in Barangay {{$brgy}}</h5>
                 <canvas id="myChart" width="400" height="200"></canvas>
               </div>
             <!-- /.card-body -->

@@ -180,7 +180,7 @@
         
           <button onclick="btn_filter()" class="btn btn-sm btn-primary" style="width: 8%;"> Filter </button>
         </div>
-          <h6 class="text-center mt-3">Annual Yield of Crops Harvested in Muncipality of {{$muni}}</h6>
+          <h5 class="text-center mt-3">Annual Yield of Crops Harvested in Muncipality of {{$muni}}</h5>
           <canvas id="brgyCompareChart" width="400" height="150"></canvas>
       </div>
     </div>
@@ -205,7 +205,7 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <h6 class="text-center mt-3">Total Yield in Tons of Every Farmer in Barangay {{$jsbrgy}}</h6>
+            <h5 class="text-center mt-3">Total Yield in Tons of Every Farmer in Barangay {{$jsbrgy}}</h5>
             <canvas  id="farmerChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>
@@ -226,7 +226,7 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <h6 class="text-center mt-3">Total Yield in Tons of Different Crops in Barangay {{$jsbrgy}} </h6>
+            <h5 class="text-center mt-3">Total Yield in Tons of Different Crops in Barangay {{$jsbrgy}} </h5>
             <canvas id="cropsChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>
@@ -247,7 +247,7 @@
         <div class="col-12">
           <div class="card">
             <!-- /.card-header -->
-            <h6 class="text-center mt-3">The Total Hectare on Different Types of Crops in Barangay {{$jsbrgy}}</h6>
+            <h5 class="text-center mt-3">The Total Hectare on Different Types of Crops in Barangay {{$jsbrgy}}</h5>
             <canvas  id="hectareChart" width="400" height="150"></canvas>
             <!-- /.card-body -->
           </div>

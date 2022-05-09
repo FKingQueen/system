@@ -170,6 +170,7 @@ class YieldMonitoringController extends Controller
         $jsbrgy = Barangay::where('id', $request->barangay)->value('name');
         $jsyear = '2022';
         $jscs   = Cropping_season::where('id', $request->cropping_season)->value('name');
+        
         $technician = Auth::user()->name;
         $muni = Municipality::where('id', Auth::user()->muni_address)->value('name');
 
