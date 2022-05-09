@@ -263,7 +263,7 @@
                                     <div>
                                         <label for="UpdateFarmer_Barangay" class="input-group">Crop Status:</label>
                                         <select id="status" type="text" name="status" class="form-control form-control-sm @error('status') is-invalid @enderror" name="status" required autocomplete="status" autofocus>
-                                            <option value="0"selected>Completed</option>
+                                            <option value="0"selected>Complete</option>
                                             <option value="1">Ongoing</option>
                                         </select>
                                         @error('status')
@@ -297,7 +297,7 @@
                         <form action="{{ route('yieldMonitoring') }}" method="GET">
                             @csrf
                             <div class="modal-body rounded bg-white p-1">
-                                <div class="d-flex justify-content-center mb-3">
+                                <div class="justify-content-center mb-2">
                                     <div>
                                         <label for="UpdateFarmer_Barangay" class="input-group">Barangay:</label>
                                         <select id="barangay" type="text" name="barangay" class="form-control form-control-sm @error('barangay') is-invalid @enderror" name="barangay" required autocomplete="barangay" autofocus>
@@ -313,8 +313,21 @@
                                         @enderror          
                                     </div>
 
-                                    <div class="ml-3 d-flex align-items-end">
-                                        <button type="submit" class="btn btn-sm  btn-block btn-primary input-group"> Filter </button>
+                                    <div>
+                                        <label for="cropping_season" class="input-group">Cropping Season:</label>
+                                        <select id="cropping_season" type="text" name="cropping_season" class="form-control form-control-sm @error('cropping_season') is-invalid @enderror" name="cropping_season" required autocomplete="cropping_season" autofocus>
+                                            <option value="2"selected>Wet Season</option>
+                                            <option value="1">Dry Season</option>
+                                        </select>
+                                        @error('cropping_season')
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror          
+                                    </div>
+
+                                    <div class="d-flex justify-content-center mt-3 ">
+                                        <button type="submit" class="btn btn-sm w-25 btn-block btn-primary"> Filter </button>
                                     </div>
                                 </div>
                             </div>

@@ -1,6 +1,10 @@
 @extends('layouts.layout')
 
 @section('css')
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <style>
   .float{
 	position:fixed;
@@ -254,10 +258,28 @@
   </section>
 
     <!-- Comparison Modal -->
-    <div class="modal fade" id="comparison">
+    <div class="modal fade" id="comparison" onload="loadgraph()">
     <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-body">
+      <div class="modal-body" id="chartDiv">
+        <div class="d-flex justify-content-end mt-1">
+          <select id="brgy_filter" name="brgy_filter[]" class="form-control selectpicker" multiple data-live-search="true" >
+            @foreach($n_brgys as $key => $n_b)
+              @if($n_b == $jsbrgy)
+                <option value="{{$n_b}}" disabled selected>{{$n_b}}</option>
+              @endif
+            @endforeach
+            @foreach($n_brgys as $key => $n_b)
+              @if($n_b != $jsbrgy)
+                <option value="{{$n_b}}" selected>{{$n_b}}</option>
+              @endif
+            @endforeach
+          </select>
+
+        
+        <button onclick="btn_filter()" class="btn btn-sm btn-primary" style="width: 8%;"> Filter </button>
+        </div>
+
           <h6 class="text-center mt-3">Annual Number of Crops 
               @if($status == 0)
                 Harvested
@@ -509,7 +531,11 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
 <script>
+
   var n_brgys = @json($n_brgys);
   var Bitter_gourd_coms = @json($Bitter_gourd_coms);
   var Cabbage_coms = @json($Cabbage_coms);
@@ -524,8 +550,7 @@
   var Tobacco_coms = @json($Tobacco_coms);
   var Tomato_coms = @json($Tomato_coms);
   var Water_melon_coms = @json($Water_melon_coms);   
-
-
+  
   const data1 = {
         labels: n_brgys,
         datasets: [
@@ -606,8 +631,6 @@
       }
     }
     
-    
-
     const bgColor1 = {
       id : 'bgColor',
       beforeDraw: (chart, options) => {
@@ -709,11 +732,253 @@
       plugins: [ChartDataLabels,bgColor1]
     };
 
-  const brgyChart = new Chart(
+  let brgyChart = new Chart(
       document.getElementById('brgyChart'),
       config1
     );
+  
+    function btn_filter()
+    {
+      brgyChart.destroy();
+      var selected = document.querySelectorAll('#brgy_filter option:checked ');
+      var selectedArray = Array.from(selected).map(el => el.value);
+
+      var n_brgys = @json($n_brgys);
+      var Bitter_gourd_coms = @json($Bitter_gourd_coms);
+      var Cabbage_coms = @json($Cabbage_coms);
+      var Corn_coms = @json($Corn_coms);
+      var Eggplant_coms = @json($Eggplant_coms);
+      var Garlic_coms = @json($Garlic_coms);
+      var Ladys_finger_coms = @json($Ladys_finger_coms);
+      var Rice_coms = @json($Rice_coms);
+      var Onion_coms = @json($Onion_coms);
+      var Peanut_coms = @json($Peanut_coms);
+      var String_bean_coms = @json($String_bean_coms);
+      var Tobacco_coms = @json($Tobacco_coms);
+      var Tomato_coms = @json($Tomato_coms);
+      var Water_melon_coms = @json($Water_melon_coms);   
+      
+
+      
+      for(var i = 0; i <= n_brgys.length-1; i++)
+      {
+        for(var j = 0; j <= selectedArray.length-1; j++)
+        {
+          if(n_brgys[i] == selectedArray[j])
+          {
+            break;
+          }
+          if(j == selectedArray.length-1)
+          {
+            n_brgys.splice(i, 1);
+            Bitter_gourd_coms.splice(i, 1);
+            Cabbage_coms.splice(i, 1);
+            Corn_coms.splice(i, 1);
+            Eggplant_coms.splice(i, 1);
+            Garlic_coms.splice(i, 1);
+            Ladys_finger_coms.splice(i, 1);
+            Rice_coms.splice(i, 1);
+            Onion_coms.splice(i, 1);
+            Peanut_coms.splice(i, 1);
+            String_bean_coms.splice(i, 1);
+            Tobacco_coms.splice(i, 1);
+            Tomato_coms.splice(i, 1);
+            Water_melon_coms.splice(i, 1);
+            i--;
+          } 
+        };
+      };
+
+      let data2 = {
+            labels: n_brgys,
+            datasets: [
+              {
+                label: 'Bitter Gourd',
+                data: Bitter_gourd_coms, 
+                barThickness: 25,
+                backgroundColor:'rgba(182, 207, 182)'
+              },{
+                label: 'Cabbage',
+                data: Cabbage_coms, 
+                barThickness: 25,
+                backgroundColor:'rgba(171, 222, 230)'
+              },{
+                label: 'Corn',
+                data: Corn_coms, 
+                barThickness: 25,
+                backgroundColor:'rgba(255, 229, 180)'
+              },{
+                label: 'Eggplant',
+                data: Eggplant_coms, 
+                barThickness: 25,
+                backgroundColor:'rgba(224, 187, 228)'
+              },{
+                label: 'Garlic',
+                data: Garlic_coms, 
+                barThickness: 25,
+                backgroundColor:'rgba(236, 234, 228)'
+              },{
+                label: 'Ladys Finger',
+                data: Ladys_finger_coms, 
+                barThickness: 25,
+                backgroundColor:'rgba(212, 240, 240)'
+              },{
+                label: 'Rice',
+                data: Rice_coms, 
+                barThickness: 25,
+                backgroundColor:'rgba(199, 206, 234)'
+              },{
+                label: 'Onion',
+                data: Onion_coms, 
+                barThickness: 25,
+                backgroundColor:'rgba(236, 213, 227)'
+              },{
+                label: 'Peanut',
+                data: Peanut_coms, 
+                barThickness: 25,
+                backgroundColor:'rgba(246, 234, 194)'
+              },{
+                label: 'String Beans',
+                data: String_bean_coms, 
+                barThickness: 25,
+                backgroundColor:'rgba(186,255,201)'
+              },{
+                label: 'Tobacco',
+                data: Tobacco_coms, 
+                barThickness: 25,
+                backgroundColor:'rgba(202, 255,191)'
+              },{
+                label: 'Tomato',
+                data: Tomato_coms, 
+                barThickness: 25,
+                backgroundColor:'rgba(255, 200, 162)'
+              },{
+                label: 'Water Melon',
+                data: Water_melon_coms, 
+                barThickness: 25,
+                backgroundColor:'rgba(255, 255, 186)'
+              }
+            ]
+        };
+
+        for(var i = 0; i <= data2.datasets.length-1; i++){
+          if(data2.datasets[i].data.every( e  => e == null))
+          {
+            data2.datasets.splice(i, 1);
+            i--;
+          }
+        }
+        
+        let bgColor2 = {
+          id : 'bgColor',
+          beforeDraw: (chart, options) => {
+          const  {ctx, width, height} = chart;
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0,0, width, height)
+            ctx.restore();
+          }
+        }
+
+
+        let config2 = {
+          type: 'bar',
+          data: data2 ,
+          options: {
+            responsive: true,
+            indexAxis: 'y',
+            scales: {
+              x: {
+                stacked: true,
+                ticks: {
+                    // Include a dollar sign in the ticks
+                    callback: function(value, index, ticks) {
+                        return value;
+                    }
+                },
+                title: {
+                  display: true,
+                  text: 'Number of Crops'
+                }
+              },
+              y: {
+                stacked: true,
+                title: {
+                  display: true,
+                  text: 'List of Barangays'
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                onClick: (evt,   legendItem, legend) => {
+                  const datasets = legend.legendItems.map((dataset, index) =>{
+                      return dataset.text
+                  });
+
+                  const index = datasets.indexOf(legendItem.text);
+
+                  if(legend.chart.isDatasetVisible(index) === true)
+                  {
+                    legend.chart.hide(index);
+                  } else {
+                    legend.chart.show(index);
+                  }
+                },
+                labels: {
+                  generateLabels: (chart) => {
+                    let visibility1 = [];
+                    let fillS = [];
+                    let strokeS = [];
+                    let text = []
+
+                    
+                    for(let i = 0; i <= data2.datasets.length-1; i++)
+                    {
+                      if(chart.data.datasets[i].data.every( e  => e == null) == true || chart.isDatasetVisible(i) == false)
+                      {
+                        fillS[i] = 'rgb(255,255,255)';
+                        strokeS[i] = 'rgb(255,255,255)';
+                        visibility1.push(true);
+                      }else{
+                        fillS[i] = chart.data.datasets[i].backgroundColor;
+                        strokeS[i] = 'rgb(255,255,255)';
+                        visibility1.push(false);
+                      }
+                    }
+
+                    return chart.data.datasets.map(
+                      (dataset, index) => ({
+                        text: dataset.label,
+                        fillStyle: fillS[index],
+                        strokeStyle: strokeS[index],
+                        hidden: visibility1[index]
+                      })
+                    )
+                  }
+                }
+              },
+              datalabels: {
+                formatter: (value, context) => {
+                  if(value != null)
+                  {
+                    return `${value}`;
+                  }
+                }
+              }
+            }
+          },
+          plugins: [ChartDataLabels,bgColor2]
+        };
+
+    brgyChart = new Chart(
+        document.getElementById('brgyChart'),
+        config2
+      );
+    };
+
+
 </script>
+
 
 
 <script>

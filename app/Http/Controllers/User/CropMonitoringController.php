@@ -466,6 +466,7 @@ class CropMonitoringController extends Controller
         $jsyear = '2022';
         $technician = Auth::user()->name;
 
+
         $brgy = Barangay::where("id", $request->barangay)->value('name'); 
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
         return view('user/cropMonitoring',  array(
@@ -521,7 +522,7 @@ class CropMonitoringController extends Controller
 
     public function cropMonitoringsearch (Request $request)
     {
-        dd($request->all());
+
         $request->validate([
             'year_id'  => 'required',
             'barangay'  => 'required',

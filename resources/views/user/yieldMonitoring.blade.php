@@ -1,6 +1,10 @@
 @extends('layouts.layout')
 
 @section('css')
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <style>
   .float{
 	position:fixed;
@@ -160,6 +164,22 @@
     <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
+        <div class="d-flex justify-content-end mt-1">
+          <select id="brgy_filter" name="brgy_filter[]" class="form-control selectpicker" multiple data-live-search="true" >
+            @foreach($n_brgys as $key => $n_b)
+              @if($n_b == $jsbrgy)
+                <option value="{{$n_b}}" disabled selected>{{$n_b}}</option>
+              @endif
+            @endforeach
+            @foreach($n_brgys as $key => $n_b)
+              @if($n_b != $jsbrgy)
+                <option value="{{$n_b}}" selected>{{$n_b}}</option>
+              @endif
+            @endforeach
+          </select>
+        
+          <button onclick="btn_filter()" class="btn btn-sm btn-primary" style="width: 8%;"> Filter </button>
+        </div>
           <h6 class="text-center mt-3">Annual Yield of Crops Harvested in Muncipality of {{$muni}}</h6>
           <canvas id="brgyCompareChart" width="400" height="150"></canvas>
       </div>
@@ -249,8 +269,12 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
 <!-- Brgy Compare Chart -->
 <script>
+
   const data4 = {
         labels: @json($n_brgys),
         datasets: [
@@ -422,10 +446,237 @@
     plugins: [ChartDataLabels, bgColor4]
     };
           
-    const brgyCompareChart = new Chart(
+    let brgyCompareChart = new Chart(
       document.getElementById('brgyCompareChart'),
       config4
     );
+
+    function btn_filter(){
+      brgyCompareChart.destroy();
+      
+      var selected = document.querySelectorAll('#brgy_filter option:checked ');
+      var selectedArray = Array.from(selected).map(el => el.value);
+
+      var n_brgys = @json($n_brgys);
+      var Bitter_gourds_com = @json($Bitter_gourds_com);
+      var Cabbages_com = @json($Cabbages_com);
+      var Corns_com = @json($Corns_com);
+      var Eggplants_com = @json($Eggplants_com);
+      var Garlics_com = @json($Garlics_com);
+      var Ladys_fingers_com = @json($Ladys_fingers_com);
+      var Rices_com = @json($Rices_com);
+      var Onions_com = @json($Onions_com);
+      var Peanuts_com = @json($Peanuts_com);
+      var String_beans_com = @json($String_beans_com);
+      var Tobaccos_com = @json($Tobaccos_com);
+      var Tomatos_com = @json($Tomatos_com);
+      var Water_melons_com = @json($Water_melons_com);   
+
+      for(var i = 0; i <= n_brgys.length-1; i++)
+      {
+        for(var j = 0; j <= selectedArray.length-1; j++)
+        {
+          if(n_brgys[i] == selectedArray[j])
+          {
+            break;
+          }
+          if(j == selectedArray.length-1)
+          {
+            n_brgys.splice(i, 1);
+            Bitter_gourds_com.splice(i, 1);
+            Cabbages_com.splice(i, 1);
+            Corns_com.splice(i, 1);
+            Eggplants_com.splice(i, 1);
+            Garlics_com.splice(i, 1);
+            Ladys_fingers_com.splice(i, 1);
+            Rices_com.splice(i, 1);
+            Onions_com.splice(i, 1);
+            Peanuts_com.splice(i, 1);
+            String_beans_com.splice(i, 1);
+            Tobaccos_com.splice(i, 1);
+            Tomatos_com.splice(i, 1);
+            Water_melons_com.splice(i, 1);
+            i--;
+          } 
+        };
+      };
+
+      const data5 = {
+        labels: n_brgys,
+        datasets: [
+          {
+            label: 'Bitter Gourd',
+            data: Bitter_gourds_com, 
+            barThickness: 25,
+            backgroundColor:'rgba(182, 207, 182)'
+          },{
+            label: 'Cabbage',
+            data: Cabbages_com, 
+            barThickness: 25,
+            backgroundColor:'rgba(171, 222, 230)'
+          },{
+            label: 'Corn',
+            data: Corns_com, 
+            barThickness: 25,
+            backgroundColor:'rgba(255, 229, 180)'
+          },{
+            label: 'Eggplant',
+            data: Eggplants_com, 
+            barThickness: 25,
+            backgroundColor:'rgba(224, 187, 228)'
+          },{
+            label: 'Garlic',
+            data: Garlics_com, 
+            barThickness: 25,
+            backgroundColor:'rgba(236, 234, 228)'
+          },{
+            label: 'Ladys Finger',
+            data: Ladys_fingers_com, 
+            barThickness: 25,
+            backgroundColor:'rgba(212, 240, 240)'
+          },{
+            label: 'Rice',
+            data: Rices_com, 
+            barThickness: 25,
+            backgroundColor:'rgba(199, 206, 234)'
+          },{
+            label: 'Onion',
+            data: Onions_com, 
+            barThickness: 25,
+            backgroundColor:'rgba(236, 213, 227)'
+          },{
+            label: 'Peanut',
+            data: Peanuts_com, 
+            barThickness: 25,
+            backgroundColor:'rgba(246, 234, 194)'
+          },{
+            label: 'String Beans',
+            data: String_beans_com, 
+            barThickness: 25,
+            backgroundColor:'rgba(186,255,201)'
+          },{
+            label: 'Tobacco',
+            data: Tobaccos_com, 
+            barThickness: 25,
+            backgroundColor:'rgba(202, 255,191)'
+          },{
+            label: 'Tomato',
+            data: Tomatos_com, 
+            barThickness: 25,
+            backgroundColor:'rgba(255, 200, 162)'
+          },{
+            label: 'Water Melon',
+            data: Water_melons_com, 
+            barThickness: 25,
+            backgroundColor:'rgba(255, 255, 186)'
+          }
+        ]
+      };
+      
+      for(var i = 0; i <= data5.datasets.length-1; i++){
+        if(data5.datasets[i].data.every( e  => e == 0.00))
+        {
+          data5.datasets.splice(i, 1);
+          i--;
+        }
+      }
+      
+      const bgColor5 = {
+        id : 'bgColor',
+        beforeDraw: (chart, options) => {
+        const  {ctx, width, height} = chart;
+          ctx.fillStyle = 'white';
+          ctx.fillRect(0,0, width, height)
+          ctx.restore();
+        }
+      }
+
+      const config5 = {
+        type: 'bar',
+        data : data5, 
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              stacked: true,
+              title: {
+                display: true,
+                text: 'List of Barangay'
+              }
+            },
+            y: {
+              stacked: true,
+              title: {
+                display: true,
+                text: 'Yield per Crop'
+              }
+            }
+          },
+          plugins: {          
+            legend: {
+              onClick: (evt, legendItem, legend) => {
+                const datasets = legend.legendItems.map((dataset, index) => {
+                    return dataset.text
+                });
+                const index = datasets.indexOf(legendItem.text);
+                if(legend.chart.isDatasetVisible(index) === true){
+                  legend.chart.hide(index);
+                } else{
+                  legend.chart.show(index);
+                }
+              },
+              labels: {
+                generateLabels: (chart) => {
+                  let visibility1 = [];
+                  let fillS = [];
+                  let strokeS = [];
+                  let text = []
+
+                  for(let i = 0; i <= data5.datasets.length-1; i++)
+                  {
+                    if(chart.data.datasets[i].data.every( e  => e == 0.00) == true || chart.isDatasetVisible(i) == false)
+                    {
+                      fillS[i] = 'rgb(255,255,255)';
+                      strokeS[i] = 'rgb(255,255,255)';
+                      visibility1.push(true);
+                    }else{
+                        fillS[i] = chart.data.datasets[i].backgroundColor;
+                      strokeS[i] = 'rgb(255,255,255)';
+                      visibility1.push(false);
+                    }
+                  }
+                  return chart.data.datasets.map(
+                    (dataset, index) => ({
+                      text: dataset.label,
+                      fillStyle: fillS[index],
+                      strokeStyle: strokeS[index],
+                      hidden: visibility1[index]
+                    })
+                  )
+                }
+              }
+            },
+            datalabels: {
+              formatter: (value, context) => {
+                if(value != 0)
+                {
+                  return value + '(t)';
+                } else {
+                  return '';
+                }
+              }
+            },
+
+          }
+        },
+      plugins: [ChartDataLabels, bgColor5]
+      };
+            
+      brgyCompareChart = new Chart(
+        document.getElementById('brgyCompareChart'),
+        config5
+      );
+    };
 </script>
 <!-- /Brgy Compare Chart -->
 

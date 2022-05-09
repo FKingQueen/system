@@ -8,13 +8,7 @@
 
 @section('content')
 
-  <select id="year_id" name="year_id[]" class="form-control selectpicker" multiple data-live-search="true" >
-    <option selected disabled>Choose Role</option>
-    <option value="1">Role 1</option>
-    <option value="2">Role 2</option>
-    <option value="3">Role 3</option>
-  </select>
-  <button id="btn" class="btn btn-sm btn-block btn-primary input-group"> Filter </button>
+
 
 @endsection
 

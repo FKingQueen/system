@@ -80,7 +80,7 @@ class CropCalendarController extends Controller
 
   
         $barangay = Barangay::where("municipality_id", Auth::user()->muni_address)->get(); 
-        
+
         return view('user/cropCalendar', array(
             "munis"=> $muni,
             "currentyear"=> $currentyear,
