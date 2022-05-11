@@ -111,13 +111,7 @@ class FarmerProfileController extends Controller
         $farming_data = new Farming_data();
         $farming_data->crop_id = $request->crop_id;
 
-        if(($month >= 1 && $month <= 4) || ($month >= 11 && $month <= 12 ))
-        {
-            $farming_data->cropping_season_id = 1; 
-        } else if(($month >= 5 && $month <= 10))
-        {
-            $farming_data->cropping_season_id = 2; 
-        }
+
         
         
         $farming_data->municipality_id = Farmer::where("id", $id)->value('municipality_id');
@@ -143,12 +137,27 @@ class FarmerProfileController extends Controller
 
         Excel::import(new UsersImport($farmer_id, $farming_data->id, $status, $crop_id), $path);
         
-        $act_date = Activity_file::select('date')->where('farmer_id', $farmer_id)->where('farming_data_id', $farming_data->id)->orderBy('date', 'DESC')->first();
+        $act_date = Activity_file::select('date')->where('farmer_id', $farmer_id)->where('farming_data_id', $farming_data->id)->orderBy('date', 'ASC')->first();
+        
+        $month = $act_date->value('date');
+
+        $date = Carbon::create($month);
+
+        $month = $date->format('n');
+
+        if(($month >= 1 && $month <= 4) || ($month >= 11 && $month <= 12 ))
+        {
+            $cropping_season = 1; 
+        } else if(($month >= 5 && $month <= 10))
+        {
+            $cropping_season = 2; 
+        }
 
         DB::table('farming_datas')
         ->where('id', $farming_data->id)
         ->update([
         'date'  => $act_date->date,
+        'cropping_season_id'    => $cropping_season,
         ]);
 
         if($farming_data){
@@ -238,6 +247,12 @@ class FarmerProfileController extends Controller
         $path = $request->file('activity_file')->getRealPath();
 
         $res = Excel::import(new UsersUpdate($id, $status_id, $farmer_id, $crop_id), $path);
+
+        $users = Activity_file::where('farming_data_id', $id)->get();
+        $usersUnique = $users->unique(['date']);
+        $userDuplicates = $users->diff($usersUnique);
+        $sample = array_column($userDuplicates ->toArray(), 'id');
+        Activity_file::whereIn('id', $sample)->delete();
 
         if($res){
             return redirect()->route('farmerProfile', [$farmer_id])->with('uploadedfarming', 'Success');

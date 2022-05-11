@@ -646,7 +646,6 @@
       data: data1 ,
       options: {
         responsive: true,
-        indexAxis: 'y',
         scales: {
           x: {
             stacked: true,
@@ -884,7 +883,6 @@
           data: data2 ,
           options: {
             responsive: true,
-            indexAxis: 'y',
             scales: {
               x: {
                 stacked: true,

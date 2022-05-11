@@ -69,26 +69,26 @@
                 <tr >
                 
                   <div style="width: 97%;" class="container-fluid d-flex justify-content-center" role="group" aria-label="Basic radio toggle button group">
-                    <form id="yearform" action="{{ route('yearform') }}" method="post">
+                    <form id="yearform" action="{{ route('cropCalendar') }}" method="Get">
                     @csrf
                       <div style="border-width:3px !important;" class=" p-1 w-25  d-flex justify-content-center border-bottom border-success">
-                        <input value="{{$currentyear-4}}" type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" >
+                        <input value="{{$currentyear-4}}" type="radio" class="btn-check" name="year" id="btnradio1" autocomplete="off" >
                       </div>
 
                       <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
-                        <input value="{{$currentyear-3}}"  type="radio" class="btn-check " name="btnradio" id="btnradio2" autocomplete="off" >
+                        <input value="{{$currentyear-3}}"  type="radio" class="btn-check " name="year" id="btnradio2" autocomplete="off" >
                       </div>
 
                       <div style="border-width:3px !important;" class="n w-25  d-flex justify-content-center border-bottom border-success">
-                        <input value="{{$currentyear-2}}" type="radio" class="btn-check " name="btnradio" id="btnradio3" autocomplete="off">
+                        <input value="{{$currentyear-2}}" type="radio" class="btn-check " name="year" id="btnradio3" autocomplete="off">
                       </div>
 
                       <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
-                      <input value="{{$currentyear-1}}"  type="radio" class="btn-check " name="btnradio" id="btnradio4" autocomplete="off" >
+                      <input value="{{$currentyear-1}}"  type="radio" class="btn-check " name="year" id="btnradio4" autocomplete="off" >
                       </div>
 
                       <div style="border-width:3px !important;" class="w-25  d-flex justify-content-center border-bottom border-success">
-                      <input value="{{$currentyear}}"  type="radio" class="btn-check " name="btnradio" id="btnradio5" autocomplete="off" checked>
+                      <input value="{{$currentyear}}"  type="radio" class="btn-check " name="year" id="btnradio5" autocomplete="off" checked>
                       </div>
                     </form>
                   </div>
@@ -160,7 +160,7 @@
                     </div>
                 </div>
               </div>
-              <form  method="POST" action="{{ route('filter') }}" >
+              <form  method="Get" action="{{ route('cropCalendar') }}" >
                 @csrf
                 <div class="d-flex justify-content-end mt-1 mb-3">
                     <select id="brgy_filter" name="brgy_filter[]" class="form-control selectpicker" multiple data-live-search="true" required>
@@ -170,6 +170,7 @@
                     </select>
                     <button type="submit" class="btn btn-sm btn-primary" style="width: 8%;"> Filter </button>
                 </div>
+                <input style="display: none;" type="text" id="year" name="year" value="{{$currentyear}}"  autocomplete="off">
               </form>
               <div class="p-0 d-flex justify-content-center mb-1">
                 @foreach($crops as $key1 => $crop)
@@ -289,7 +290,7 @@
 <script type='text/javascript'>
 
   $(document).ready(function() { 
-    $('input[name=btnradio]').change(function(){
+    $('input[name=year]').change(function(){
           $('form[id=yearform]').submit();
     });
   });

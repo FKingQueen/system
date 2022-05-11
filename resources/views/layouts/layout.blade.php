@@ -92,7 +92,11 @@
                             <!-- /Farmer List Button -->
                             <!-- Crop Calendar Button -->          
                             <li class="nav-item">
-                                <a type="button"href="{{ route('cropCalendar') }}" class="nav-link {{ route('cropCalendar') == url()->current() ||  route('yearform') == url()->current() ||  route('filter') == url()->current()  ? 'active' : '' }} ">
+                                <form id="yearform" action="{{ route('cropCalendar') }}" method="get">
+                                @csrf
+                                    <input style="display: none;" type="text" id="year" name="year" value="2022"  autocomplete="off">
+                                </form>
+                                <a onclick="cropCalendar()" type="button" class="nav-link {{ route('cropCalendar') == url()->current() ||  route('yearform') == url()->current() ||  route('filter') == url()->current()  ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-calendar-alt"></i>
                                 <p>
                                    Crop Calendar
@@ -100,6 +104,14 @@
                                 </a>
                             </li>
                             <!-- /Crop Calendar Button -->
+
+                            <script>
+                                function cropCalendar() {
+                                    $('form[id=yearform]').submit();
+                                }
+                            </script>
+
+                            
                             
                             <!-- Crop Monitoring Button -->          
                             <li class="nav-item">
@@ -165,10 +177,6 @@
                  @yield('content')
             </div>
             <!-- /.content-wrapper -->
-            <footer class="main-footer">
-            <strong>Copyright &copy; 2021-2022 <a class="text-info" style="cursor: pointer;">RCM Buddy</a>.</strong>
-            All rights reserved.
-            </footer>
 
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">

@@ -76,7 +76,7 @@ class FarmerListController extends Controller
     {
 
         $request->validate([
-            'name'  => 'required|unique:farmers',
+            'name'  => 'required',
             'barangay'  => 'required',
         ]);
 

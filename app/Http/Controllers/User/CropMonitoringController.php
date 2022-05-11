@@ -18,7 +18,6 @@ class CropMonitoringController extends Controller
 {
     public function cropMonitoring (Request $request)
     {
-        
         $request->validate([
             'barangay'  => 'required',
             'status'  => 'required',
@@ -106,8 +105,6 @@ class CropMonitoringController extends Controller
 
         
             
-
-
         //$FD_id = Farming_data::whereYear('date', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('status', $request->status)->where('barangay_id', $request->barangay)->value('id')->unique();
         
 
@@ -534,10 +531,10 @@ class CropMonitoringController extends Controller
         $muni = Municipality::where('id',Auth::user()->muni_address)->value('name');
         //count the farmer
         // $F_count = Farmer::where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 1)->count();
-        $F_count =  Farming_data::whereYear('date', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', $request->status)->distinct('farmer_id')->count();
+        $F_count =  Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', $request->status)->distinct('farmer_id')->count();
         //get all farmer IDs in the table
         // $F_id = Farmer::where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', 1)->pluck('id');
-        $F_id = Farming_data::whereYear('date', '=', 2022)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', $request->status)->distinct('farmer_id')->pluck('farmer_id');
+        $F_id = Farming_data::whereYear('date', '=', $request->year_id)->where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $request->barangay)->where('status', $request->status)->distinct('farmer_id')->pluck('farmer_id');
 
         if($F_id->isEmpty())
         {
