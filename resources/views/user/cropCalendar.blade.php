@@ -222,7 +222,7 @@
                                   @foreach($color1s as $key3 => $color1)
                                     @if($key2 == $color2s[$key3])
                                     <td id="myButton{{$key1}}{{$i}}{{$key2}}" style="cursor: pointer;color: #248139; background-color: {{$color1}}; font-size: 10px; " class="p-0 text-center">
-                                        {{$datas}}
+                                      &nbsp;
                                     </td>
                                     @endif
                                   @endforeach

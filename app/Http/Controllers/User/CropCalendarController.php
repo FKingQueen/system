@@ -244,7 +244,6 @@ class CropCalendarController extends Controller
                 
             }
         }
-
         $farming_chk = Farming_data::whereYear('created_at', '=', $request->year)->get();
         if($farming_chk->isEmpty())
         {
