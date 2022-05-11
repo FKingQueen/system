@@ -74,9 +74,9 @@ class AccountSettingController extends Controller
         $res = $user->update();
 
         if($res){
-            return back()->with('success', 'Update Sucessfully');
+            return back()->with('changeProfileUpdated', 'Update Sucessfully');
         } else{
-            return back()->with('fail', 'Nothing Change');
+            return back()->with('changeProfileFailed', 'Failed Change');
         }
     
     }

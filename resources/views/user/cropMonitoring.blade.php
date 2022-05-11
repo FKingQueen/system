@@ -276,7 +276,6 @@
             @endforeach
           </select>
 
-        
         <button onclick="btn_filter()" class="btn btn-sm btn-primary" style="width: 8%;"> Filter </button>
         </div>
 

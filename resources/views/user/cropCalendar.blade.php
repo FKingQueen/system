@@ -150,22 +150,27 @@
           <div class="card">
             <!-- /.card-header -->
             <div class="card-body">
-                <div class="d-flex justify-content-start">
-                  <div>
-
-                      <div class="input-group">
-
-                        <h3 class="farmer_name">
-                        {{$munis[0]->name}}
-
-                          <small style="font-size: 20px;">({{$currentyear}})</small>
-                        </h3>
-
-                      </div>
-                  </div>
-                
+              <div class="d-flex justify-content-start">
+                <div>
+                    <div class="input-group">
+                      <h3 class="farmer_name">
+                      {{$munis[0]->name}}
+                        <small style="font-size: 20px;">({{$currentyear}})</small>
+                      </h3>
+                    </div>
                 </div>
-
+              </div>
+              <form  method="POST" action="{{ route('filter') }}" >
+                @csrf
+                <div class="d-flex justify-content-end mt-1 mb-3">
+                    <select id="brgy_filter" name="brgy_filter[]" class="form-control selectpicker" multiple data-live-search="true" required>
+                      @foreach($brgys as $key => $n_b)
+                          <option value="{{$n_b->id}}">{{$n_b->name}}</option>
+                      @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-sm btn-primary" style="width: 8%;"> Filter </button>
+                </div>
+              </form>
               <div class="p-0 d-flex justify-content-center mb-1">
                 @foreach($crops as $key1 => $crop)
                   @foreach($color1s as $key2 => $color1)
@@ -200,10 +205,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach($brgys as $key1 => $brgy)
+                    @foreach($brgycounts as $key1 => $brgycount)
                     <tr>
                       <td style="height: 90px;">
-                        {{$brgy}}
+                        {{$brgycount->name}}
                       </td>
 
                       @for($i = 0; $i <= 11; $i++)

@@ -92,7 +92,7 @@
                             <!-- /Farmer List Button -->
                             <!-- Crop Calendar Button -->          
                             <li class="nav-item">
-                                <a type="button"href="{{ route('cropCalendar') }}" class="nav-link {{ route('cropCalendar') == url()->current() ||  route('yearform') == url()->current()  ? 'active' : '' }} ">
+                                <a type="button"href="{{ route('cropCalendar') }}" class="nav-link {{ route('cropCalendar') == url()->current() ||  route('yearform') == url()->current() ||  route('filter') == url()->current()  ? 'active' : '' }} ">
                                 <i class="fas fa-lg fa-calendar-alt"></i>
                                 <p>
                                    Crop Calendar
@@ -635,13 +635,19 @@
             @endif
             @if(Session::has('accountUpdatedfailed'))
                 $(function() {
-                    toastr.error('Nothing Change')
+                    toastr.warning('No Changes')
                 });
             @endif
 
             @if(Session::has('passwordUpdated'))
                 $(function() {
-                    toastr.success('Password is Succesully Changed')
+                    toastr.success('Password is Successfully Changed')
+                });
+            @endif
+
+            @if(Session::has('changeProfileUpdated'))
+                $(function() {
+                    toastr.success('Profile Picture is Successfully Changed')
                 });
             @endif
 

@@ -61,6 +61,7 @@ Route::group(['middleware' => 'isUser'], function() {
     //Crop Calendar
     Route::get('/cropCalendar', [App\Http\Controllers\User\CropCalendarController::class, 'cropCalendar'])->name('cropCalendar');
     Route::post('/yearform', [App\Http\Controllers\User\CropCalendarController::class, 'yearform'])->name('yearform');
+    Route::post('/filter', [App\Http\Controllers\User\CropCalendarController::class, 'filter'])->name('filter');
     //Crop Monitoring
     Route::get('/cropMonitoring', [App\Http\Controllers\User\CropMonitoringController::class, 'cropMonitoring'])->name('cropMonitoring');
     Route::get('/cropMonitoringsearch', [App\Http\Controllers\User\CropMonitoringController::class, 'cropMonitoringsearch'])->name('cropMonitoringsearch');
