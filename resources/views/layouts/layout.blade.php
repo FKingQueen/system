@@ -407,7 +407,7 @@
                         <!-- /Change Password -->
 
                         </div>
-                        <div class="modal-footer justify-content-between p-1">
+                        <div class="modal-footer justify-content-around p-1">
                             <a  class="btn btn-close"  data-dismiss="modal">Close</a>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
@@ -465,7 +465,7 @@
                         <!-- /Update Retype Password -->
                     </div>
 
-                    <div class="modal-footer justify-content-between p-1">
+                    <div class="modal-footer justify-content-around p-1">
                         <button type="button" class="btn btn-close" data-dismiss="modal" data-toggle="modal" data-target="#accountSetting">Cancel</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>

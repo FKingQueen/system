@@ -179,7 +179,7 @@
   <!-- /.content-header -->
   
   <a type="button" class="float" data-toggle="modal" data-target="#compose">
-    <i style='color:#ffffff' class="fas fa-file-export fa-lg my-float"></i>
+    <i style='color:#ffffff' class="fas fa-plus fa-lg my-float"></i>
     <span style='color:#ffffff'>Create Farming</span>
   </a>
 
@@ -397,7 +397,7 @@
                               </div>
 
                             </div>
-                            <div class="modal-footer justify-content-between p-1 bg-white">
+                            <div class="modal-footer justify-content-around p-1 bg-white">
                                 <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
@@ -493,7 +493,7 @@
                             </div>
                           </div>
 
-                          <div class="modal-footer justify-content-between bg-white p-1">
+                          <div class="modal-footer justify-content-around bg-white p-1">
                               <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
                               <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#uploadLoading_{{$farming_data->id}}">Save changes</button>
                           </div>
@@ -695,7 +695,7 @@
 
 
                         </div>
-                        <div class="modal-footer justify-content-between bg-white  p-1">
+                        <div class="modal-footer justify-content-around bg-white  p-1">
                           <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
                           <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#loading">Create Farming</button>
                         </div>

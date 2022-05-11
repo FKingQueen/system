@@ -143,7 +143,7 @@
   <!-- /.content-header -->
 
   <a data-toggle="dropdown" type="button" class="float">
-    <i style='color:#ffffff' class="fas fa-file-export fa-lg my-float"></i>
+    <i style='color:#ffffff' class="fas fa-plus fa-lg my-float"></i>
     <span style='color:#ffffff'>Add Farmer</span>
   </a>
 
@@ -268,7 +268,7 @@
 
                                 </div>
 
-                                <div class="modal-footer justify-content-between bg-white p-1">
+                                <div class="modal-footer justify-content-around bg-white p-1">
                                     <button type="button" class="btn btn-close" data-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
@@ -352,7 +352,7 @@
 
                         </div>
 
-                        <div class="modal-footer justify-content-between bg-white p-1">
+                        <div class="modal-footer justify-content-around bg-white p-1">
                             <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Add Farmer</button>
                         </div>
@@ -416,7 +416,7 @@
 
                         </div>
 
-                        <div class="modal-footer justify-content-between  bg-white p-1">
+                        <div class="modal-footer justify-content-around  bg-white p-1">
                             <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Add Farmer</button>
                         </div>
