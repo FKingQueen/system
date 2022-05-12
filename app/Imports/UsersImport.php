@@ -30,6 +30,7 @@ class UsersImport implements ToModel, WithHeadingRow
         return new Activity_file([
             "activity" => $row['activity'],
             "date" => Carbon::createFromFormat('d/m/Y',  $row['date']),
+            "time" => Carbon::createFromFormat('H:i:s',  $row['time']),
             "farming_data_id" =>  $this->farming_data_id,
             "farmer_id" =>  $this->farmer_id,
             "crop_id" =>  $this->crop_id,

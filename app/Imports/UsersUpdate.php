@@ -29,6 +29,7 @@ class UsersUpdate implements ToModel, WithHeadingRow
         $activity_file = new Activity_file([
             "activity" => $row['activity'],
             "date" => Carbon::createFromFormat('d/m/Y',  $row['date']),
+            "time" => Carbon::createFromFormat('H:i:s',  $row['time']),
             "farming_data_id" =>  $this->id,
             "status" =>  $this->status,
             "farmer_id" =>  $this->farmer_id,

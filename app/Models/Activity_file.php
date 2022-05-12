@@ -16,5 +16,6 @@ class Activity_file extends Model
         'crop_id',
         'status',
         'date',
+        'time',
     ];
 }

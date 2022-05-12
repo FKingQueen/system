@@ -248,8 +248,17 @@ class FarmerProfileController extends Controller
 
         $res = Excel::import(new UsersUpdate($id, $status_id, $farmer_id, $crop_id), $path);
 
+        $act_date = Activity_file::select('date')->where('farmer_id', $farmer_id)->where('farming_data_id', $id)->orderBy('date', 'ASC')->first();
+
+        DB::table('farming_datas')
+        ->where('id', $id)
+        ->update([
+        'date'  => $act_date->date
+        ]);
+
         $users = Activity_file::where('farming_data_id', $id)->get();
-        $usersUnique = $users->unique(['date']);
+        $sample1 = Activity_file::where('farming_data_id', $id)->distinct('date')->get();
+        $usersUnique = $users->unique(['date'])->unique(['time']);
         $userDuplicates = $users->diff($usersUnique);
         $sample = array_column($userDuplicates ->toArray(), 'id');
         Activity_file::whereIn('id', $sample)->delete();

@@ -21,6 +21,7 @@ class CreateActivityFilesTable extends Migration
             $table->boolean('status')->default(0);
             $table->string('activity');
             $table->date('date');
+            $table->time('time');
             $table->timestamps();
         });
     }
