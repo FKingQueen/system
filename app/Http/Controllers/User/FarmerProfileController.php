@@ -160,6 +160,13 @@ class FarmerProfileController extends Controller
         'cropping_season_id'    => $cropping_season,
         ]);
 
+        $actF1 = Activity_file::where('farming_data_id', $farming_data->id)->get();
+        $actF2 = Activity_file::where('farming_data_id', $farming_data->id)->groupBy('activity', 'date', 'time')->get();
+
+        $actFDuplicates = $actF1->diff($actF2);
+        $delete = array_column($actFDuplicates ->toArray(), 'id');
+        Activity_file::whereIn('id', $delete)->delete();
+
         if($farming_data){
             return redirect()->route('farmerProfile', [$id])->with('createdfarming', 'Success');
         } else{
@@ -256,12 +263,12 @@ class FarmerProfileController extends Controller
         'date'  => $act_date->date
         ]);
 
-        $users = Activity_file::where('farming_data_id', $id)->get();
-        $sample1 = Activity_file::where('farming_data_id', $id)->distinct('date')->get();
-        $usersUnique = $users->unique(['date'])->unique(['time']);
-        $userDuplicates = $users->diff($usersUnique);
-        $sample = array_column($userDuplicates ->toArray(), 'id');
-        Activity_file::whereIn('id', $sample)->delete();
+        $actF1 = Activity_file::where('farming_data_id', $id)->get();
+        $actF2 = Activity_file::where('farming_data_id', $id)->groupBy('activity', 'date', 'time')->get();
+
+        $actFDuplicates = $actF1->diff($actF2);
+        $delete = array_column($actFDuplicates ->toArray(), 'id');
+        Activity_file::whereIn('id', $delete)->delete();
 
         if($res){
             return redirect()->route('farmerProfile', [$farmer_id])->with('uploadedfarming', 'Success');
@@ -269,7 +276,6 @@ class FarmerProfileController extends Controller
             return redirect()->route('farmerProfile', [$farmer_id])->with('uploadfarmingfailed', 'Failed');
         }
 
-        
     }
 
     public function changeStatus(Request $request)
