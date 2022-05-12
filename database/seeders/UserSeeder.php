@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'name'=>'Patrick Borja',
             'muni_address'=>'4',
             'role_id'=>'1',
-            'email'=>'p@gmail.com',
+            'email'=>'pborja396@gmail.com',
             'acc_status' => '1',
             'password'=>Hash::make('12345')
         ]); 

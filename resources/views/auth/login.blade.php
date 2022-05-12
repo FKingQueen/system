@@ -49,7 +49,7 @@
                     </span>
                 @enderror
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group mb-1">
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password"> 
                 <div class="input-group-append">
                     <div class="input-group-text">
@@ -62,22 +62,27 @@
                     </span>
                 @enderror
             </div>
-            <br>
-            <div class="row">
-                
-              <!-- <div class="col-8">
-                <div class="icheck-primary mt-2">
-                  <a href="{{ route('register') }}" class="text-center ml-3">Register Now</a>
-                </div>
-              </div> -->
 
+            <div class="input-group mb-1">
+              <b>
+                @if(Route::has('password.request'))
+                  <a href="{{ route('password.request') }}" style="font-size: 10pt;" >
+                    Forgot Your Password
+                  </a>
+                @endif
+              </b>
+            </div>
+
+            <div class="row">
               <!-- /.col -->
               <div class="col-4">
                 <button type="submit" class="btn btn-primary btn-block">Sign In</button>
               </div>
               <!-- /.col -->
             </div>
+
           </form>
+
         </div>
         <!-- /.login-card-body -->
       </div>
