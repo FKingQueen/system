@@ -1,7 +1,19 @@
 @extends('layouts.layout')
 
 @section('content')
-<div class="container align-self-center borderm mt-5">
+<div class="container-fluid p-0">
+  <nav class="navbar navbar-expand-md navbar-light container-fluid" style="background-color: #1d800e; height: 13%;">
+    <div class="container">
+        <a href="{{ route('logout') }}">
+            <img src="{{ asset('images/logo.png')}}" width="10%" height="10%" alt="Image" >
+        </a>
+    </div>
+  </nav>
+<br><br><br>
+
+  <div class="h-100 d-flex justify-content-center">
+
+  <div class="container align-self-center borderm">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -44,4 +56,9 @@
         </div>
     </div>
 </div>
+      
+  </div>
+</div>
+
+
 @endsection

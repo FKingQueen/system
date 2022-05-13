@@ -80,7 +80,7 @@ Route::group(['middleware' => 'isAdmin'], function () {
     Route::post('/approved/{id}', [App\Http\Controllers\Auth\RegisterController::class, 'approved'])->name('approved');
     // User Management
     Route::post('/createUser', [App\Http\Controllers\Admin\UserManagementController::class, 'createUser'])->name('createUser');
-    Route::get('/userMangement', [App\Http\Controllers\Admin\UserManagementController::class, 'userManagement'])->name('userManagement');
+    Route::get('/userManagement', [App\Http\Controllers\Admin\UserManagementController::class, 'userManagement'])->name('userManagement');
     Route::post('/userUpdate/{id}', [App\Http\Controllers\Admin\UserManagementController::class, 'userUpdate'])->name('userUpdate');
     Route::post('/userchangePassword/{id}', [App\Http\Controllers\Admin\UserManagementController::class, 'userchangePassword'])->name('userchangePassword');
     Route::get('/changeaccStatus', [App\Http\Controllers\Admin\UserManagementController::class, 'changeaccStatus'])->name('changeaccStatus');

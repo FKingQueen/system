@@ -34,7 +34,7 @@ class CropCalendarController extends Controller
         $x = 0;
         foreach($brgycount as $key1 => $brgycounts)
         {
-    
+            
             for($i = 0; $i <= 12; $i++)
             {
                 $chk = Farming_data::where('municipality_id', Auth::user()->muni_address)->where('barangay_id', $brgycounts->id)->where('crop_id', $i+1)->count();
